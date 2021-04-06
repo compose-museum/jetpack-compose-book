@@ -8,3 +8,7 @@
 
 我们在 github page 上创建了专门的教程和指导链接，欢迎访问 👉 <https://compose-museum.github.io/Compose-Tutorial/> 来学习
 
+
+## 关于贡献
+
+[这里](https://compose-museum.github.io/Compose-Tutorial/contributing/)
