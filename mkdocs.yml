@@ -18,6 +18,9 @@ theme:
 nav:
   - 'Jetpack Compose':
     - '概述': index.md
+    - '在开始之前': start.md
+    - '界面': 
+        - 'Column': layout/column.md
     - '贡献': contributing.md
     - '资源': resources.md
 extra:
