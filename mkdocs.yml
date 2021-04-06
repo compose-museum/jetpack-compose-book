@@ -26,6 +26,7 @@ extra:
 
 
 plugins:
+  - macros
   - search
   - git-revision-date-localized:
-      type: date
+      type: timeago
