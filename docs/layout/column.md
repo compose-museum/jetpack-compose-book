@@ -33,6 +33,7 @@ fun ColumnDemo() {
 
 如果我们需要将 Column 里面的文字居中该怎么办呢？
 很简单，我们添加 **modifier** 和 **horizontalAlignment** 参数
+
 代码如下:
 
 ```kotlin
@@ -58,6 +59,7 @@ fun ColumnDemo() {
 
 如果我们想让 **Column** 一些特定的文字居中怎么办
 我们只需要在需要居中的文字的地方添加 **Column**，并且添加之前的两个参数
+
 代码如下：
 ``` kotlin
 @Composable
