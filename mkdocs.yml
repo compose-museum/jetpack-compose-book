@@ -28,6 +28,8 @@ nav:
         - 'ImageButton': elements/imagebutton.md
     - '界面': 
         - 'Column': layout/column.md
+    - '参数':
+        - 'Modifier': parameters/modifier.md
     - '贡献': contributing.md
     - '资源': resources.md
 extra:

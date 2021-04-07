@@ -110,5 +110,44 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text3.png">
 
 
-## 4.官方文档地址
-[https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
+## 4. 特定的文字显示
+
+如果我们想让一个 `Text` 语句中使用不同的样式，比如粗体提醒，特殊颜色
+
+则我们需要使用到 `AnnotatedString`
+
+`AnnotatedString` 是一个数据类，其中包含了：
+
+* 一个 `Text` 的值
+* 一个 `SpanStyleRange` 的 `List`，等同于位置范围在文字值内的内嵌样式
+* 一个 `ParagraphStyleRange` 的 `List`，用于指定文字对齐、文字方向、行高和文字缩进样式
+
+一个简单的代码演示：
+``` kotlin
+@Composable
+fun TextDemo() {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            buildAnnotatedString {
+                append("你现在观看的章节是 ")
+                withStyle(style = SpanStyle(fontWeight = FontWeight.W900)) {
+                    append("Text")
+                }
+            }
+        )
+    }
+}
+```
+
+效果如下：
+
+<img src="../../assets/elements/text/text4.png">
+
+
+## 5.更多
+[Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
+
+[Text 介绍](https://developer.android.com/jetpack/compose/text)
