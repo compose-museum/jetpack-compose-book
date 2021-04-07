@@ -12,7 +12,7 @@
     }
 ```
 
-5. 配置 Gradle
+5. 最后配置 Gradle
 
 您需要将应用的最低 API 级别设置为 21 或更高级别，并在应用的 build.gradle 文件中启用 Jetpack Compose，如下所示。另外还要设置 Kotlin 编译器插件的版本。
 

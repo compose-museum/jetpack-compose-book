@@ -29,6 +29,11 @@ extra:
       link: https://github.com/Compose-Museum/Compose-Tutorial/
 
 
+markdown_extensions:
+  - pymdownx.highlight:
+      linenums: false
+  - pymdownx.superfences
+
 plugins:
   - search
   - git-revision-date-localized:
