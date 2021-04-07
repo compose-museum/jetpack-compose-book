@@ -10,8 +10,6 @@
 
 欢迎访问 👉 <https://compose-museum.github.io/Compose-Tutorial/> 来学习
 
-截图：
-
 <img src = "/screenshots/sc1.png">
 
 

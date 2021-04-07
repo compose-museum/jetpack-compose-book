@@ -52,7 +52,7 @@ fun CardDemo() {
 }
 ```
 
-<img src="../../assets/elements/card/card1.png">
+<img src="../../assets/elements/card/card1.png", align="center">
 
 
 
