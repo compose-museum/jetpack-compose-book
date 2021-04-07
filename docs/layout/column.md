@@ -10,6 +10,7 @@
 
 ``` kotlin
 class MainActivity : ComponentActivity() {
+    asdasdasdasd
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
