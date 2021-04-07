@@ -1,5 +1,6 @@
 ## 1. 介绍
-`Text` 是 `Compose` 中最基本的元素，它可以显示文字（废话 233
+`Text` 是 `Compose` 中最基本的元素，它可以显示文字
+
 
 ``` kotlin
 @Composable
