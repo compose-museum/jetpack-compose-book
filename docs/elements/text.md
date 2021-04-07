@@ -59,3 +59,53 @@ fun TextDemo() {
 它将会显示成
 
 <img src="../../assets/elements/text/text2.png">
+
+## 3.文字按钮
+
+有的时候也许您需要将文本当作按钮，那么只需要添加 `Modifier.clickable` 即可
+
+代码如下：
+
+``` kotlin
+@Composable
+fun TextDemo() {
+    Text(
+        text = "确认编辑",
+        modifier = Modifier.clickable(
+            onClick = {
+                  // TODO
+            },
+        )
+    )
+}
+```
+
+但是我们会发现，`clickable` 有自带的波纹效果，如果我们想要取消的话，只需要添加两个参数即可:
+
+``` kotlin
+@Composable
+fun TextDemo() {
+
+    val context = LocalContext.current
+
+    Text(
+        text = "确认编辑",
+        modifier = Modifier.clickable(
+            onClick = {
+                  Toast.makeText(context, "你点击了此文本", Toast.LENGTH_LONG).show()
+            },
+            indication = null,
+            interactionSource = MutableInteractionSource()
+        )
+    )
+
+}
+```
+
+效果如下:
+
+<img src="../../assets/elements/text/text3.png">
+
+
+## 4.官方文档地址
+[https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)

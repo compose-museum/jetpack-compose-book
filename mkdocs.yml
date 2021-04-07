@@ -21,6 +21,7 @@ nav:
     - '在开始之前': start.md
     - '基本元素':
         - 'Text': elements/text.md
+        - 'Button': elements/button.md
     - '界面': 
         - 'Column': layout/column.md
     - '贡献': contributing.md
