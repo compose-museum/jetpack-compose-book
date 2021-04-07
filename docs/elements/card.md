@@ -7,7 +7,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ExamplesTheme() {
+            ExamplesTheme() { // 和每个人的项目名不同
                 CardDemo()
             }
         }
