@@ -3,7 +3,7 @@
 ## 介绍 💨
 
 
-## Jetpack-Compose 教程 (Compose-Tutorial)
+## Jetpack Compose 教程 (Compose-Tutorial)
 
 此项目致力于帮助大家更好的理解和使用 Jetpack Compose 框架，从而提高开发效率
 
