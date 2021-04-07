@@ -68,7 +68,8 @@ fun ColumnDemo() {
 fun ColumnDemo() {
     Column{
 
-        Column(modifier = Modifier.fillMaxWidth(),
+        Column(
+            modifier = Modifier.fillMaxWidth(),
             horizontalAlignment = Alignment.CenterHorizontally
         ){
             Text("这是一个标题")
