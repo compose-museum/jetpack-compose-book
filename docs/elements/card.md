@@ -35,7 +35,7 @@ fun CardDemo() {
                     append("欢迎来到 ")
                     withStyle(style = SpanStyle(fontWeight = FontWeight.W900, color = Color(0xFF4552B8))
                     ) {
-                        append("Jetpack Compose")
+                        append("Jetpack Compose 博物馆")
                     }
                 }
             )
