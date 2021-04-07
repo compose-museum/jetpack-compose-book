@@ -47,7 +47,7 @@ fun TextDemo() {
         Text(
             text = "你好陌生人",
             style = TextStyle(
-                fontWeight = FontWeight.W900,
+                fontWeight = FontWeight.W900, //设置字体粗细
                 fontSize = 20.sp,
                 letterSpacing = 7.sp
             )
