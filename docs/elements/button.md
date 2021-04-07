@@ -45,5 +45,5 @@ fun ButtonDemo() {
 <img src="../../assets/elements/button/button2.png">
 
 
-## 2. 官网文档地址
-[https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#button](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#button)
+## 2. 更多
+[Button 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#button)

@@ -1,5 +1,5 @@
 ## 1. 介绍
-`Text` 是 `Compose` 中最基本的元素，它可以显示文字
+`Text` 是 `Compose` 中最基本的布局控件，它可以显示文字
 
 
 ``` kotlin
@@ -61,7 +61,7 @@ fun TextDemo() {
 
 <img src="../../assets/elements/text/text2.png">
 
-## 3.文字按钮
+## 3. 文字按钮
 
 有的时候也许您需要将文本当作按钮，那么只需要添加 `Modifier.clickable` 即可
 
