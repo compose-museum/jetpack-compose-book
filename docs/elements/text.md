@@ -15,7 +15,7 @@ fun TextDemo() {
 
 当然，我们有时候也需要更换字体的大小
 
-`Material` 已经为我们准备了很多专门的字体大小, 从 `h1` 到 `overline`
+`Compose` 已经为我们准备了很多专门的字体大小, 从 `h1` 到 `overline`
 
 ``` kotlin
 @Composable
