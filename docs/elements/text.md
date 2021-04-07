@@ -86,13 +86,15 @@ fun TextDemo() {
 @Composable
 fun TextDemo() {
 
+    // 获取 context
     val context = LocalContext.current
 
     Text(
         text = "确认编辑",
         modifier = Modifier.clickable(
             onClick = {
-                  Toast.makeText(context, "你点击了此文本", Toast.LENGTH_LONG).show()
+                // 通知事件
+                Toast.makeText(context, "你点击了此文本", Toast.LENGTH_LONG).show()
             },
             indication = null,
             interactionSource = MutableInteractionSource()
