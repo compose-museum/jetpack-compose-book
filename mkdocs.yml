@@ -35,6 +35,7 @@ markdown_extensions:
   - pymdownx.highlight:
       linenums: false
   - pymdownx.superfences
+  - attr_list
 
 plugins:
   - search
