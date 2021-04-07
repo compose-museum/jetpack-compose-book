@@ -4,10 +4,7 @@
 ``` kotlin
 @Composable
 fun TextDemo() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
+    Column{
         Text("Hello World")
     }
 }
@@ -22,9 +19,12 @@ fun TextDemo() {
 ``` kotlin
 @Composable
 fun TextDemo() {
+
+    // 如果对 Column 感到陌生可以到 界面/Column 下查看
+
     Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+        modifier = Modifier.fillMaxWidth(), // 设置占满整行
+        horizontalAlignment = Alignment.CenterHorizontally // 设置居中
     ) {
         Text(
             text = "你好陌生人",
