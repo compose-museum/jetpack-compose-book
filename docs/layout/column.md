@@ -27,7 +27,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-[![cGnHyT.png](https://z3.ax1x.com/2021/04/07/cGnHyT.png)](https://imgtu.com/i/cGnHyT)
+<img src="/assets/layout/column/column1.png">
 
 ## 1.居中文字
 
@@ -53,7 +53,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-[![cGuD74.png](https://z3.ax1x.com/2021/04/07/cGuD74.png)](https://imgtu.com/i/cGuD74)
+<img src="/assets/layout/column/column2.png">
 
 ## 2.特定文字居中
 
@@ -87,4 +87,4 @@ fun ColumnDemo() {
 
 效果如下：
 
-[![cGKOi9.png](https://z3.ax1x.com/2021/04/07/cGKOi9.png)](https://imgtu.com/i/cGKOi9)
+<img src="/assets/layout/column/column3.png">
