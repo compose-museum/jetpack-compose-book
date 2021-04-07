@@ -1,5 +1,5 @@
 
-在开始我们编写 Jetpack Compose 的软件时，我们需要
+在开始用 Jetpack Compose 来编写软件时，我们需要
 
 ### 1. 一台可以 **联网** 的电脑
 ### 2. **安装** [最新 Canary 版的 Android Studio 预览版](https://developer.android.com/studio/preview)
