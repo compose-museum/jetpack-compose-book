@@ -71,8 +71,9 @@ fun ColumnDemo() {
         ){
             Text("这是一个标题")
         }
-        
-        Text("我正在使用 Android Studio我正在使用 Android Studio" +
+
+        Text("我正在使用 Android Studio" +
+                "我正在使用 Android Studio" +
                 "我正在使用 Android Studio" +
                 "我正在使用 Android Studio" +
                 "我正在使用 Android Studio" +
