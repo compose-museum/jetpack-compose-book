@@ -150,4 +150,4 @@ fun TextDemo() {
 ## 5.更多
 [Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
 
-[Text 介绍](https://developer.android.com/jetpack/compose/text)
+[Text 一些用法](https://developer.android.com/jetpack/compose/text)
