@@ -147,7 +147,70 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text4.png">
 
 
-## 5.更多
+## 5. textAlign 参数
+
+当我们在 `Text` 中设置了 `fillMaxWidth()` 之后，我们可以指定 `Text` 的对齐方式
+
+``` kotlin
+@Composable
+fun TextDemo() {
+    Column {
+        Text(
+            text = "每天摸鱼",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Left
+        )
+        Text(
+            text = "这好吗",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = "这非常的好",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Right
+        )
+    }
+}
+```
+
+<img src="../../assets/elements/text/text5.png">
+
+
+## 6. 复制文字
+
+默认情况下 `Text` 并不能进行复制等操作，我们需要设置 `SelectionContainer` 来包装 `Text`
+
+``` kotlin
+@Composable
+fun TextDemo() {
+    
+    SelectionContainer {
+        Column{
+            Text(
+                text = "每天摸鱼",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Left
+            )
+            Text(
+                text = "这好吗",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = "这非常的好",
+                modifier = Modifier.fillMaxWidth(),
+                textAlign = TextAlign.Right
+            )
+        }
+    }
+    
+}
+```
+<img src="../../assets/elements/text/text6.png">
+
+## 7. 更多
+
 [Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
 
 [Text 一些用法](https://developer.android.com/jetpack/compose/text)
