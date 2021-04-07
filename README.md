@@ -6,7 +6,9 @@
 
 项目会包含很多关于 Jetpack Compose 的基本使用方法以及注意事项
 
-我们在 github page 上创建了专门的教程和指导链接，欢迎访问 👉 <https://compose-museum.github.io/Compose-Tutorial/> 来学习
+我们在 github page 上创建了专门的教程和指导链接
+
+欢迎访问 👉 <https://compose-museum.github.io/Compose-Tutorial/> 来学习
 
 
 ## 关于贡献
