@@ -22,6 +22,10 @@ nav:
     - '基本元素':
         - 'Text': elements/text.md
         - 'Button': elements/button.md
+        - 'Card': elements/card.md
+        - 'Icon': elements/icon.md
+        - 'Image': elements/image.md
+        - 'ImageButton': elements/imagebutton.md
     - '界面': 
         - 'Column': layout/column.md
     - '贡献': contributing.md
