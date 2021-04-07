@@ -34,3 +34,17 @@
 * 最后
 
     恭喜你，当你同步了本项目的最新进度并且添加了你所想的东西，你只需要提交 PR 即可，我们在审核通过会自动同步到网站上
+
+
+## 同步项目最新进度（如果您不太熟悉 git 命令）
+
+首先，您需要 `fork` 一份本项目，然后同步项目的最新进度：
+
+在你 `fork` 下的项目根目录执行
+
+```
+ git remote add forkStream https://github.com/Compose-Museum/Compose-Tutorial.git
+ git remote -v
+ git fetch forkStream //同步项目最新进度
+ git merge forkStream/main //合并项目最新进度
+```
