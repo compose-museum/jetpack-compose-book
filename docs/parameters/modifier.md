@@ -52,7 +52,7 @@ fun UI(){
 ```
 在这个例子中，`clickable{}` 在 `padding()` **之前** 调用，因此Card外间距的部分也是可以被点击到的。   
 ![](../assets/parameters/modifier1.gif)   
-反转一下，如果`clickable{}` 在 `padding()` **之后** 被调用，那么Card的外间距部分就不能点击了，只能点击Card本身。   
+反转一下，如果 `clickable{}` 在 `padding()` **之后** 被调用，那么Card的外间距部分就不能点击了，只能点击Card本身。   
 ![](../assets/parameters/modifier2.gif)
 
 **为什么呢? (挖源码时间~)**   
