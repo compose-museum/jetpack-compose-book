@@ -46,6 +46,6 @@ markdown_extensions:
 
 plugins:
   - search:
-    lang: en
+      lang: en
   - git-revision-date-localized:
       type: timeago
