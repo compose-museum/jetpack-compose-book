@@ -50,9 +50,9 @@ fun UI(){
     }
 }
 ```
-在这个例子中，`clickable{}`在`padding()` **之前**调用，因此Card外间距的部分也是可以被点击到的。   
+在这个例子中，`clickable{}` 在 `padding()` **之前** 调用，因此Card外间距的部分也是可以被点击到的。   
 ![](../assets/parameters/modifier1.gif)   
-反转一下，如果`clickable{}`在`padding()` **之后**被调用，那么Card的外间距部分就不能点击了，只能点击Card本身。   
+反转一下，如果`clickable{}` 在 `padding()` **之后** 被调用，那么Card的外间距部分就不能点击了，只能点击Card本身。   
 ![](../assets/parameters/modifier2.gif)
 
 **为什么呢? (挖源码时间~)**   
@@ -109,6 +109,6 @@ class CombinedModifier(
 }
 ```
 这个CombinedModifier持有了我们新增的修饰器和原有的修饰器，并且将其组合为一个新的Modifier。   
-可以看到，Modifier的实现非常类似于一个链表，当我们给一个组件添加一个修饰函数时，它会创建一个CombinedModifier将**旧的和新的Modifier组合在一起**，合成为一个单独的Modifier。   
-这也解释了为什么调用修饰函数为什么会有顺序问题，修饰函数并不是简单修改了某个组件内部的参数，而是给这个组件**套上了一层又一层的修饰器**。
+可以看到，Modifier的实现非常类似于一个链表，当我们给一个组件添加一个修饰函数时，它会创建一个CombinedModifier将 **旧的和新的Modifier组合在一起**，合成为一个单独的Modifier。   
+这也解释了为什么调用修饰函数为什么会有顺序问题，修饰函数并不是简单修改了某个组件内部的参数，而是给这个组件 **套上了一层又一层的修饰器**。
 
