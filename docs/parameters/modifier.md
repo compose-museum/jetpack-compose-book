@@ -112,3 +112,22 @@ class CombinedModifier(
 可以看到，Modifier的实现非常类似于一个链表，当我们给一个组件添加一个修饰函数时，它会创建一个CombinedModifier将 **旧的和新的Modifier组合在一起**，合成为一个单独的Modifier。   
 这也解释了为什么调用修饰函数为什么会有顺序问题，修饰函数并不是简单修改了某个组件内部的参数，而是给这个组件 **套上了一层又一层的修饰器**。
 
+## 用法示范
+来写一个可以被点击的卡片吧, 让这个卡片宽度最大，高度100dp, 并且外边距16.dp，阴影深度8.dp吧
+```kotlin
+@Composable
+fun CardExample(){
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(100.dp)
+            .padding(16.dp)
+            .clickable { /* 不做任何事 */ },
+        elevation = 8.dp
+    ) {
+        // 内部没有组件
+    }
+}
+```
+运行效果:   
+![](../assets/parameters/card.png)
