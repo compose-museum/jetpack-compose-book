@@ -2,8 +2,7 @@
 Modifier, 顾名思义就是一个修饰器，用于修改组件的样式。每个Compose组件都会提供一个Modifier参数用于修改样式。
 
 ## 基础用法
-Modifier本身只实现了几个方法，并且自身的方法并不用于修饰，而是用于连接多个Modifier(下面会讲解)。   
-而我们用到的修饰方法都是通过 **Kotlin 扩展函数**实现的。
+Modifier基础只实现了几个方法，大多数修饰方法都是通过 **Kotlin 扩展函数**实现的。
 例如`size()`这个修饰函数，其实来自`androidx.compose.foundation.layout`包下的`Size.kt`。同样，你也可以使用扩展函数来向Modifier添加你自己的修饰方法。
 
 以下为常用的修饰方法:  
