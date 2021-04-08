@@ -1,6 +1,3 @@
-# Button
-
-## 1. 介绍
 **Compose** 的 `Button` 是基于 **Material Design** 实现的，和传统的 **XML Button** 截然不同
 
 以下是简单创建一个默认的 Button 代码：
@@ -45,5 +42,5 @@ fun ButtonDemo() {
 <img src="../../assets/elements/button/button2.png">
 
 
-## 2. 更多
+## 更多
 [Button 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#button)
