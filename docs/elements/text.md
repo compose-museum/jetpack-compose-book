@@ -1,4 +1,4 @@
-## 1. 介绍
+
 `Text` 是 `Compose` 中最基本的布局控件，它可以显示文字
 
 
@@ -11,7 +11,7 @@ fun TextDemo() {
 }
 ```
 
-## 2. style 参数
+## 1. style 参数
 
 当然，我们有时候也需要更换字体的大小
 
@@ -61,7 +61,7 @@ fun TextDemo() {
 
 <img src="../../assets/elements/text/text2.png">
 
-## 3. 文字按钮
+## 2. 文字按钮
 
 有的时候也许您需要将文本当作按钮，那么只需要添加 `Modifier.clickable` 即可
 
@@ -110,7 +110,7 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text3.png">
 
 
-## 4. 特定的文字显示
+## 3. 特定的文字显示
 
 如果我们想让一个 `Text` 语句中使用不同的样式，比如粗体提醒，特殊颜色
 
@@ -147,7 +147,7 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text4.png">
 
 
-## 5. textAlign 参数
+## 4. textAlign 参数
 
 当我们在 `Text` 中设置了 `fillMaxWidth()` 之后，我们可以指定 `Text` 的对齐方式
 
@@ -177,7 +177,7 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text5.png">
 
 
-## 6. 复制文字
+## 5. 复制文字
 
 默认情况下 `Text` 并不能进行复制等操作，我们需要设置 `SelectionContainer` 来包装 `Text`
 
@@ -209,7 +209,7 @@ fun TextDemo() {
 ```
 <img src="../../assets/elements/text/text6.png">
 
-## 7. 更多
+## 6. 更多
 
 [Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
 
