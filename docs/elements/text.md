@@ -1,5 +1,5 @@
 
-`Text` 是 `Compose` 中最基本的布局控件，它可以显示文字
+`Text` 是 `Compose` 中最基本的布局组件，它可以显示文字
 
 
 ``` kotlin

@@ -1,6 +1,6 @@
 ## 1. 介绍
 
-`Card` 是 Compose 中一个非常好用的布局控件，我们用它可以来创造出很优美的界面
+`Card` 是 Compose 中一个非常好用的布局组件，我们用它可以来创造出很优美的界面
 
 ``` kotlin
 class MainActivity : ComponentActivity() {
