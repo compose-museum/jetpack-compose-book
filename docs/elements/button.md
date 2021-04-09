@@ -1,6 +1,6 @@
 **Compose** 的 `Button` 是基于 **Material Design** 实现的，和传统的 **XML Button** 截然不同
 
-以下是简单创建一个默认的 Button 代码：
+以下是简单创建一个默认的 `Button` 代码：
 
 ``` kotlin
 import androidx.compose.material.Button
@@ -36,8 +36,6 @@ fun ButtonDemo() {
     }
 }
 ```
-
-效果如图所示：
 
 ![](../assets/elements/button/button2.png)
 

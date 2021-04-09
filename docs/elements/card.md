@@ -53,6 +53,6 @@ fun CardDemo() {
 
 ![](../assets/elements/card/card1.png)
 
-## 最后
+## 更多
 
 [Card 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#card)
