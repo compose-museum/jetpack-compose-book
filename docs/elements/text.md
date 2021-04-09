@@ -21,7 +21,7 @@ fun TextDemo() {
 @Composable
 fun TextDemo() {
 
-    // 如果对 Column 感到陌生可以到 界面/Column 下查看
+    // 如果对 Column 感到陌生可以到 布局/Column 下查看
 
     Column(
         modifier = Modifier.fillMaxWidth(), // 设置占满整行
