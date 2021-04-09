@@ -261,7 +261,7 @@ fun TextDemo() {
 
 **Material Design** 建议采用不同的不透明度来传达这些不同的重要程度，你可以通过 `LocalContentAlpha` 实现此功能。  
 
-您可以通过为此 `CompositionLocal` 提供一个值来为层次结构指定内容 Alpha 值。（`CompositionLocal` 是一个用于隐式的传递参数的组件，后续会讲到）
+您可以通过为此 `CompositionLocal` 提供一个值来为层次结构指定内容 **Alpha** 值。（`CompositionLocal` 是一个用于隐式的传递参数的组件，后续会讲到）
 
 ```kotlin
 // 将内部 Text 组件的 alpha 强调程度设置为高
