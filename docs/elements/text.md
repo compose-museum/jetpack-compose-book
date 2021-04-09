@@ -108,7 +108,37 @@ fun TextDemo() {
 
 <img src="../../assets/elements/text/text8.png">
 
-## 3. 文字按钮
+## 3. textAlign 参数
+
+当我们在 `Text` 中设置了 `fillMaxWidth()` 之后，我们可以指定 `Text` 的对齐方式
+
+``` kotlin
+@Composable
+fun TextDemo() {
+    Column {
+        Text(
+            text = "每天摸鱼",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Left
+        )
+        Text(
+            text = "这好吗",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Center
+        )
+        Text(
+            text = "这非常的好",
+            modifier = Modifier.fillMaxWidth(),
+            textAlign = TextAlign.Right
+        )
+    }
+}
+```
+
+<img src="../../assets/elements/text/text5.png">
+
+
+## 4. 文字按钮
 
 有的时候也许您需要将文本当作按钮，那么只需要添加 `Modifier.clickable` 即可
 
@@ -157,7 +187,7 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text3.png">
 
 
-## 4. 特定的文字显示
+## 5. 特定的文字显示
 
 如果我们想让一个 `Text` 语句中使用不同的样式，比如粗体提醒，特殊颜色
 
@@ -192,37 +222,6 @@ fun TextDemo() {
 效果如下：
 
 <img src="../../assets/elements/text/text4.png">
-
-
-## 5. textAlign 参数
-
-当我们在 `Text` 中设置了 `fillMaxWidth()` 之后，我们可以指定 `Text` 的对齐方式
-
-``` kotlin
-@Composable
-fun TextDemo() {
-    Column {
-        Text(
-            text = "每天摸鱼",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Left
-        )
-        Text(
-            text = "这好吗",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center
-        )
-        Text(
-            text = "这非常的好",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Right
-        )
-    }
-}
-```
-
-<img src="../../assets/elements/text/text5.png">
-
 
 ## 6. 复制文字
 
