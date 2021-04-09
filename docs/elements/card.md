@@ -51,9 +51,7 @@ fun CardDemo() {
 }
 ```
 
-<img src="../../assets/elements/card/card1.png", align="center">
-
-
+![](../assets/elements/card/card1.png)
 
 ## 最后
 
