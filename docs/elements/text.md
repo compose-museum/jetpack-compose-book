@@ -32,7 +32,8 @@ fun TextDemo() {
     }
 }
 ```
-<img src="../../assets/elements/text/text1.png">
+![](../assets/elements/text/text1.png)  
+
 
 当然有的时候我们想自己自定义字体的间隔和大小，那我们可以将代码改为：
 
@@ -57,7 +58,7 @@ fun TextDemo() {
 
 它将会显示成
 
-<img src="../../assets/elements/text/text2.png">
+![](../assets/elements/text/text2.png)  
 
 ## 2. maxLines 参数
 
@@ -82,7 +83,7 @@ fun TextDemo() {
 }
 ```
 
-<img src="../../assets/elements/text/text7.png">
+![](../assets/elements/text/text7.png)  
 
 使用 `overflow` 参数可以帮助我们处理溢出的视觉效果
 
@@ -106,7 +107,7 @@ fun TextDemo() {
 }
 ```
 
-<img src="../../assets/elements/text/text8.png">
+![](../assets/elements/text/text8.png)  
 
 ## 3. textAlign 参数
 
@@ -135,7 +136,7 @@ fun TextDemo() {
 }
 ```
 
-<img src="../../assets/elements/text/text5.png">
+![](../assets/elements/text/text5.png)  
 
 
 ## 4. 文字按钮
@@ -184,7 +185,7 @@ fun TextDemo() {
 
 效果如下：
 
-<img src="../../assets/elements/text/text3.png">
+![](../assets/elements/text/text3.png)  
 
 
 ## 5. 特定的文字显示
@@ -221,7 +222,7 @@ fun TextDemo() {
 
 效果如下：
 
-<img src="../../assets/elements/text/text4.png">
+![](../assets/elements/text/text4.png)  
 
 ## 6. 复制文字
 
@@ -253,7 +254,7 @@ fun TextDemo() {
     
 }
 ```
-<img src="../../assets/elements/text/text6.png">
+![](../assets/elements/text/text6.png)  
 
 ## 7. 文字强调效果
 

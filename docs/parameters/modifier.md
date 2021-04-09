@@ -1,9 +1,9 @@
 # Modifier
-Modifier, 顾名思义就是一个修饰器，用于修改组件的样式。每个Compose组件都会提供一个Modifier参数用于修改样式。
+`Modifier`, 顾名思义就是一个修饰器，用于修改组件的样式。每个 **Compose** 组件都会提供一个` Modifier` 参数用于修改样式。
 
 ## 基础用法
-Modifier本身只实现了几个函数用于连接多个修饰器，大多数修饰方法都是通过 **Kotlin 扩展函数** 实现的。
-例如`size()`这个修饰函数，其实来自`androidx.compose.foundation.layout`包下的`Size.kt`。同样，你也可以使用扩展函数来向Modifier添加你自己的修饰方法。
+`Modifier` 本身只实现了几个函数用于连接多个修饰器，大多数修饰方法都是通过 **Kotlin 扩展函数** 实现的。
+例如`size()`这个修饰函数，其实来自 `androidx.compose.foundation.layout` 包下的 `Size.kt`。同样，你也可以使用扩展函数来向 `Modifier` 添加你自己的修饰方法。
 
 以下为常用的修饰方法:  
 ``` Kotlin
@@ -32,7 +32,7 @@ Modifier本身只实现了几个函数用于连接多个修饰器，大多数修
   wrapContentSize()
 ```
 修饰方法还有很多，这里就不一一列举了。
-可以使用 AndroidStudio自动补全或者查看官方文档来查找更多修饰函数。
+可以使用 Android Studio 自动补全或者查看官方文档来查找更多修饰函数。
 
 ## 修饰优先级
 修饰方法直接是存在先后顺序的，不同的调用顺序会导致不一样的效果。我们先来看一个例子：
@@ -50,9 +50,9 @@ fun UI(){
     }
 }
 ```
-在这个例子中，`clickable{}` 在 `padding()` **之前** 调用，因此Card外间距的部分也是可以被点击到的。   
+在这个例子中，`clickable{}` 在 `padding()` **之前** 调用，因此 `Card` 外间距的部分也是可以被点击到的。   
 ![](../assets/parameters/modifier1.gif)   
-反转一下，如果 `clickable{}` 在 `padding()` **之后** 被调用，那么Card的外间距部分就不能点击了，只能点击Card本身。   
+反转一下，如果 `clickable{}` 在 `padding()` **之后** 被调用，那么 `Card` 的外间距部分就不能点击了，只能点击 `Card` 本身。   
 ![](../assets/parameters/modifier2.gif)
 
 **为什么呢? (挖源码时间~)**   
@@ -74,13 +74,13 @@ fun Modifier.padding(all: Dp) =
     )
 ```
 显而易见，这是一个Modifier的扩展函数。  
-它调用了 `Modifier`的`then()`函数，而这个`then()`需要接收一个Modifier对象，而这个PaddingModifier的最终父类，就是Modifier。
-那`then()`函数干了什么呢? 继续看源码:   
+它调用了 `Modifier`的 `then()` 函数，而这个 `then()` 需要接收一个Modifier对象，而这个PaddingModifier的最终父类，就是 `Modifier`。
+那 `then()` 函数干了什么呢? 继续看源码:   
 ``` kotlin
  infix fun then(other: Modifier): Modifier =
         if (other === Modifier) this else CombinedModifier(this, other)
 ```
-很显然，它创建了一个`CombinedModifier`对象，而`CombinedModifier`也是继承自`Modifier`类的:   
+很显然，它创建了一个 `CombinedModifier` 对象，而 `CombinedModifier` 也是继承自 `Modifier` 类的:   
 ```kotlin
 class CombinedModifier(
     private val outer: Modifier,
@@ -108,8 +108,8 @@ class CombinedModifier(
     } + "]"
 }
 ```
-这个CombinedModifier持有了我们新增的修饰器和原有的修饰器，并且将其组合为一个新的Modifier。   
-可以看到，Modifier的实现非常类似于一个链表，当我们给一个组件添加一个修饰函数时，它会创建一个CombinedModifier将 **旧的和新的Modifier组合在一起**，合成为一个单独的Modifier。   
+这个 `CombinedModifier` 持有了我们新增的修饰器和原有的修饰器，并且将其组合为一个新的 `Modifier`。   
+可以看到，`Modifier` 的实现非常类似于一个链表，当我们给一个组件添加一个修饰函数时，它会创建一个 CombinedModifier 将 **旧的和新的Modifier组合在一起**，合成为一个单独的 `Modifier`。   
 这也解释了为什么调用修饰函数为什么会有顺序问题，修饰函数并不是简单修改了某个组件内部的参数，而是给这个组件 **套上了一层又一层的修饰器**。
 
 ## 用法示范
