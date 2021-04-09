@@ -1,7 +1,7 @@
 
 ![url](https://developer.android.com/images/jetpack/compose/layout-column-row-box.png)
 
-`Column` 是 Jetpack Compose 中一个很基本的布局种类，它会将里面的控件以行的形式呈现
+`Column` 是 Jetpack Compose 中一个很基本的布局种类，它会将里面的组件以行的形式呈现
 
 ``` kotlin
 class MainActivity : ComponentActivity() {
@@ -56,32 +56,25 @@ fun ColumnDemo() {
 
 ## 2.特定文字居中
 
-如果我们想让 `Column` 一些特定的文字居中怎么办
-我们只需要在需要居中的文字的地方添加 `Column`，并且添加之前的两个参数
+如果我们想让 `Column` 里面的某些文字居中而不是全部居中怎么办
+
+我们只需要在需要居中的文字的地方添加 `Modifier.align` 参数，并且将 `Column` 的 `modifier` 参数设置为 `fillMaxWidth()` 即可实现效果
 
 代码如下：
 ``` kotlin
 @Composable
 fun ColumnDemo() {
-    Column{
+    Column(
+        modifier = Modifier.fillMaxWidth()
+    ){
 
-        Column(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Text("这是一个标题")
-        }
+        Text(
+            text = "夜色",
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            style = MaterialTheme.typography.h6,
+            fontWeight = FontWeight.W900)
 
-        Text("我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio" +
-                "我正在使用 Android Studio")
+        Text("今晚的夜色很不错，我和朋友走在河边的小路上，看到了很多美丽的风景")
     }
 }
 ```
