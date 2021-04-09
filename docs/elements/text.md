@@ -59,7 +59,56 @@ fun TextDemo() {
 
 <img src="../../assets/elements/text/text2.png">
 
-## 2. 文字按钮
+## 2. maxLines 参数
+
+使用 `maxLines` 参数可以帮助我们将文本限制在指定的行数之间，如果文本足够短则不会生效，如果文本超过 `maxLines` 所规定的行数，则会进行截断
+
+``` kotlin
+@Composable
+fun TextDemo() {
+
+    Column{
+        Text(
+            text = "你好呀陌生人，这是一个标题，不是很长，因为我想不出其他什么比较好的标题了",
+            style = MaterialTheme.typography.h6,
+            maxLines = 1,
+        )
+        Text(
+            text ="你好呀陌生人，我是内容",
+            style = MaterialTheme.typography.body2
+        )
+    }
+
+}
+```
+
+<img src="../../assets/elements/text/text7.png">
+
+使用 `overflow` 参数可以帮助我们处理溢出的视觉效果
+
+``` kotlin
+@Composable
+fun TextDemo() {
+
+    Column{
+        Text(
+            text = "你好呀陌生人，这是一个标题，不是很长，因为我想不出其他什么比较好的标题了",
+            style = MaterialTheme.typography.h6,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+        Text(
+            text ="你好呀陌生人，我是内容",
+            style = MaterialTheme.typography.body2
+        )
+    }
+
+}
+```
+
+<img src="../../assets/elements/text/text8.png">
+
+## 3. 文字按钮
 
 有的时候也许您需要将文本当作按钮，那么只需要添加 `Modifier.clickable` 即可
 
@@ -108,7 +157,7 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text3.png">
 
 
-## 3. 特定的文字显示
+## 4. 特定的文字显示
 
 如果我们想让一个 `Text` 语句中使用不同的样式，比如粗体提醒，特殊颜色
 
@@ -145,7 +194,7 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text4.png">
 
 
-## 4. textAlign 参数
+## 5. textAlign 参数
 
 当我们在 `Text` 中设置了 `fillMaxWidth()` 之后，我们可以指定 `Text` 的对齐方式
 
@@ -175,7 +224,7 @@ fun TextDemo() {
 <img src="../../assets/elements/text/text5.png">
 
 
-## 5. 复制文字
+## 6. 复制文字
 
 默认情况下 `Text` 并不能进行复制等操作，我们需要设置 `SelectionContainer` 来包装 `Text`
 
@@ -207,7 +256,7 @@ fun TextDemo() {
 ```
 <img src="../../assets/elements/text/text6.png">
 
-## 6. 文字强调效果
+## 7. 文字强调效果
 文字根据不同情况来确定文字的强调程度，以突出重点并体现出视觉上的层次感。Material Design 建议采用不同的不透明度来传达这些不同的重要程度，你可以通过 LocalContentAlpha 实现此功能。   
 您可以通过为此 CompositionLocal 提供一个值来为层次结构指定内容 Alpha 值。（CompositionLocal是一个用于隐式的传递参数的组件，后续会讲到）
 ```kotlin
@@ -229,7 +278,7 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 ![](../assets/elements/text/content_alpha.png)
 
 
-## 7. 更多
+## 8. 更多
 
 [Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
 
