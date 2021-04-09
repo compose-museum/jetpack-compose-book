@@ -20,16 +20,14 @@ fun TextDemo() {
 ``` kotlin
 @Composable
 fun TextDemo() {
-
-    // 如果对 Column 感到陌生可以到 布局/Column 下查看
-
-    Column(
-        modifier = Modifier.fillMaxWidth(), // 设置占满整行
-        horizontalAlignment = Alignment.CenterHorizontally // 设置居中
-    ) {
+    Column{
         Text(
-            text = "你好陌生人",
+            text = "你好呀陌生人，这是一个标题",
             style = MaterialTheme.typography.h6
+        )
+        Text(
+            text ="你好呀陌生人，我是内容",
+            style = MaterialTheme.typography.body2
         )
     }
 }
