@@ -209,7 +209,29 @@ fun TextDemo() {
 ```
 <img src="../../assets/elements/text/text6.png">
 
-## 6. 更多
+## 6. 文字强调效果
+文字根据不同情况来确定文字的强调程度，以突出重点并体现出视觉上的层次感。Material Design 建议采用不同的不透明度来传达这些不同的重要程度，你可以通过 LocalContentAlpha 实现此功能。   
+您可以通过为此 CompositionLocal 提供一个值来为层次结构指定内容 Alpha 值。（CompositionLocal是一个用于隐式的传递参数的组件，后续会讲到）
+```kotlin
+// 将内部Text组件的alpha强调程度设置为高
+// 注意: MaterialTheme已经默认将强调程度设置为high
+CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.high) {
+    Text("这里是high强调效果")
+}
+// 将内部Text组件的alpha强调程度设置为中
+CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.medium) {
+    Text("这里是medium强调效果")
+}
+// 将内部Text组件的alpha强调程度设置为禁用
+CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
+    Icon("这里是禁用后的效果")
+}
+```
+这是运行效果:   
+![](../assets/elements/text/content_alpha.png)
+
+
+## 7. 更多
 
 [Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
 
