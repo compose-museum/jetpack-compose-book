@@ -86,8 +86,32 @@ fun ImageDemo() {
 
 ![](../assets/elements/image/image4.png)
 
+## 3. 图像边框
 
-## 3. 更多
+你可以利用 `Surface` 中的 `border` 参数来设置边框
+
+``` kotlin
+@Composable
+fun ImageDemo() {
+
+    Surface(
+        shape = CircleShape,
+        border = BorderStroke(5.dp, Color.Gray)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.wallpaper),
+            contentDescription = null,
+            modifier = Modifier.size(350.dp),
+            contentScale = ContentScale.Crop
+        )
+    }
+
+}
+```
+
+![](../assets/elements/image/image5.png)
+
+## 4. 更多
 
 [Image 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary#image)
 
