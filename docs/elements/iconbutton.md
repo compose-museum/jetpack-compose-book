@@ -26,7 +26,7 @@ fun IconButtonDemo() {
 
 有些时候我们想要取消按钮点击所产生的波纹要怎么办？
 
-`IconButton` 的源码中其实默认将 `Indication` 参数设置成波纹了
+`IconButton` 的源码中其实将 `Box` 里的 `modifier.clickable` 参数 `Indication` 参数设置成波纹了
 
 ``` kotlin
 @Composable
