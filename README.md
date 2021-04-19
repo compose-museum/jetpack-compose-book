@@ -11,7 +11,7 @@
 
 未来可能会添加一些样例 app（开发中）
 
-欢迎访问 👉 <https://compose-museum.github.io/Compose-Tutorial/> 来学习
+欢迎访问 👉 <https://compose-museum.github.io/compose-tutorial/> 来学习
 
 <img src = "/screenshots/sc1.png">
 
