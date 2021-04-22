@@ -25,7 +25,7 @@
 ```
 ## 1. `topBar` 参数
 
-`topBar` 是设置屏幕顶部的应用栏，我们可以考虑用 `TopAppBar` 自带的函数来实现
+`topBar` 是设置屏幕顶部的应用栏，我们可以考虑用自带的 `TopAppBar` 函数来实现
 
 ``` kotlin
 @Composable
