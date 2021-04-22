@@ -28,6 +28,7 @@ nav:
         - 'IconButton': elements/iconbutton.md
     - '布局': 
         - 'Column': layout/column.md
+        - 'Scaffold': layout/scaffold.md
     - '参数':
         - 'Modifier': parameters/modifier.md
     - '贡献': contributing.md
