@@ -1,6 +1,8 @@
 
 `Scaffold` 实现了 **Material Design** 的基本视图界面结构
 
+本篇文章可能篇幅较长，不过大多都很简单，很容易理解的
+
 ``` kotlin
 @Composable fun Scaffold(
     modifier: Modifier = Modifier, 
