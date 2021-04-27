@@ -68,7 +68,7 @@ fun TextFieldDemo() {
 }
 ```
 
-![](../assets/elements/textfield/dem2.gif)
+![](../assets/elements/textfield/demo2.gif)
 
 
 ## 更多
