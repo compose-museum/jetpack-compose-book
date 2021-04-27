@@ -4,7 +4,7 @@
 
 此项目致力于帮助大家更好的理解和使用 Jetpack Compose 框架，从而提高开发效率
 
-项目会包含很多关于 Jetpack Compose 的基本使用方法以及注意事项
+项目会包含很多关于 Jetpack Compose 的 教程/ 基本使用方法 / 经历的坑
 
 
 ## 1. Jetpack Composes 是什么 ？
