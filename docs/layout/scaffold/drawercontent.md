@@ -40,4 +40,4 @@ fun DrawerContent(){
 }
 ```
 
-![](../../assets/layout/scaffold/demo5.gif)
+![](../../assets/layout/scaffold/drawercontent/demo.gif)

@@ -40,8 +40,8 @@ fun ScaffoldDemo(){
 }
 ```
 
-![](../../assets/layout/scaffold/demo2.png)
-![](../../assets/layout/scaffold/demo3.png)
+![](../../assets/layout/scaffold/bottombar/demo.png)
+![](../../assets/layout/scaffold/bottombar/demo2.png)
 
 这样一个基本的底部导航栏我们就实现啦，是不是很简单？
 
@@ -64,4 +64,4 @@ BottomNavigationItem(
 )
 ```
 
-![](../../assets/layout/scaffold/demo4.png)
+![](../../assets/layout/scaffold/bottombar/demo3.png)
