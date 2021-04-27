@@ -1,7 +1,7 @@
 site_name: Jetpack Compose 博物馆
 repo_name: Jetpack Compose 博物馆
 repo_url: https://github.com/Compose-Museum/Compose-Tutorial
-site_url: https://github.com/Compose-Museum/Compose-Tutorial
+site_url: https://doc.compose.net.cn/
 edit_uri: tree/main/docs/
 
 theme:
@@ -28,7 +28,9 @@ nav:
         - 'IconButton': elements/iconbutton.md
     - '布局': 
         - 'Column': layout/column.md
-        - 'Scaffold': layout/scaffold.md
+        - 'Scaffold':
+          - '概述': layout/scaffold/overview.md
+          - '1. topBar 参数': layout/scaffold/topbar.md
     - '参数':
         - 'Modifier': parameters/modifier.md
     - '贡献': contributing.md
