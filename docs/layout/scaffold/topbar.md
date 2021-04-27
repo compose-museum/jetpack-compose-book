@@ -42,3 +42,45 @@ fun ScaffoldDemo(){
 ```
 
 ![](../../assets/layout/scaffold/topbar/demo.png)
+
+还可以设置 `TopAppBar` 中的 `actions` 参数
+
+``` kotlin
+@Composable
+fun ScaffoldDemo(){
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text("主页")
+                },
+                navigationIcon = {
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(Icons.Filled.ArrowBack, null)
+                    }
+                },
+                actions = {
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(Icons.Filled.Search, null)
+                    }
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(Icons.Filled.MoreVert, null)
+                    }
+                }
+            )
+        },
+    ){
+
+    }
+}
+```
+
+它会将里面的内容用 Row 来排列
+
+![](../../assets/layout/scaffold/topbar/demo2.png)
