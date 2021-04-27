@@ -26,6 +26,7 @@ nav:
         - 'Icon': elements/icon.md
         - 'Image': elements/image.md
         - 'IconButton': elements/iconbutton.md
+        - 'TextField': elements/textfield.md
     - '布局': 
         - 'Column': layout/column.md
         - 'Scaffold':
