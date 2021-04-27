@@ -81,6 +81,6 @@ fun ScaffoldDemo(){
 }
 ```
 
-它会将里面的内容用 Row 来排列
+它会将里面的内容以 `Row` 的方式来排列
 
 ![](../../assets/layout/scaffold/topbar/demo2.png)
