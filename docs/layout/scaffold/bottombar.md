@@ -1,4 +1,4 @@
-## 2. bottomBar
+## bottomBar
 
 `bottomBar` 是设置屏幕底部的导航栏，我们可以考虑用 `BottomNavigation` 或者 `BottomAppBar` 来实现
 

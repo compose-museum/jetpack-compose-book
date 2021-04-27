@@ -1,4 +1,4 @@
-## 3. drawerContent 参数
+## drawerContent 参数
 
 设置了 `drawerContent` 参数可以创建一个侧边应用栏
 
