@@ -41,4 +41,4 @@ fun ScaffoldDemo(){
 }
 ```
 
-![](../assets/layout/scaffold/demo.png)
+![](../../assets/layout/scaffold/demo.png)
