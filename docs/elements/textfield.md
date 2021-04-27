@@ -19,7 +19,7 @@ fun TextFieldDemo() {
 ![](../assets/elements/textfield/demo.gif)
 
 
-## `singleLine` 参数
+## 1. singleLine 参数
 
 使用 `singleLine` 参数可以将 `TextField` 设置成只有一行
 
@@ -39,3 +39,38 @@ fun TextFieldDemo() {
     )
 }
 ```
+
+## 2. label 参数
+
+label 标签可以运用在 `TextField` 中，当聚焦的时候会改变字体大小
+
+``` kotlin
+@Composable
+fun TextFieldDemo() {
+    var text by remember{ mutableStateOf("")}
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        TextField(
+            value = text,
+            onValueChange = {
+                text = it
+            },
+            singleLine = true,
+            label = {
+                Text("邮箱")
+            }
+        )
+    }
+}
+```
+
+![](../assets/elements/textfield/dem2.gif)
+
+
+## 更多
+
+[TextField 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#textfield)
