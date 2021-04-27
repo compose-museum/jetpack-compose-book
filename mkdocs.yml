@@ -33,6 +33,7 @@ nav:
           - '1. topBar 参数': layout/scaffold/topbar.md
           - '2. bottomBar 参数': layout/scaffold/bottombar.md
           - '3. drawerContent 参数': layout/scaffold/drawercontent.md
+          - '4. floatingActionButton 参数': layout/scaffold/floatingactionbutton.md
     - '参数':
         - 'Modifier': parameters/modifier.md
     - '贡献': contributing.md
