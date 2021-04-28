@@ -30,6 +30,7 @@ nav:
     - '布局': 
         - 'Column': layout/column.md
         - 'Row': layout/row.md
+        - 'Spacer': layout/spacer.md
         - 'Scaffold':
           - '概述': layout/scaffold/overview.md
           - '1. topBar 参数': layout/scaffold/topbar.md
