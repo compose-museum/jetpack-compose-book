@@ -11,7 +11,7 @@
 
 未来可能会添加一些样例 app（开发中）
 
-欢迎访问 👉 <https://docs.compose.net.cn/> 来学习
+欢迎访问 👉 <https://docs.compose.net.cn/> 来学习(目前国内可能无法直连)
 
 <img src = "/screenshots/sc1.png">
 
@@ -44,7 +44,7 @@
 
 * 如何添加/更改文档？
     
-    文档都是由 **Markdown** 语法来编写的，所有文档位于 [/docs](https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs) 中, 如果需要扩展左边的导航侧栏，请在 **mkdocs.yml** 更新 **nav**
+    文档都是由 **Markdown** 语法来编写的，所有文档位于 [/docs](https://github.com/compose-museum/compose-tutorial/tree/main/docs) 中, 如果需要扩展左边的导航侧栏，请在 **mkdocs.yml** 更新 **nav**
 
     图片添加需要在 **/assets/** 下，和文档同等路径名字添加，
     例如如果我修改了 **Text** 的文档，并且添加了一张例图
