@@ -5,7 +5,7 @@ site_url: https://docs.compose.net.cn/
 edit_uri: tree/main/docs/
 
 theme:
-  name: gitbook
+  name: material
   language: zh
   icon:
     repo: fontawesome/brands/github
