@@ -1,4 +1,4 @@
-![](assets/logoo.png)
+![](docs/assets/logoo.png)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3125541b-c17c-428e-b038-ad444205d56e/deploy-status)](https://app.netlify.com/sites/jetpack-compose/deploys)
 
