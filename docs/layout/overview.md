@@ -62,3 +62,6 @@ fun ArtistCard(artist: Artist) {
 <img src = "../../assets/layout/overview/demo3.png" width = "40%" height = "40%">
 
 关于 `Row` 的详情可以参考 [这里](row.md)
+
+!!! Tips 
+    注意：Compose有效地处理嵌套布局，使其成为设计复杂UI的好方法。这是对Android Views的改进，在Android Views中，出于性能原因，您需要避免嵌套布局。
