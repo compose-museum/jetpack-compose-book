@@ -1,7 +1,17 @@
 
 ![url](https://developer.android.com/images/jetpack/compose/layout-column-row-box.png)
 
+``` kotlin
+@Composable inline fun Column(
+    modifier: Modifier = Modifier, 
+    verticalArrangement: Arrangement.Vertical = Arrangement.Top, 
+    horizontalAlignment: Alignment.Horizontal = Alignment.Start, 
+    content: ColumnScope.() -> Unit
+): Unit
+```
+
 `Column` 是 Jetpack Compose 中一个很基本的布局种类，它会将里面的组件以行的形式呈现
+
 
 ``` kotlin
 class MainActivity : ComponentActivity() {
@@ -25,7 +35,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-<img src="../../assets/layout/column/column1.png">
+![](../../assets/layout/column/column1.png)
 
 ## 1.居中文字
 
@@ -52,7 +62,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-<img src="../../assets/layout/column/column2.png">
+![](../../assets/layout/column/column2.png)
 
 ## 2.特定文字居中
 
@@ -81,4 +91,4 @@ fun ColumnDemo() {
 
 效果如下：
 
-<img src="../../assets/layout/column/column3.png">
+![](../../assets/layout/column/column3.png)
