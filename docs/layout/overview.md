@@ -1,5 +1,5 @@
 
-## 标准布局组件
+## Layouts in Compose
 
 **Jetpack Compose** 让设计和构建你的 app UI 变得更加容易
 
@@ -19,4 +19,11 @@ fun ArtistCard() {
 }
 ```
 
+在你没有排列它们的情况下， `Compose` 会将 `Text` 元素堆叠在一起，变得无法阅读
+
 <img src = "../../assets/layout/overview/demo.png" width = "40%" height = "40%">
+
+
+`Compose` 提供了一个现成的布局集合，以帮助你安排你的 `UI` 元素，并使你更容易定义你自己的、更专业的布局
+
+## 标准布局组件
