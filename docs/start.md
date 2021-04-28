@@ -6,6 +6,9 @@
 ### 3. 选择创建 **Empty Compose Activity** [![c3JfgA.md.png](https://z3.ax1x.com/2021/04/07/c3JfgA.png)](https://z3.ax1x.com/2021/04/07/c3JfgA.png)
 
 ### 4. 配置 Kotlin
+
+确保在项目中使用 Kotlin 1.4.30 或更高版本
+
 ```
     plugins {
         id 'org.jetbrains.kotlin.android' version '1.4.30'
