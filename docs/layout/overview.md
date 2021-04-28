@@ -26,4 +26,39 @@ fun ArtistCard() {
 
 `Compose` 提供了一个现成的布局集合，以帮助你安排你的 `UI` 元素，并使你更容易定义你自己的、更专业的布局
 
-## 标准布局组件
+## 1. 标准布局组件
+
+使用 `Column` 它会将里面的组件以行的形式呈现
+
+``` kotlin
+@Composable
+fun ArtistCard() {
+    Column {
+        Text("Alfred Sisley")
+        Text("3 minutes ago")
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo2.png" width = "40%" height = "40%">
+
+同样地，你也可以使用 `Row`, 它会将里面的组件以列的形式呈现
+
+`Column` 和 `Row` 都支持配置它们所包含的元素的对齐方式
+
+``` kotlin
+@Composable
+fun ArtistCard(artist: Artist) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        Image( /*...*/ ) // 显示一张图片
+        Column {
+            Text(artist.name)
+            Text(artist.lastSeenOnline)
+        }
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo3.png" width = "40%" height = "40%">
+
+关于 `Row` 的详情可以参考 [这里](row.md)
