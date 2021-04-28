@@ -13,13 +13,11 @@
 
 未来可能会添加一些样例 app（开发中）
 
-欢迎访问: 👉 
+欢迎来学习！ 
 
 国外线路 <https://docs.compose.net.cn/> 
 
 国内线路 <https://compose.net.cn/>
-
-来学习
 
 <img src = "/screenshots/sc1.png">
 
