@@ -67,6 +67,7 @@
  git fetch forkStream //同步项目最新进度
  git merge forkStream/main //合并项目最新进度
 ```
+如果你觉得此项目对你有帮助的话，不妨点个 Star 支持下作者吧~！
 
 ### License
 ```
