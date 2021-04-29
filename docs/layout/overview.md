@@ -235,3 +235,62 @@ fun FixedSizeComposable() {
 在这个例子中，即使父本的宽度被设置为 `90.dp`，内盒的宽度也将是 `100.dp`
 
 因为内盒的 `equiredSize` 修改器优先
+
+``` kotlin
+@Composable
+fun FillSizeComposable() {
+    Box(
+        Modifier
+            .background(Color.Green)
+            .size(50.dp)
+            .padding(10.dp)
+    ) {
+        Box(
+            Modifier
+                .background(Color.Blue)
+                .fillMaxSize()
+        )
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo10.png" width = "30%" height = "30%">
+
+如果你想让一个子布局的尺寸与父 `Box` 的尺寸相同而不影响 `Box` 的尺寸，请使用 `matchParentSize `
+
+请注意，`matchParentSize` 只在 `Box` 范围内可用，也就是说，它只适用于 `Box` ***composables*** 的直接子代
+
+在下面的例子中，内部的 `Spacer` 从它的父 `Box` 中获取其大小，而父 `Box` 又从它包含的 `Text` 中获取其大小
+
+``` kotlin
+@Composable
+fun MatchParentSizeComposable() {
+    Box {
+        Spacer(Modifier.matchParentSize().background(Color.Green))
+        Text("Hello World")
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo11.png" width = "30%" height = "30%">
+
+如果使用 `fillMaxSize` 而不是` matchParentSize`，那么 `Spacer` 将占用允许给父代的所有可用空间，反过来导致父代扩展并填充所有可用空间
+
+<img src = "../../assets/layout/overview/demo12.png" width = "70%" height = "70%">
+
+如果你想在文本基线上方添加 `padding` 使你达到从布局顶部到基线的特定距离
+
+那么请使用 `paddingFromBaseline`
+
+``` kotlin
+@Composable
+fun TextWithPaddingFromBaseline() {
+    Box(Modifier.background(Color.Yellow)) {
+        Text("Hi there!", Modifier.paddingFromBaseline(top = 32.dp))
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo13.png" width = "20%" height = "20%">
+
+#### 2. offset
