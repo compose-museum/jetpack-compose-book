@@ -176,3 +176,58 @@ fun ArtistCard(/*...*/) {
 
     明确顺序有助于你推理不同的 `Modifier` 将如何相互作用。与基于 `view` 的系统相比，你必须学习盒子模型，即在元素的 "外面" 应用 `margin`，而在 "里面 "应用 `pading`，背景元素会有相应的大小
     `Modifier` 的设计使这种行为变得明确和可预测，并给你更多的控制来实现你想要的确切行为。这也解释了为什么没有 `margin` 修改器而只有 `padding` 修改器
+
+### 内置 modifiers
+
+Jetpack Compose 提供了一个内置 `modifiers` 的列表，以帮助你装饰或增强一个 ***Composable***。下面是一个涵盖最常见的使用情况的列表：
+
+#### 1. Padding 和 size
+
+要在一个 ***Composable*** 的周围进行填充，请添加 `padding`
+
+``` kotlin
+@Composable
+fun PaddedComposable() {
+    Text(
+        text = "Hello World", 
+        modifier = Modifier
+            .background(Color.Green)
+            .padding(20.dp)
+    )
+}
+```
+
+<img src = "../../assets/layout/overview/demo8.png" width = "50%" height = "50%">
+
+默认情况下，Compose 中提供的布局是包裹其子项的。
+
+然鹅，你可以通过使用 `size` 来设置一个尺寸
+
+``` kotlin
+@Composable
+fun SizedComposable() {
+    Box(Modifier.size(100.dp, 100.dp).background(Color.Red))
+}
+```
+
+!!! 注意
+    如果您指定的尺寸不满足来自布局父级的约束，则可能无法使用该尺寸。如果你要求的 ***Composable*** 的尺寸是固定的，不管传入的约束条件如何，请使用 `requiredSize`
+
+``` kotlin
+@Composable
+fun FixedSizeComposable() {
+    Box(
+        Modifier
+        .size(90.dp, 150.dp)
+        .background(Color.Green)
+    ) {
+        Box(
+            Modifier
+            .requiredSize(100.dp, 100.dp)
+            .background(Color.Red)
+        )
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo9.png" width = "50%" height = "50%">
