@@ -15,9 +15,11 @@
 
 欢迎来学习！ 
 
-国外线路 <https://docs.compose.net.cn/> 
+<https://docs.compose.net.cn/> 
 
-国内线路 <https://compose.net.cn/>
+或者
+
+<https://compose.net.cn/>
 
 <img src = "/screenshots/sc1.png">
 
