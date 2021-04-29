@@ -50,7 +50,7 @@ fun ArtistCard() {
 @Composable
 fun ArtistCard(artist: Artist) {
     Row(verticalAlignment = Alignment.CenterVertically) {
-        Image( /*...*/ ) // 显示一张图片
+        Image( /*...*/ )
         Column {
             Text(artist.name)
             Text(artist.lastSeenOnline)
@@ -60,6 +60,9 @@ fun ArtistCard(artist: Artist) {
 ```
 
 <img src = "../../assets/layout/overview/demo3.png" width = "40%" height = "40%">
+
+!!! 注意
+    图中的圆形图像的效果可以在 **基本组件/Image** 中实现
 
 关于 `Row` 的详情可以参考 [这里](row.md)
 
