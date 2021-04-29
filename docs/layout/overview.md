@@ -65,3 +65,64 @@ fun ArtistCard(artist: Artist) {
 
 !!! Tips 
     注意：Compose有效地处理嵌套布局，使其成为设计复杂UI的好方法。这是对Android Views的改进，在Android Views中，出于性能原因，您需要避免嵌套布局。
+
+如果想要在 `Row` 中设置子项的位置，可以设置 `horizontalArrangement` 和 `verticalAlignment` 参数，
+
+对于 `Column` 来说，设置 `verticalArrangement` 和 `horizontalAlignment`
+
+``` kotlin
+@Composable
+fun AlignInRow() {
+    Row(
+        modifier = Modifier
+            .size(150.dp)
+            .background(Color.Yellow),
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Box(Modifier.size(50.dp).background(Color.Red))
+        Box(Modifier.size(50.dp).background(Color.Blue))
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo4.png" width = "40%" height = "40%">
+
+## 2. Modifier
+
+`Modifier` 允许你装饰或增强一个 ***Composable***， `Modifier` 允许你做以下的事情
+
+* 改变 ***Composable*** 的大小、布局、行为和外观
+* 添加信息，如无障碍标签
+* 处理用户的输入
+* 添加高层次的交互，比如让一个元素可点击、可滚动、可拖动或可缩放
+* 修改器是标准的 **Kotlin** 对象。通过调用 `Modifier` 类的一个函数来创建一个 `modifier`。你可以把这些函数串联起来，组成它们：
+
+``` kotlin
+@Composable
+fun ArtistCard(
+    artist: Artist,
+    onClick: () -> Unit
+) {
+    val padding = 16.dp
+    Column(
+        Modifier
+            .clickable(onClick = onClick)
+            .padding(padding)
+            .fillMaxWidth()
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) { /*...*/ }
+        Spacer(Modifier.size(padding))
+        Card(elevation = 4.dp) { /*...*/ }
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo5.png" width = "50%" height = "50%">
+
+在上面的代码中，你会注意到不同的 `modifier` 函数一起使用
+
+* `clickable` 使一个 ***Composable*** 元素对用户的输入作出反应，并显示一个波纹
+* `padding` 在一个元素周围填充了空间
+* `fillMaxWidth` 让 ***Composable*** 元素填满其父元素的最大宽度
+* `size()` 来指定一个元素的宽度和高度
