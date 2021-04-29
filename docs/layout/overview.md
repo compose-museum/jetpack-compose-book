@@ -80,8 +80,8 @@ fun AlignInRow() {
         modifier = Modifier
             .size(150.dp)
             .background(Color.Yellow),
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
+        horizontalArrangement = Arrangement.End, // 设置 Row 中的子项水平布局为最右边
+        verticalAlignment = Alignment.CenterVertically // 设置 Row 中的子项竖直布局为中心
     ) {
         Box(Modifier.size(50.dp).background(Color.Red))
         Box(Modifier.size(50.dp).background(Color.Blue))
@@ -129,3 +129,50 @@ fun ArtistCard(
 * `padding` 在一个元素周围填充了空间
 * `fillMaxWidth` 让 ***Composable*** 元素填满其父元素的最大宽度
 * `size()` 来指定一个元素的宽度和高度
+
+
+!!! 注意
+    在其他方面，`Modifier` 的作用类似于基于 `view` 布局中的布局参数。然而，由于 `Modifier` 有时是特定范围的，它们提供了类型安全，也帮助你发现和理解什么是可用的，适用于某个布局。对于 XML 布局，有时很难发现某个特定的布局属性是否适用于某个视图。
+
+`Modifier` 函数的顺序是很**重要**的。因为每个函数都会对前一个函数返回的修改器进行修改，所以顺序会影响最终的结果。让我们来看看这个例子：
+
+``` kotlin
+@Composable
+fun ArtistCard(/*...*/) {
+    val padding = 16.dp
+    Column(
+        Modifier
+            .clickable(onClick = onClick)
+            .padding(padding)
+            .fillMaxWidth()
+    ) {
+        // rest of the implementation
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo6.gif" width = "50%" height = "50%">
+
+在上面的代码中，整个区域都是可点击的，包括周围的填充物，因为 `padding modifier` 被应用在 `clickable` 之后。如果 `modifier` 的顺序颠倒了，那么由 `padding` 增加的空间就不会对用户的输入做出反应。
+
+``` kotlin
+@Composable
+fun ArtistCard(/*...*/) {
+    val padding = 16.dp
+    Column(
+        Modifier
+            .padding(padding)
+            .clickable(onClick = onClick)
+            .fillMaxWidth()
+    ) {
+        // rest of the implementation
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo7.gif" width = "50%" height = "50%">
+
+!!! 注意
+
+    明确顺序有助于你推理不同的 `Modifier` 将如何相互作用。与基于 `view` 的系统相比，你必须学习盒子模型，即在元素的 "外面" 应用 `margin`，而在 "里面 "应用 `pading`，背景元素会有相应的大小
+    `Modifier` 的设计使这种行为变得明确和可预测，并给你更多的控制来实现你想要的确切行为。这也解释了为什么没有 `margin` 修改器而只有 `padding` 修改器
