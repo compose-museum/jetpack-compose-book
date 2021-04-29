@@ -231,3 +231,7 @@ fun FixedSizeComposable() {
 ```
 
 <img src = "../../assets/layout/overview/demo9.png" width = "50%" height = "50%">
+
+在这个例子中，即使父本的宽度被设置为 `90.dp`，内盒的宽度也将是 `100.dp`
+
+因为内盒的 `equiredSize` 修改器优先
