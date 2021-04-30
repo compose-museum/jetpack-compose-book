@@ -303,3 +303,56 @@ fun TextWithPaddingFromBaseline() {
 要将一个布局相对于它的原始位置进行定位，可以添加 `offet`，并在 x 和 y 轴上设置偏移量
 
 偏移量可以是正的，也可以是负的。填充和偏移的区别在于，给一个 ***Composable*** 添加偏移并不会改变它的测量
+
+``` kotlin
+@Composable
+fun OffsetComposable() {
+    Box(Modifier.background(Color.Yellow).size(width = 150.dp, height = 70.dp)) {
+        Text(
+            "Layout offset modifier sample",
+            Modifier.offset(x = 15.dp, y = 20.dp)
+        )
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo14.png" width = "50%" height = "50%">
+
+`padding` modifier 根据布局方向在水平方向上应用。在从左到右的情况下，正的偏移值会将元素向右移动，而在从右到左的情况下，它会将元素向左移动。如果你需要在不考虑布局方向的情况下设置一个偏移量，请参见`absoluteOffset` 修改器，其中一个正的偏移值总是将元素向右移动
+
+## 3. 响应性布局
+
+设计布局时应考虑到不同的屏幕方向和外形尺寸。`Compose` 提供了一些机制来促进你的 ***Composable*** 布局适应各种屏幕配置
+
+### Row 和 Column 中的 weight modifier
+
+正如你在前面关于填充和尺寸的章节中所看到的，一个 ***Composable*** 尺寸默认是由它所包裹的内容来定义的。你可以将一个 ***Composable*** 尺寸设置为在其父级内容中具有灵活性。让我们来看看一个包含两个盒子的行的可组合尺寸。
+
+第一个盒子的权重是第二个盒子的两倍，所以它的宽度也是两倍。因为行的宽度是 `210.dp`，所以第一个盒子的宽度是 `140.dp`，而第二个是 `70.dp`
+
+``` kotlin
+@Composable
+fun FlexibleComposable() {
+    Row(Modifier.width(210.dp)) {
+        Box(Modifier.weight(2f).height(50.dp).background(Color.Blue))
+        Box(Modifier.weight(1f).height(50.dp).background(Color.Red))
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo15.png" width = "50%" height = "50%">
+
+## 4. 约束条件
+
+为了知道来自父体的约束并相应地设计布局，你可以使用 `BoxWithConstraints`。测量约束可以在 `content lambda` 的范围内找到。你可以使用这些测量约束来为不同的屏幕配置组成不同的布局
+
+``` kotlin
+@Composable
+fun WithConstraintsComposable() {
+    BoxWithConstraints {
+        Text("My minHeight is $minHeight while my maxWidth is $maxWidth")
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo16.png" width = "50%" height = "50%">
