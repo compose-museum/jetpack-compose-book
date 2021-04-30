@@ -294,3 +294,7 @@ fun TextWithPaddingFromBaseline() {
 <img src = "../../assets/layout/overview/demo13.png" width = "20%" height = "20%">
 
 #### 2. offset
+
+要将一个布局相对于它的原始位置进行定位，可以添加 `offet`，并在 x 和 y 轴上设置偏移量
+
+偏移量可以是正的，也可以是负的。填充和偏移的区别在于，给一个 ***Composable*** 添加偏移并不会改变它的测量
