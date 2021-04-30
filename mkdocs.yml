@@ -44,7 +44,7 @@ nav:
         - '小试牛刀 1': practice/practice1.md
     - '贡献': contributing.md
     - '资源': resources.md
-    - '关于赞助': pay.md
+    - '关于投喂': pay.md
 extra:
   social:
     - icon: fontawesome/brands/github
