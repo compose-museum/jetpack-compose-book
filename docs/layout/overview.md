@@ -494,3 +494,88 @@ private fun decoupledConstraints(margin: Dp): ConstraintSet {
 ```
 
 然后，当你需要改变约束时，你可以只传递一个不同的 `ConstraintSet`
+
+
+## 6. 自定义布局
+
+在 `Compose` 中，UI 元素由 ***composable*** 函数表示，这些函数在被调用时发出一段 UI，然后被添加到一个 UI 树中，在屏幕上呈现。每个 UI 元素都有一个父元素和可能的许多子元素。每个元素都位于它的父元素中，被指定为一个（x，y）位置，以及一个尺寸，被指定为一个宽度和一个高度。
+
+父元素为他们的子元素定义约束条件。一个元素被要求在这些约束中定义它的尺寸。约束条件限制了一个元素的最小和最大宽度和高度。如果一个元素有子元素，它可以测量每个子元素以帮助确定其尺寸。一旦一个元素确定并告知了它自己的尺寸，它有机会定义如何相对于自身放置子元素，就像在创建自定义布局中详细描述的。
+
+注意：Compose UI 不允许多通道测量。这意味着一个布局元素不能多次测量它的任何子元素，以尝试不同的测量配置。
+
+单遍测量有助于提高性能，使 `Compose` 可以有效处理深层 UI 树。如果一个元素测量了它的子元素两次，而这个子元素又测量了它的一个子元素两次，以此类推，那么一次尝试布局整个 UI 就必须做很多工作，这就很难让你的应用程序保持良好的性能。然而，有些时候，你真的需要在单个子项测量所能告诉你的信息之上的额外信息。有一些方法可以有效地应对这样的情况，这些方法将在内在的测量部分讨论
+
+通过www.DeepL.com/Translator（免费版）翻译
+
+
+### 使用 layout modifier
+
+你可以使用 layout modifier 来修改一个元素的测量和布局方式。`Layout` 是一个 `lambda`；它的参数包括你可以测量的元素，以可测量的方式传递，而这个 ***Composable*** 的传入约束则以约束的方式传递。一个自定义的 layout modifier 可以是这样的
+
+``` kotlin
+fun Modifier.customLayoutModifier(...) =
+    this.layout { measurable, constraints ->
+        ...
+    })
+```
+
+让我们在屏幕上显示一个文本，并控制第一行文本从顶部到基线的距离。这正是 `paddingFromBaseline` 的作用，我们在这里作为一个例子来实现它。要做到这一点，请使用 layout modifier 来手动将 ***Composable*** 的东西放在屏幕上。
+
+下面是期望的行为，文本顶部的 `padding` 被设置为 `24.dp`
+
+<img src = "../../assets/layout/overview/demo20.png" width = "60%" height = "60%">
+
+
+下面是产生这种间距的代码：
+
+```kotlin
+fun Modifier.firstBaselineToTop(
+    firstBaselineToTop: Dp
+) = layout { measurable, constraints ->
+    // Measure the composable
+    val placeable = measurable.measure(constraints)
+
+    // Check the composable has a first baseline
+    check(placeable[FirstBaseline] != AlignmentLine.Unspecified)
+    val firstBaseline = placeable[FirstBaseline]
+
+    // Height of the composable with padding - first baseline
+    val placeableY = firstBaselineToTop.roundToPx() - firstBaseline
+    val height = placeable.height + placeableY
+    layout(placeable.width, height) {
+        // Where the composable gets placed
+        placeable.placeRelative(0, placeableY)
+    }
+}
+```
+
+
+以下是那段代码中的内容：
+
+1. 在 `measurablelambda` 参数中，你通过调用 `measurable.measure(constraints)` 来测量由 `measurabl` 参数代表的 `Text`。
+2. 你通过调用 `layout(width, height)` 方法来指定 ***Composable*** 的尺寸，该方法也给出了一个用于放置包装元素的 `lambda`。在这种情况下，它是最后一个 `baseline` 和增加的 `top padding` 之间的高度。
+3. 你可以通过调用 `placeable.place(x, y)` 将被包装好的元素放置在屏幕上。如果被包装的元素没有被放置，它们将不可见。`y` position 对应的是 `top padding` -- 文本的第一条 baseline 的位置。
+
+为了验证这是否如预期的那样工作，请在 `Text` 上使用这个 **modifier**。
+
+
+``` kotlin
+@Preview
+@Composable
+fun TextWithPaddingToBaselinePreview() {
+    MyApplicationTheme {
+        Text("Hi there!", Modifier.firstBaselineToTop(32.dp))
+    }
+}
+
+@Preview
+@Composable
+fun TextWithNormalPaddingPreview() {
+    MyApplicationTheme {
+        Text("Hi there!", Modifier.padding(top = 32.dp))
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo21.png" width = "40%" height = "40%">
