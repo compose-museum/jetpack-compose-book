@@ -41,7 +41,7 @@ nav:
     - '参数':
         - 'Modifier': parameters/modifier.md
     - '代码实验室':
-        - '小试牛刀 1': practice/practice1.md
+        - '小试牛刀 1': codelabs/how-to-write-a-codelab/index.html
     - '贡献': contributing.md
     - '资源': resources.md
     - '关于投喂': pay.md
