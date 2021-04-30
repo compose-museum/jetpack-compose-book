@@ -1,0 +1,25 @@
+{
+  "environment": "web",
+  "format": "html",
+  "prefix": "https://storage.googleapis.com",
+  "mainga": "UA-49880327-14",
+  "updated": "2021-04-30T15:05:08+02:00",
+  "id": "小试牛刀1",
+  "duration": 1,
+  "title": "小试牛刀1",
+  "authors": "Nthily",
+  "summary": "小试牛刀1",
+  "source": "xsnd1.md",
+  "theme": "",
+  "status": [
+    "published"
+  ],
+  "category": [
+    "sample"
+  ],
+  "tags": [
+    "medium"
+  ],
+  "feedback": "https://github.com/Nthily",
+  "url": "小试牛刀1"
+}
