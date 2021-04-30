@@ -355,9 +355,9 @@ fun WithConstraintsComposable() {
 }
 ```
 
-#### 基于插槽的布局
-
 <img src = "../../assets/layout/overview/demo16.png" width = "50%" height = "50%">
+
+#### 基于插槽的布局
 
 `Compose` 通过 `androidx.compose.material:material` 依赖关系（在 Android Studio 中创建 `Compose` 工程时会包含在内）提供了大量基于 `Material Design `的可组合元素，使 UI 构建变得简单。像   `Drawer`、`FloatingActionButton` 和 `TopAppBar` 这样的元素都被提供。
 
@@ -384,3 +384,5 @@ fun HomeScreen(/*...*/) {
     )
 }
 ```
+
+## ConstraintLayout
