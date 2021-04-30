@@ -355,4 +355,32 @@ fun WithConstraintsComposable() {
 }
 ```
 
+#### 基于插槽的布局
+
 <img src = "../../assets/layout/overview/demo16.png" width = "50%" height = "50%">
+
+`Compose` 通过 `androidx.compose.material:material` 依赖关系（在 Android Studio 中创建 `Compose` 工程时会包含在内）提供了大量基于 `Material Design `的可组合元素，使 UI 构建变得简单。像   `Drawer`、`FloatingActionButton` 和 `TopAppBar` 这样的元素都被提供。
+
+Material 组件大量使用插槽 API，这是 `Compose` 引入的一种模式，在可组合的基础上引入了一层定制。这种方法使组件更加灵活，因为它们接受一个可以自我配置的子元素，而不是必须暴露子元素的每一个配置参数。槽在用户界面中留下了一个空位，供开发者按照自己的意愿来填充。例如，这些是你可以在 `TopAppBar` 中自定义的位置
+
+<img src = "../../assets/layout/overview/demo17.png" width = "50%" height = "50%">
+
+***Composable*** 通常采取一个内容可组合的 `lambda ( content: @Composable () -> Unit)`。插槽 API 为特定用途公开了多个内容参数。例如，`TopAppBar` 允许你为标题、导航图标和行为提供内容。
+
+例如，`Scaffold` 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 为最常见的顶层 `Material` 组件提供了插槽，如 `TopAppBar`、`BottomAppBar`、`FloatingActionButton` 和`Drawer` 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作
+
+!!! Tips
+    要更好的了解 **Scaffold** 可以参考**布局/Scaffold**
+
+<img src = "../../assets/layout/overview/demo18.png" width = "70%" height = "70%">
+
+``` kotlin
+@Composable
+fun HomeScreen(/*...*/) {
+    Scaffold(
+        drawerContent = { /*...*/ },
+        topBar = { /*...*/ },
+        bodyContent = { /*...*/ }
+    )
+}
+```
