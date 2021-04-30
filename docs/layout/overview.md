@@ -63,11 +63,12 @@ fun ArtistCard(artist: Artist) {
 
 !!! 注意
     图中的圆形图像的效果可以在 **基本组件/Image** 中实现
+    图中的文字效果可以在 **基本组件/Text** 中实现
 
 关于 `Row` 的详情可以参考 [这里](row.md)
 
 !!! Tips 
-    注意：Compose有效地处理嵌套布局，使其成为设计复杂UI的好方法。这是对Android Views的改进，在Android Views中，出于性能原因，您需要避免嵌套布局。
+    注意：Compose 有效地处理嵌套布局，使其成为设计复杂UI的好方法。这是对 Android Views 的改进，在 Android Views 中，出于性能原因，您需要避免嵌套布局。
 
 如果想要在 `Row` 中设置子项的位置，可以设置 `horizontalArrangement` 和 `verticalAlignment` 参数，
 
@@ -82,6 +83,10 @@ fun AlignInRow() {
             .background(Color.Yellow),
         horizontalArrangement = Arrangement.End, // 设置 Row 中的子项水平布局为最右边
         verticalAlignment = Alignment.CenterVertically // 设置 Row 中的子项竖直布局为中心
+        // start 左边
+        // end 右边
+        // top 上边
+        // bottom 下边
     ) {
         Box(Modifier.size(50.dp).background(Color.Red))
         Box(Modifier.size(50.dp).background(Color.Blue))
@@ -125,8 +130,8 @@ fun ArtistCard(
 
 在上面的代码中，你会注意到不同的 `modifier` 函数一起使用
 
-* `clickable` 使一个 ***Composable*** 元素对用户的输入作出反应，并显示一个波纹
-* `padding` 在一个元素周围填充了空间
+* `clickable` 使一个 ***Composable*** 元素对用户的点击作出反应，并显示一个波纹
+* `padding` 在一个元素的周围填充了空间
 * `fillMaxWidth` 让 ***Composable*** 元素填满其父元素的最大宽度
 * `size()` 来指定一个元素的宽度和高度
 
