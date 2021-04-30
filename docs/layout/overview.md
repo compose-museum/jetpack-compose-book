@@ -367,10 +367,10 @@ Material 组件大量使用插槽 API，这是 `Compose` 引入的一种模式�
 
 ***Composable*** 通常采取一个内容可组合的 `lambda ( content: @Composable () -> Unit)`。插槽 API 为特定用途公开了多个内容参数。例如，`TopAppBar` 允许你为标题、导航图标和行为提供内容。
 
-例如，`Scaffold` 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 为最常见的顶层 `Material` 组件提供了插槽，如 `TopAppBar`、`BottomAppBar`、`FloatingActionButton` 和`Drawer` 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作
+例如，[Scaffold](scaffold/overview.md) 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 为最常见的顶层 `Material` 组件提供了插槽，如 [TopAppBar](https://material.io/components/app-bars-top#usage)、[BottomAppBar](https://material.io/components/app-bars-bottom/)、[FloatingActionButton](https://material.io/components/buttons-floating-action-button/) 和 [Drawer](https://material.io/components/navigation-drawer) 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作
 
 !!! Tips
-    要更好的了解 **Scaffold** 可以参考**布局/Scaffold**
+    要更好的了解 **Scaffold** 可以参考[这里](scaffold/overview.md)
 
 <img src = "../../assets/layout/overview/demo18.png" width = "70%" height = "70%">
 
@@ -385,4 +385,112 @@ fun HomeScreen(/*...*/) {
 }
 ```
 
-## ConstraintLayout
+## 5. ConstraintLayout
+
+`ConstraintLayout` 可以帮助在屏幕上放置相对于其他的合成物，并且是使用多个嵌套的 `Row`, `Column`, `Box` 自定义布局元素的替代方案。
+
+`ConstraintLayout` 在实现具有更复杂对齐要求的大型布局时很有用，但在创建简单的布局时，最好使用 `Columns`和 `Rows` 来代替。
+
+要在 `Compose` 中使用 `ConstraintLayout`，你需要在 `build.gradle` 中添加这个依赖项
+
+```
+implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
+```
+
+!!! 注意
+    注意：在 `View` 系统中，`ConstraintLayout` 是创建大型复杂布局的推荐方式，因为扁平的视图层次结构比嵌套的视图更有利于性能。然而，这在 `Compose` 中并不是一个问题，它能够有效地处理深层次的布局层次结构
+
+`Compose` 中的 `ConstraintLayout` 以 [DSL](https://kotlinlang.org/docs/type-safe-builders.html) 方式工作。
+
+引用是用 `createRefs()` 或 `createRefFor()` 创建的，`ConstraintLayout` 中的每一个 ***Composable*** 都需要有一个与之相关的引用。
+约束条件使用 `constrainAs()` modifier 提供，它将引用作为一个参数，让你在主体 `lambda` 中指定其约束。
+约束条件使用 `linkTo()` 或其他有用的方法来指定。
+`paren` t是一个现有的引用，可以用来指定对 `ConstraintLayout composable` 本身的约束
+
+下面是一个使用 `ConstraintLayout` 的 ***Composable*** 例子：
+
+``` kotlin
+@Composable
+fun ConstraintLayoutContent() {
+    ConstraintLayout {
+        // 给需要约束的 Composable 元素创建引用
+        val (button, text) = createRefs()
+
+        Button(
+            onClick = { /* Do something */ },
+            
+            // 将 button 的引用给 Button 控件
+            // 并且设置约束
+
+            modifier = Modifier.constrainAs(button) {
+                top.linkTo(parent.top, margin = 16.dp)
+            }
+        ) {
+            Text("Button")
+        }
+
+            // 将 Text 的引用给 Text 控件
+            // 并且设置约束
+
+        Text("Text", Modifier.constrainAs(text) {
+            top.linkTo(button.bottom, margin = 16.dp)
+        })
+    }
+}
+```
+
+这段代码将 `Button` 的顶部约束到父级，边距为 `16.dp` ，将 `Text` 约束到 `Button` 的底部，边距也为 `16.dp`
+
+
+<img src = "../../assets/layout/overview/demo19.png" width = "20%" height = "20%">
+
+关于如何使用 `ConstraintLayout` 的更多例子，请参阅 [layout codelab](https://developer.android.com/codelabs/jetpack-compose-layouts#0)
+
+### 解耦的 API
+
+在 `ConstraintLayout` 的例子中，约束条件是内联指定的，在它们所应用的 `composable` 中带有一个 modifier。然而，在有些情况下，最好将约束与它们所应用的布局解耦。例如，你可能想根据屏幕配置来改变约束，或者在两个约束集之间制作动画。
+
+对于这样的情况，你可以用不同的方式来使用 `ConstraintLayout`：
+
+- 传入一个 `ConstraintSet` 作为 `ConstraintLayout` 的参数。
+- 使用 `layoutId` 修改器将 `ConstraintSet` 中创建的引用分配给 ***Composable***
+
+``` kotlin
+@Composable
+fun DecoupledConstraintLayout() {
+    BoxWithConstraints {
+        val constraints = if (minWidth < 600.dp) {
+            decoupledConstraints(margin = 16.dp) // 竖屏约束
+        } else {
+            decoupledConstraints(margin = 32.dp) // 横屏约束
+        }
+
+        ConstraintLayout(constraints) {
+            Button(
+                onClick = { /* Do something */ },
+                modifier = Modifier.layoutId("button")
+            ) {
+                Text("Button")
+            }
+
+            Text("Text", Modifier.layoutId("text"))
+        }
+    }
+}
+
+private fun decoupledConstraints(margin: Dp): ConstraintSet {
+    return ConstraintSet {
+        val button = createRefFor("button")
+        val text = createRefFor("text")
+
+        constrain(button) {
+            top.linkTo(parent.top, margin = margin)
+        }
+        constrain(text) {
+            top.linkTo(button.bottom, margin)
+        }
+    }
+}
+```
+
+然后，当你需要改变约束时，你可以只传递一个不同的 `ConstraintSet`
