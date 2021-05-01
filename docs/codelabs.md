@@ -1,5 +1,5 @@
 
-**Codelabs** 主要是帮助大家能够更容易的完善一些小的实现等
+**Codelabs** 主要是帮助大家能够实现一些简单/有用/好玩的东西
 
 [Codelabs 主页](https://codelabs.compose.net.cn/)
 
