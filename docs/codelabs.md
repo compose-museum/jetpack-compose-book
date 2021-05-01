@@ -29,7 +29,7 @@
 
 1. 进入 codelabs 文件夹下，可以看到有许多文件夹和 `.md` 文件
 2. 修改对应的 `.md` 文件
-3. 执行 `claat export {对应的 .md 文件名}`，成功的话会看到 ok -----
+3. 执行 `claat export xxxx.md`，成功的话会看到 ok -----
 4. 返回根目录执行 `gulp serve --codelabs-dir=codelabs` 重新生成网页
 
 
