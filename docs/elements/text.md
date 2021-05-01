@@ -60,6 +60,10 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text2.png)  
 
+!!! Tips
+    如果只是想简单的修改字体大小而不考虑间隔之类的，可以直接使用 `fontSize = xx.sp` 来设置大小
+
+
 ## 2. maxLines 参数
 
 使用 `maxLines` 参数可以帮助我们将文本限制在指定的行数之间，如果文本足够短则不会生效，如果文本超过 `maxLines` 所规定的行数，则会进行截断
