@@ -6,7 +6,7 @@
 
 | 实验室 | 介绍 |
 | -------|------|
-| [**小试牛刀1**](https://codelabs.compose.net.cn/codelabs/first_codelab/index.html?index=..%2F..index#0)| 实现简单的结构布局 |
+| [**小试牛刀1**](https://codelabs.compose.net.cn/codelabs/小试牛刀1/index.html?index=..%2F..index#0)| 实现简单的结构布局 |
 
 
 ## 关于如何贡献 Codelabs 或者修改错误
