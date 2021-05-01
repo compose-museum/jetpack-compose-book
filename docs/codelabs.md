@@ -39,7 +39,7 @@
 
 ### 提交更改
 
-pr 到 -> **gh-pages** 分支
+pr 到 -> **master** 分支
 
 ### 提交 issue
 
