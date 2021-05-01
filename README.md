@@ -13,6 +13,8 @@
 
 未来可能会添加一些样例 app（开发中）
 
+有 Codelabs 用于学习一些有意思的东西
+
 欢迎来学习！ 
 
 <https://docs.compose.net.cn/> 
@@ -21,7 +23,13 @@
 
 <https://compose.net.cn/>
 
+### 文档网站：
+
 <img src = "/screenshots/demo.png">
+
+### Codelabs：
+
+<img src = "/screenshots/demo2.png">
 
 
 ## 关于贡献
