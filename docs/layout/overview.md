@@ -302,7 +302,7 @@ fun TextWithPaddingFromBaseline() {
 
 要将一个布局相对于它的原始位置进行定位，可以添加 `offet`，并在 x 和 y 轴上设置偏移量
 
-偏移量可以是正的，也可以是负的。填充和偏移的区别在于，给一个 ***Composable*** 添加偏移并不会改变它的测量
+偏移量可以是正的，也可以是负的。`padding` 和 `offset` 的区别在于，给一个 ***Composable*** 添加 `offset` 并不会改变它的测量
 
 ``` kotlin
 @Composable
