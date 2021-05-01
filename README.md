@@ -21,7 +21,7 @@
 
 <https://compose.net.cn/>
 
-<img src = "/screenshots/sc1.png">
+<img src = "/screenshots/demo.png">
 
 
 ## 关于贡献
