@@ -30,15 +30,13 @@
 1. 进入 codelabs 文件夹下，可以看到有许多文件夹和 `.md` 文件
 2. 修改对应的 `.md` 文件
 3. 执行 `claat export xxxx.md`，成功的话会看到 ok -----
-4. 返回根目录执行 `gulp serve --codelabs-dir=codelabs` 重新生成网页
+4. 刷新 `http://localhost:8000/`
 
 
 !!! warning "注意"
     如果是 windows 系统，请务必使用 `Unix LF` 行尾来保存文件，否则在网页上会有很多错误
 
 ### 提交更改
-
-提交 **pr** 时，尽量把 `build` 文件夹删除，因为核心内容只是 `codelabs/` 下的东西，根目录是存放主界面的网页尽量不要修改
 
 pr 到 -> **gh-pages** 分支
 
