@@ -36,10 +36,12 @@
 !!! warning "注意"
     如果是 windows 系统，请务必使用 `Unix LF` 行尾来保存文件，否则在网页上会有很多错误
 
-### 最后
+### 提交更改
 
 提交 **pr** 时，尽量把 `build` 文件夹删除，因为核心内容只是 `codelabs/` 下的东西，根目录是存放主界面的网页尽量不要修改
 
 pr 到 -> **gh-pages** 分支
+
+### 提交 issue
 
 如果觉得自己修改有点麻烦的话，也可以到[这里](https://github.com/compose-museum/codelabs/issues/new)提交 `issue`，尽量提供是哪些页面/代码有错误
