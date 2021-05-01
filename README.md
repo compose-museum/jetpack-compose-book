@@ -29,7 +29,7 @@
 ### Jetpack Compose
 如果你想为 Jetpack Compose 做贡献的话，你可以加入 [Kotlin](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 的 Slack 频道 **#Compose**, 或者在 [https://issuetracker.google.com/issues?q=componentid:612128](https://issuetracker.google.com/issues?q=componentid:612128) 中提交 Compose 的 Bug 或者错误
 
-### [关于 Codelabs](codelabs.md)
+### [关于 Codelabs](docs/codelabs.md)
 
 ### 本项目
 
