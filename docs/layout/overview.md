@@ -506,9 +506,6 @@ private fun decoupledConstraints(margin: Dp): ConstraintSet {
 
 单遍测量有助于提高性能，使 `Compose` 可以有效处理深层 UI 树。如果一个元素测量了它的子元素两次，而这个子元素又测量了它的一个子元素两次，以此类推，那么一次尝试布局整个 UI 就必须做很多工作，这就很难让你的应用程序保持良好的性能。然而，有些时候，你真的需要在单个子项测量所能告诉你的信息之上的额外信息。有一些方法可以有效地应对这样的情况，这些方法将在内在的测量部分讨论
 
-通过www.DeepL.com/Translator（免费版）翻译
-
-
 ### 使用 layout modifier
 
 你可以使用 layout modifier 来修改一个元素的测量和布局方式。`Layout` 是一个 `lambda`；它的参数包括你可以测量的元素，以可测量的方式传递，而这个 ***Composable*** 的传入约束则以约束的方式传递。一个自定义的 layout modifier 可以是这样的
