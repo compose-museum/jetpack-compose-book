@@ -7,7 +7,7 @@
 
 ## Jetpack Compose 教程 (Compose-Tutorial) （开发中 ing... 咕咕咕） 
 
-此项目致力于帮助大家更好的理解和使用 Jetpack Compose 框架，从而提高开发效率
+此项目致力于帮助大家更好的理解和快速上手 Jetpack Compose 框架，从而提高开发效率
 
 项目会包含很多关于 Jetpack Compose 的 教程/ 基本使用方法 / 经历的坑
 
