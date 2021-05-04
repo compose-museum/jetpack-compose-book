@@ -29,7 +29,7 @@
 
 1. 进入 codelabs 文件夹下，可以看到有许多文件夹和 `.md` 文件
 2. 修改对应的 `.md` 文件
-3. 执行 `claat export xxxx.md`，成功的话会看到 ok -----
+3. 执行 `claat export xxxx.md`，成功的话会看到 ok -----  并且生成一个文件夹(如果已有的话会覆盖)
 4. 刷新 `http://localhost:8000/`
 
 
