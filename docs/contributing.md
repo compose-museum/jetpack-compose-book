@@ -21,7 +21,7 @@
 
 * 在本地运行和测试
 
-    终端执行 ``` mkdocs serve ```，将会在 ``` http://localhost:8000/ ``` 看到文档
+    在项目根目录终端执行 ``` mkdocs serve ```，将会在 ``` http://localhost:8000/ ``` 看到文档
 
 
 * 如何添加/更改文档？
