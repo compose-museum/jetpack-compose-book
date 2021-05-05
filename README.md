@@ -17,9 +17,9 @@
 
 欢迎来学习！ 
 
-<https://docs.compose.net.cn> 或 <https://compose.net.cn/>
+基础文档： <https://docs.compose.net.cn> 或 <https://compose.net.cn/>
 
-<https://codelabs.compose.net.cn>
+代码实验室： <https://codelabs.compose.net.cn>
 
 ### 文档网站：
 
