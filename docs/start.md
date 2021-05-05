@@ -5,7 +5,7 @@
 ### 2. **安装** [最新 Canary 版的 Android Studio 预览版](https://developer.android.com/studio/preview)
 ### 3. 选择创建 **Empty Compose Activity** [![c3JfgA.md.png](https://z3.ax1x.com/2021/04/07/c3JfgA.png)](https://z3.ax1x.com/2021/04/07/c3JfgA.png)
 
-### 4. 配置 Kotlin
+### 4. 保持版本更新
 
 尝试使用最新的 `Compose` 版本和 `Kotlin` 版本
 
@@ -13,14 +13,14 @@
 
 ```kotlin
 buildscript {
-    val compose_version by extra("1.0.0-beta05")
+    val compose_version by extra("1.0.0-beta05") // Compose 版本
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
         classpath("com.android.tools.build:gradle:7.0.0-alpha12")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32") // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
@@ -48,7 +48,7 @@ buildscript {
 ```
 
 
-### 5. 最后配置 Gradle
+### 5. 配置 Gradle（可忽略）
 
 您需要将应用的最低 API 级别设置为 21 或更高级别，并在应用的 build.gradle 文件中启用 Jetpack Compose，如下所示。另外还要设置 Kotlin 编译器插件的版本。
 
