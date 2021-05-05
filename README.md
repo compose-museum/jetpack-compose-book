@@ -85,6 +85,12 @@
 
 #### 如果你觉得此项目对你有帮助的话，不妨点个 Star 支持下作者吧~！
 
+## 贡献者
+
+<a href="https://github.com/compose-museum/compose-tutorial/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=compose-museum/compose-tutorial" />
+</a>
+
 ### License
 ```
 Copyright 2021 compose-museum
