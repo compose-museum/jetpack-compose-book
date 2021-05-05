@@ -43,4 +43,4 @@ pr 到 -> **master** 分支
 
 ### 提交 issue
 
-如果觉得自己修改有点麻烦的话，也可以到[这里](https://github.com/compose-museum/codelabs/issues/new)提交 `issue`，尽量提供是哪些页面/代码有错误
+如果觉得自己修改有点麻烦的话，也可以到[这里](https://github.com/compose-museum/codelabs/issues/new/choose)提交 `issue`，尽量提供是哪些页面/代码有错误
