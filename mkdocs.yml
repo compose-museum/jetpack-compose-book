@@ -35,10 +35,10 @@ nav:
         - 'Spacer': layout/spacer.md
         - 'Scaffold':
           - '概述': layout/scaffold/overview.md
-          - '1. topBar 参数': layout/scaffold/topbar.md
-          - '2. bottomBar 参数': layout/scaffold/bottombar.md
-          - '3. drawerContent 参数': layout/scaffold/drawercontent.md
-          - '4. floatingActionButton 参数': layout/scaffold/floatingactionbutton.md
+          - '1. topBar': layout/scaffold/topbar.md
+          - '2. bottomBar': layout/scaffold/bottombar.md
+          - '3. drawerContent': layout/scaffold/drawercontent.md
+          - '4. floatingActionButton': layout/scaffold/floatingactionbutton.md
     - '参数':
         - 'Modifier': parameters/modifier.md
     - '代码实验室': codelabs.md
