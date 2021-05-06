@@ -52,9 +52,9 @@ fun ScaffoldDemo(){
 ``` kotlin
 BottomNavigationItem(
     icon = {
-        when(true){
-            index == 0 -> Icon(Icons.Filled.Home, contentDescription = null)
-            index == 1 -> Icon(Icons.Filled.Favorite, contentDescription = null)
+        when(index){
+            0 -> Icon(Icons.Filled.Home, contentDescription = null)
+            1 -> Icon(Icons.Filled.Favorite, contentDescription = null)
             else -> Icon(Icons.Filled.Settings, contentDescription = null)
         }
     },
