@@ -60,3 +60,8 @@ ModalBottomSheetLayout(
 
 !!! 注意
     目前使用 `ModalBottomSheetLayout` 需要标明 `@ExperimentalMaterialApi`
+
+
+## 更多
+
+[ModalBottomSheet 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#ModalBottomSheetLayout(kotlin.Function1,androidx.compose.ui.Modifier,androidx.compose.material.ModalBottomSheetState,androidx.compose.ui.graphics.Shape,androidx.compose.ui.unit.Dp,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,kotlin.Function0))
