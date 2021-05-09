@@ -1,4 +1,4 @@
-## bottomBar
+## 1. bottomBar
 
 `bottomBar` 是设置屏幕底部的导航栏，我们可以考虑用 `BottomNavigation` 或者 `BottomAppBar` 来实现
 
@@ -65,3 +65,18 @@ BottomNavigationItem(
 ```
 
 ![](../../assets/layout/scaffold/bottombar/demo3.png)
+
+
+## 2. 自定义 BottomNavigation
+
+这是一个自定义底部导航栏的演示
+
+![](../../assets/layout/scaffold/bottombar/demo.gif)
+
+代码可以通过以下的方式来查看
+
+* 1. [Mkdocs 内](../../code/layout/scaffold/bottomNavigation.md)
+* 2. [Github](../../code/layout/scaffold/bottomNavigation.md)
+
+## 3. 更多
+[BottomNavigation 详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#BottomNavigation(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.Dp,kotlin.Function1))
