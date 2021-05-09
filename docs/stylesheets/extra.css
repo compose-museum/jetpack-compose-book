@@ -7,3 +7,9 @@
 .md-sidebar.md-sidebar--secondary .md-sidebar__scrollwrap .md-sidebar__inner{
     border-left: 3px solid#4285F4;
 }
+.md-nav__link.md-nav__link--active{
+    background-color:#F2F2F2;
+    padding: 2px 0px 2px 16px;
+    color: #171717;
+    font-weight: 900;
+}
