@@ -1,4 +1,4 @@
-```kotlin
+
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
@@ -69,4 +69,3 @@ fun NavigationIcon(
         }
     }
 }
-```
