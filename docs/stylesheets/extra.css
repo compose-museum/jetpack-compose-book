@@ -4,3 +4,6 @@
 .md-nav {
     line-height: 1.5;
 }
+.md-sidebar.md-sidebar--secondary .md-sidebar__scrollwrap .md-sidebar__inner{
+    border-left: 3px solid#4285F4;
+}
