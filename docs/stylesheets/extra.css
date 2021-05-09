@@ -1,9 +1,13 @@
 .md-grid {
-    max-width: 1580px;
+    max-width: 100%;
+}
+.md-main__inner.md-grid{
+    flex: auto;
 }
 .md-nav {
     line-height: 1.5;
 }
+
 .md-sidebar.md-sidebar--secondary .md-sidebar__scrollwrap .md-sidebar__inner{
     border-left: 3px solid#4285F4;
 }
@@ -12,4 +16,12 @@
     padding: 2px 0px 2px 16px;
     color: #171717;
     font-weight: 900;
+}
+
+.md-sidebar.md-sidebar--primary .md-sidebar__scrollwrap{
+    border-right: 1px solid#DEE2E6;
+}
+
+.md-search__input{
+    width:100%;
 }
