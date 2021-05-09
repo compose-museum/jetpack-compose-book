@@ -13,25 +13,39 @@
 }
 
 .md-sidebar.md-sidebar--secondary{
-    width: 350px;
+    width: 20%;
 }
 
 
 .md-nav__link.md-nav__link--active{
-    background-color:#F2F2F2;
-    padding: 2px 0px 2px 16px;
+    background-color:#83C8F2;
+    padding: 10px 0px 10px 16px;
     color: #171717;
     font-weight: 900;
 }
 
+
+.md-sidebar.md-sidebar--primary{
+    width: 17rem;
+}
+
 .md-sidebar.md-sidebar--primary .md-sidebar__scrollwrap{
     border-right: 1px solid#DEE2E6;
+    padding-right: 50px;
 }
 
-
-.md-header__title{
-    width: 50px;
+.md-nav__item{
+    font-weight: 400;
 }
-.md-search__input{
-    width:100%;
+
+.md-header{
+    flex: auto;
+}
+
+.md-header__inner.md-grid{
+    flex: auto;
+}
+
+.md-search{
+    margin:auto;
 }

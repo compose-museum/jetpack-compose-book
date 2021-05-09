@@ -1,4 +1,7 @@
-![](assets/logoo.png)
+
+<div align = center>
+<img src = "assets/logoo.png" width = "70%" height = "70%" align = center/>
+</div>
 
 ## 介绍 💨
 
