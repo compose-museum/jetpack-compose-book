@@ -13,7 +13,7 @@
 }
 
 .md-sidebar.md-sidebar--secondary{
-    width: 20%;
+    width: 17rem;
 }
 
 
@@ -26,26 +26,14 @@
 
 
 .md-sidebar.md-sidebar--primary{
-    width: 17rem;
+    width: 18rem;
 }
 
 .md-sidebar.md-sidebar--primary .md-sidebar__scrollwrap{
     border-right: 1px solid#DEE2E6;
-    padding-right: 50px;
+    padding-right: 70px;
 }
 
 .md-nav__item{
     font-weight: 400;
-}
-
-.md-header{
-    flex: auto;
-}
-
-.md-header__inner.md-grid{
-    flex: auto;
-}
-
-.md-search{
-    margin:auto;
 }
