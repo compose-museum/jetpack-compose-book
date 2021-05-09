@@ -1,5 +1,7 @@
 
-![url](https://developer.android.com/images/jetpack/compose/layout-column-row-box.png)
+<div align = center>
+<img src = "https://developer.android.com/images/jetpack/compose/layout-column-row-box.png" width = "50%" height = "50%" align = center/>
+</div>
 
 ``` kotlin
 @Composable inline fun Column(
@@ -36,6 +38,7 @@ fun ColumnDemo() {
 效果如下：
 
 ![](../../assets/layout/column/column1.png)
+
 
 ## 1.居中文字
 

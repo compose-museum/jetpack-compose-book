@@ -11,6 +11,12 @@
 .md-sidebar.md-sidebar--secondary .md-sidebar__scrollwrap .md-sidebar__inner{
     border-left: 3px solid#4285F4;
 }
+
+.md-sidebar.md-sidebar--secondary{
+    width: 350px;
+}
+
+
 .md-nav__link.md-nav__link--active{
     background-color:#F2F2F2;
     padding: 2px 0px 2px 16px;
@@ -22,6 +28,10 @@
     border-right: 1px solid#DEE2E6;
 }
 
+
+.md-header__title{
+    width: 50px;
+}
 .md-search__input{
     width:100%;
 }
