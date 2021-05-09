@@ -75,7 +75,7 @@ BottomNavigationItem(
 
 代码可以通过以下的方式来查看
 
-* 1. [Mkdocs 内](../../code/layout/scaffold/bottomNavigation.md)
+* 1. [Mkdocs](../../code/layout/scaffold/bottomNavigation.md)
 * 2. [Github](../../code/layout/scaffold/bottomNavigation.md)
 
 ## 3. 更多
