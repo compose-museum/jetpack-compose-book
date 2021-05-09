@@ -13,7 +13,7 @@
 
 ```kotlin
 buildscript {
-    val compose_version by extra("1.0.0-beta05") // Compose 版本
+    val compose_version by extra("1.0.0-beta06") // Compose 版本
     repositories {
         google()
         mavenCentral()
@@ -34,7 +34,7 @@ buildscript {
 ```
 buildscript {
     ext {
-        compose_version = '1.0.0-beta05'
+        compose_version = '1.0.0-beta06'
     }
     repositories {
         google()
