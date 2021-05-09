@@ -26,14 +26,24 @@
 
 
 .md-sidebar.md-sidebar--primary{
-    width: 18rem;
+    width: 17rem;
 }
 
 .md-sidebar.md-sidebar--primary .md-sidebar__scrollwrap{
     border-right: 1px solid#DEE2E6;
-    padding-right: 70px;
+    padding-right: 45px;
 }
 
 .md-nav__item{
     font-weight: 400;
+}
+
+.md-content{
+    padding-top: 20px;
+}
+
+.md-content__inner.md-typeset{
+    border: 1px solid#DEE2E6;
+    border-radius: 20px;
+    padding: 50px;
 }
