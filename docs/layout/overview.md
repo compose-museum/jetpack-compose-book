@@ -40,7 +40,7 @@ fun ArtistCard() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo2.png" width = "40%" height = "40%">
+<img src = "../../assets/layout/overview/demo2.png" width = "25%" height = "25%">
 
 同样地，你也可以使用 `Row`, 它会将里面的组件以列的形式呈现
 
@@ -59,7 +59,7 @@ fun ArtistCard(artist: Artist) {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo3.png" width = "40%" height = "40%">
+<img src = "../../assets/layout/overview/demo3.png" width = "25%" height = "25%">
 
 !!! 注意
     图中的圆形图像的效果可以在 **基本组件/Image** 中实现
@@ -94,7 +94,7 @@ fun AlignInRow() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo4.png" width = "40%" height = "40%">
+<img src = "../../assets/layout/overview/demo4.png" width = "25%" height = "25%">
 
 ## 2. Modifier
 
@@ -156,7 +156,7 @@ fun ArtistCard(/*...*/) {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo6.gif" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo6.gif" width = "35%" height = "35%">
 
 在上面的代码中，整个区域都是可点击的，包括周围的填充物，因为 `padding modifier` 被应用在 `clickable` 之后。如果 `modifier` 的顺序颠倒了，那么由 `padding` 增加的空间就不会对用户的输入做出反应。
 
@@ -175,7 +175,7 @@ fun ArtistCard(/*...*/) {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo7.gif" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo7.gif" width = "35%" height = "35%">
 
 !!! 注意
 
@@ -202,7 +202,7 @@ fun PaddedComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo8.png" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo8.png" width = "35%" height = "35%">
 
 默认情况下，Compose 中提供的布局是包裹其子项的。
 
@@ -235,7 +235,7 @@ fun FixedSizeComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo9.png" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo9.png" width = "35%" height = "35%">
 
 在这个例子中，即使父本的宽度被设置为 `90.dp`，内盒的宽度也将是 `100.dp`
 
@@ -259,7 +259,7 @@ fun FillSizeComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo10.png" width = "30%" height = "30%">
+<img src = "../../assets/layout/overview/demo10.png" width = "15%" height = "15%">
 
 如果你想让一个子布局的尺寸与父 `Box` 的尺寸相同而不影响 `Box` 的尺寸，请使用 `matchParentSize `
 
@@ -277,11 +277,11 @@ fun MatchParentSizeComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo11.png" width = "30%" height = "30%">
+<img src = "../../assets/layout/overview/demo11.png" width = "15%" height = "15%">
 
 如果使用 `fillMaxSize` 而不是` matchParentSize`，那么 `Spacer` 将占用允许给父代的所有可用空间，反过来导致父代扩展并填充所有可用空间
 
-<img src = "../../assets/layout/overview/demo12.png" width = "70%" height = "70%">
+<img src = "../../assets/layout/overview/demo12.png" width = "55%" height = "55%">
 
 如果你想在文本基线上方添加 `padding` 使你达到从布局顶部到基线的特定距离
 
@@ -296,7 +296,7 @@ fun TextWithPaddingFromBaseline() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo13.png" width = "20%" height = "20%">
+<img src = "../../assets/layout/overview/demo13.png" width = "5%" height = "5%">
 
 #### 2. offset
 
@@ -316,7 +316,7 @@ fun OffsetComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo14.png" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo14.png" width = "35%" height = "35%">
 
 `padding` modifier 根据布局方向在水平方向上应用。在从左到右的情况下，正的偏移值会将元素向右移动，而在从右到左的情况下，它会将元素向左移动。如果你需要在不考虑布局方向的情况下设置一个偏移量，请参见`absoluteOffset` 修改器，其中一个正的偏移值总是将元素向右移动
 
@@ -340,7 +340,7 @@ fun FlexibleComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo15.png" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo15.png" width = "35%" height = "35%">
 
 ## 4. 约束条件
 
@@ -355,7 +355,7 @@ fun WithConstraintsComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo16.png" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo16.png" width = "35%" height = "35%">
 
 #### 基于插槽的布局
 
@@ -363,7 +363,7 @@ fun WithConstraintsComposable() {
 
 Material 组件大量使用插槽 API，这是 `Compose` 引入的一种模式，在可组合的基础上引入了一层定制。这种方法使组件更加灵活，因为它们接受一个可以自我配置的子元素，而不是必须暴露子元素的每一个配置参数。槽在用户界面中留下了一个空位，供开发者按照自己的意愿来填充。例如，这些是你可以在 `TopAppBar` 中自定义的位置
 
-<img src = "../../assets/layout/overview/demo17.png" width = "50%" height = "50%">
+<img src = "../../assets/layout/overview/demo17.png" width = "35%" height = "35%">
 
 ***Composable*** 通常采取一个内容可组合的 `lambda ( content: @Composable () -> Unit)`。插槽 API 为特定用途公开了多个内容参数。例如，`TopAppBar` 允许你为标题、导航图标和行为提供内容。
 
@@ -372,7 +372,7 @@ Material 组件大量使用插槽 API，这是 `Compose` 引入的一种模式�
 !!! Tips
     要更好的了解 **Scaffold** 可以参考[这里](scaffold/overview.md)
 
-<img src = "../../assets/layout/overview/demo18.png" width = "70%" height = "70%">
+<img src = "../../assets/layout/overview/demo18.png" width = "55%" height = "55%">
 
 ``` kotlin
 @Composable
@@ -442,7 +442,7 @@ fun ConstraintLayoutContent() {
 这段代码将 `Button` 的顶部约束到父级，边距为 `16.dp` ，将 `Text` 约束到 `Button` 的底部，边距也为 `16.dp`
 
 
-<img src = "../../assets/layout/overview/demo19.png" width = "20%" height = "20%">
+<img src = "../../assets/layout/overview/demo19.png" width = "5%" height = "5%">
 
 关于如何使用 `ConstraintLayout` 的更多例子，请参阅 [layout codelab](https://developer.android.com/codelabs/jetpack-compose-layouts#0)
 
@@ -521,7 +521,7 @@ fun Modifier.customLayoutModifier(...) =
 
 下面是期望的行为，文本顶部的 `padding` 被设置为 `24.dp`
 
-<img src = "../../assets/layout/overview/demo20.png" width = "60%" height = "60%">
+<img src = "../../assets/layout/overview/demo20.png" width = "45%" height = "45%">
 
 
 下面是产生这种间距的代码：
@@ -575,4 +575,4 @@ fun TextWithNormalPaddingPreview() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo21.png" width = "40%" height = "40%">
+<img src = "../../assets/layout/overview/demo21.png" width = "25%" height = "25%">
