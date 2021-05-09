@@ -67,7 +67,7 @@ BottomNavigationItem(
 ![](../../assets/layout/scaffold/bottombar/demo3.png)
 
 
-## 2. 自定义 BottomNavigation
+## 2. 自定义底部导航栏
 
 这是一个自定义底部导航栏的演示
 
