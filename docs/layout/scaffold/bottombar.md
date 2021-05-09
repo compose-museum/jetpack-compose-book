@@ -75,8 +75,8 @@ BottomNavigationItem(
 
 代码可以通过以下的方式来查看
 
-* 1. [Mkdocs](../../code/layout/scaffold/bottomNavigation.md)
-* 2. [Github](../../code/layout/scaffold/bottomNavigation.md)
+1. [Mkdocs](../../code/layout/scaffold/bottomNavigation.md)
+2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/layout/scaffold/bottomNavigation.md)
 
 ## 3. 更多
 [BottomNavigation 详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#BottomNavigation(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.Dp,kotlin.Function1))
