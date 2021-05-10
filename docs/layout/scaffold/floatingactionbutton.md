@@ -30,4 +30,4 @@ fun ScaffoldDemo() {
 }
 ```
 
-![](../../assets/layout/scaffold/floatingactionbutton/demo.png)
+<img src = "../../../assets/layout/scaffold/floatingactionbutton/demo.png" width = "25%" height = "25%">

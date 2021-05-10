@@ -40,8 +40,9 @@ fun ScaffoldDemo(){
 }
 ```
 
-![](../../assets/layout/scaffold/bottombar/demo.png)
-![](../../assets/layout/scaffold/bottombar/demo2.png)
+
+<img src = "../../../assets/layout/scaffold/bottombar/demo.png" width = "30%" height = "30%"><img src = "../../../assets/layout/scaffold/bottombar/demo2.png" width = "30%" height = "30%">
+
 
 这样一个基本的底部导航栏我们就实现啦，是不是很简单？
 
@@ -64,7 +65,7 @@ BottomNavigationItem(
 )
 ```
 
-![](../../assets/layout/scaffold/bottombar/demo3.png)
+<img src = "../../../assets/layout/scaffold/bottombar/demo3.png" width = "30%" height = "30%">
 
 
 ## 2. 自定义底部导航栏

@@ -40,4 +40,4 @@ fun DrawerContent(){
 }
 ```
 
-![](../../assets/layout/scaffold/drawercontent/demo.gif)
+<img src = "../../../assets/layout/scaffold/drawercontent/demo.gif" width = "30%" height = "30%">
