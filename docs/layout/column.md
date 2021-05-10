@@ -37,8 +37,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-![](../../assets/layout/column/column1.png)
-
+<img src = "../../../assets/layout/column/column1.png" width = "30%" height = "30%">
 
 ## 1.居中文字
 
