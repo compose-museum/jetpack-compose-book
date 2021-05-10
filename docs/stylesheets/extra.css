@@ -25,8 +25,14 @@
 }
 
 
-.md-sidebar.md-sidebar--primary{
-    width: 17rem;
+[data-md-type='navigation']{
+    width: 18rem;
+}
+
+@media screen and (max-width: 76.1875em){
+    .md-sidebar--primary{
+        width: 12.1rem !important;
+    }
 }
 
 .md-sidebar.md-sidebar--primary .md-sidebar__scrollwrap{
