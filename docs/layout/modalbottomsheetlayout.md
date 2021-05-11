@@ -77,7 +77,7 @@ ModalBottomSheetLayout(
 BackHandler(
     enabled = (state.currentValue == ModalBottomSheetValue.HalfExpanded
             || state.currentValue == ModalBottomSheetValue.Expanded),
-    // 通过 Log 打印日志可以发现，`SheetState` 有两种状态
+    // 通过 Log 打印日志可以发现，`SheetState` 除了 Hidden 还有两种状态
     // HalfExpanded 和 Expanded
     onBack = {
         scope.launch{
