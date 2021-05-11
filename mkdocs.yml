@@ -39,6 +39,8 @@ nav:
           - '2. bottomBar': layout/scaffold/bottombar.md
           - '3. drawerContent': layout/scaffold/drawercontent.md
           - '4. floatingActionButton': layout/scaffold/floatingactionbutton.md
+    - '主题':
+        - '初识MaterialTheme': theme/meet_material_theme.md
     - '参数':
         - 'Modifier': parameters/modifier.md
     - '代码实验室': codelabs.md
