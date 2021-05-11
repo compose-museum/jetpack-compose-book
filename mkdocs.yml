@@ -41,6 +41,7 @@ nav:
           - '4. floatingActionButton': layout/scaffold/floatingactionbutton.md
     - '动画':
         - '概述': animation/overview.md
+        - 'AnimationVisibility': animation/animationvisibility.md
     - '主题':
         - '初识MaterialTheme': theme/meet_material_theme.md
     - '参数':
