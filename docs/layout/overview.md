@@ -1,6 +1,11 @@
 
 ## Layouts in Compose
 
+** 本章节翻译自[官方文档](https://developer.android.com/jetpack/compose/layout) 并加了一些注释 **
+
+** 如有翻译不准确欢迎提交 issue / pr ！**
+
+
 **Jetpack Compose** 让设计和构建你的 app UI 变得更加容易。
 
 这篇文档解释了 ``Compose`` 提供的一些构建模块，以帮助你布置你的 UI 元素，并告诉你如何在你需要的时候建立更专业的布局。
