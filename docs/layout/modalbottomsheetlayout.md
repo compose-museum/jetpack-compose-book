@@ -5,6 +5,16 @@
 
 它们是移动端上内嵌式菜单和简单对话框的替代方案，为内容、图标和操作提供了额外的空间
 
+
+`ModalSheetLayout` 总共有三种状态：
+
+* Hidden
+
+* HalfExpanded
+
+* Expanded
+
+
 一个简单的 `ModalBottomSheetLayout` 的例子是这样的：
 
 ``` kotlin
@@ -88,6 +98,20 @@ BackHandler(
 ```
 
 
-## 3. 更多
+## 3. 设置动画时间
+
+`ModalSheetLayout` 默认用 `state.show()` 或者 `state.hidden()` 来弹出和收回
+
+我们可以通过这样的方式来自定义动画时间
+
+``` kotlin
+state.animateTo(ModalBottomSheetValue.Hidden, tween(1000))
+```
+
+弹出同理 
+
+
+
+## 4. 更多
 
 [ModalBottomSheet 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#ModalBottomSheetLayout(kotlin.Function1,androidx.compose.ui.Modifier,androidx.compose.material.ModalBottomSheetState,androidx.compose.ui.graphics.Shape,androidx.compose.ui.unit.Dp,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,kotlin.Function0))
