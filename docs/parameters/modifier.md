@@ -36,6 +36,7 @@
 
 ## 修饰优先级
 修饰方法直接是存在先后顺序的，不同的调用顺序会导致不一样的效果。我们先来看一个例子：
+
 ``` kotlin
 @Composable
 fun UI(){
@@ -50,6 +51,7 @@ fun UI(){
     }
 }
 ```
+
 在这个例子中，`clickable{}` 在 `padding()` **之前** 调用，因此 `Card` 外间距的部分也是可以被点击到的。   
 ![](../assets/parameters/modifier1.gif)   
 反转一下，如果 `clickable{}` 在 `padding()` **之后** 被调用，那么 `Card` 的外间距部分就不能点击了，只能点击 `Card` 本身。   

@@ -1,9 +1,9 @@
 
 ## Layouts in Compose
 
-** 本章节翻译自[官方文档](https://developer.android.com/jetpack/compose/layout) 并加了一些注释 **
+**本章节翻译自[官方文档](https://developer.android.com/jetpack/compose/layout) 并加了一些注释**
 
-** 如有翻译不准确欢迎提交 issue / pr ！**
+**如有翻译不准确欢迎提交 issue / pr**
 
 
 **Jetpack Compose** 让设计和构建你的 app UI 变得更加容易。
@@ -370,9 +370,9 @@ Material 组件大量使用插槽 API，这是 `Compose` 引入的一种模式�
 
 <img src = "../../assets/layout/overview/demo17.png" width = "35%" height = "35%">
 
-***Composable*** 通常采取一个 `content` 的 ***Composable***  `lambda ( content: @Composable () -> Unit)`。插槽 API 为特定用途公开了多个内容参数。例如，`TopAppBar` 允许你为标题、导航图标和行为提供内容。
+***Composable*** 通常采取一个 `content` 的 ***Composable*** ，`lambda(content: @Composable () -> Unit)`。插槽 API 为特定用途公开了多个内容参数。例如，`TopAppBar` 允许你为标题、导航图标和行为提供内容。
 
-例如，[Scaffold](scaffold/overview.md) 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 为最常见的顶层 `Material` 组件提供了插槽，如 [TopAppBar](https://material.io/components/app-bars-top#usage)、[BottomAppBar](https://material.io/components/app-bars-bottom/)、[FloatingActionButton](https://material.io/components/buttons-floating-action-button/) 和 [Drawer](https://material.io/components/navigation-drawer) 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作
+例如，[Scaffold](scaffold/overview.md) 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 为最常见的顶层 `Material` 组件提供了插槽，如 [TopAppBar](https://material.io/components/app-bars-top#usage)、[BottomAppBar](https://material.io/components/app-bars-bottom/)、[FloatingActionButton](https://material.io/components/buttons-floating-action-button/) 和 [Drawer](https://material.io/components/navigation-drawer) 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。
 
 !!! Tips
     要更好的了解 **Scaffold** 可以参考[这里](scaffold/overview.md)

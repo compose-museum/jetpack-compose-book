@@ -1,6 +1,8 @@
 
 **Codelabs** 主要是帮助大家能够实现一些简单/有用/好玩的东西
 
+欢迎大家给自己的 APP 写上步骤并上传到这里！
+
 [Codelabs 主页](https://codelabs.compose.net.cn/)
 
 
@@ -35,11 +37,12 @@
 
 !!! warning "注意"
     如果是 windows 系统，请务必使用 `Unix LF` 行尾来保存文件，否则在网页上会有很多错误
+
     每次更新了 `.md` 需要手动输入 `claat export xxxx.md` 文件，目前 **claat** 似乎还不支持热更新 TAT
 
 ### 提交更改
 
-pr 到 -> **master** 分支
+pr 到 -> **gh-pages** 分支
 
 ### 提交 issue
 
