@@ -86,9 +86,9 @@ fun lightColors(
 )
 ```
 
-可以看到 <code>lightColors</code> 将传入参数透传到了Colors构造器中了，而Colors构造器属性是没有默认值的，<code>lightColors</code> 帮助我们生成了许多属性默认值。可以发现两种调色板本质上只是Colors成员属性配置的不同，懂得了本质就可以进行定制主题样式的配置了。
+可以看到 <code>lightColors</code> 将传入参数透传到了Colors构造器中了，而 Colors 构造器属性是没有默认值的，<code>lightColors</code> 帮助我们生成了许多属性默认值。可以发现两种调色板本质上只是Colors成员属性配置的不同，懂得了本质就可以进行定制主题样式的配置了。
 
-## **2. 简单使用 MaterialThem e完成主题配色**
+## **2. 简单使用 MaterialTheme 完成主题配色**
 
 接下来是使用示例，假设当前需求为根据主题的不同使得我们定制的文本颜色也会随之变化。当亮色主题时显示为红色，暗色主题显示为蓝色。这里我们使用 Color 的 primary 属性来存储，当然也可以使用其他成员属性。
 
