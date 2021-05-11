@@ -44,8 +44,11 @@
 在你 `fork` 下的项目根目录执行
 
 ```
- git remote add forkStream https://github.com/compose-museum/compose-tutorial.git (或使用 SSH)
+ git remote add fork https://github.com/compose-museum/compose-tutorial.git (或使用 SSH)
  git remote -v
- git fetch forkStream //同步项目最新进度
- git merge forkStream/main //合并项目最新进度
+ git fetch fork //同步项目最新进度
+ git merge fork/main //合并项目最新进度
+ ... // 写新内容
+ git push // push 到自己的分支
+ pr // 在网页上提交 PR
 ```
