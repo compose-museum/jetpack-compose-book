@@ -3,6 +3,9 @@
 <img src = "https://developer.android.com/images/jetpack/compose/layout-column-row-box.png" width = "50%" height = "50%" align = center/>
 </div>
 
+
+`Column` 是 Jetpack Compose 中一个很基本的布局种类，它会将里面的**每个**组件以行的形式呈现
+
 ``` kotlin
 @Composable inline fun Column(
     modifier: Modifier = Modifier, 
@@ -12,8 +15,7 @@
 ): Unit
 ```
 
-`Column` 是 Jetpack Compose 中一个很基本的布局种类，它会将里面的组件以行的形式呈现
-
+## 1. Text 在 Column 里面的使用
 
 ``` kotlin
 class MainActivity : ComponentActivity() {
@@ -39,7 +41,7 @@ fun ColumnDemo() {
 
 <img src = "../../../assets/layout/column/column1.png" width = "30%" height = "30%">
 
-## 1.居中文字
+### 1.居中文字
 
 如果我们需要将 Column 里面的文字居中该怎么办呢？
 
@@ -66,7 +68,7 @@ fun ColumnDemo() {
 
 ![](../../assets/layout/column/column2.png)
 
-## 2.特定文字居中
+### 2.特定文字居中
 
 如果我们想让 `Column` 里面的某些文字居中而不是全部居中怎么办
 
