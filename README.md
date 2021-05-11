@@ -56,7 +56,6 @@
 
     在项目根目录终端执行 ``` mkdocs serve ```，将会在 ``` http://localhost:8000/ ``` 看到文档
 
-
 * 如何添加/更改文档？
     
     文档都是由 **Markdown** 语法来编写的，所有文档位于 [/docs](https://github.com/compose-museum/compose-tutorial/tree/main/docs) 中, 如果需要扩展左边的导航侧栏，请在 **mkdocs.yml** 更新 **nav**
