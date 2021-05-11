@@ -1,4 +1,19 @@
 
+``` kotlin
+@ExperimentalAnimationApi
+@Composable
+fun ColumnScope.AnimatedVisibility(
+    visible: Boolean,
+    modifier: Modifier = Modifier,
+    enter: EnterTransition = fadeIn() + expandVertically(),
+    exit: ExitTransition = fadeOut() + shrinkVertically(),
+    initiallyVisible: Boolean = visible,
+    content: @Composable () -> Unit
+) {
+    AnimatedVisibilityImpl(visible, modifier, enter, exit, initiallyVisible, content)
+}
+```
+
 ## 1. 基础用法
 
 ``` kotlin
