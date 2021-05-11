@@ -7,28 +7,14 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 下面这个图表可以帮助你决定使用什么 API 来实现你的动画。
 
-
-1.  如果你正在为布局中的内容变化制作动画：
-
-    | API | 功能|
-    | ----| ----|
-    | AnimationVisibility | **实现进入/退出的过渡动画** |
-    | Modifier.contentSize | **内容大小的变化过渡动画** |
-    | Crossfade | **暂时还没探索** |
-
-2. 如果你的动画是基于状态的：
-
-    | API | 功能|
-    | ----| ----|
-    | rememberInfiniteTransition | **暂时还没探索** |
-    | updateTransition | **暂时还没探索** |
-    | animate*AsState | **指定类型的数据变化动画** |
-
-3. 如果你想对动画时间进行精细控制：
-
-    请使用 `Animation`。
-
-5. 否则，使用 `AnimationState` 或者 `animate`
-
-
 <img src = "../../../assets/animation/overview/demo.svg">
+
+
+| API | 功能|
+| ----| ----|
+| [AnimationVisibility](animationvisibility.md) | **进入/退出的过渡动画** |
+| Modifier.contentSize | **内容大小的变化过渡动画** |
+| Crossfade | **暂时还没探索** 
+| rememberInfiniteTransition | **暂时还没探索** |
+| updateTransition | **暂时还没探索** |
+| animate*AsState | **指定类型的数据变化动画** |
