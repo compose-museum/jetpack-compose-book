@@ -11,7 +11,7 @@ theme:
   icon:
     repo: fontawesome/brands/github
   logo: assets/logo.png
-  feature:
+  features:
     - navigation.tabs
     - navigation.instant
   font:
