@@ -44,6 +44,7 @@ nav:
         - 'AnimationVisibility': animation/animationvisibility.md
     - '主题':
         - '初识MaterialTheme': theme/meet_material_theme.md
+        - '深入理解MaterialTheme与CompositionLocal': theme/understanding_material_theme.md
     - '参数':
         - 'Modifier': parameters/modifier.md
     - '代码实验室': codelabs.md
