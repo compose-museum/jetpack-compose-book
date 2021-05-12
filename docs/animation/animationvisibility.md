@@ -42,3 +42,36 @@ Column(
 ```
 
 ![](../assets/animation/animatedVisibility/demo.gif)
+
+
+## 2. 进场动画
+
+让我们来试试 `AnimatedVisibility` 中的 `Enter` 参数的简单使用吧！
+
+``` kotlin
+AnimatedVisibility(
+    visible = state,
+    enter = slideInVertically(
+        initialOffsetY = { - 1000 },
+        animationSpec = tween(durationMillis = 1200)
+    )
+) {
+    Text(
+        text = "这是一个普通的正文",
+        fontWeight = FontWeight.W900,
+        style = MaterialTheme.typography.h5
+    )
+}
+```
+
+``` kotlin
+enter:EnterTransition = fadeIn() + expandVertically()
+
+sealed class EnterTransition
+```
+
+`EnterTransition` 定义了一个 `AnimatedVisibility` ***Composable***  变得可见时，它是如何出现在屏幕上的
+
+现可用的 3 种 `EnterTransition` 的类别分别是：
+
+1. 
