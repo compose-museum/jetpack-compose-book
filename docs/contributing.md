@@ -44,7 +44,7 @@
 在你 `fork` 下的项目根目录执行
 
 ```
- git remote add fork https://github.com/compose-museum/compose-tutorial.git (或使用 SSH)
+ git remote add fork git@github.com:compose-museum/compose-tutorial.git (或使用 HTTPS)
  git remote -v
  git fetch fork //同步项目最新进度
  git merge fork/main //合并项目最新进度
