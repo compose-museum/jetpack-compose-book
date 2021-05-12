@@ -15,7 +15,7 @@ theme:
     - navigation.tabs
     - navigation.instant
   font:
-    text: 'Fira Sans'
+    text: '微软雅黑'
     code: 'Fira Mono'
 
 nav:
@@ -56,6 +56,20 @@ nav:
     - '关于投喂': pay.md
   - 'API 文档':
     - '概述': api/index.md
+    - 'androidx.compose.animation':
+        - '概述': api\androidx\androix.compose.animation\index.md
+    - 'androidx.compose.animation.core':
+        - '概述': api\androidx\androix.compose.animation\index.md
+    - 'androidx.compose.foundation':
+        - '概述': api\androidx\androix.compose.animation\index.md
+    - 'androidx.compose.foundation.gestures':
+      - '概述': api\androidx\androix.compose.animation\index.md
+    - 'androidx.compose.foundation.interation':
+      - '概述': api\androidx\androix.compose.animation\index.md
+    - 'androidx.compose.foundation.layout':
+      - '概述': api\androidx\androix.compose.animation\index.md
+    - 'androidx.compose.foundation.lazy':
+      - '概述': api\androidx\androix.compose.animation\index.md
 
 extra:
   social:

@@ -18,7 +18,8 @@
 
 
 .md-nav__link.md-nav__link--active{
-    background-color:#83C8F2;
+    border-radius: 0 1000px 1000px 0;
+    background-color:#D7EFFE;
     padding: 10px 0px 10px 16px;
     color: #171717;
     font-weight: 900;
@@ -37,7 +38,8 @@
 
 .md-sidebar.md-sidebar--primary .md-sidebar__scrollwrap{
     border-right: 1px solid#DEE2E6;
-    padding-right: 45px;
+    padding-right: 15px;
+    padding-left: 25px;
 }
 
 .md-nav__item{
