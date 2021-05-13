@@ -80,3 +80,24 @@ sealed class EnterTransition
 2. slide：`slideIn`, `slideInHorizontally`, `slideInVertically`
 3. expand：`expandIn`, `expandHorizontally`, `expandVertically`
 
+并且，它们之间能够进行加法运算，例如：
+
+``` kotiln
+AnimatedVisibility(
+    visible = state,
+    enter = slideInVertically(
+        initialOffsetY = { - 1000 },
+        animationSpec = tween(durationMillis = 1200)
+    ) + fadeIn(
+        animationSpec = tween(durationMillis = 1200)
+    )
+) {
+    Text(
+        text = "这是一个普通的正文",
+        fontWeight = FontWeight.W900,
+        style = MaterialTheme.typography.h5
+    )
+}
+```
+
+![](../assets/animation/animatedVisibility/demo2.gif)
