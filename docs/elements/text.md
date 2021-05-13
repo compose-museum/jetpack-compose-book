@@ -32,8 +32,8 @@ fun TextDemo() {
     }
 }
 ```
-![](../assets/elements/text/text1.png)  
 
+![](../assets/elements/text/text.png)
 
 当然有的时候我们想自己自定义字体的间隔和大小，那我们可以将代码改为：
 
@@ -87,7 +87,7 @@ fun TextDemo() {
 }
 ```
 
-![](../assets/elements/text/text7.png)  
+![](../assets/elements/text/text7.png)
 
 使用 `overflow` 参数可以帮助我们处理溢出的视觉效果
 
