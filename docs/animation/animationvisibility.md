@@ -82,7 +82,7 @@ sealed class EnterTransition
 
 并且，它们之间能够进行加法运算，例如：
 
-``` kotiln
+``` kotlin
 AnimatedVisibility(
     visible = state,
     enter = slideInVertically(
@@ -101,3 +101,11 @@ AnimatedVisibility(
 ```
 
 ![](../assets/animation/animatedVisibility/demo2.gif)
+
+!!! 注意
+    `fadeIn` 和 `slideIn` 不影响 `AnimatedVisibility` **Composable**。相比之下，`expandIn` 将扩大剪辑范围以显示整个内容。这将自动地将其他的布局动画化，非常像 `Modifier.animateContentSize`
+
+
+## 3. 更多
+
+[AnimatedVisibility 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#AnimatedVisibility(kotlin.Boolean,androidx.compose.ui.Modifier,androidx.compose.animation.EnterTransition,androidx.compose.animation.ExitTransition,kotlin.Boolean,kotlin.Function0))
