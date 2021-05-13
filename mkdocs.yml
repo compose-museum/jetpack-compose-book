@@ -14,12 +14,9 @@ theme:
   features:
     - navigation.tabs
     - navigation.instant
-  font:
-    text: '微软雅黑'
-    code: 'Fira Mono'
 
 nav:
-  - 'Jetpack Compose':
+  - '移动端':
     - '概述': index.md
     - '在开始之前': start.md
     - '基本组件':
@@ -29,6 +26,7 @@ nav:
       - 'Icon': elements/icon.md
       - 'Image': elements/image.md
       - 'IconButton': elements/iconbutton.md
+      - 'Surface': elements/surface.md
       - 'TextField': elements/textfield.md
     - '布局': 
       - '概述': layout/overview.md

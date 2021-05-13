@@ -1,4 +1,21 @@
+``` kotlin
+@Composable
+fun IconButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    content: () -> Unit
+): @Composable Unit
+```
+
 `IconButton` 可以帮助我们生成一个可点击的图标按钮
+
+`IconButton` 是一个可点击的图标，用于表示动作（复制，粘贴，保存，等等）。`IconButton` 的整体最小触摸目标尺寸为 **48 x 48dp**，以满足无障碍准则。`content` 会在 `IconButton` 内居中。
+
+这个组件通常用于应用栏内的导航图标/动作。
+
+`content` 通常应该是一个图标，使用 `androidx.compose.material.icons.Icons` 中的一个图标。如果使用自定义图标，请注意内部图标的典型尺寸是 **24 x 24 dp**。
 
 
 ``` kotlin

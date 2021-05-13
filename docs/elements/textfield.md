@@ -1,4 +1,33 @@
-`textfield` 可以创建一个输入框
+
+``` kotlin
+@Composable
+fun TextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    textStyle: TextStyle = LocalTextStyle.current,
+    label: () -> Unit = null,
+    placeholder: () -> Unit = null,
+    leadingIcon: () -> Unit = null,
+    trailingIcon: () -> Unit = null,
+    isError: Boolean = false,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions(),
+    singleLine: Boolean = false,
+    maxLines: Int = Int.MAX_VALUE,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = MaterialTheme.shapes.small.copy(bottomEnd = ZeroCornerSize, bottomStart = ZeroCornerSize),
+    colors: TextFieldColors = TextFieldDefaults.textFieldColors()
+): @Composable Unit
+```
+
+
+`textfield` 可以创建一个输入框。
+
+一个简单使用的例子是这样的：
 
 ``` kotlin
 import androidx.compose.runtime.*
