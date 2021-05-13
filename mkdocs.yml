@@ -52,8 +52,8 @@ nav:
     - '参数':
       - 'Modifier': parameters/modifier.md
     - '代码实验室': codelabs.md
-    - '贡献': contributing.md
     - '资源': resources.md
+    - '关于贡献': contributing.md
     - '关于投喂': pay.md
   - 'API 文档':
     - '概述': api/index.md
