@@ -32,6 +32,15 @@ fun RowDemo() {
 
 ![](../../assets/layout/row/demo.png)
 
+
+``` kotlin
+Row {
+    Box(Modifier.size(40.dp).background(Color.Magenta))
+    Box(Modifier.size(40.dp).background(Color.Yellow))
+    Box(Modifier.size(40.dp).background(Color.Green))
+}
+```
+
 而如果 `Row` 里面的子项都没有设置 **weight** 的话，将会尽可能的小，使里面的子项紧贴在一起
 
 也就是有点像 **xml** 中的 **wrap_content** 属性
