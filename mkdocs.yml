@@ -48,6 +48,7 @@ nav:
     - '主题':
       - '初识 MaterialTheme': theme/meet_material_theme.md
       - '深入理解 MaterialTheme 与 CompositionLocal': theme/understanding_material_theme.md
+      - '自定义你的主题方案': theme/custom_your_theme.md
     - '参数':
       - 'Modifier': parameters/modifier.md
     - '代码实验室': codelabs.md
