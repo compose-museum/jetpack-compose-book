@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ColumnDemo() {
-    Column(){
+    Column{
         Text("你好呀")
         Text("我正在使用 Android Studio")
         Text("现在是晚上")
@@ -39,7 +39,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-<img src = "../../../assets/layout/column/column1.png" width = "30%" height = "30%">
+![](../../assets/layout/column/column1.png)
 
 ### 1.居中文字
 
