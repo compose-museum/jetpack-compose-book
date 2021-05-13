@@ -44,7 +44,8 @@
 #### 第一种方法
 
 在 github 网页中，在你的 fork 仓库里，点击 Fetch upstream
-然后
+
+然后在项目根目录执行
 
 ```
  git pull origin main
