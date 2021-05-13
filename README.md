@@ -80,11 +80,25 @@
 
 在你 `fork` 下的项目根目录执行
 
+1. 
+
 ```
  git remote add fork git@github.com:compose-museum/compose-tutorial.git (或使用 HTTPS)
  git remote -v
  git fetch fork //同步项目最新进度
  git merge fork/main //合并项目最新进度
+ ... // 写新内容
+ git push // push 到自己的分支
+ pr // 在网页上提交 PR
+```
+
+2. 
+
+在 github 网页中，在你的 fork 仓库里，点击 Fetch upstream
+然后
+
+```
+ git pull origin main
  ... // 写新内容
  git push // push 到自己的分支
  pr // 在网页上提交 PR
