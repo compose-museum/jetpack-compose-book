@@ -12,6 +12,17 @@ fun BottomAppBar(
 ): @Composable Unit
 ```
 
+``` kotlin
+@Composable
+fun BottomNavigation(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = MaterialTheme.colors.primarySurface,
+    contentColor: Color = contentColorFor(backgroundColor),
+    elevation: Dp = BottomNavigationDefaults.Elevation,
+    content: RowScope.() -> Unit
+): @Composable Unit
+```
+
 `bottomBar` 是设置屏幕底部的导航栏，我们可以考虑用 `BottomNavigation` 或者 `BottomAppBar` 来实现
 
 ``` kotlin

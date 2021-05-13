@@ -49,6 +49,7 @@ Column(
 让我们来试试 `AnimatedVisibility` 中的 `Enter` 参数的简单使用吧！
 
 ``` kotlin
+var state by remember{ mutableStateOf(true)}
 AnimatedVisibility(
     visible = state,
     enter = slideInVertically(
@@ -83,6 +84,7 @@ sealed class EnterTransition
 并且，它们之间能够进行加法运算，例如：
 
 ``` kotlin
+var state by remember{ mutableStateOf(true)}
 AnimatedVisibility(
     visible = state,
     enter = slideInVertically(
@@ -100,7 +102,7 @@ AnimatedVisibility(
 }
 ```
 
-![](../assets/animation/animatedVisibility/demo2.gif)
+![](../assets/animation/animatedVisibility/demo3.gif)
 
 !!! 注意
     `fadeIn` 和 `slideIn` 不影响 `AnimatedVisibility` **Composable**。相比之下，`expandIn` 将扩大剪辑范围以显示整个内容。这将自动地将其他的布局动画化，非常像 `Modifier.animateContentSize`
