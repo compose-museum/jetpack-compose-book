@@ -64,14 +64,19 @@ AnimatedVisibility(
 }
 ```
 
+![](../assets/animation/animatedVisibility/demo2.gif)
+
 ``` kotlin
 enter:EnterTransition = fadeIn() + expandVertically()
 
 sealed class EnterTransition
 ```
 
-`EnterTransition` 定义了一个 `AnimatedVisibility` ***Composable***  变得可见时，它是如何出现在屏幕上的
+`EnterTransition` 定义了当一个 `AnimatedVisibility` ***Composable***  变得可见时，它是如何出现在屏幕上的
 
 现可用的 3 种 `EnterTransition` 的类别分别是：
 
-1. 
+1. fade `fadeIn`
+2. slide：`slideIn`, `slideInHorizontally`, `slideInVertically`
+3. expand：`expandIn`, `expandHorizontally`, `expandVertically`
+
