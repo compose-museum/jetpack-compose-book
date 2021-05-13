@@ -1,6 +1,6 @@
 # 一些对 Compose 项目开发有帮助的资源
 
-## 列表
+## 库
 | 项目名 | 介绍 |
 | -------|------|
 |[Ucrop](https://github.com/Yalantis/uCrop) | 可以完成图片的裁剪，对用户的图片上传功能有帮助(已知 Bilibili 在用)
