@@ -142,6 +142,11 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text5.png)  
 
+!!! 注意
+    需要注意区分的是，`TextAlign` 设置的是文本的对齐方式，而不是位置方向
+    ![](../assets/elements/text/text9.png)  
+
+    如果需要实现 `TextAlign.Right` 中的方向，请使用 `Modifier.align(Alignment.位置)`，详情使用方法在[这里](../../layout/column/#2)
 
 ## 4. 文字按钮
 
