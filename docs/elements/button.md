@@ -1,3 +1,20 @@
+
+``` kotlin
+@Composable
+fun Button(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    elevation: ButtonElevation? = ButtonDefaults.elevation(),
+    shape: Shape = MaterialTheme.shapes.small,
+    border: BorderStroke? = null,
+    colors: ButtonColors = ButtonDefaults.buttonColors(),
+    contentPadding: PaddingValues = ButtonDefaults.ContentPadding,
+    content: RowScope.() -> Unit
+): @Composable Unit
+```
+
 **Compose** 的 `Button` 是基于 **Material Design** 实现的，和传统的 **XML Button** 截然不同
 
 以下是简单创建一个默认的 `Button` 代码：

@@ -1,3 +1,25 @@
+``` kotlin
+@Composable
+fun Text(
+    text: String,
+    modifier: Modifier = Modifier,
+    color: Color = Color.Unspecified,
+    fontSize: TextUnit = TextUnit.Unspecified,
+    fontStyle: FontStyle? = null,
+    fontWeight: FontWeight? = null,
+    fontFamily: FontFamily? = null,
+    letterSpacing: TextUnit = TextUnit.Unspecified,
+    textDecoration: TextDecoration? = null,
+    textAlign: TextAlign? = null,
+    lineHeight: TextUnit = TextUnit.Unspecified,
+    overflow: TextOverflow = TextOverflow.Clip,
+    softWrap: Boolean = true,
+    maxLines: Int = Int.MAX_VALUE,
+    onTextLayout: (TextLayoutResult) -> Unit = {},
+    style: TextStyle = LocalTextStyle.current
+): @Composable Unit
+```
+
 
 `Text` 是 `Compose` 中最基本的布局组件，它可以显示文字
 
@@ -148,7 +170,28 @@ fun TextDemo() {
 
     如果需要实现 `TextAlign.Right` 中的方向，请使用 `Modifier.align(Alignment.位置)`，详情使用方法在[这里](../../layout/column/#2)
 
-## 4. 文字按钮
+
+## 4. lineHeight 参数
+
+使用 lineHeight 参数可以让我们指定 `Text` 中每行的行高间距
+
+``` kotlin
+Column {
+    Text(
+        text = "两面包夹芝士".repeat(15),
+    )
+    Spacer(Modifier.padding(vertical = 15.dp))
+    Text(
+        text = "两面包夹芝士".repeat(15),
+        lineHeight = 30.sp
+    )
+}
+```
+
+![](../assets/elements/text/text10.png)
+
+
+## 5. 可点击的 Text
 
 有的时候也许您需要将文本当作按钮，那么只需要添加 `Modifier.clickable` 即可
 
@@ -197,7 +240,7 @@ fun TextDemo() {
 ![](../assets/elements/text/text3.png)  
 
 
-## 5. 特定的文字显示
+## 6. 特定的文字显示
 
 如果我们想让一个 `Text` 语句中使用不同的样式，比如粗体提醒，特殊颜色
 
@@ -233,7 +276,7 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text4.png)  
 
-## 6. 复制文字
+## 7. 复制文字
 
 默认情况下 `Text` 并不能进行复制等操作，我们需要设置 `SelectionContainer` 来包装 `Text`
 
@@ -265,7 +308,7 @@ fun TextDemo() {
 ```
 ![](../assets/elements/text/text6.png)  
 
-## 7. 文字强调效果
+## 8. 文字强调效果
 
 文字根据不同情况来确定文字的强调程度，以突出重点并体现出视觉上的层次感。
 
@@ -298,7 +341,7 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 ![](../assets/elements/text/demo.png)
 
 
-## 8. 更多
+## 9. 更多
 
 [Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
 
