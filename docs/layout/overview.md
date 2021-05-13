@@ -1,7 +1,7 @@
 
 ## Layouts in Compose
 
-**本章节翻译自[官方文档](https://developer.android.com/jetpack/compose/layout) 并加了一些注释**
+**本章节翻译自 [官方文档](https://developer.android.com/jetpack/compose/layout) 并加了一些注释**
 
 **如有翻译不准确欢迎提交 issue / pr**
 
@@ -10,7 +10,7 @@
 
 这篇文档解释了 ``Compose`` 提供的一些构建模块，以帮助你布置你的 UI 元素，并告诉你如何在你需要的时候建立更专业的布局。
 
-***Composable*** 函数是 ``Compose`` 的基本构建模块，一个 ***Composable*** 的函数是一个 emitting `Unit` (通过声明式的语法去显示出一个界面元素?) 的函数，描述你的用户界面的某些部分。该函数接受一些输入并生成屏幕上显示的内容。
+***Composable*** 函数是 ``Compose`` 的基本构建模块，一个 ***Composable*** 的函数是一个 emitting `Unit` (通过声明式的语法去显示出一个界面元素？) 的函数，描述你的用户界面的某些部分。该函数接受一些输入并生成屏幕上显示的内容。
 
 一个 ***Composable*** 函数可能会包含多个 **UI** 元素。但是，如果你不告诉它们应该如何被排列，``Compose`` 可能不会按照你所想的方式来排列它们。
 
@@ -70,7 +70,7 @@ fun ArtistCard(artist: Artist) {
     图中的圆形图像的效果可以在 **基本组件/Image** 中实现。
     图中的文字效果可以在 **基本组件/Text** 中实现。
 
-关于 `Row` 的详情可以参考 [这里](row.md)
+关于 `Row` 的详情可以参考 [这里](row.md)。
 
 !!! Tips 
     注意：Compose 有效地处理嵌套布局，使其成为设计复杂UI的好方法。这是对 Android Views 的改进，在 Android Views 中，出于性能原因，您需要避免嵌套布局。
@@ -103,12 +103,12 @@ fun AlignInRow() {
 
 ## 2. Modifier
 
-`Modifier` 允许你装饰或增强一个 ***Composable***， `Modifier` 允许你做以下的事情
+`Modifier` 允许你装饰或增强一个 ***Composable***， `Modifier` 允许你做以下的事情。
 
-* 改变 ***Composable*** 的大小、布局、行为和外观
-* 添加信息，如无障碍标签
-* 处理用户的输入
-* 添加高层次的交互，比如让一个元素可点击、可滚动、可拖动或可缩放
+* 改变 ***Composable*** 的大小、布局、行为和外观。
+* 添加信息，如无障碍标签。
+* 处理用户的输入。
+* 添加高层次的交互，比如让一个元素可点击、可滚动、可拖动或可缩放。
 * 修改器是标准的 **Kotlin** 对象。通过调用 `Modifier` 类的一个函数来创建一个 `modifier`。你可以把这些函数串联起来，组成它们：
 
 ``` kotlin
@@ -133,12 +133,12 @@ fun ArtistCard(
 
 <img src = "../../assets/layout/overview/demo5.png" width = "50%" height = "50%">
 
-在上面的代码中，你会注意到不同的 `modifier` 函数一起使用
+在上面的代码中，你会注意到不同的 `modifier` 函数一起使用。
 
-* `clickable` 使一个 ***Composable*** 元素对用户的点击作出反应，并显示一个波纹
-* `padding` 在一个元素的周围填充了空间
-* `fillMaxWidth` 让 ***Composable*** 元素填满其父元素的最大宽度
-* `size()` 来指定一个元素的宽度和高度
+* `clickable` 使一个 ***Composable*** 元素对用户的点击作出反应，并显示一个波纹。
+* `padding` 在一个元素的周围填充了空间。
+* `fillMaxWidth` 让 ***Composable*** 元素填满其父元素的最大宽度。
+* `size()` 来指定一个元素的宽度和高度。
 
 
 !!! 注意
