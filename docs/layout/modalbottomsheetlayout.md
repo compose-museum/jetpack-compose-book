@@ -1,4 +1,21 @@
 
+
+``` kotlin
+@Composable
+@ExperimentalMaterialApi
+fun ModalBottomSheetLayout(
+    sheetContent: ColumnScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    sheetState: ModalBottomSheetState = rememberModalBottomSheetState(ModalBottomSheetValue.Hidden),
+    sheetShape: Shape = MaterialTheme.shapes.large,
+    sheetElevation: Dp = ModalBottomSheetDefaults.Elevation,
+    sheetBackgroundColor: Color = MaterialTheme.colors.surface,
+    sheetContentColor: Color = contentColorFor(sheetBackgroundColor),
+    scrimColor: Color = ModalBottomSheetDefaults.scrimColor,
+    content: () -> Unit
+): @Composable @ExperimentalMaterialApi Unit
+```
+
 ## 1. ModalBottomSheetLayout 概述
 
 `ModalBottomSheetLayout` 呈现了一系列的选择，同时阻止了与屏幕其他部分的互动。
@@ -87,8 +104,6 @@ ModalBottomSheetLayout(
 BackHandler(
     enabled = (state.currentValue == ModalBottomSheetValue.HalfExpanded
             || state.currentValue == ModalBottomSheetValue.Expanded),
-    // 通过 Log 打印日志可以发现，SheetState 有两种展开的状态
-    // HalfExpanded 和 Expanded
     onBack = {
         scope.launch{
             state.hide()

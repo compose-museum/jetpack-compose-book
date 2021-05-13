@@ -1,4 +1,16 @@
-## 1. bottomBar
+
+``` kotlin
+@Composable
+fun BottomAppBar(
+    modifier: Modifier = Modifier,
+    backgroundColor: Color = MaterialTheme.colors.primarySurface,
+    contentColor: Color = contentColorFor(backgroundColor),
+    cutoutShape: Shape? = null,
+    elevation: Dp = AppBarDefaults.BottomAppBarElevation,
+    contentPadding: PaddingValues = AppBarDefaults.ContentPadding,
+    content: RowScope.() -> Unit
+): @Composable Unit
+```
 
 `bottomBar` 是设置屏幕底部的导航栏，我们可以考虑用 `BottomNavigation` 或者 `BottomAppBar` 来实现
 
@@ -68,7 +80,7 @@ BottomNavigationItem(
 <img src = "../../../assets/layout/scaffold/bottombar/demo3.png" width = "30%" height = "30%">
 
 
-## 2. 自定义底部导航栏
+## 自定义底部导航栏
 
 这是一个自定义底部导航栏的演示
 
@@ -79,5 +91,5 @@ BottomNavigationItem(
 1. [Mkdocs](../../code/layout/scaffold/bottomNavigation/bottomNavigation.md)
 2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/layout/scaffold/bottomNavigation/bottomNavigation.kt)
 
-## 3. 更多
+## 更多
 [BottomNavigation 详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#BottomNavigation(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.Dp,kotlin.Function1))

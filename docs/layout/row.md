@@ -1,6 +1,4 @@
 
-`Row` 会将里面的子项放在一个水平的序列中
-
 ``` kotlin
 @Composable inline fun Row(
     modifier: Modifier = Modifier, 
@@ -10,6 +8,7 @@
 ): Unit
 ```
 
+`Row` 会将里面的子项放在一个水平的序列中
 
 `Row` 布局能够根据使用 **RowScope.weight** 修改器提供的权重来分配里面子项的宽度
 

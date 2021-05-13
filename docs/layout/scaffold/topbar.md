@@ -1,7 +1,3 @@
-## `topBar`
-
-`topBar` 是设置屏幕顶部的应用栏，我们可以考虑用自带的 `TopAppBar` 函数来实现
-
 ``` kotlin
 @Composable
 fun TopAppBar(
@@ -14,6 +10,10 @@ fun TopAppBar(
     elevation: Dp = AppBarDefaults.TopAppBarElevation
 )
 ```
+
+## `topBar`
+
+`topBar` 是设置屏幕顶部的应用栏，我们可以考虑用自带的 `TopAppBar` 函数来实现
 
 具体用法
 
