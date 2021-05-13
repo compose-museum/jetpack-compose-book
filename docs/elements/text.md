@@ -288,6 +288,10 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 
 ![](../assets/elements/text/content_alpha.png)
 
+这张图可以很好的说明这个效果
+
+![](../assets/elements/text/demo.png)
+
 
 ## 8. 更多
 
