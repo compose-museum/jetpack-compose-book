@@ -41,7 +41,19 @@
 
 首先，您需要 `fork` 一份本项目，然后同步项目的最新进度：
 
-在你 `fork` 下的项目根目录执行
+#### 第一种方法
+
+在 github 网页中，在你的 fork 仓库里，点击 Fetch upstream
+然后
+
+```
+ git pull origin main
+ ... // 写新内容
+ git push // push 到自己的分支
+ pr // 在网页上提交 PR
+```
+
+#### 第二种方法
 
 ```
  git remote add fork git@github.com:compose-museum/compose-tutorial.git (或使用 HTTPS)
