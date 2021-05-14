@@ -60,6 +60,11 @@ blockquote{
     overflow: auto;
 }
 
+code{
+    font-weight:700;
+    font-size:20px;
+}
+
 :root > * {
     --md-code-hl-string-color: rgb(45,158,103);
     --md-code-bg-color: rgb(248,249,250);

@@ -15,7 +15,7 @@ theme:
     - navigation.tabs
     - navigation.instant
   font:
-    code: Jetbrains Mono Bold 700
+    code: Jetbrains Mono
 
 nav:
   - '移动端':
