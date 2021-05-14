@@ -1,3 +1,9 @@
+<resources>
+    <string name="content">
+        如果你看到了这个界面，就默认代表你同意我们的所有用户协议（bushi）
+    </string>
+</resources>
+
 var content by remember{ mutableStateOf("")}
 val openDialog = remember { mutableStateOf(false)  }
 val annotatedText = buildAnnotatedString {
