@@ -55,26 +55,25 @@ if(openDialog.value){
                     style = MaterialTheme.typography.h6,
                 )
             }
-
         },
         text = {
             Text(content)
         },
         confirmButton = {
             Button(
-
                 onClick = {
                     openDialog.value = false
-                }) {
+                }
+            ){
                 Text("确认")
             }
         },
         dismissButton = {
             Button(
-
                 onClick = {
                     openDialog.value = false
-                }) {
+                }
+            ){
                 Text("取消")
             }
         }
