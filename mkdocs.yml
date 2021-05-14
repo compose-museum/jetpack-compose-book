@@ -17,7 +17,7 @@ theme:
   font:
     code: Jetbrains Mono
 nav:
-  - '移动端':
+  - 'Jetpack Compose':
     - '概述': index.md
     - '在开始之前': start.md
     - '基本组件':
