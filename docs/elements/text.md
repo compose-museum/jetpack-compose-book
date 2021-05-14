@@ -27,11 +27,24 @@ fun Text(
 ``` kotlin
 @Composable
 fun TextDemo() {
-    Column{
-        Text("Hello World")
-    }
+    Text("Hello World")
 }
 ```
+
+从 `res` 中加载文字
+
+``` kotlin
+@Composable
+fun TextDemo() {
+    Text(stringResource(id = R.string.content))
+}
+
+<resources>
+    <string name="app_name">examples</string>
+    <string name="content">桃之夭夭，灼灼其华。之子于归，宜其室家。</string>
+</resources>
+```
+
 
 ## 1. style 参数
 
@@ -57,6 +70,8 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text.png)
 
+### 文字间距
+
 当然有的时候我们想自己自定义字体的间隔和大小，那我们可以将代码改为：
 
 ``` kotlin
@@ -81,6 +96,8 @@ fun TextDemo() {
 它将会显示成
 
 ![](../assets/elements/text/text2.png)  
+
+### 字体大小
 
 !!! Tips
     如果只是想简单的修改字体大小而不考虑间隔之类的，可以直接使用 `fontSize = xx.sp` 来设置大小
@@ -110,6 +127,8 @@ fun TextDemo() {
 ```
 
 ![](../assets/elements/text/text7.png)
+
+### overflow 处理溢出
 
 使用 `overflow` 参数可以帮助我们处理溢出的视觉效果
 
@@ -211,6 +230,8 @@ fun TextDemo() {
 }
 ```
 
+### 取消点击波纹
+
 但是我们会发现，`clickable` 有自带的波纹效果，如果我们想要取消的话，只需要添加两个参数即可：
 
 ``` kotlin
@@ -251,6 +272,13 @@ fun TextDemo() {
 * 一个 `Text` 的值
 * 一个 `SpanStyleRange` 的 `List`，等同于位置范围在文字值内的内嵌样式
 * 一个 `ParagraphStyleRange` 的 `List`，用于指定文字对齐、文字方向、行高和文字缩进样式
+
+```kotlin
+inline fun <R : Any> AnnotatedString.Builder.withStyle(
+    style: SpanStyle,
+    block: AnnotatedString.Builder.() -> crossinline R
+): R
+```
 
 一个简单的代码演示：
 ``` kotlin
