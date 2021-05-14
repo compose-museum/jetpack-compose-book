@@ -6,5 +6,6 @@
 | -------|------|
 | **Icyrockton**| 38.00 |
 | **sasaju** | 38.00 |
+| **匿名（加个鸡腿）**| 8.88 |
 
 <img src = "/assets/pay.jpg" width = "50%" height = "50%">

@@ -16,7 +16,6 @@ theme:
     - navigation.instant
   font:
     code: Jetbrains Mono Bold 700
-
 nav:
   - '移动端':
     - '概述': index.md
