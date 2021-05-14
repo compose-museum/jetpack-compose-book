@@ -260,7 +260,6 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text3.png)  
 
-
 ## 6. 特定的文字显示
 
 如果我们想让一个 `Text` 语句中使用不同的样式，比如粗体提醒，特殊颜色
@@ -304,7 +303,95 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text4.png)  
 
-## 7. 复制文字
+## 7. 文字超链接？（ClickableText）
+
+在第 [#6](../text/#6-text) 部分我们已经介绍了可以通过 `AnnotatedString` 来完成在一个 `Text` 中给不同的文字应用不同的样式
+
+在第 [#5](../text/#5-text) 部分我们已经介绍了可以通过 `Modifier.Clickable()` 来完成检测 `Text` 的点击
+
+但是 `Modifier.Clickable()` 无法检测 `Text` 中的部分点击，那如果我们需要检测一个 `Text` 中的部分点击事件该怎么办呢？就像我们经常在 App 底下看到的用户协议等
+
+其实很简单，`Compose` 也给我们准备了 `ClickableText`，来看看如何使用吧！
+
+``` kotlin
+
+val text = buildAnnotatedString {
+    append("勾选即代表同意")
+    withStyle(
+        style = SpanStyle(
+            color = Color(0xFF0E9FF2),
+            fontWeight = FontWeight.Bold
+        )
+    ) {
+        append("用户协议")
+    }
+}
+
+ClickableText(
+    text = text,
+    onClick = { offset ->
+        Log.d(TAG, "Hi，你按到了第 $offset 位的文字")
+    }
+)
+
+```
+![](../assets/elements/text/text11.png)![](../assets/elements/text/text12.png)
+
+但是...怎么才能检测[用户协议]()这四个字符的点击事件呢？
+
+也不用怕，`Compose` 还在 `buildAnnotatedString` 和 `ClickableText` 中引入了相应的方法
+
+先来看看代码吧！
+
+``` kotlin
+val annotatedText = buildAnnotatedString {
+    append("勾选即代表同意")
+    pushStringAnnotation(
+        tag = "tag",
+        annotation = "一个用户协议啦啦啦，内容内容"
+    )
+    withStyle(
+        style = SpanStyle(
+            color = Color(0xFF0E9FF2),
+            fontWeight = FontWeight.Bold
+        )
+    ) {
+        append("用户协议")
+    }
+    pop()
+}
+
+ClickableText(
+    text = annotatedText,
+    onClick = { offset ->
+        annotatedText.getStringAnnotations(
+            tag = "tag", start = offset,
+            end = offset
+        ).firstOrNull()?.let { annotation ->
+            Log.d(TAG, "你已经点到 ${annotation.item} 啦")
+        }
+    }
+)
+```
+![](../assets/elements/text/text13.gif)
+
+在上面的代码中
+
+1. 多了一个 `pushStringAnnotation()` 方法，它会将给定的注释附加到任何附加的文本上，直到相应的 `pop` 被调用
+2. `getStringAnnotations()` 方法是查询附加在这个 `AnnotatedString` 上的字符串注释。注释是附加在 `AnnotatedString` 上的元数据，例如，在我们的代码中 `"tag"` 是附加在某个范围上的字符串元数据。注释也与样式一起存储在 `Range` 中
+
+### 小试牛刀
+
+那么，你已经学会了如何自定义 `Text` 中的样式和点击事件，来尝试做出一个这样的效果？
+
+![](../assets/elements/text/text14.gif)
+
+实现的代码可以通过以下的方式来查看
+
+1. [Mkdocs](../../code/elements/text/用户协议.md)
+2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/elements/text/用户协议.md)
+
+## 8. 复制文字
 
 默认情况下 `Text` 并不能进行复制等操作，我们需要设置 `SelectionContainer` 来包装 `Text`
 
@@ -336,7 +423,7 @@ fun TextDemo() {
 ```
 ![](../assets/elements/text/text6.png)  
 
-## 8. 文字强调效果
+## 9. 文字强调效果
 
 文字根据不同情况来确定文字的强调程度，以突出重点并体现出视觉上的层次感。
 
@@ -369,7 +456,7 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 ![](../assets/elements/text/demo.png)
 
 
-## 9. 更多
+## 10. 更多
 
 [Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#text)
 
