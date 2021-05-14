@@ -305,7 +305,7 @@ fun TextDemo() {
 
 ## 7. 文字超链接？（ClickableText）
 
-在第 [#6](../text/#6-text) 部分我们已经介绍了可以通过 `AnnotatedString` 来完成在一个 `Text` 中给不同的文字应用不同的样式
+在第 [#6](../text/#6) 部分我们已经介绍了可以通过 `AnnotatedString` 来完成在一个 `Text` 中给不同的文字应用不同的样式
 
 在第 [#5](../text/#5-text) 部分我们已经介绍了可以通过 `Modifier.Clickable()` 来完成检测 `Text` 的点击
 
