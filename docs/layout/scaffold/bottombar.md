@@ -97,7 +97,7 @@ BottomNavigationItem(
 
 ![](../../assets/layout/scaffold/bottombar/demo.gif)
 
-代码可以通过以下的方式来查看
+实现的代码可以通过以下的方式来查看
 
 1. [Mkdocs](../../code/layout/scaffold/bottomNavigation/bottomNavigation.md)
 2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/layout/scaffold/bottomNavigation/bottomNavigation.kt)
