@@ -389,7 +389,7 @@ ClickableText(
 实现的代码可以通过以下的方式来查看
 
 1. [Mkdocs](../../code/elements/text/用户协议.md)
-2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/elements/text/用户协议.md)
+2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/elements/text/用户协议.kt)
 
 ## 8. 复制文字
 
