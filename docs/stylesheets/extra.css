@@ -22,7 +22,8 @@
     background-color:#D7EFFE;
     padding: 10px 0px 10px 16px;
     color: #171717;
-    font-weight: 900;
+    font-weight: 600;
+    font-family: Roboto, "Noto Sans", "Noto Sans JP", "Noto Sans KR", "Noto Naskh Arabic", "Noto Sans Thai", "Noto Sans Hebrew", "Noto Sans Bengali", sans-serif;
 }
 
 
@@ -56,6 +57,7 @@
     padding: 50px;
 }
 
+/* 正文 */
 .md-content{
     padding-left: 4em;
 }
