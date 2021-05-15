@@ -1,18 +1,4 @@
-
-``` kotlin
-@ExperimentalAnimationApi
-@Composable
-fun ColumnScope.AnimatedVisibility(
-    visible: Boolean,
-    modifier: Modifier = Modifier,
-    enter: EnterTransition = fadeIn() + expandVertically(),
-    exit: ExitTransition = fadeOut() + shrinkVertically(),
-    initiallyVisible: Boolean = visible,
-    content: @Composable () -> Unit
-) {
-    AnimatedVisibilityImpl(visible, modifier, enter, exit, initiallyVisible, content)
-}
-```
+<img src = "../../../assets/animation/animatedVisibility/carbon.png" width = "90%" height = "50%">
 
 ## 1. 基础用法
 

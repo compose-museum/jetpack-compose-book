@@ -1,13 +1,4 @@
-``` kotlin
-@Composable
-fun IconButton(
-    onClick: () -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    content: () -> Unit
-): @Composable Unit
-```
+<img src = "../../assets/elements/iconbutton/carbon.png" width = "80%" height = "50%">
 
 `IconButton` 可以帮助我们生成一个可点击的图标按钮
 

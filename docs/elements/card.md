@@ -1,15 +1,6 @@
-``` kotlin
-@Composable
-fun Card(
-    modifier: Modifier = Modifier,
-    shape: Shape = MaterialTheme.shapes.medium,
-    backgroundColor: Color = MaterialTheme.colors.surface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    border: BorderStroke? = null,
-    elevation: Dp = 1.dp,
-    content: () -> Unit
-): @Composable Unit
-```
+
+<img src = "../../assets/elements/card/carbon.png" width = "80%" height = "50%">
+
 `Card` 是 Compose 中一个布局组件，我们用它可以来创造出一些好看的界面
 
 ``` kotlin
