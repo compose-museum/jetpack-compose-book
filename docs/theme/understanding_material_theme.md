@@ -2,30 +2,7 @@
 
 为深入理解 MaterialTheme 工作原理，我们需要进入他的源码一探究竟。
 
-```kotlin
-@Composable
-fun MaterialTheme(
-    colors: Colors = MaterialTheme.colors,
-    typography: Typography = MaterialTheme.typography,
-    shapes: Shapes = MaterialTheme.shapes,
-    content: @Composable () -> Unit
-) {
-    val rememberedColors = remember { colors }.apply { updateColorsFrom(colors) }
-    val rippleIndication = rememberRipple()
-    val selectionColors = rememberTextSelectionColors(rememberedColors)
-    CompositionLocalProvider(
-        LocalColors provides rememberedColors,
-        LocalContentAlpha provides ContentAlpha.high,
-        LocalIndication provides rippleIndication,
-        LocalRippleTheme provides MaterialRippleTheme,
-        LocalShapes provides shapes,
-        LocalTextSelectionColors provides selectionColors,
-        LocalTypography provides typography
-    ) {
-        ProvideTextStyle(value = typography.body1, content = content)
-    }
-}
-```
+<img src = "../../../assets/theme/understanding_material_theme/carbon.png" width = "90%" height = "50%">
 
 需要注意的是，此时传入的 content 参数其实是声明在 Theme 中的自定义布局系统，其类型是一个带有 Composable 注解的 lambda (下文对于这类带有 Composable 的 lambda 简称为 composable )。
 

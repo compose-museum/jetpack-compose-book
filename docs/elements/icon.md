@@ -1,12 +1,4 @@
-``` kotlin
-@Composable
-fun Icon(
-    imageVector: ImageVector,
-    contentDescription: String?,
-    modifier: Modifier = Modifier,
-    tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-): @Composable Unit
-```
+<img src = "../../assets/elements/icon/carbon.png" width = "80%" height = "50%">
 
 一个图标组件，使用 `tint` 来给 `imageVector` 上色，默认为 `LocalContentColor`。对于一个可点击的图标，请查阅 [IconButton](iconbutton.md)。
 
