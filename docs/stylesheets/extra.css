@@ -27,7 +27,12 @@
 
 
 [data-md-type='navigation']{
-    width: 18rem;
+    width: 14rem;
+}
+
+[for='__nav_1_6']{
+    border-top: 1px solid#DEE2E6;
+    padding-top: 15px;
 }
 
 @media screen and (max-width: 76.1875em){
@@ -39,11 +44,6 @@
 .md-sidebar.md-sidebar--primary .md-sidebar__scrollwrap{
     border-right: 1px solid#DEE2E6;
     padding-right: 5px;
-    padding-left: 25px;
-}
-
-.md-nav__item{
-    font-weight: 400;
 }
 
 .md-content{
@@ -54,6 +54,10 @@
     border: 1px solid#DEE2E6;
     border-radius: 20px;
     padding: 50px;
+}
+
+.md-content{
+    padding-left: 4em;
 }
 
 blockquote{
