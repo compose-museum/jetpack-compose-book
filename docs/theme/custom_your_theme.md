@@ -112,7 +112,7 @@ fun MaterialTheme(
 }
 ```
 
-既然懂得了原理，我们仅需要根据项目实际需求配置字体样式即可，既然Android Studio帮助生成Type.kt，说明Android团队是希望我们将字体样式配置在这个文件中配置的。
+既然懂得了原理，我们仅需要根据项目实际需求配置字体样式即可，既然Android Studio帮助生成Type.kt，说明是官方希望我们将字体样式配置在这个文件中的。这是一种规范，但也可不遵守。
 
 值得注意的是由于每种字体都会有不同的粗细风格，我们在字体样式配置时需要指明字体种类与粗细风格。
 
@@ -165,9 +165,9 @@ Text(
 
 ## 4. 配置自定义资源
 
-有时我们可能需要根据主题的不同使用不同的多媒体资源，例如图片、视频、音频等等。通过查阅MaterialTheme的参数列表我们没有发现可以进行配置的参数。难道 Jetpack Compose 不具备这样的能力？答案当然是否定的，Android团队已经充分考虑了各种场景，只是针对于这种需求而言，我们需要进行额外的定制拓展。
+有时我们可能需要根据主题的不同使用不同的多媒体资源，例如图片、视频、音频等等。通过查阅MaterialTheme参数列表我们没有发现可以进行配置的参数。难道 Jetpack Compose 不具备这样的能力？答案当然是否定的，Android团队已经充分考虑了各种场景，只是针对于这种需求而言，我们需要进行额外的定制扩展。
 
-在前一篇文章中，我们已经详细介绍了MaterialTheme工作原理，想必你也可以猜到，就是通过定制CompositionLocal来实现图片资源的拓展，根据主题的不同选用其对应的多媒体资源。
+在前一篇文章中，我们已经详细介绍了MaterialTheme工作原理，想必你也猜到了，就是通过定制CompositionLocal方式来实现图片资源的扩展，根据主题的不同选用其对应的多媒体资源。
 
 ```kotlin
 open class WelcomeAssets private constructor(
@@ -193,7 +193,7 @@ internal var LocalWelcomeAssets = staticCompositionLocalOf {
 }
 ```
 
-于此同时，我们还希望能够在视图中仍通过MaterialTheme来访问我们的图片资源，那么则可以通过Kotlin语法糖-扩展属性进行实现(扩展属性没有幕后资源，只能委托其他实例，正中下怀)。值得注意的是，CompositionLocal只能在composable(带有Composable注解的lambda)中使用，所以我们需要为这个属性获取添加@Composable与@ReadOnlyComposable注解。
+于此同时，我们还希望能够在视图中仍通过MaterialTheme来访问我们的图片资源，那么则可以通过Kotlin扩展属性的特性进行实现(扩展属性是没有幕后字段的，只能委托其他实例)。值得注意的是，CompositionLocal只能在composable(带有Composable注解的lambda)中使用，所以我们需要为这个属性获取添加@Composable与@ReadOnlyComposable注解。
 
 ```kotlin
 val MaterialTheme.welcomeAssets
@@ -202,7 +202,7 @@ val MaterialTheme.welcomeAssets
     get() = LocalWelcomeAssets.current
 ```
 
-通过这种写法我们在视图中就可以仍然通过MaterialTheme来获取扩展的图片资源了。
+这样我们在视图中就可以仍然通过MaterialTheme来获取扩展的图片资源了。
 
 ```kotlin
 Image(

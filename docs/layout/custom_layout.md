@@ -1,26 +1,26 @@
-# 1. 概述
+## 概述
 
 Compose已经内置了许多组件，诸如Column，Row，Box等。开发者可以通过这些组合这些已有的组件来定制自己的专属组件。
 
-就像在传统View系统中，当LinearLayout等基础布局无法满足你的需求时，你可以通过重写measure与layout来达成你的期望。Compose沿用了这一理念，在一些场景下如果Compose内置组件可能无法满足你的需求，可以尝试通过定制测量与布局过程来完成需求。事实上，Compose内置组件也是通过定制layout来达成的，只是一个更高层次的封装。
+就像在传统View系统中，当LinearLayout等基础布局无法满足你的需求时，你可以通过重写measure与layout来达成你的期望。Compose沿用了这一理念，在一些场景下如果Compose内置组件可能无法满足你的需求，可以尝试通过定制测量与布局过程来完成需求。事实上，Compose内置组件也是通过定制Layout来达成的，只是一个更高层次的封装。
 
-在学习如何定制layout之前，我们需要先了解下Compose的布局原理。
+在学习如何定制Layout之前，我们需要先了解下Compose的布局原理。
 
-# 2. Compose布局原理
+## Compose布局原理
 
 composable被调用时会将自身包含的UI元素添加到UI树中并在屏幕上被渲染出来。每个UI元素都有一个父元素，可能会包含零至多个子元素。每个元素都有一个相对其父元素的内部位置和尺寸。
 
-每个元素都会被要求根据父元素的约束来进行自我测量(类似传统View中的MeasureSpec)，约束中包含了父元素允许子元素的最大宽度与高度和最小宽度与高度，当父元素想要强制子元素宽高为固定值时，其对应的最大值与最小值会是相同的。
+每个元素都会被要求根据父元素的约束来进行自我测量(类似传统View中的MeasureSpec)，约束中包含了父元素允许子元素的最大宽度与高度和最小宽度与高度，当父元素想要强制子元素宽高为固定值时，其对应的最大值与最小值就是相同的。
 
 对于一些包含多个子元素的UI元素，需要测量每一个子元素从而确定当前UI元素自身的大小。并且在每个子元素自我测量后，当前UI元素可以根据其所需要的宽度与高度进行在自己内部进行放置
 
-**Compose UI 不允许多次测量**，每个UI元素不能多次测量其包含的每一个子元素，换句话说就是**每个子元素只允许被测量一次**。这样做的好处是什么？这样做的好处是为了提高性能。在传统View系统中一个UI元素允许多次测量子元素，我们假设对子元素测量两次，而该子元素可能又对其子元素又测量了两次，从总体上来看当前UI元素进行一个重新测量，则孙子元素就测量了四次，测量次数随着深度而指数级上升。以此类推，那么一次尝试布局整个UI将需要做大量的工作，很难保持应用程序的良好性能。 为避免传统View系统测量布局的性能陷阱，Compose限制了每个子元素的测量次数，可以高效处理深度比较大的UI树(极端情况是退化成链表的树形结构)。但是在有些场景下，多次测量子元素是有意义的，我们是需要获取到子元素多次测量的信息的。对于这些情况，有办法做到这一点，我们将在后面讨论。
+**Compose UI 不允许多次测量**，当前UI元素的每一个子元素均不能被重复进行测量，换句话说就是**每个子元素只允许被测量一次**。这样做的好处是什么？这样做的好处是为了提高性能。在传统View系统中一个UI元素允许多次测量子元素，我们假设对子元素测量两次，而该子元素可能又对其子元素又测量了两次，总体上当前UI元素重新测量一次，则孙子元素就需要测量四次，测量次数会随着深度而指数级上升。以此类推，那么一次布局整颗UI树都需要做大量的工作，很难保持应用程序的良好性能。 为避免传统View系统测量布局的性能陷阱，Compose限制了每个子元素的测量次数，可以高效处理深度比较大的UI树(极端情况是退化成链表的树形结构)。但是在有些场景下，多次测量子元素是有意义的，我们是需要获取到子元素多次测量的信息的。对于这些情况，有办法做到这一点，我们将在后面讨论。
 
 <iframe  width="780" height="615" src="//player.bilibili.com/player.html?aid=459420051&bvid=BV1ZA41137gr&cid=305252461&page=1" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 
 <br/>
 
-# 3. 使用Layout Modifier
+## 使用Layout Modifier
 
 使用 <code>Modifier.layout()</code> 手动控制元素的测量和布局。通常layout修饰符的使用方法像下面这样。
 
@@ -36,7 +36,7 @@ measurable：子元素的测量句柄，通过提供的api完成测量与布局�
 
 constraints: 子元素的测量约束，包括宽度与高度的最大值与最小值。
 
-## 3.1 Layout Modifier使用示例
+### Layout Modifier使用示例
 
 有时你想在屏幕上展示一段文本信息，通常你会使用到Compose内置的Text组件。单单显示文本是不够的，你希望指定Text顶部到文本基线的高度，让文本看的更自然一些。使用内置的padding修饰符是无法满足你的需求的，他只能指定Text顶部到文本顶部的高度，此时你就需要使用到layout修饰符了。
 
@@ -127,7 +127,7 @@ fun TextWithNormalPaddingPreview() {
 
 <img src = "../../assets/layout/custom_layout/demo2.png" width = "50%" height = "50%">
 
-# 4. 使用Layout Composable
+## 使用Layout Composable
 
 Layout Modifier会将当前元素的所有子元素视作为整体进行统一的测量与布局，多适用于统一处理的场景。然而我们有时是需要精细化测量布局每一个子组件，这需要我们进行完全的自定义Layout。这类似于传统View系统中定制View与ViewGroup测量布局流程的区别。对于定制“ViewGroup”的场景，我们应该使用Layout Composable了。首先我们需要创建一个Layout Composable。
 
@@ -155,7 +155,7 @@ fun CustomLayout(
 
 **measurePolicy**：默认场景下只实现measure即可，上面示例中最后传入的lambda就是measure的实现。当你想要为你的Layout Composable适配Intrinsics时(官方中文翻译为固有特性测量)，则需要重写 <code>minIntrinsicWidth</code> 、<code>minIntrinsicHeight</code>、<code>maxIntrinsicWidth</code> 、<code>maxIntrinsicHeight</code> 方法，有关于固有特性测量的文章后续会更新，请持续关注。
 
-## 4.1 Layout Composable使用示例
+### Layout Composable使用示例
 
 我们可以通过Layout Composable定制一个自己专属的Column，首先我们需要声明这个Composable。
 
