@@ -42,6 +42,7 @@ nav:
         - '2. bottomBar': layout/scaffold/bottombar.md
         - '3. drawerContent': layout/scaffold/drawercontent.md
         - '4. floatingActionButton': layout/scaffold/floatingactionbutton.md
+      - '自定义Layout': layout/custom_layout.md
     - '动画':
       - '概述': animation/overview.md
       - 'AnimationVisibility': animation/animationvisibility.md
