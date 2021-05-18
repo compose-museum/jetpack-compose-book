@@ -51,7 +51,7 @@ fun Text(
 | **overflow: [TextOverflow](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextOverflow) = TextOverflow.Clip** | 处理视觉溢出的问题 |
 | **softWrap: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = true** | 文本是否应在软换行时断开。如果是 `false`，文本中的字形将被定位，就像有无限的水平空间一样。如果 `softWrap` 为 `false`，`overflow` 和 `TextAlign` 可能会产生意外的效果 |
 | **maxLines: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) = Int.MAX_VALUE** | 可选的文本跨度的最大行数，如果有必要，可以进行包装。如果文本超过了给定的行数，它将根据 `overflow` 和 `softWrap` 被截断。如果它不是空的，那么它必须大于零  |
-围。它用于在文本布局中插入可合成物。查看 [InlineTextContent](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/InlineTextContent) 以了解更多信息|
+
 | **onTextLayout: [(TextLayoutResult)](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/TextLayoutResult) -> [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) = {}** | 当计算一个新的文本布局时执行的回调 |
 | **style: [TextStyle](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/TextStyle) = LocalTextStyle.current** | 文本的风格配置，如颜色、字体、行高等 |
 
@@ -96,6 +96,6 @@ fun Text(
 | **overflow: [TextOverflow](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/style/TextOverflow) = TextOverflow.Clip** | 处理视觉溢出的问题 |
 | **softWrap: [Boolean](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html) = true** | 文本是否应在软换行时断开。如果是 `false`，文本中的字形将被定位，就像有无限的水平空间一样。如果 `softWrap` 为 `false`，`overflow` 和 `TextAlign` 可能会产生意外的效果 |
 | **maxLines: [Int](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html) = Int.MAX_VALUE** | 可选的文本跨度的最大行数，如果有必要，可以进行包装。如果文本超过了给定的行数，它将根据 `overflow` 和 `softWrap` 被截断。如果它不是空的，那么它必须大于零  |
-| **inlineContent: [Map](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html)<[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), [InlineTextContent](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/InlineTextContent)> = mapOf()** |一个 Map 存储 Composables，取代了文本的某些范围。它用于在文本布局中插入可合成物。查看 [InlineTextContent](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/InlineTextContent) 以了解更多信息|
+| **inlineContent: [Map](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html)<[String](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html), [InlineTextContent](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/InlineTextContent)> = mapOf()** |一个 Map 存储 Composables，取代了文本的某些范围。它用于在文本布局中插入 Composables。查看 [InlineTextContent](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/InlineTextContent) 以了解更多信息|
 | **onTextLayout: [(TextLayoutResult)](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/TextLayoutResult) -> [Unit](https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html) = {}** | 当计算一个新的文本布局时执行的回调 |
 | **style: [TextStyle](https://developer.android.com/reference/kotlin/androidx/compose/ui/text/TextStyle) = LocalTextStyle.current** | 文本的风格配置，如颜色、字体、行高等 |
