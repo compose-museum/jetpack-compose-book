@@ -27,3 +27,44 @@ Material Surface 是 **Material Design** 的核心隐喻，每个平面都存在
 
 如果没有设置 `contentColor`，这个平面将尝试将其背景颜色与主题 `Colors` 中定义的颜色相匹配，并返回相应的内容颜色。例如，如果这个平面的颜色是 `Colors.surface`，`contentColor` 将被设置为 `Colors.onSurface`。如果颜色不是主题调色板的一部分，`contentColor` 将保持这个 `Surface` 上面设置的相同值
 
+## 1. 来试试用 `Surface` 实现 `Card` 的效果
+
+``` kotlin
+Surface(
+    shape = RoundedCornerShape(10.dp),
+    elevation = 10.dp,
+    modifier = Modifier
+        .fillMaxWidth()
+        .padding(15.dp) // 外边距
+        .clickable{ },
+){
+    Column(
+        modifier = Modifier.padding(15.dp) // 内边距
+    ) {
+        Text(
+            buildAnnotatedString {
+                append("欢迎来到 ")
+                withStyle(style = SpanStyle(fontWeight = FontWeight.W900, color = Color(0xFF4552B8))
+                ) {
+                    append("Jetpack Compose 博物馆")
+                }
+            }
+        )
+        Text(
+            buildAnnotatedString {
+                append("你现在观看的章节是 ")
+                withStyle(style = SpanStyle(fontWeight = FontWeight.W900)) {
+                    append("Card")
+                }
+            }
+        )
+    }
+}
+```
+
+![](../assets/elements/surface/demo.gif)
+
+
+## 2. 更多
+
+[Surface 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Surface(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.foundation.BorderStroke,androidx.compose.ui.unit.Dp,kotlin.Function0))
