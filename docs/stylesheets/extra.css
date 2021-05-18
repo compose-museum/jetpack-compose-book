@@ -47,10 +47,6 @@
     padding-right: 5px;
 }
 
-.md-content{
-    padding-top: 20px;
-}
-
 .md-content__inner.md-typeset{
     border: 1px solid#DEE2E6;
     border-radius: 20px;
@@ -59,6 +55,7 @@
 
 /* 正文 */
 .md-content{
+    padding-top: 20px;
     padding-left: 4em;
 }
 
