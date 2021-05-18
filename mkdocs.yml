@@ -57,7 +57,8 @@ nav:
     - '关于贡献': contributing.md
     - '关于投喂': pay.md
   - 'API 文档':
-    - '概述': api/index.md
+    - '组件':
+      - 'Text': api/elements/text.md
 
 extra:
   social:
