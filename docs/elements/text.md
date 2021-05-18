@@ -438,6 +438,6 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 
 ## 10. 更多
 
-[Text 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Text(kotlin.String,androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.font.FontStyle,androidx.compose.ui.text.font.FontWeight,androidx.compose.ui.text.font.FontFamily,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.style.TextDecoration,androidx.compose.ui.text.style.TextAlign,androidx.compose.ui.unit.TextUnit,androidx.compose.ui.text.style.TextOverflow,kotlin.Boolean,kotlin.Int,kotlin.Function1,androidx.compose.ui.text.TextStyle))
+[Text 参数详情](../api/elements/text.md)
 
 [Text 一些用法](https://developer.android.com/jetpack/compose/text)
