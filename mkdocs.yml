@@ -29,6 +29,7 @@ nav:
       - 'Image': elements/image.md
       - 'IconButton': elements/iconbutton.md
       - 'Surface': elements/surface.md
+      - 'Slider': elements/slider.md
       - 'TextField': elements/textfield.md
     - '布局': 
       - '概述': layout/overview.md
