@@ -38,15 +38,12 @@ fun colors(
         .compositeOver(MaterialTheme.colors.surface),
     activeTrackColor: Color = MaterialTheme.colors.primary,
     inactiveTrackColor: Color = activeTrackColor.copy(alpha = InactiveTrackAlpha),
-    disabledActiveTrackColor: Color =
-        MaterialTheme.colors.onSurface.copy(alpha = DisabledActiveTrackAlpha),
-    disabledInactiveTrackColor: Color =
-        disabledActiveTrackColor.copy(alpha = DisabledInactiveTrackAlpha),
+    disabledActiveTrackColor: Color = MaterialTheme.colors.onSurface.copy(alpha = DisabledActiveTrackAlpha),
+    disabledInactiveTrackColor: Color = disabledActiveTrackColor.copy(alpha = DisabledInactiveTrackAlpha),
     activeTickColor: Color = contentColorFor(activeTrackColor).copy(alpha = TickAlpha),
     inactiveTickColor: Color = activeTrackColor.copy(alpha = TickAlpha),
     disabledActiveTickColor: Color = activeTickColor.copy(alpha = DisabledTickAlpha),
-    disabledInactiveTickColor: Color = disabledInactiveTrackColor
-        .copy(alpha = DisabledTickAlpha)
+    disabledInactiveTickColor: Color = disabledInactiveTrackColor.copy(alpha = DisabledTickAlpha)
 )
 ```
 
