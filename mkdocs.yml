@@ -22,9 +22,10 @@ nav:
     - '概述': index.md
     - '在开始之前': start.md
     - '基本组件':
-      - 'Text': elements/text.md
+      - 'AlertDialog': elements/alertdialog.md
       - 'Button': elements/button.md
       - 'Card': elements/card.md
+      - 'Text': elements/text.md
       - 'Icon': elements/icon.md
       - 'Image': elements/image.md
       - 'IconButton': elements/iconbutton.md
