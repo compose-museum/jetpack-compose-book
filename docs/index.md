@@ -1,6 +1,6 @@
 
 <div align = center>
-<img src = "assets/logoo.png" width = "70%" height = "70%" align = center/>
+<img src = "assets/tutorial-banner.png" width = "100%" align = center/>
 </div>
 
 ## 介绍 💨
