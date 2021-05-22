@@ -581,3 +581,161 @@ fun TextWithNormalPaddingPreview() {
 ```
 
 <img src = "../../assets/layout/overview/demo21.png" width = "25%" height = "25%">
+
+### 创建自定义布局
+`layout` 修饰符仅更改调用可组合项。如需测量和布置多个可组合项，请改用 `Layout` 可组合项。此可组合项允许您手动测量和布置子项。`Column` 和 `Row` 等所有较高级别的布局都使用 `Layout` 可组合项构建而成。
+
+!!! 注意
+    在 View 系统中，创建自定义布局必须扩展 ViewGroup 并实现测量和布局函数。在 Compose 中，您只需使用 Layout 可组合项编写一个函数即可
+
+我们来构建一个非常基本的 Column。大多数自定义布局都遵循以下模式：
+
+``` kotlin
+@Composable
+fun MyBasicColumn(
+    modifier: Modifier = Modifier,
+    content: @Composable() () -> Unit
+) {
+    Layout(
+        modifier = modifier,
+        children = content
+    ) { measurables, constraints ->
+        // measure and position children given constraints logic here
+    }
+}
+```
+
+与 `layout` 修饰符类似，`measurables` 是需要测量的子项的列表，而 `constraints` 是来自父项的约束条件。按照与前面相同的逻辑，可按如下方式实现 `MyBasicColumn`：
+
+``` kotlin
+@Composable
+fun MyBasicColumn(
+    modifier: Modifier = Modifier,
+    content: @Composable() () -> Unit
+) {
+    Layout(
+        modifier = modifier,
+        content = content
+    ) { measurables, constraints ->
+        // Don't constrain child views further, measure them with given constraints
+        // List of measured children
+        val placeables = measurables.map { measurable ->
+            // Measure each children
+            measurable.measure(constraints)
+        }
+
+        // Set the size of the layout as big as it can
+        layout(constraints.maxWidth, constraints.maxHeight) {
+            // Track the y co-ord we have placed children up to
+            var yPosition = 0
+
+            // Place children in the parent layout
+            placeables.forEach { placeable ->
+                // Position item on the screen
+                placeable.placeRelative(x = 0, y = yPosition)
+
+                // Record the y co-ord placed up to
+                yPosition += placeable.height
+            }
+        }
+    }
+}
+```
+
+可组合子项受 `Layout` 约束条件（没有 `minHeight` 约束条件）的约束，它们的放置基于前一个可组合项的 `yPosition`。
+
+该自定义可组合项的使用方式如下：
+
+``` kotlin
+@Composable
+fun CallingComposable(modifier: Modifier = Modifier) {
+    MyBasicColumn(modifier.padding(8.dp)) {
+        Text("MyBasicColumn")
+        Text("places items")
+        Text("vertically.")
+        Text("We've done it by hand!")
+    }
+}
+```
+
+<img src = "../../assets/layout/overview/demo22.png" width = "25%" height = "25%">
+
+## 7. 布局方向
+
+您可以通过更改 `LocalLayoutDirection` composeLocal 来更改可组合项的布局方向。
+
+如果您要将可组合项手动放置在屏幕上，则 `LayoutDirection` 是 `layout` 修饰符或 `Layout` 可组合项的 `LayoutScope` 的一部分。
+
+使用 `layoutDirection` 时，应使用 `place` 放置可组合项。与 `place` 方法不同，`place` 不会根据阅读方向（从左到右与从右到左）发生变化。
+
+## 8. 固有特性测量
+
+Compose 有一项规则，即，子项只能测量一次，测量两次就会引发运行时异常。但是，有时需要先收集一些关于子项的信息，然后再测量子项。
+
+**借助固有特性，您可以先查询子项，然后再进行实际测量。**
+
+对于可组合项，您可以查询其 `intrinsicWidth` 或 `intrinsicHeight`：
+
+* `(min|max)IntrinsicWidth`：给定此高度，可以正确绘制内容的最小/最大宽度是多少？
+* `(min|max)IntrinsicHeight`：给定此宽度，可以正确绘制内容的最小/最大高度是多少？
+例如，如果您查询具有无限 `width` 的 `Text` 的 `minIntrinsicHeight`，它将返回 `Text` 的 `height`，就好像该文本是在单行中绘制的一样。
+
+固有特性的实际运用
+
+假设我们需要创建一个可组合项，该可组合项在屏幕上显示两个用分隔线隔开的文本，如下所示：
+
+<img src = "../../assets/layout/overview/demo23.png" width = "55%" height = "55%">
+
+我们该怎么做？我们可以将两个 Text 放在同一 Row，并在其中最大程度地扩展，另外在中间放置一个 Divider。我们需要将分隔线的高度设置为与最高的 Text 相同，粗细设置为 width = 1.dp。
+
+``` kotlin
+@Composable
+fun TwoTexts(modifier: Modifier = Modifier, text1: String, text2: String) {
+    Row(modifier = modifier) {
+        Text(
+            modifier = Modifier
+                .weight(1f)
+                .padding(start = 4.dp)
+                .wrapContentWidth(Alignment.Start),
+            text = text1
+        )
+
+        Divider(color = Color.Black, modifier = Modifier.fillMaxHeight().width(1.dp))
+        Text(
+            modifier = Modifier
+                .weight(1f)
+
+                .padding(end = 4.dp)
+                .wrapContentWidth(Alignment.End),
+
+            text = text2
+        )
+    }
+}
+
+@Preview
+@Composable
+fun TwoTextsPreview() {
+    LayoutsCodelabTheme {
+        Surface {
+            TwoTexts(text1 = "Hi", text2 = "there")
+        }
+    }
+}
+```
+
+预览时，我们发现分隔线扩展到整个屏幕，这并不是我们想要的效果：
+
+
+<img src = "../../assets/layout/overview/demo24.png" width = "55%" height = "55%">
+
+之所以出现这种情况，是因为 `Row` 会逐个测量每个子项，并且 `Text` 的高度不能用于限制 `Divider`。我们希望 `Divider` 以一个给定的高度来填充可用空间。为此，我们可以使用 `height(IntrinsicSize.Min)` 修饰符。
+
+`height(IntrinsicSize.Min)` 可将其子项的高度强行调整为最小固有高度。由于该修饰符具有递归性，因此它将查询 `Row` 及其子项 `minIntrinsicHeight`。
+
+将其应用到代码中，就能达到预期的效果：
+
+<img src = "../../assets/layout/overview/demo25.png" width = "55%" height = "55%">
+
+
+`Row` 可组合项的 `minIntrinsicHeight` 将作为其子项的最大 `minIntrinsicHeight`。`Divider` 元素的 `minIntrinsicHeight` 为 `0`，因为如果没有给出约束条件，它不会占用任何空间；如果给出特定 `width`，`Text` `minIntrinsicHeight` 将为文本的高度。因此，`Row` 元素的 `height` 约束条件将为 `Text` 的最大 m`inIntrinsicHeight`。而 `Divider` 会将其 `height` 扩展为 `Row` 给定的 `height` 约束条件。

@@ -1,6 +1,6 @@
 <img src = "../../assets/elements/icon/carbon.png" width = "80%" height = "50%">
 
-一个图标组件，使用 `tint` 来给 `imageVector` 上色，默认为 `LocalContentColor`。对于一个可点击的图标，请查阅 [IconButton](iconbutton.md)。
+一个图标组件，使用 `tint` 可以修改 `Icon` 的颜色，默认为 `LocalContentColor`。对于一个可点击的图标，请查阅 [IconButton](iconbutton.md)。
 
 ``` kotlin
 Row{
