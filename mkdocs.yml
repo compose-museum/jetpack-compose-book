@@ -54,6 +54,8 @@ nav:
       - '自定义你的主题方案': theme/custom_your_theme.md
     - '参数':
       - 'Modifier': parameters/modifier.md
+    - '技术原理':
+      - '了解Compose的重组作用域': principle/recomposition_scope.md
     - '代码实验室': codelabs.md
     - '资源': resources.md
     - '关于贡献': contributing.md
