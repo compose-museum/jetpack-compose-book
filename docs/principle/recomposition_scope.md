@@ -1,4 +1,5 @@
 
+
 不少初学 Compose 的同学都会对 Composable 的 Recomposition（官方文档译为"重组"）心生顾虑，担心大范围的重组是否会影响性能。
 
 其实这种担心大可不必， Compose 编译器在背后做了大量工作来保证 recomposition 范围尽可能小，从而避免了无效开销：
@@ -229,3 +230,4 @@ fun Wrapper(content: @Composable () -> Unit) {
 D/Compose: Button content lambda
 D/Compose: Text
 ```
+
