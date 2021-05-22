@@ -740,4 +740,3 @@ fun TwoTextsPreview() {
 
 `Row` 可组合项的 `minIntrinsicHeight` 将作为其子项的最大 `minIntrinsicHeight`。`Divider` 元素的 `minIntrinsicHeight` 为 `0`，因为如果没有给出约束条件，它不会占用任何空间；如果给出特定 `width`，`Text` `minIntrinsicHeight` 将为文本的高度。因此，`Row` 元素的 `height` 约束条件将为 `Text` 的最大 m`inIntrinsicHeight`。而 `Divider` 会将其 `height` 扩展为 `Row` 给定的 `height` 约束条件。
 
-
