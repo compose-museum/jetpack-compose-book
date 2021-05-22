@@ -99,7 +99,7 @@ BottomNavigationItem(
 
 实现的代码可以通过以下的方式来查看
 
-1. [Mkdocs](../../code/layout/bottomNavigation/bottomNavigation.md)
+1. [Mkdocs](../code/layout/bottomNavigation/bottomNavigation.md)
 2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/layout/bottomNavigation/bottomNavigation.kt)
 
 ## 更多
