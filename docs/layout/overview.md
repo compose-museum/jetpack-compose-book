@@ -1,7 +1,7 @@
 
 ## Layouts in Compose
 
-**本章节翻译自 [官方文档](https://developer.android.com/jetpack/compose/layout) 并加了一些注释**
+**本章节中的 1-6.1 章节翻译自 [官方文档](https://developer.android.com/jetpack/compose/layout) 并加了一些注释，其余部分复制于官方文档的中文翻译**
 
 **如有翻译不准确欢迎提交 issue / pr**
 
