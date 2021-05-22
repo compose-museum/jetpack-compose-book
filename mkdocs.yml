@@ -25,25 +25,23 @@ nav:
       - 'AlertDialog': elements/alertdialog.md
       - 'Button': elements/button.md
       - 'Card': elements/card.md
-      - 'Text': elements/text.md
+      - 'FloatingActionButton': elements/floatingactionbutton.md
       - 'Icon': elements/icon.md
       - 'Image': elements/image.md
       - 'IconButton': elements/iconbutton.md
       - 'Surface': elements/surface.md
       - 'Slider': elements/slider.md
+      - 'Text': elements/text.md
       - 'TextField': elements/textfield.md
     - '布局': 
       - '概述': layout/overview.md
+      - 'BottomNavigation': layout/bottomnavigation.md
       - 'Column': layout/column.md
       - 'ModalBottomSheetLayout': layout/modalbottomsheetlayout.md
       - 'Row': layout/row.md
       - 'Spacer': layout/spacer.md
-      - 'Scaffold':
-        - '概述': layout/scaffold/overview.md
-        - '1. topBar': layout/scaffold/topbar.md
-        - '2. bottomBar': layout/scaffold/bottombar.md
-        - '3. drawerContent': layout/scaffold/drawercontent.md
-        - '4. floatingActionButton': layout/scaffold/floatingactionbutton.md
+      - 'Scaffold': layout/scaffold.md
+      - 'TopAppBar': layout/topappbar.md
       - '自定义Layout': layout/custom_layout.md
     - '手势':
       - 'Swipeable滑动': gesture/swipeable.md

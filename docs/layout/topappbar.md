@@ -11,11 +11,7 @@ fun TopAppBar(
 )
 ```
 
-## `topBar`
-
-`topBar` 是设置屏幕顶部的应用栏，我们可以考虑用自带的 `TopAppBar` 函数来实现
-
-具体用法
+简单使用：
 
 ``` kotlin
 @Composable
@@ -41,7 +37,7 @@ fun ScaffoldDemo(){
 }
 ```
 
-![](../../assets/layout/scaffold/topbar/demo.png)
+![](../../assets/layout/topbar/demo.png)
 
 还可以设置 `TopAppBar` 中的 `actions` 参数
 
@@ -83,4 +79,4 @@ fun ScaffoldDemo(){
 
 它会将里面的内容以 `Row` 的方式来排列
 
-![](../../assets/layout/scaffold/topbar/demo2.png)
+![](../../assets/layout/topbar/demo2.png)

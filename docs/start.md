@@ -23,7 +23,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-alpha12")
+        classpath("com.android.tools.build:gradle:7.0.0-beta02")
 
         // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
@@ -45,7 +45,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath "com.android.tools.build:gradle:7.0.0-alpha12"
+        classpath 'com.android.tools.build:gradle:7.0.0-beta02'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files

@@ -64,7 +64,7 @@ fun ScaffoldDemo(){
 ```
 
 
-<img src = "../../../assets/layout/scaffold/bottombar/demo.png" width = "30%" height = "30%"><img src = "../../../assets/layout/scaffold/bottombar/demo2.png" width = "30%" height = "30%">
+<img src = "../../../assets/layout/bottombar/demo.png" width = "30%" height = "30%"><img src = "../../../assets/layout/bottombar/demo2.png" width = "30%" height = "30%">
 
 
 这样一个基本的底部导航栏我们就实现啦，是不是很简单？
@@ -88,19 +88,19 @@ BottomNavigationItem(
 )
 ```
 
-<img src = "../../../assets/layout/scaffold/bottombar/demo3.png" width = "30%" height = "30%">
+<img src = "../../../assets/layout/bottombar/demo3.png" width = "30%" height = "30%">
 
 
 ## 自定义底部导航栏
 
 这是一个自定义底部导航栏的演示
 
-![](../../assets/layout/scaffold/bottombar/demo.gif)
+![](../../assets/layout/bottombar/demo.gif)
 
 实现的代码可以通过以下的方式来查看
 
-1. [Mkdocs](../../code/layout/scaffold/bottomNavigation/bottomNavigation.md)
-2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/layout/scaffold/bottomNavigation/bottomNavigation.kt)
+1. [Mkdocs](../../code/layout/bottomNavigation/bottomNavigation.md)
+2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/layout/bottomNavigation/bottomNavigation.kt)
 
 ## 更多
 [BottomNavigation 详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#BottomNavigation(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.unit.Dp,kotlin.Function1))
