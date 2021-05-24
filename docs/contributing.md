@@ -10,6 +10,8 @@
 
 文档采用 [Material 主题的 MkDocs](https://squidfunk.github.io/mkdocs-material/getting-started/) 来编辑，非常好上手,你只需要按照以下的步骤：
 
+* 安装插件
+
 ```
 
     pip install mkdocs-material
