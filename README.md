@@ -52,10 +52,8 @@
 * 安装插件
 
 ```
-    pip3 install mkdocs-minify-plugin
-    pip3 install mkdocs-git-revision-date-localized-plugin
-    pip3 install mkdocs-minify-plugin
-    pip3 install mkdocs-macros-plugin
+    pip install mkdocs-material
+    pip install mkdocs-git-revision-date-localized-plugin
 ```
 
 * 在本地运行和测试
