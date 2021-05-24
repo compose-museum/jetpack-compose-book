@@ -76,8 +76,44 @@ fun TextFieldDemo() {
 ![](../assets/elements/textfield/demo2.gif)
 
 
+## 3. leadingIcon 参数
 
-## 2. Color 参数
+可以在 `TextField` 前方布置所接收到的 `lambda` 表达式里的东西
+
+``` kotlin
+TextField(
+    value = text,
+    onValueChange = {
+        text = it
+    },
+    leadingIcon = {
+        Icon(Icons.Filled.Search, null)
+    },
+)
+```
+
+![](../assets/elements/textfield/demo3.png)
+
+虽然名字上叫做 `leadingIcon`，但是 `leadingIcon` 接收来自一个 **@Composable** 函数的 `lambda` 表达式，
+
+我们也可以在里面填入 `Text` 函数
+
+``` kotlin
+TextField(
+    value = text,
+    onValueChange = {
+        text = it
+    },
+    leadingIcon = {
+        Text("联系人")
+    },
+)
+```
+
+![](../assets/elements/textfield/demo4.png)
+
+
+## 4. Color 参数
 
 ``` kotlin
 @Composable
@@ -147,9 +183,7 @@ fun textFieldColors(
 )
 ```
 
-## 3. leadingIcon 参数
-
-可以在 `TextField` 前方布置所接收到的 `lambda` 表达式里的东西
+调用方法
 
 ``` kotlin
 TextField(
@@ -160,29 +194,22 @@ TextField(
     leadingIcon = {
         Icon(Icons.Filled.Search, null)
     },
+    colors = TextFieldDefaults.textFieldColors(
+        textColor = Color(0xFF0079D3),
+        backgroundColor = Color.Transparent
+    )
 )
 ```
 
-![](../assets/elements/textfield/demo3.png)
+![](../assets/elements/textfield/demo3.gif)
 
-虽然名字上叫做 `leadingIcon`，但是 `leadingIcon` 接收来自一个 **@Composable** 函数的 `lambda` 表达式，
+在你使用 IDE 智能补全的时候可能遇到这种情况
 
-我们也可以在里面填入 `Text` 函数
+![](../assets/elements/textfield/demo5.png)
 
-``` kotlin
-TextField(
-    value = text,
-    onValueChange = {
-        text = it
-    },
-    leadingIcon = {
-        Text("联系人")
-    },
-)
-```
+解决方法如下
 
-![](../assets/elements/textfield/demo4.png)
-
+![](../assets/elements/textfield/demo4.gif)
 
 ## 更多
 
