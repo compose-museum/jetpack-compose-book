@@ -109,22 +109,22 @@ fun textFieldColors(
     // 当 TextField 的 isError 参数为 true 时，底部指示器的颜色
     errorIndicatorColor: Color = MaterialTheme.colors.error,
 
-    // TextField 输入框前头的图标颜色，也可以自己通过 Icon 的 tint 参数修改颜色
+    // TextField 输入框前头的颜色
     leadingIconColor: Color = MaterialTheme.colors.onSurface.copy(alpha = IconOpacity),
 
-    // 禁用 TextField 时 TextField 输入框前头的图标颜色
+    // 禁用 TextField 时 TextField 输入框前头的颜色
     disabledLeadingIconColor: Color = leadingIconColor.copy(alpha = ContentAlpha.disabled),
 
-    // 当 TextField 的 isError 参数为 true 时 TextField 输入框前头的图标颜色
+    // 当 TextField 的 isError 参数为 true 时 TextField 输入框前头的颜色
     errorLeadingIconColor: Color = leadingIconColor,
 
-    // TextField 输入框尾部的图标颜色，也可以自己通过 Icon 的 tint 参数修改颜色
+    // TextField 输入框尾部的颜色
     trailingIconColor: Color = MaterialTheme.colors.onSurface.copy(alpha = IconOpacity),
 
-    // 禁用 TextField 时 TextField 输入框尾部的图标颜色
+    // 禁用 TextField 时 TextField 输入框尾部的颜色
     disabledTrailingIconColor: Color = trailingIconColor.copy(alpha = ContentAlpha.disabled),
 
-    // 当 TextField 的 isError 参数为 true 时 TextField 输入框尾部的图标颜色
+    // 当 TextField 的 isError 参数为 true 时 TextField 输入框尾部的颜色
     errorTrailingIconColor: Color = MaterialTheme.colors.error,
 
     // 当输入框处于焦点时，Label 的颜色
@@ -146,6 +146,43 @@ fun textFieldColors(
     disabledPlaceholderColor: Color = placeholderColor.copy(ContentAlpha.disabled)
 )
 ```
+
+## 3. leadingIcon 参数
+
+可以在 `TextField` 前方布置所接收到的 `lambda` 表达式里的东西
+
+``` kotlin
+TextField(
+    value = text,
+    onValueChange = {
+        text = it
+    },
+    leadingIcon = {
+        Icon(Icons.Filled.Search, null)
+    },
+)
+```
+
+![](../assets/elements/textfield/demo3.png)
+
+虽然名字上叫做 `leadingIcon`，但是 `leadingIcon` 接收来自一个 **@Composable** 函数的 `lambda` 表达式，
+
+我们也可以在里面填入 `Text` 函数
+
+``` kotlin
+TextField(
+    value = text,
+    onValueChange = {
+        text = it
+    },
+    leadingIcon = {
+        Text("联系人")
+    },
+)
+```
+
+![](../assets/elements/textfield/demo4.png)
+
 
 ## 更多
 
