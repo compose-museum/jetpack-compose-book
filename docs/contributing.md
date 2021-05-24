@@ -10,13 +10,12 @@
 
 文档采用 [Material 主题的 MkDocs](https://squidfunk.github.io/mkdocs-material/getting-started/) 来编辑，非常好上手,你只需要按照以下的步骤：
 
-* 安装插件
-
 ```
-    pip3 install mkdocs-minify-plugin
-    pip3 install mkdocs-git-revision-date-localized-plugin
-    pip3 install mkdocs-minify-plugin
-    pip3 install mkdocs-macros-plugin
+
+    pip install mkdocs-material
+
+    pip install mkdocs-git-revision-date-localized-plugin
+
 ```
 
 * 在本地运行和测试
