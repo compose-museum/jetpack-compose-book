@@ -207,7 +207,7 @@ TextField(
 
 ![](../assets/elements/textfield/demo5.png)
 
-解决方法如下
+解决方法如下，手动打完函数名
 
 ![](../assets/elements/textfield/demo4.gif)
 
