@@ -39,3 +39,4 @@ fun Demo(){
 开箱即用，`Compose` 为 `Float`、`Color`、`Dp`、`Size`、`Bounds`、`Offset`、`Rect`、`Int`、`IntOffset` 和 `IntSize` 提供 `animate*AsState` 函数。通过为带有通用类型的 `animateValueAsState` 提供 `TwoWayConverter`，可以轻松添加对其他数据类型的支持。
 
 你可以通过提供一个 `AnimationSpec` 来定制动画规格。请参阅 [AnimationSpec]() 以了解更多信息
+
