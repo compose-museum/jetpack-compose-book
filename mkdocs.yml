@@ -48,6 +48,7 @@ nav:
     - '动画':
       - '概述': animation/overview.md
       - 'AnimationVisibility': animation/animationvisibility.md
+      - 'Animate*State': animation/animatestate.md
     - '主题':
       - '初识 MaterialTheme': theme/meet_material_theme.md
       - '深入理解 MaterialTheme 与 CompositionLocal': theme/understanding_material_theme.md
