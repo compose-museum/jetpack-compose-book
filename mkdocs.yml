@@ -46,6 +46,7 @@ nav:
         - '4. floatingActionButton': layout/scaffold/floatingactionbutton.md
       - '自定义Layout': layout/custom_layout.md
     - '手势':
+      - 'Draggable拖动': gesture/draggable.md
       - 'Swipeable滑动': gesture/swipeable.md
     - '动画':
       - '概述': animation/overview.md
