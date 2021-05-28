@@ -36,6 +36,11 @@
     border-top: 1px solid#DEE2E6;
     padding-top: 15px;
 }
+/* 分割线 */
+[for='__nav_1_6']{
+    border-top: 1px solid#DEE2E6;
+    padding-top: 15px;
+}
 
 @media screen and (max-width: 76.1875em){
     .md-sidebar--primary{

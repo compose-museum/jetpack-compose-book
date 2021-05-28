@@ -32,7 +32,7 @@ fun Demo(){
 }
 ```
 
-![](../assets/animation/animatestate/demo.gif)
+![](../../../assets/design/animation/animatestate/demo.gif)
 
 注意，你不需要创建任何动画类的实例，也不需要处理中断。在背后，一个动画对象（即一个 `Animatable` 实例）将被创建，并被记住在调用地点，以第一个目标值作为其初始值。从那以后，任何时候你给这个 `Composable` 对象提供一个不同的目标值，一个动画就会自动开始向那个值发展。如果已经有一个动画在运行，这个动画就会从它的当前值（和速度）开始，然后向目标值动画。在动画过程中，这个 `Composable` 东西被重新组合，每一帧都返回一个更新的动画值。
 
