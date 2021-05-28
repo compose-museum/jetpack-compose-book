@@ -17,7 +17,7 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 | **Crossfade** | **暂时还没探索** 
 | **rememberInfiniteTransition** | **暂时还没探索** |
 | **updateTransition** | **暂时还没探索** |
-| **animate*AsState** | **指定类型的数据变化动画** |
+| **[animate*AsState](animatestate.md)** | **指定类型的数据变化动画** |
 
 
 ## 2. 高级动画 API
