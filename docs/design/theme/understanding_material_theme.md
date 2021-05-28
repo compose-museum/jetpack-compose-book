@@ -2,7 +2,7 @@
 
 为深入理解 MaterialTheme 工作原理，我们需要进入源码一探究竟。
 
-<img src = "../../../assets/theme/understanding_material_theme/carbon.png" width = "90%" height = "50%">
+<img src = "../../../assets/design/theme/understanding_material_theme/carbon.png" width = "90%" height = "50%">
 
 需要注意的是，此时传入的 content 参数其实是声明在 Theme 中的自定义布局系统，其类型是一个带有 Composable 注解的 lambda (对于这类带有 Composable 的 lambda 简称为 composable )。
 
@@ -88,5 +88,5 @@ setContent {
 
 实际效果可以看到，虽然所有 composable 均依赖的是同一个 CompositionLocal，而其获得到的实际的值却是不一样的。
 
-![demo1](../assets/theme/understanding_material_theme/demo1.png)
+![demo1](../../assets/design/theme/understanding_material_theme/demo1.png)
 

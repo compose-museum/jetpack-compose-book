@@ -4,7 +4,7 @@
 
 通过阅读前两篇文章相信你已经具备自定义主题方案的能力了。我们通过#AndroidDevChallange挑战赛第三周题目作为示例来看看在实际项目中如何进行应用。在不同主题方案下背景颜色、文字颜色与图片资源都是不同的。值得注意的是对于所有文本也可以通过主题完成字体样式的配置，所要实现的目标效果如下图所示。
 
-<img src = "../../../assets/theme/custom_your_theme/demo1.png", width = "60%" height = "60%">
+<img src = "../../../assets/design/theme/custom_your_theme/demo1.png", width = "60%" height = "60%">
 
 ## 2. 配置颜色样式
 

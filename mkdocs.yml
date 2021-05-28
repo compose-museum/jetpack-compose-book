@@ -14,7 +14,6 @@ theme:
   logo: assets/logo.png
   features:
     - navigation.tabs
-    - navigation.expand
   font:
     code: Jetbrains Mono
 nav:
