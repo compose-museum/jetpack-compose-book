@@ -14,7 +14,7 @@ theme:
   logo: assets/logo.png
   features:
     - navigation.tabs
-    - navigation.instant
+    - navigation.expand
   font:
     code: Jetbrains Mono
 nav:
@@ -43,17 +43,18 @@ nav:
       - 'Scaffold': layout/scaffold.md
       - 'TopAppBar': layout/topappbar.md
       - '自定义Layout': layout/custom_layout.md
-    - '手势':
-      - 'Draggable拖动': gesture/draggable.md
-      - 'Swipeable滑动': gesture/swipeable.md
-    - '动画':
-      - '概述': animation/overview.md
-      - 'AnimationVisibility': animation/animationvisibility.md
-      - 'Animate*State': animation/animatestate.md
-    - '主题':
-      - '初识 MaterialTheme': theme/meet_material_theme.md
-      - '深入理解 MaterialTheme 与 CompositionLocal': theme/understanding_material_theme.md
-      - '自定义你的主题方案': theme/custom_your_theme.md
+    - '设计':
+      - '动画':
+        - '概述': design/animation/overview.md
+        - 'AnimationVisibility': design/animation/animationvisibility.md
+        - 'Animate*State': design/animation/animatestate.md
+      - '主题':
+        - '初识 MaterialTheme': design/theme/meet_material_theme.md
+        - '深入理解 MaterialTheme 与 CompositionLocal': design/theme/understanding_material_theme.md
+        - '自定义你的主题方案': design/theme/custom_your_theme.md
+      - '手势':
+        - 'Draggable拖动': design/gesture/draggable.md
+        - 'Swipeable滑动': design/gesture/swipeable.md
     - '参数':
       - 'Modifier': parameters/modifier.md
     - '技术原理':

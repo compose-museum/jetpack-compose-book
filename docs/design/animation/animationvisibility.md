@@ -1,4 +1,4 @@
-<img src = "../../../assets/animation/animatedVisibility/carbon.png" width = "90%" height = "50%">
+<img src = "../../../assets/design/animation/animatedVisibility/carbon.png" width = "90%" height = "50%">
 
 ## 1. 基础用法
 
@@ -27,7 +27,7 @@ Column(
 
 ```
 
-![](../assets/animation/animatedVisibility/demo.gif)
+![](../../../assets/design/animation/animatedVisibility/demo.gif)
 
 
 ## 2. 进场动画
@@ -51,7 +51,7 @@ AnimatedVisibility(
 }
 ```
 
-![](../assets/animation/animatedVisibility/demo2.gif)
+![](../../../assets/design/animation/animatedVisibility/demo2.gif)
 
 ``` kotlin
 enter:EnterTransition = fadeIn() + expandVertically()
@@ -88,7 +88,7 @@ AnimatedVisibility(
 }
 ```
 
-![](../assets/animation/animatedVisibility/demo3.gif)
+![](../../../assets/design/animation/animatedVisibility/demo3.gif)
 
 !!! 注意
     `fadeIn` 和 `slideIn` 不影响 `AnimatedVisibility` **Composable**。相比之下，`expandIn` 将扩大剪辑范围以显示整个内容。这将自动地将其他的布局动画化，非常像 `Modifier.animateContentSize`

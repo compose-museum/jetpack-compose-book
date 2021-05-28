@@ -7,7 +7,7 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 下面这个图表可以帮助你决定使用什么 API 来实现你的动画。
 
-<img src = "../../../assets/animation/overview/demo.svg">
+<img src = "../../../assets/design/animation/overview/demo.svg">
 
 
 | API | 功能|
@@ -54,7 +54,7 @@ Column(
 
 ```
 
-![](../assets/animation/animatedVisibility/demo.gif)
+![](../../../assets/design/animation/animatedVisibility/demo.gif)
 
 默认情况下，内容通过淡入和扩展出现，通过淡出和缩减消失。可以通过指定 `EnterTransition` 和 `ExitTransition` 来定制过渡
 

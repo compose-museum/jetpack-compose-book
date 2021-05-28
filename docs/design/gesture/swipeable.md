@@ -127,5 +127,5 @@ fun SwipeableDemo() {
 
  效果展示
 
-<img src = "../../assets/gesture/swipeable/demo1.gif" width = "50%" height = "50%">
+<img src = "../../../assets/design/gesture/swipeable/demo1.gif" width = "50%" height = "50%">
 
