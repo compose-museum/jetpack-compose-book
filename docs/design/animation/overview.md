@@ -92,3 +92,89 @@ AnimatedVisibility(
     * [`expandVertically`]()
     * [`slideOutHorizontally`]()
     * [`slideOutVertically`]()
+
+### animateContentSize
+
+`animateContentSize` 可以对尺寸更改进行动画处理
+
+以下是一个简单的例子：
+
+``` kotlin
+var text by remember{ mutableStateOf("animateContentSize 动画")}
+Box(
+    modifier = Modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center
+){
+    Text(text, modifier = Modifier
+        .clickable{
+            text += text
+        }
+        .animateContentSize()
+    )
+}
+```
+
+![](../../../assets/design/animation/overview/demo.gif)
+
+再来看看没有加 `animateContentSize()` 的效果吧
+
+![](../../../assets/design/animation/overview/demo2.gif)
+
+
+### Crossfade
+
+`Crossfade` 在两个布局之间用交叉淡入淡出的动画。通过切换传递给当前参数的值，内容以交叉渐变动画的方式切换
+
+``` kotlin
+@Composable
+fun <T> Crossfade(
+    targetState: T,
+    modifier: Modifier = Modifier,
+    animationSpec: FiniteAnimationSpec<Float> = tween(),
+    content: @Composable (T) -> Unit
+)
+```
+
+来看看一个简单的使用
+
+``` kotlin
+
+var flag by remember{ mutableStateOf(false)}
+Column{
+    Crossfade(targetState = flag, animationSpec = tween(1000)) {
+        when(it){
+            false -> Screen1()
+            true -> Screen2()
+        }
+    }
+    Button(onClick = {
+            flag = !flag
+        }
+    ) {
+        Text("切换")
+    }
+}
+
+@Composable
+fun Screen1(){
+    Box(
+        modifier = Modifier
+            .background(Color.Red)
+            .size(200.dp),
+        contentAlignment = Alignment.Center
+    ){}
+}
+
+@Composable
+fun Screen2(){
+    Box(
+        modifier = Modifier
+            .background(Color.Blue)
+            .size(200.dp),
+        contentAlignment = Alignment.Center
+    ){}
+}
+
+```
+
+![](../../../assets/design/animation/overview/demo3.gif)
