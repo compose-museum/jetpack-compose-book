@@ -78,7 +78,7 @@ fun TextFieldDemo() {
 
 ## 3. leadingIcon 参数
 
-可以在 `TextField` 前方布置所接收到的 `lambda` 表达式里的东西
+`leadingIcon` 参数可以在 `TextField` 前面布置 `lambda` 表达式所接收到的东西
 
 ``` kotlin
 TextField(
@@ -112,8 +112,39 @@ TextField(
 
 ![](../assets/elements/textfield/demo4.png)
 
+## 4. trailingIcon 参数
 
-## 4. Color 参数
+`trailingIcon` 参数可以在 `TextField` 尾部布置 `lambda` 表达式所接收到的东西
+
+``` kotlin
+TextField(
+    value = text,
+    onValueChange = {
+        text = it
+    },
+    trailingIcon = {
+        Text("@163.com")
+    },
+)
+```
+
+![](../assets/elements/textfield/demo6.png)
+
+``` kotlin
+trailingIcon = {
+    IconButton(onClick = {
+        
+    }){
+        Icon(Icons.Filled.Send, null)
+    }
+},
+```
+
+![](../assets/elements/textfield/demo7.png)
+
+
+
+## 5. Color 参数
 
 ``` kotlin
 @Composable
