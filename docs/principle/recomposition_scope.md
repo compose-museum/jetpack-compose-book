@@ -125,13 +125,6 @@ println(arg)
 
 这个很好解释，Button 的调用方 Foo 不参与重组，Button 自然也不会参与重组，只有尾 lambda 参与重组即可。
 
-<br/>
-
-## Button 的 onClick是否参与重组？
-
----
-重组范围必须是 @Composable 的 function/lambda ，onClick 是一个普通 lambda，因此与重组逻辑无关。
-
 
 <br/>
 
