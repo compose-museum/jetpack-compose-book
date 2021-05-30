@@ -59,6 +59,8 @@ nav:
       - 'Modifier': parameters/modifier.md
     - '技术原理':
       - '了解Compose的重组作用域': principle/recomposition_scope.md
+    - '架构':
+      - 'Compose架构如何选？MVP,MVVM,MVI': architecture/architecture_for_compose.md
     - '代码实验室': codelabs.md
     - '资源': resources.md
     - '关于贡献': contributing.md
