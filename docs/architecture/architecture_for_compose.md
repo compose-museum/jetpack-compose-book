@@ -1,8 +1,6 @@
 
 
-
-![](https://files.mdnice.com/user/14085/67ecb2bd-c0cb-434e-bc5d-2c3c8d674870.png)
-
+![](../assets/architecture/demo.png)
 
 本次 I/O 大会上曝出了 Compose 1.0 即将发布的消息，虽然 API 层面已趋于稳定，但真正要在项目中落地还少不了一套合理的应用架构。传统 Android 开发中的 MVP、MVVM 等架构在声明式UI这一新物种中是否还依旧可用呢？
 
@@ -12,7 +10,7 @@
 
 > App基本功能：用户输入关键字，在 wanandroid 网站中搜索出相关内容并展示
 
-![Wanandroid Search](https://files.mdnice.com/user/14085/10e0bc20-c50a-422c-b98d-1fc5b13e9958.png)
+![](../assets/architecture/demo2.png)
 
 
 功能虽然简单，但是集合了数据请求、UI展示等常见业务场景，可用来做UI层与逻辑层的解耦实验。
@@ -537,5 +535,6 @@ Compose 的声明式UI思想来自 React，所以同样来自 Redux 思想的 MV
 
 关于 Jetpack，如果你的项目只用于 Android，那么 Jetpack 无疑是一个好工具。但是 Compose 未来的应用场景将会很广泛，如果你有预期未来会配合 KMP 开发跨平台应用，那么就需要学会不依赖 Jetpack 的开发方式，这也是本文为什么要介绍非 Jetpack 下的 MVVM 的一个初衷。
 
-#### Sample代码：
-https://github.com/vitaviva/JetpackComposePlayground/tree/main/architecture
+#### Sample 代码：
+
+[点击这里](https://github.com/vitaviva/JetpackComposePlayground/tree/main/architecture)
