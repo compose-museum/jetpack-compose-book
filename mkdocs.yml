@@ -43,6 +43,7 @@ nav:
       - 'Scaffold': layout/scaffold.md
       - 'TopAppBar': layout/topappbar.md
       - '自定义Layout': layout/custom_layout.md
+      - '固有特性测量': layout/intrinsic.md
     - '设计':
       - '动画':
         - '概述': design/animation/overview.md
