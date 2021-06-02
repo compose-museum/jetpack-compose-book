@@ -1,20 +1,18 @@
+## 固有特性测量是什么
 
-
-## 概述
-
-在自定义Layout文章中我们提到了Compose布局原理，Compose中的每个UI组件是不允许多次进行测量的，多次测量在运行时会抛异常，这样做的好处是为了提高性能，但在很多场景中多次测量子UI组件是有意义的。在Jetpack Compose代码实验室中就提供了这样一种场景，我们希望中间分割线高度与两边文案高的一边保持相等。
+在 [自定义Layout](https://docs.compose.net.cn/layout/custom_layout/) 中我们提到Compose布局原理，Compose中的每个UI组件是不允许多次进行测量的，多次测量在运行时会抛异常，禁止多次测量的好处是为了提高性能，但在很多场景中多次测量子UI组件是有意义的。在Jetpack Compose代码实验室中就提供了这样一种场景，我们希望中间分割线高度与两边文案高的一边保持相等。
 
 <img src = "../../assets/layout/intrinsic/demo1.png" width = "50%" height = "50%">
 
-为实现这个需求，有一种设计方案是，我们希望父组件可以预先获取到两边的文案组件高度信息，然后计算两边高度的最大值即可确定当前父组件的高度值，此时仅需将分割线高度值铺满整个父组件即可。
+为实现这个需求，官方所提供的设计方案是希望父组件可以预先获取到两边的文案组件高度信息，然后计算两边高度的最大值即可确定当前父组件的高度值，此时仅需将分割线高度值铺满整个父组件即可。
 
-为了实现父组件预先获取文案组件高度信息从而确定自身的高度信息，Compose为开发者们提供了固有属性测量机制，允许开发者在每个子组件正式测量前能获取到每个子组件的宽高等信息。
+为了实现父组件预先获取文案组件高度信息从而确定自身的高度信息，Compose为开发者们提供了固有特性测量机制，允许开发者在每个子组件正式测量前能获取到每个子组件的宽高等信息。
 
 ## 在基础组件中使用固有特性测量
 
 使用固有特性测量的前提是当前作用的Layout需要适配固有特性测量，目前许多基础组件已经完成对固有特性测量的适配，可以直接使用。
 
-在上面所提到的例子中父组件所提供的能力使用基础组件中的Row组件即可承担，我们仅需为Row组织的高度设置固有属性测量即可。我们使用 <code>Modifier.height(IntrinsicSize.Min)</code>  即可为高度设置固有特性测量。
+在上面所提到的例子中父组件所提供的能力使用基础组件中的Row组件即可承担，我们仅需为Row组件高度设置固有特性测量即可。我们使用 <code>Modifier.height(IntrinsicSize.Min)</code>  即可为高度设置固有特性测量。
 
 ```kotlin
 @Composable
@@ -54,7 +52,7 @@ fun TwoTextsPreview() {
 
 <img src = "../../assets/layout/intrinsic/demo2.png" width = "50%" height = "50%">
 
-值得注意的是此时我们的Modifier仅使用 <code>Modifier.height(IntrinsicSize.Min)</code>  为高度设置了固有特性测量，并没有进行宽度的设置。此时所表达的意思是，当宽度不限时通过子组件的预先测量的宽高信息所能计算的高度最少可以是多少。当然你也可以进行宽度的设置，当宽度受限时通过子组件的预先测量的宽高信息所能计算的高度最少可以是多少。
+值得注意的是此时我们的Modifier仅使用 <code>Modifier.height(IntrinsicSize.Min)</code>  为高度设置了固有特性测量，并没有进行宽度的设置。此时所表达的意思是，当宽度不限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。当然你也可以进行宽度的设置，当宽度受限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。
 
 可能你不能理解宽度受限可能影响高度这件事，其实我们常用的Text组件当宽度收到不同限制时，其高度就是不一样的。
 
@@ -79,7 +77,7 @@ Column(Modifier.fillMaxSize()) {
 
 ### 重写MeasurePolicy固有特性测量相关方法
 
-对于适配固有特性测量的Layout，我们需要对MeasurePolicy下的固有特性测量方法进行重写。还记得MeasurePolicy是谁嘛？没错他就是我们在自定义Layout中传入的最后的lambda SAM转换后的实例类型。
+对于适配固有特性测量的Layout，我们需要对MeasurePolicy下的固有特性测量方法进行重写。还记得MeasurePolicy是谁嘛？没错他就是我们在自定义Layout中传入的最后的lambda SAM转换的实例类型。
 
 ```kotlin
 @Composable inline fun Layout(
@@ -165,7 +163,7 @@ Modifier
     .height(IntrinsicSize.Max)
 ```
 
-接下来我们即可获取到每个子组件在给定父组件所能提供的最大宽度下的高度，并计算得出子组件最大高度值，此值将会被设置为当前父组件（也就是当前自定义Layout）的固定高度。
+接下来我们使用 <code>maxIntrinsicHeight</code> 即可获取到每个子组件在给定宽度下能够保证正确展示的最小高度，这个正确展示的高度是由子组件来保证的。再得到所有子组件的高度信息后，我们即可计算最大高度值，此值将会被设置为当前父组件（也就是当前自定义Layout）的固定高度。
 
 ```kotlin
 override fun IntrinsicMeasureScope.minIntrinsicHeight(
@@ -174,7 +172,7 @@ override fun IntrinsicMeasureScope.minIntrinsicHeight(
 ): Int {
     var maxHeight = 0
     measurables.forEach {
-        maxHeight = it.maxIntrinsicHeight(width).coerceAtLeast(maxHeight)
+        maxHeight = it.minIntrinsicHeight(width).coerceAtLeast(maxHeight)
     }
     return maxHeight
 }
@@ -254,4 +252,4 @@ fun IntrinsicRow(modifier: Modifier, content: @Composable () -> Unit){
 
 ## 对固有特性测量的思考
 
-思考固有特性测量的本质，无非就是父组件可预先获取到每个子组件的宽高信息后通过计算确定自身的固定宽度或固定高度，从而间接影响到其中子组件的布局信息。换句话说就是子组件通过设定父组件的固定宽高而产生对其他子组件布局的影响。在我们使用的方案中即是如此，我们通过文案子组件的高度确定了父组件的固定高度，从而确定了分割线的高度。那难道子组件一定要通过固有特性测量这种方式，通过父组件而对其他子组件产生影响吗？其实答案是否定的，Compose已经为我们提供了SubcomposeLayout来专门处理这类子组件存在相互依赖关系的场景。由于本文篇幅有限，有关于SubcomposeLayout的内容后续会继续更新，请持续关注Jetpack Compose Museum中文手册。
+固有特性测量的本质就是父组件可在正式测量布局前预先获取到每个子组件宽高信息后通过计算来确定自身的固定宽度或高度，从而间接影响到其中包含的部分子组件布局信息。也就是说子组件可以根据自身宽高信息从而确定父组件的宽度或高度，从而影响其他子组件布局。在我们使用的方案中，我们通过文案子组件的高度确定了父组件的固定高度，从而间接确定了分割线的高度。此时子组件要通过固有特性测量这种方式，通过父组件而对其他子组件产生影响，然而在有些场景下我们不希望父组件参与其中，而希望子组件间通过测量的先后顺序直接相互影响，Compose为我们提供了SubcomposeLayout来处理这类子组件存在依赖关系的场景。由于本文篇幅有限，有关于SubcomposeLayout内容后续会继续更新，请持续关注。
