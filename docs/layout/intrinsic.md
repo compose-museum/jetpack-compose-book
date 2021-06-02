@@ -1,6 +1,6 @@
 ## 固有特性测量是什么
 
-在 [自定义Layout](https://docs.compose.net.cn/layout/custom_layout/) 中我们提到 Compose 布局原理，Compose 中的每个 UI 组件是不允许多次进行测量的，多次测量在运行时会抛异常，禁止多次测量的好处是为了提高性能，但在很多场景中多次测量子UI组件是有意义的。在 Jetpack Compose 代码实验室中就提供了这样一种场景，我们希望中间分割线高度与两边文案高的一边保持相等。
+在 [自定义Layout](https://docs.compose.net.cn/layout/custom_layout/) 中我们提到 Compose 布局原理，Compose 中的每个 UI 组件是不允许多次进行测量的，多次测量在运行时会抛异常，禁止多次测量的好处是为了提高性能，但在很多场景中多次测量子 UI 组件是有意义的。在 Jetpack Compose 代码实验室中就提供了这样一种场景，我们希望中间分割线高度与两边文案高的一边保持相等。
 
 <img src = "../../assets/layout/intrinsic/demo1.png" width = "50%" height = "50%">
 
