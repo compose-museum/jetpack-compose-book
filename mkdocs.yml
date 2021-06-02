@@ -56,6 +56,8 @@ nav:
       - '手势':
         - 'Draggable拖动': design/gesture/draggable.md
         - 'Swipeable滑动': design/gesture/swipeable.md
+      - '列表':
+        - '概述': design/lists/overview.md
     - '参数':
       - 'Modifier': parameters/modifier.md
     - '技术原理':

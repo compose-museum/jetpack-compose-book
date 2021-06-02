@@ -14,9 +14,9 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 | ----| ----|
 | **[AnimationVisibility](animationvisibility.md)** | **进入/退出的过渡动画** |
 | **Modifier.contentSize** | **内容大小的变化过渡动画** |
-| **Crossfade** | **暂时还没探索** 
-| **rememberInfiniteTransition** | **暂时还没探索** |
-| **updateTransition** | **暂时还没探索** |
+| **Crossfade** |  |
+| **rememberInfiniteTransition** |  |
+| **updateTransition** |  |
 | **[animate*AsState](animatestate.md)** | **指定类型的数据变化动画** |
 
 
