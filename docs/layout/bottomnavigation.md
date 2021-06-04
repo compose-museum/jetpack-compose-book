@@ -1,16 +1,4 @@
 
-``` kotlin
-@Composable
-fun BottomAppBar(
-    modifier: Modifier = Modifier,
-    backgroundColor: Color = MaterialTheme.colors.primarySurface,
-    contentColor: Color = contentColorFor(backgroundColor),
-    cutoutShape: Shape? = null,
-    elevation: Dp = AppBarDefaults.BottomAppBarElevation,
-    contentPadding: PaddingValues = AppBarDefaults.ContentPadding,
-    content: RowScope.() -> Unit
-): @Composable Unit
-```
 
 ``` kotlin
 @Composable
@@ -23,7 +11,15 @@ fun BottomNavigation(
 ): @Composable Unit
 ```
 
-`bottomBar` 是设置屏幕底部的导航栏，我们可以考虑用 `BottomNavigation` 或者 `BottomAppBar` 来实现
+[Material Design bottom navigation](https://material.io/components/bottom-navigation)
+
+`Bottom navigation bars` 条允许在一个应用程序的主要目的地之间移动。
+
+![](../../assets/layout/bottombar/demo4.png)
+
+`BottomNavigation` 应该包含多个 `BottomNavigationItems` 项，每个导航项代表一个单一的目的地。
+
+这是一个简单和 `Scaffold` 搭配的示例代码：
 
 ``` kotlin
 @Composable
@@ -64,10 +60,9 @@ fun ScaffoldDemo(){
 ```
 
 
-<img src = "../../../assets/layout/bottombar/demo.png" width = "30%" height = "30%"><img src = "../../../assets/layout/bottombar/demo2.png" width = "30%" height = "30%">
+<img src = "../../../assets/layout/bottombar/demo.png" width = "30%" height = "30%">
 
-
-这样一个基本的底部导航栏我们就实现啦，是不是很简单？
+这样一个基本的`Bottom navigation bars` 栏我们就实现啦，是不是很简单？
 
 我们可以稍微修改一点代码，让导航栏变成三个不同的图标按钮
 
@@ -91,9 +86,9 @@ BottomNavigationItem(
 <img src = "../../../assets/layout/bottombar/demo3.png" width = "30%" height = "30%">
 
 
-## 自定义底部导航栏
+## 自定义 `BottomNavigation` 栏
 
-这是一个自定义底部导航栏的演示
+这是一个自定义 `BottomNavigation` 栏的演示
 
 ![](../../assets/layout/bottombar/demo.gif)
 
