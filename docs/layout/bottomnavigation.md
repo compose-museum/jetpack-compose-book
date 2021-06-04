@@ -15,7 +15,7 @@ fun BottomNavigation(
 
 `Bottom navigation bars` 条允许在一个应用程序的主要目的地之间移动。
 
-![](../../assets/layout/bottombar/demo4.png)
+![](../../assets/layout/bottomnavigation/demo4.png)
 
 `BottomNavigation` 应该包含多个 `BottomNavigationItems` 项，每个导航项代表一个单一的目的地。
 
@@ -41,7 +41,7 @@ fun ScaffoldDemo(){
                 }
             )
         },
-        bottomBar = {
+        bottomnavigation = {
             BottomNavigation {
                 items.forEachIndexed { index, item ->
                     BottomNavigationItem(
@@ -60,7 +60,7 @@ fun ScaffoldDemo(){
 ```
 
 
-<img src = "../../../assets/layout/bottombar/demo.png" width = "30%" height = "30%">
+<img src = "../../../assets/layout/bottomnavigation/demo.png" width = "30%" height = "30%">
 
 这样一个基本的`Bottom navigation bars` 栏我们就实现啦，是不是很简单？
 
@@ -83,14 +83,14 @@ BottomNavigationItem(
 )
 ```
 
-<img src = "../../../assets/layout/bottombar/demo3.png" width = "30%" height = "30%">
+<img src = "../../../assets/layout/bottomnavigation/demo3.png" width = "30%" height = "30%">
 
 
 ## 自定义 `BottomNavigation` 栏
 
 这是一个自定义 `BottomNavigation` 栏的演示
 
-![](../../assets/layout/bottombar/demo.gif)
+![](../../assets/layout/bottomnavigation/demo.gif)
 
 实现的代码可以通过以下的方式来查看
 
