@@ -15,7 +15,7 @@ fun MessageList(messages: List<Message>) {
 
 我们可以通过使用 `verticalScroll()` 这个 `modifier` 来让 `Column` 变得可滚动。更多信息见[手势](../gesture/overview.md)文档。
 
-## Lazy composables
+## 1. Lazy composables
 
 如果你需要显示大量的项目（或一个未知长度的列表），使用像 `Column` 这样的布局会导致性能问题，因为所有的项目都会被组合和布局，无论它们是否可见。
 
@@ -32,7 +32,7 @@ fun MessageList(messages: List<Message>) {
     ***DSL*** 是指特定领域的语言。有关 `Compose` 如何为某些 `API` 定义 `DSL` 的更多信息，请参阅 [Kotlin for Compose](https://developer.android.com/jetpack/compose/kotlin#dsl) 文档。
 
 
-## LazyListScope DSL
+## 2. LazyListScope DSL
 
 `LazyListScope` 的 `DSL` 提供了许多函数来描述布局中的项目。最基本的 `item()` 可以添加一个单项，而 `item(Int)` 添加了多个项目。
 
@@ -55,3 +55,120 @@ LazyColumn {
     }
 }
 ```
+
+还有一些扩展功能，允许你添加项目的集合，如 `List`。这些扩展函数使我们能够轻松地移植上面 `Column` 的例子。
+
+``` kotlin
+import androidx.compose.foundation.lazy.items
+
+@Composable
+fun MessageList(messages: List<Message>) {
+    LazyColumn {
+        items(messages) { message ->
+            MessageRow(message)
+        }
+    }
+}
+```
+
+`items()` 的扩展函数还有一个变体，叫做 `itemsIndexed()`，它提供了索引。更多细节请参见 [LazyListScope](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/LazyListScope)参考。 
+
+## 3. 内容填充
+
+在 `Lazy`组件中，我们如果要设置 `Lazy` 组件里面内容的内边距时，我们可以使用 `contentPadding` 参数来进行填充
+
+``` kotlin
+@Composable
+fun MessageList() {
+    Box(Modifier.background(Color.Gray)){
+        LazyColumn(
+            modifier = Modifier.border(5.dp, color = Color.Blue),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+        ) {
+            items(20){
+                Text("LazyColumn")
+            }
+        }
+    }
+}
+```
+
+在这个例子中，我们在水平边缘（左和右）添加 `16.dp` 的 `padding`，然后在内容的顶部和底部添加 `8.dp`。
+
+请注意，这个 `padding` 是应用在 `LazyColumn` 里面的内容上的，而不是应用在 `LazyColumn` 本身。在上面的例子中，第一个项目将在它的顶部添加 `8.dp` 的 `padding`，最后一个项目将在它的底部添加 `8.dp`，所有项目将在左边和右边有 `16.dp` 的 `padding`。
+
+![](../../../assets/design/lists/overview/demo.png)
+
+
+## 4. 内容间距
+
+要在项目之间添加间距，你可以使用 `Arrangement.spacedBy()`。下面的例子在每个项目之间增加了 `4.dp` 的空间。
+
+``` kotlin
+@Composable
+fun MessageList() {
+    Box(Modifier.background(Color.Gray)){
+        LazyColumn(
+            modifier = Modifier.border(5.dp, color = Color.Blue),
+            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+            verticalArrangement = Arrangement.spacedBy(10.dp)
+        ) {
+            items(20){
+                Text("LazyColumn")
+            }
+        }
+    }
+}
+```
+
+![](../../../assets/design/lists/overview/demo2.png)
+
+同样地，对于 `LazyRow` 也是如此。
+
+## 5. Item 动画
+
+如果你使用过 `RecyclerView` 组件，你会知道它能自动对 `item` 变化进行动画处理。`Lazy` 布局还没有提供这个功能，这意味着 `item` 的变化会导致一个即时的 `snap`。你可以关注这个 `bug` 来跟踪这个功能的任何变化。
+
+## 6. Sticky headers (实验性)
+
+!!! warning "请注意"
+    实验性 `API` 在未来可能会发生变化，也可能被完全删除。
+
+当显示分组数据的列表时，`sticky header` 模式很有帮助。下面你可以看到一个简单的例子，按指定的标题分组。
+
+<img src = "../../../../assets/design/lists/overview/demo.gif" style = "display: block; margin: 0 auto;">
+
+为了用 `LazyColumn` 实现 `Sticky header`，你可以使用实验性的 `stickyHeader()` 函数，提供标题内容。
+
+``` kotlin
+@ExperimentalFoundationApi
+@Composable
+fun ListWithHeader() {
+    val sections = listOf("贡献者", "眠眠的粉丝")
+
+    LazyColumn {
+        sections.forEachIndexed{ index, section ->
+            stickyHeader {
+                Text(
+                    text = section,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color(0xFFF2F4FB))
+                        .padding(horizontal = 10.dp, vertical = 5.dp),
+                    fontWeight = FontWeight.W700,
+                    color = Color(0xFF0079D3)
+                )
+            }
+            when(index){
+                0 -> item{Contributors()}
+                1 -> item{TouchFish()}
+            }
+        }
+    }
+}
+```
+
+为了节省篇幅，完整实现代码可以以下方式查阅
+
+1. [Mkdocs](../../../code/design/overview/stickyHeader/)
+2. [github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/design/overview/stickyHeader.kt)
