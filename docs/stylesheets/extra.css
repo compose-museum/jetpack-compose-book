@@ -32,6 +32,12 @@
 }
 
 /* 分割线 */
+[for='__nav_1_3']{
+    border-top: 1px solid#DEE2E6;
+    padding-top: 15px;
+}
+
+/* 分割线 */
 [for='__nav_1_5']{
     border-top: 1px solid#DEE2E6;
     padding-top: 15px;

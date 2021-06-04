@@ -172,3 +172,93 @@ fun ListWithHeader() {
 
 1. [Mkdocs](../../../code/design/overview/stickyHeader/)
 2. [github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/design/overview/stickyHeader.kt)
+
+## 7. Grids (实验性）
+
+!!! warning "请注意"
+    实验性 `API` 在未来可能会发生变化，也可能被完全删除。
+
+`LazyVerticalGrid` 可以实现类似于网格的效果
+
+<img src = "../../../../assets/design/lists/overview/demo3.png" width = "300">
+
+
+`cells` 参数负责控制单元格如何形成列。下面的例子显示了网格中的项目，使用 `GridCells.Adaptive` 将每一列设置为至少 `128.dp`宽。
+
+``` kotlin
+@ExperimentalFoundationApi
+@Composable
+fun PhotoGrid(photos: List<Photo>) {
+    LazyVerticalGrid(
+        cells = GridCells.Adaptive(minSize = 128.dp)
+    ) {
+        items(photos) { photo ->
+            PhotoItem(photo)
+        }
+    }
+}
+```
+
+如果你知道要使用的列的确切数量，你可以转而提供一个包含所需列数量的 [GridCells.Fixed](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/GridCells.Fixed) 实例。
+
+
+## 8. 对滚动位置做出反应
+
+许多应用程序需要对滚动位置和 `item` 布局的变化做出反应和监听，`Lazy` 组件可以使用 `LazyListState` 来支持这种使用情况。
+
+``` kotlin
+
+@Composable
+fun MessageList(messages: List<Message>) {
+
+    // 记住我们自己的 LazyListState
+    val listState = rememberLazyListState()
+
+    // 把它提供给 LazyColumn
+    LazyColumn(state = listState) {
+        // ...
+    }
+}
+```
+
+对于简单的使用情况，应用程序通常只需要知道第一个可见的 `item` 的信息。为此，`LazyListState` 提供了 `firstVisibleItemIndex` 和 `firstVisibleItemScrollOffset` 属性。
+
+我们使用一个例子，即根据用户是否滚动过第一个项目来显示和隐藏一个按钮。
+
+<img src = "../../../../assets/design/lists/overview/demo2.gif" style = "display: block; margin: 0 auto;">
+
+``` kotlin
+@OptIn(ExperimentalAnimationApi::class) // AnimatedVisibility
+@Composable
+fun MessageList(messages: List<Message>) {
+    Box {
+        val listState = rememberLazyListState()
+        val scope = rememberCoroutineScope()
+
+        LazyColumn(state = listState) {
+            // ...
+        }
+
+        // 添加一个用于是否显示按钮的代码
+        // 如果第一个可见的项目已经被移动过去，就显示这个按钮。
+        val showButton by remember {
+            derivedStateOf {         // 尽量减少不必要的合成
+                listState.firstVisibleItemIndex > 0
+            }
+        }
+
+        AnimatedVisibility(visible = showButton) {
+            ScrollToTopButton()
+        }
+
+        // 伪代码，可用 FAB 来实现
+        ScrollToTopButton(
+            onClick = {
+                scope.launch {
+                    listState.animateScrollToItem(0) // 点击返回第一项
+                }
+            }
+        )
+    }
+}
+```
