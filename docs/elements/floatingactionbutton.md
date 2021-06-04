@@ -1,33 +1,35 @@
+``` kotlin
+@OptIn(markerClass = [ExperimentalMaterialApi])
+@Composable
+fun FloatingActionButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = MaterialTheme.shapes.small.copy(CornerSize(percent = 50)),
+    backgroundColor: Color = MaterialTheme.colors.secondary,
+    contentColor: Color = contentColorFor(backgroundColor),
+    elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
+    content: () -> Unit
+): @OptIn(markerClass = [ExperimentalMaterialApi]) @Composable Unit
+```
 
-`floatingActionButton` 可以创建可以位于底部的按钮
+## 1. 概述
 
-可以设置 `FabPostion.Center` 或 `FabPostion.End`
+[Material Design floating action button](https://material.io/components/buttons-floating-action-button)
+
+一个 `FloatActionButton`（FAB）代表一个屏幕的主要行为。
+
+![](../../assets/elements/floatingactionbutton/demo.png)
+
+`FAB` 通常和一个 `Icon` 一起使用
 
 ``` kotlin
-@Composable
-fun ScaffoldDemo() {
-    Scaffold(
-        floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = {
-            FloatingActionButton(
-                onClick = {
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
 
-                },
-                backgroundColor = Color.Gray
-            ) {
-                Row(
-                    modifier = Modifier.padding(10.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ){
-                    Icon(Icons.Filled.Add, null)
-                    Text("添加事件")
-                }
-            }
-        }
-    ) {
-        
-    }
+FloatingActionButton(onClick = { /*do something*/ }) {
+    Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
 }
 ```
 
-<img src = "../../../assets/elements/floatingactionbutton/demo.png" width = "25%" height = "25%">
+可以查阅 [ExtendedFloatingActionButton](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#ExtendedFloatingActionButton(kotlin.Function0,kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Function0,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.material.FloatingActionButtonElevation))，它是一个包含文本和可选图标的扩展 `FAB`。
