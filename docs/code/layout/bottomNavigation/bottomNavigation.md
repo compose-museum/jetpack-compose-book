@@ -25,7 +25,10 @@ import androidx.compose.ui.unit.dp
 
 @ExperimentalAnimationApi
 @Composable
-fun BottomNavigationItem(viewModel:UiState){
+fun BottomNavigationItem(){
+
+    var selectedItem by remember{mutableStateOf(0)}
+
     BottomNavigation(
         backgroundColor = Color.White
     ) {
@@ -36,7 +39,7 @@ fun BottomNavigationItem(viewModel:UiState){
                     .weight(1f)
                     .clickable(
                         onClick = {
-                            viewModel.selectedItem = index
+                            selectedItem = index
                         },
                         indication = null,
                         interactionSource = MutableInteractionSource()
@@ -44,9 +47,9 @@ fun BottomNavigationItem(viewModel:UiState){
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                NavigationIcon(index, viewModel)
+                NavigationIcon(index, selectedItem)
                 Spacer(Modifier.padding(top = 2.dp))
-                AnimatedVisibility(visible = index == viewModel.selectedItem) {
+                AnimatedVisibility(visible = index == selectedItem) {
                     Surface(shape = CircleShape, modifier = Modifier.size(5.dp),color = Color(0xFF252527)) {
 
                     }
@@ -59,9 +62,9 @@ fun BottomNavigationItem(viewModel:UiState){
 @Composable
 fun NavigationIcon(
     index:Int,
-    viewModel: UiState
+    selectedItem:Int
 ){
-    val alpha = if(viewModel.selectedItem != index){
+    val alpha = if(selectedItem != index){
         0.5f
     } else 1f
 
