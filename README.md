@@ -5,7 +5,7 @@
 ## 介绍 💨
 
 
-## Jetpack Compose 教程 (Jetpack Compose Tutorial) （开发中 ing... 咕咕咕） 
+### Jetpack Compose 教程 (Jetpack Compose Tutorial) （开发中 ing... 咕咕咕） 
 
 此项目致力于帮助大家更好的理解和快速上手 Jetpack Compose 框架，从而提高开发效率
 
