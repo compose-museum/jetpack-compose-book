@@ -13,7 +13,9 @@
 
 基本上都有很好的配图来演示效果
 
-未来可能会添加一些样例 app（开发中）
+未来可能会添加一些样例 app（开发）
+
+有问题欢迎提交 [issue](https://github.com/compose-museum/jetpack-compose-tutorial/issues/new) 来提问
 
 —————————————————————
 
