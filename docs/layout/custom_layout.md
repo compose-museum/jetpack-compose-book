@@ -54,7 +54,7 @@ fun Modifier.firstBaselineToTop(
 
 正如我们在 Compose 布局原理中所提到的，**每个子元素只允许被测量一次**。
 
-通过使用 <code>measurable.measure(constraints)</code> 完成子元素的测量，如果将 lambda 的 constraints 直接传入则意味着你将父元素给当前元素的限制直接提供了当前元素的子元素，自身没有增加任何额外的限制。子元素测量的结果被包装在一个 <code>Placeable</code> 实例中，可通过该<code>Placeable</code> 实例获取子元素测量结果。
+通过使用 <code>measurable.measure(constraints)</code> 完成子元素的测量，如果将 lambda 的 constraints 直接传入则意味着，你将父元素给当前元素的限制直接提供了当前元素的子元素，自身没有增加任何额外的限制。子元素测量的结果被包装在一个 <code>Placeable</code> 实例中，可通过该<code>Placeable</code> 实例获取子元素测量结果。
 
 在我们的示例中当前 `Text` 元素也不对子元素进行额外限制。
 
@@ -127,7 +127,7 @@ fun TextWithNormalPaddingPreview() {
 
 <img src = "../../assets/layout/custom_layout/demo2.png" width = "50%" height = "50%">
 
-## 使用Layout Composable
+## 使用 Layout Composable
 
 Layout Modifier 会将当前元素的所有子元素视作为整体进行统一的测量与布局，多适用于统一处理的场景。然而我们有时是需要精细化测量布局每一个子组件，这需要我们进行完全的自定义 Layout。这类似于传统 View 系统中定制 View 与 ViewGroup 测量布局流程的区别。对于定制 “ViewGroup” 的场景，我们应该使用 Layout Composable 了。首先我们需要创建一个 Layout Composable。
 
@@ -155,7 +155,7 @@ fun CustomLayout(
 
 **measurePolicy**：默认场景下只实现 measure 即可，上面示例中最后传入的 lambda 就是 measure 的实现。当你想要为你的 Layout Composable 适配 Intrinsics 时(官方中文翻译为固有特性测量)，则需要重写 <code>minIntrinsicWidth</code> 、<code>minIntrinsicHeight</code>、<code>maxIntrinsicWidth</code> 、<code>maxIntrinsicHeight</code> 方法，有关于固有特性测量的文章后续会更新，请持续关注。
 
-### Layout Composable使用示例
+### Layout Composable 使用示例
 
 我们可以通过 Layout Composable 定制一个自己专属的 Column，首先我们需要声明这个 Composable。
 
