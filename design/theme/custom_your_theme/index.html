@@ -1,0 +1,1493 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.compose.net.cn/design/theme/custom_your_theme/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2, mkdocs-material-7.1.7">
+    
+    
+      
+        <title>自定义你的主题方案 - Jetpack Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7CJetbrains+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"";--md-code-font-family:"Jetbrains Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jetpack Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              自定义你的主题方案
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link md-tabs__link--active">
+        Jetpack Compose
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../api/elements/text/" class="md-tabs__link">
+        API 文档
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../../assets/logo.png" alt="logo">
+
+    </a>
+    Jetpack Compose
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        Jetpack Compose
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jetpack Compose" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Jetpack Compose
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../start/" class="md-nav__link">
+        在开始之前
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        基本组件
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基本组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          基本组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/alertdialog/" class="md-nav__link">
+        AlertDialog
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/card/" class="md-nav__link">
+        Card
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/floatingactionbutton/" class="md-nav__link">
+        FloatingActionButton
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/icon/" class="md-nav__link">
+        Icon
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/image/" class="md-nav__link">
+        Image
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/iconbutton/" class="md-nav__link">
+        IconButton
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/surface/" class="md-nav__link">
+        Surface
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/slider/" class="md-nav__link">
+        Slider
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../elements/textfield/" class="md-nav__link">
+        TextField
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        布局
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="布局" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          布局
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/bottomnavigation/" class="md-nav__link">
+        BottomNavigation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/column/" class="md-nav__link">
+        Column
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/modalbottomsheetlayout/" class="md-nav__link">
+        ModalBottomSheetLayout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/row/" class="md-nav__link">
+        Row
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/spacer/" class="md-nav__link">
+        Spacer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/scaffold/" class="md-nav__link">
+        Scaffold
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/topappbar/" class="md-nav__link">
+        TopAppBar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/custom_layout/" class="md-nav__link">
+        自定义Layout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../layout/intrinsic/" class="md-nav__link">
+        固有特性测量
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" checked>
+      
+      <label class="md-nav__link" for="__nav_1_5">
+        设计
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="设计" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_1" type="checkbox" id="__nav_1_5_1" >
+      
+      <label class="md-nav__link" for="__nav_1_5_1">
+        动画
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="动画" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          动画
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../animation/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../animation/animationvisibility/" class="md-nav__link">
+        AnimationVisibility
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../animation/animatestate/" class="md-nav__link">
+        Animate*State
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_2" type="checkbox" id="__nav_1_5_2" checked>
+      
+      <label class="md-nav__link" for="__nav_1_5_2">
+        主题
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="主题" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          主题
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../meet_material_theme/" class="md-nav__link">
+        初识 MaterialTheme
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../understanding_material_theme/" class="md-nav__link">
+        深入理解 MaterialTheme 与 CompositionLocal
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          自定义你的主题方案
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        自定义你的主题方案
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 示例介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 配置颜色样式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 配置字体样式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 配置自定义资源
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_3" type="checkbox" id="__nav_1_5_3" >
+      
+      <label class="md-nav__link" for="__nav_1_5_3">
+        手势
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="手势" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          手势
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gesture/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gesture/draggable/" class="md-nav__link">
+        Draggable拖动
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gesture/swipeable/" class="md-nav__link">
+        Swipeable滑动
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_4" type="checkbox" id="__nav_1_5_4" >
+      
+      <label class="md-nav__link" for="__nav_1_5_4">
+        列表
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="列表" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          列表
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lists/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        参数
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="参数" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          参数
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../parameters/modifier/" class="md-nav__link">
+        Modifier
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        技术原理
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="技术原理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          技术原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../principle/recomposition_scope/" class="md-nav__link">
+        了解Compose的重组作用域
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        架构
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="架构" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          架构
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../architecture/architecture_for_compose/" class="md-nav__link">
+        Compose架构如何选？MVP,MVVM,MVI
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../codelabs/" class="md-nav__link">
+        代码实验室
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../resources/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../contributing/" class="md-nav__link">
+        关于贡献
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        API 文档
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API 文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API 文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        组件
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../api/elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 示例介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 配置颜色样式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 配置字体样式
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 配置自定义资源
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/design/theme/custom_your_theme.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>自定义你的主题方案</h1>
+                
+                <h2 id="1">1. 示例介绍</h2>
+<blockquote>
+<p>本文示例来自：https://github.com/RugerMcCarthy/BloomCompose</p>
+</blockquote>
+<p>通过阅读前两篇文章相信你已经具备自定义主题方案的能力了。我们通过#AndroidDevChallange挑战赛第三周题目作为示例来看看在实际项目中如何进行应用。在不同主题方案下背景颜色、文字颜色与图片资源都是不同的。值得注意的是对于所有文本也可以通过主题完成字体样式的配置，所要实现的目标效果如下图所示。</p>
+<p><img src = "../../../assets/design/theme/custom_your_theme/demo1.png", width = "60%" height = "60%"></p>
+<h2 id="2">2. 配置颜色样式</h2>
+<p>首先，我们来学习如何配置颜色样式。其实这里的内容在初识MaterialTheme章节中的操作是一样的。我们仅需要根据主题的不同生成其对应的colors即可。根据项目需求，我们进行以下的配置。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span> <span class="kd">val</span> <span class="nv">BloomLightColorPaltte</span> <span class="o">=</span> <span class="n">lightColors</span><span class="p">(</span>
+    <span class="n">primary</span> <span class="o">=</span> <span class="n">pink100</span><span class="p">,</span>
+    <span class="n">secondary</span> <span class="o">=</span> <span class="n">pink900</span><span class="p">,</span>
+    <span class="n">background</span> <span class="o">=</span> <span class="n">white</span><span class="p">,</span>
+    <span class="n">surface</span> <span class="o">=</span> <span class="n">white850</span><span class="p">,</span>
+    <span class="n">onPrimary</span> <span class="o">=</span> <span class="n">gray</span><span class="p">,</span>
+    <span class="n">onSecondary</span> <span class="o">=</span> <span class="n">white</span><span class="p">,</span>
+    <span class="n">onBackground</span> <span class="o">=</span> <span class="n">gray</span><span class="p">,</span>
+    <span class="n">onSurface</span> <span class="o">=</span> <span class="n">gray</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="kd">private</span> <span class="kd">val</span> <span class="nv">BloomDarkColorPaltte</span> <span class="o">=</span> <span class="n">darkColors</span><span class="p">(</span>
+    <span class="n">primary</span> <span class="o">=</span> <span class="n">green900</span><span class="p">,</span>
+    <span class="n">secondary</span> <span class="o">=</span> <span class="n">green300</span><span class="p">,</span>
+    <span class="n">background</span> <span class="o">=</span> <span class="n">gray</span><span class="p">,</span>
+    <span class="n">surface</span> <span class="o">=</span> <span class="n">white150</span><span class="p">,</span>
+    <span class="n">onPrimary</span> <span class="o">=</span> <span class="n">white</span><span class="p">,</span>
+    <span class="n">onSecondary</span> <span class="o">=</span> <span class="n">gray</span><span class="p">,</span>
+    <span class="n">onBackground</span> <span class="o">=</span> <span class="n">white</span><span class="p">,</span>
+    <span class="n">onSurface</span> <span class="o">=</span> <span class="n">white850</span>
+<span class="p">)</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">BloomTheme</span><span class="p">(</span><span class="n">theme</span><span class="p">:</span> <span class="n">BloomTheme</span> <span class="o">=</span> <span class="n">BloomTheme</span><span class="p">.</span><span class="na">LIGHT</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span><span class="p">()</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">CompositionLocalProvider</span><span class="p">(</span>
+        <span class="n">LocalWelcomeAssets</span> <span class="n">provides</span> <span class="k">if</span> <span class="p">(</span><span class="n">theme</span> <span class="o">==</span> <span class="n">BloomTheme</span><span class="p">.</span><span class="na">DARK</span><span class="p">)</span> <span class="n">WelcomeAssets</span><span class="p">.</span><span class="na">DarkWelcomeAssets</span> <span class="k">else</span> <span class="n">WelcomeAssets</span><span class="p">.</span><span class="na">LightWelcomeAssets</span><span class="p">,</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">MaterialTheme</span><span class="p">(</span>
+            <span class="n">colors</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">theme</span> <span class="o">==</span> <span class="n">BloomTheme</span><span class="p">.</span><span class="na">DARK</span><span class="p">)</span> <span class="n">BloomDarkColorPaltte</span> <span class="k">else</span> <span class="n">BloomLightColorPaltte</span><span class="p">,</span>
+            <span class="n">typography</span> <span class="o">=</span> <span class="n">Typography</span><span class="p">,</span>
+            <span class="n">shapes</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">,</span>
+            <span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在我们的视图所需要Color的地方配置即可。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Text</span><span class="p">(</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Beautiful home garden solutions&quot;</span><span class="p">,</span>
+    <span class="n">textAlign</span> <span class="o">=</span> <span class="n">TextAlign</span><span class="p">.</span><span class="na">Center</span><span class="p">,</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">onPrimary</span> <span class="c1">// I&#39;m here</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="3">3. 配置字体样式</h2>
+<p>我们接着来学习如何配置字体样式。还记得MaterialTheme方法嘛，其实第二个参数typography表示的就是你所配置的字体，只是这个Typography是Android Studio默认帮你配制的。</p>
+<div class="highlight"><pre><span></span><code><span class="n">MaterialTheme</span><span class="p">(</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">colors</span><span class="p">,</span>
+    <span class="n">typography</span> <span class="o">=</span> <span class="n">Typography</span><span class="p">,</span>
+    <span class="n">shapes</span> <span class="o">=</span> <span class="n">Shapes</span><span class="p">,</span>
+    <span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>如果是新建的项目，Android Studio会在ui.theme包下生成Type.kt，其中包含了Typography的实现，名为Typography的变量间接调用Typography类构造函数。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">Typography</span> <span class="o">=</span> <span class="n">Typography</span><span class="p">(</span>
+    <span class="n">body1</span> <span class="o">=</span> <span class="n">TextStyle</span><span class="p">(</span>
+        <span class="n">fontFamily</span> <span class="o">=</span> <span class="n">FontFamily</span><span class="p">.</span><span class="na">Default</span><span class="p">,</span>
+        <span class="n">fontWeight</span> <span class="o">=</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">Normal</span><span class="p">,</span>
+        <span class="n">fontSize</span> <span class="o">=</span> <span class="m">16.</span><span class="n">sp</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>再回到MaterialTheme实现，可以发现typography提供给LocalTypography这个CompositionLocal实例了，那么我们在项目中如何使用这个特殊字体也不需要额外的介绍了，这与colors是完全一样的。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MaterialTheme</span><span class="p">(</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">Colors</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">,</span>
+    <span class="n">typography</span><span class="p">:</span> <span class="n">Typography</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">,</span>
+    <span class="n">shapes</span><span class="p">:</span> <span class="n">Shapes</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">shapes</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">rememberedColors</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span>
+        <span class="n">colors</span><span class="p">.</span><span class="na">copy</span><span class="p">()</span>
+    <span class="p">}.</span><span class="na">apply</span> <span class="p">{</span> <span class="n">updateColorsFrom</span><span class="p">(</span><span class="n">colors</span><span class="p">)</span> <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">rippleIndication</span> <span class="o">=</span> <span class="n">rememberRipple</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">selectionColors</span> <span class="o">=</span> <span class="n">rememberTextSelectionColors</span><span class="p">(</span><span class="n">rememberedColors</span><span class="p">)</span>
+    <span class="n">CompositionLocalProvider</span><span class="p">(</span>
+        <span class="n">LocalColors</span> <span class="n">provides</span> <span class="n">rememberedColors</span><span class="p">,</span>
+        <span class="n">LocalContentAlpha</span> <span class="n">provides</span> <span class="n">ContentAlpha</span><span class="p">.</span><span class="na">high</span><span class="p">,</span>
+        <span class="n">LocalIndication</span> <span class="n">provides</span> <span class="n">rippleIndication</span><span class="p">,</span>
+        <span class="n">LocalRippleTheme</span> <span class="n">provides</span> <span class="n">MaterialRippleTheme</span><span class="p">,</span>
+        <span class="n">LocalShapes</span> <span class="n">provides</span> <span class="n">shapes</span><span class="p">,</span>
+        <span class="n">LocalTextSelectionColors</span> <span class="n">provides</span> <span class="n">selectionColors</span><span class="p">,</span>
+        <span class="n">LocalTypography</span> <span class="n">provides</span> <span class="n">typography</span> <span class="c1">// I&#39;m here~</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">ProvideTextStyle</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">body1</span><span class="p">,</span> <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>既然懂得了原理，我们仅需要根据项目实际需求配置字体样式即可，既然Android Studio帮助生成Type.kt，说明是官方希望我们将字体样式配置在这个文件中的。这是一种规范，但也可不遵守。</p>
+<p>值得注意的是由于每种字体都会有不同的粗细风格，我们在字体样式配置时需要指明字体种类与粗细风格。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">nunitoSansFamily</span> <span class="o">=</span> <span class="n">FontFamily</span><span class="p">(</span>
+    <span class="n">Font</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">font</span><span class="p">.</span><span class="na">nunitosans_light</span><span class="p">,</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">Light</span><span class="p">),</span>
+    <span class="n">Font</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">font</span><span class="p">.</span><span class="na">nunitosans_semibold</span><span class="p">,</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">SemiBold</span><span class="p">),</span>
+    <span class="n">Font</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">font</span><span class="p">.</span><span class="na">nunitosans_bold</span><span class="p">,</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">Bold</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="kd">val</span> <span class="nv">bloomTypography</span> <span class="o">=</span> <span class="n">Typography</span><span class="p">(</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">TextStyle</span><span class="p">(</span>
+        <span class="n">fontSize</span> <span class="o">=</span> <span class="m">18.</span><span class="n">sp</span><span class="p">,</span>
+        <span class="n">fontFamily</span> <span class="o">=</span> <span class="n">nunitoSansFamily</span><span class="p">,</span>
+        <span class="n">fontWeight</span> <span class="o">=</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">Bold</span>
+    <span class="p">),</span>
+    <span class="n">h2</span> <span class="o">=</span> <span class="n">TextStyle</span><span class="p">(</span>
+        <span class="n">fontSize</span> <span class="o">=</span> <span class="m">14.</span><span class="n">sp</span><span class="p">,</span>
+        <span class="n">letterSpacing</span> <span class="o">=</span> <span class="m">0.15</span><span class="p">.</span><span class="na">sp</span><span class="p">,</span>
+        <span class="n">fontFamily</span> <span class="o">=</span> <span class="n">nunitoSansFamily</span><span class="p">,</span>
+        <span class="n">fontWeight</span> <span class="o">=</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">Bold</span>
+    <span class="p">),</span>
+    <span class="p">....</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>使用的话就很简单了，我们仅需将字体样式传入MaterialTheme即可。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">BloomTheme</span><span class="p">(</span><span class="n">theme</span><span class="p">:</span> <span class="n">BloomTheme</span> <span class="o">=</span> <span class="n">BloomTheme</span><span class="p">.</span><span class="na">LIGHT</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span><span class="p">()</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">MaterialTheme</span><span class="p">(</span>
+         <span class="n">colors</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">theme</span> <span class="o">==</span> <span class="n">BloomTheme</span><span class="p">.</span><span class="na">DARK</span><span class="p">)</span> <span class="n">BloomDarkColorPaltte</span> <span class="k">else</span> <span class="n">BloomLightColorPaltte</span><span class="p">,</span>
+         <span class="n">typography</span> <span class="o">=</span> <span class="n">bloomTypoGraphy</span><span class="p">,</span>
+         <span class="n">shapes</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">,</span>
+         <span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在我们的视图组件中使用style参数进行配置即可。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Text</span><span class="p">(</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Beautiful home garden solutions&quot;</span><span class="p">,</span>
+    <span class="n">textAlign</span> <span class="o">=</span> <span class="n">TextAlign</span><span class="p">.</span><span class="na">Center</span><span class="p">,</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">subtitle1</span><span class="p">,</span> <span class="c1">// I&#39;m here</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">onPrimary</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="4">4. 配置自定义资源</h2>
+<p>有时我们可能需要根据主题的不同使用不同的多媒体资源，例如图片、视频、音频等等。通过查阅MaterialTheme参数列表我们没有发现可以进行配置的参数。难道 Jetpack Compose 不具备这样的能力？答案当然是否定的，Android团队已经充分考虑了各种场景，只是针对于这种需求而言，我们需要进行额外的定制扩展。</p>
+<p>在前一篇文章中，我们已经详细介绍了MaterialTheme工作原理，想必你也猜到了，就是通过定制CompositionLocal方式来实现图片资源的扩展，根据主题的不同选用其对应的多媒体资源。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">open</span> <span class="kd">class</span> <span class="nc">WelcomeAssets</span> <span class="n">private</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="kd">var</span> <span class="nv">background</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="kd">var</span> <span class="nv">illos</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="kd">var</span> <span class="nv">logo</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">object</span> <span class="nc">LightWelcomeAssets</span> <span class="p">:</span> <span class="n">WelcomeAssets</span><span class="p">(</span>
+        <span class="n">background</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">ic_light_welcome_bg</span><span class="p">,</span>
+        <span class="n">illos</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">ic_light_welcome_illos</span><span class="p">,</span>
+        <span class="n">logo</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">ic_light_logo</span>
+    <span class="p">)</span>
+
+    <span class="kd">object</span> <span class="nc">DarkWelcomeAssets</span> <span class="p">:</span> <span class="n">WelcomeAssets</span><span class="p">(</span>
+        <span class="n">background</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">ic_dark_welcome_bg</span><span class="p">,</span>
+        <span class="n">illos</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">ic_dark_welcome_illos</span><span class="p">,</span>
+        <span class="n">logo</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">ic_dark_logo</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="kd">internal</span> <span class="kd">var</span> <span class="nv">LocalWelcomeAssets</span> <span class="o">=</span> <span class="n">staticCompositionLocalOf</span> <span class="p">{</span>
+    <span class="n">WelcomeAssets</span><span class="p">.</span><span class="na">LightWelcomeAssets</span> <span class="k">as</span> <span class="n">WelcomeAssets</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>于此同时，我们还希望能够在视图中仍通过MaterialTheme来访问我们的图片资源，那么则可以通过Kotlin扩展属性的特性进行实现(扩展属性是没有幕后字段的，只能委托其他实例)。值得注意的是，CompositionLocal只能在composable(带有Composable注解的lambda)中使用，所以我们需要为这个属性获取添加@Composable与@ReadOnlyComposable注解。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">MaterialTheme</span><span class="p">.</span><span class="na">welcomeAssets</span>
+    <span class="nd">@Composable</span>
+    <span class="nd">@ReadOnlyComposable</span>
+    <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">LocalWelcomeAssets</span><span class="p">.</span><span class="na">current</span>
+</code></pre></div>
+<p>这样我们在视图中就可以仍然通过MaterialTheme来获取扩展的图片资源了。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Image</span><span class="p">(</span>
+     <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberVectorPainter</span><span class="p">(</span><span class="n">image</span> <span class="o">=</span> <span class="n">ImageVector</span><span class="p">.</span><span class="na">vectorResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">welcomeAssets</span><span class="p">.</span><span class="na">background</span><span class="p">)),</span>
+     <span class="n">contentDescription</span> <span class="o">=</span> <span class="s">&quot;weclome_bg&quot;</span><span class="p">,</span>
+     <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>既然了解了图片的主题配置，其他多媒体资源的主题配置是完全相同的，请充分发挥你的想象力。</p>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 7, 2021</span>
+      
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../understanding_material_theme/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 深入理解 MaterialTheme 与 CompositionLocal" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              深入理解 MaterialTheme 与 CompositionLocal
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../gesture/overview/" class="md-footer__link md-footer__link--next" aria-label="下一页: 概述" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              概述
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/Compose-Museum/Compose-Tutorial/" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.76f349be.min.js"></script>
+      
+    
+  </body>
+</html>

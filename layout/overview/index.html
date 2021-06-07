@@ -1,0 +1,2136 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.compose.net.cn/layout/overview/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2, mkdocs-material-7.1.7">
+    
+    
+      
+        <title>概述 - Jetpack Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7CJetbrains+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"";--md-code-font-family:"Jetbrains Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#layouts-in-compose" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jetpack Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              概述
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
+        Jetpack Compose
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/elements/text/" class="md-tabs__link">
+        API 文档
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Jetpack Compose
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        Jetpack Compose
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jetpack Compose" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Jetpack Compose
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/" class="md-nav__link">
+        在开始之前
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_3" type="checkbox" id="__nav_1_3" >
+      
+      <label class="md-nav__link" for="__nav_1_3">
+        基本组件
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基本组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_3">
+          <span class="md-nav__icon md-icon"></span>
+          基本组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/alertdialog/" class="md-nav__link">
+        AlertDialog
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/card/" class="md-nav__link">
+        Card
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/floatingactionbutton/" class="md-nav__link">
+        FloatingActionButton
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/icon/" class="md-nav__link">
+        Icon
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/image/" class="md-nav__link">
+        Image
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/iconbutton/" class="md-nav__link">
+        IconButton
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/surface/" class="md-nav__link">
+        Surface
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/slider/" class="md-nav__link">
+        Slider
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/textfield/" class="md-nav__link">
+        TextField
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" checked>
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        布局
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="布局" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          布局
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          概述
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        概述
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#layouts-in-compose" class="md-nav__link">
+    Layouts in Compose
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 标准布局组件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-modifier" class="md-nav__link">
+    2. Modifier
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Modifier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifiers" class="md-nav__link">
+    内置 modifiers
+  </a>
+  
+    <nav class="md-nav" aria-label="内置 modifiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-padding-size" class="md-nav__link">
+    1. Padding 和 size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-offset" class="md-nav__link">
+    2. offset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 响应性布局
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 响应性布局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#row-column-weight-modifier" class="md-nav__link">
+    Row 和 Column 中的 weight modifier
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 约束条件
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 约束条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基于插槽的布局
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-constraintlayout" class="md-nav__link">
+    5. ConstraintLayout
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ConstraintLayout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    解耦的 API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 自定义布局
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 自定义布局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-modifier" class="md-nav__link">
+    使用 layout modifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    创建自定义布局
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 布局方向
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8. 固有特性测量
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bottomnavigation/" class="md-nav__link">
+        BottomNavigation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../column/" class="md-nav__link">
+        Column
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modalbottomsheetlayout/" class="md-nav__link">
+        ModalBottomSheetLayout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../row/" class="md-nav__link">
+        Row
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spacer/" class="md-nav__link">
+        Spacer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaffold/" class="md-nav__link">
+        Scaffold
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topappbar/" class="md-nav__link">
+        TopAppBar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom_layout/" class="md-nav__link">
+        自定义Layout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../intrinsic/" class="md-nav__link">
+        固有特性测量
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      <label class="md-nav__link" for="__nav_1_5">
+        设计
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="设计" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_1" type="checkbox" id="__nav_1_5_1" >
+      
+      <label class="md-nav__link" for="__nav_1_5_1">
+        动画
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="动画" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_1">
+          <span class="md-nav__icon md-icon"></span>
+          动画
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animationvisibility/" class="md-nav__link">
+        AnimationVisibility
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatestate/" class="md-nav__link">
+        Animate*State
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_2" type="checkbox" id="__nav_1_5_2" >
+      
+      <label class="md-nav__link" for="__nav_1_5_2">
+        主题
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="主题" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_2">
+          <span class="md-nav__icon md-icon"></span>
+          主题
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
+        初识 MaterialTheme
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/understanding_material_theme/" class="md-nav__link">
+        深入理解 MaterialTheme 与 CompositionLocal
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/custom_your_theme/" class="md-nav__link">
+        自定义你的主题方案
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_3" type="checkbox" id="__nav_1_5_3" >
+      
+      <label class="md-nav__link" for="__nav_1_5_3">
+        手势
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="手势" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_3">
+          <span class="md-nav__icon md-icon"></span>
+          手势
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/draggable/" class="md-nav__link">
+        Draggable拖动
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/swipeable/" class="md-nav__link">
+        Swipeable滑动
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5_4" type="checkbox" id="__nav_1_5_4" >
+      
+      <label class="md-nav__link" for="__nav_1_5_4">
+        列表
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="列表" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_5_4">
+          <span class="md-nav__icon md-icon"></span>
+          列表
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        参数
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="参数" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          参数
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../parameters/modifier/" class="md-nav__link">
+        Modifier
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        技术原理
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="技术原理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          技术原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/recomposition_scope/" class="md-nav__link">
+        了解Compose的重组作用域
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        架构
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="架构" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          架构
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/architecture_for_compose/" class="md-nav__link">
+        Compose架构如何选？MVP,MVVM,MVI
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codelabs/" class="md-nav__link">
+        代码实验室
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        关于贡献
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        API 文档
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API 文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          API 文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        组件
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#layouts-in-compose" class="md-nav__link">
+    Layouts in Compose
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 标准布局组件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-modifier" class="md-nav__link">
+    2. Modifier
+  </a>
+  
+    <nav class="md-nav" aria-label="2. Modifier">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#modifiers" class="md-nav__link">
+    内置 modifiers
+  </a>
+  
+    <nav class="md-nav" aria-label="内置 modifiers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-padding-size" class="md-nav__link">
+    1. Padding 和 size
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-offset" class="md-nav__link">
+    2. offset
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 响应性布局
+  </a>
+  
+    <nav class="md-nav" aria-label="3. 响应性布局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#row-column-weight-modifier" class="md-nav__link">
+    Row 和 Column 中的 weight modifier
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 约束条件
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 约束条件">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    基于插槽的布局
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5-constraintlayout" class="md-nav__link">
+    5. ConstraintLayout
+  </a>
+  
+    <nav class="md-nav" aria-label="5. ConstraintLayout">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#api" class="md-nav__link">
+    解耦的 API
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 自定义布局
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 自定义布局">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#layout-modifier" class="md-nav__link">
+    使用 layout modifier
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    创建自定义布局
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#7" class="md-nav__link">
+    7. 布局方向
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#8" class="md-nav__link">
+    8. 固有特性测量
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/layout/overview.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>概述</h1>
+                
+                <h2 id="layouts-in-compose">Layouts in Compose</h2>
+<p><strong>本章节中的 1-6.1 章节翻译自 <a href="https://developer.android.com/jetpack/compose/layout">官方文档</a> 并加了一些注释，其余部分复制于官方文档的中文翻译</strong></p>
+<p><strong>如有翻译不准确欢迎提交 issue / pr</strong></p>
+<p><strong>Jetpack Compose</strong> 让设计和构建你的 app UI 变得更加容易。</p>
+<p>这篇文档解释了 <code>Compose</code> 提供的一些构建模块，以帮助你布置你的 UI 元素，并告诉你如何在你需要的时候建立更专业的布局。</p>
+<p><strong><em>Composable</em></strong> 函数是 <code>Compose</code> 的基本构建模块，一个 <strong><em>Composable</em></strong> 的函数是一个 emitting <code>Unit</code> (通过声明式的语法去显示出一个界面元素？) 的函数，描述你的用户界面的某些部分。该函数接受一些输入并生成屏幕上显示的内容。</p>
+<p>一个 <strong><em>Composable</em></strong> 函数可能会包含多个 <strong>UI</strong> 元素。但是，如果你不告诉它们应该如何被排列，<code>Compose</code> 可能不会按照你所想的方式来排列它们。</p>
+<p>例如，这段代码生成了两个 <code>Text</code> 元素</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ArtistCard</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Alfred Sisley&quot;</span><span class="p">)</span>
+    <span class="n">Text</span><span class="p">(</span><span class="s">&quot;3 minutes ago&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在你没有排列它们的情况下， <code>Compose</code> 会将 <code>Text</code> 元素堆叠在一起，变得无法阅读。</p>
+<p><img src = "../../assets/layout/overview/demo.png" width = "40%" height = "40%"></p>
+<p><code>Compose</code> 提供了一个现成的布局集合，以帮助你安排你的 <code>UI</code> 元素，并使你更容易定义你自己的、更专业的布局。</p>
+<h2 id="1">1. 标准布局组件</h2>
+<p>使用 <code>Column</code> 它会将里面的组件以行的形式呈现。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ArtistCard</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Alfred Sisley&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;3 minutes ago&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo2.png" width = "25%" height = "25%"></p>
+<p>同样地，你也可以使用 <code>Row</code>, 它会将里面的组件以列的形式呈现。</p>
+<p><code>Column</code> 和 <code>Row</code> 都支持配置它们所包含的元素的对齐方式。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ArtistCard</span><span class="p">(</span><span class="n">artist</span><span class="p">:</span> <span class="n">Artist</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Row</span><span class="p">(</span><span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Image</span><span class="p">(</span> <span class="cm">/*...*/</span> <span class="p">)</span>
+        <span class="n">Column</span> <span class="p">{</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">artist</span><span class="p">.</span><span class="na">name</span><span class="p">)</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">artist</span><span class="p">.</span><span class="na">lastSeenOnline</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo3.png" width = "25%" height = "25%"></p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>图中的圆形图像的效果可以在 <strong>基本组件/Image</strong> 中实现。
+图中的文字效果可以在 <strong>基本组件/Text</strong> 中实现。</p>
+</div>
+<p>关于 <code>Row</code> 的详情可以参考 <a href="../row/">这里</a>。</p>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<p>注意：Compose 有效地处理嵌套布局，使其成为设计复杂UI的好方法。这是对 Android Views 的改进，在 Android Views 中，出于性能原因，您需要避免嵌套布局。</p>
+</div>
+<p>如果想要在 <code>Row</code> 中设置子项的位置，可以设置 <code>horizontalArrangement</code> 和 <code>verticalAlignment</code> 参数，</p>
+<p>对于 <code>Column</code> 来说，设置 <code>verticalArrangement</code> 和 <code>horizontalAlignment</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">AlignInRow</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Row</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">150.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">),</span>
+        <span class="n">horizontalArrangement</span> <span class="o">=</span> <span class="n">Arrangement</span><span class="p">.</span><span class="na">End</span><span class="p">,</span> <span class="c1">// 设置 Row 中的子项水平布局为最右边</span>
+        <span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span> <span class="c1">// 设置 Row 中的子项竖直布局为中心</span>
+        <span class="c1">// start 左边</span>
+        <span class="c1">// end 右边</span>
+        <span class="c1">// top 上边</span>
+        <span class="c1">// bottom 下边</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">))</span>
+        <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Blue</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo4.png" width = "25%" height = "25%"></p>
+<h2 id="2-modifier">2. Modifier</h2>
+<p><code>Modifier</code> 允许你装饰或增强一个 <strong><em>Composable</em></strong>， <code>Modifier</code> 允许你做以下的事情。</p>
+<ul>
+<li>改变 <strong><em>Composable</em></strong> 的大小、布局、行为和外观。</li>
+<li>添加信息，如无障碍标签。</li>
+<li>处理用户的输入。</li>
+<li>添加高层次的交互，比如让一个元素可点击、可滚动、可拖动或可缩放。</li>
+<li>修改器是标准的 <strong>Kotlin</strong> 对象。通过调用 <code>Modifier</code> 类的一个函数来创建一个 <code>modifier</code>。你可以把这些函数串联起来，组成它们：</li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ArtistCard</span><span class="p">(</span>
+    <span class="n">artist</span><span class="p">:</span> <span class="n">Artist</span><span class="p">,</span>
+    <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">padding</span> <span class="o">=</span> <span class="m">16.</span><span class="n">dp</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">clickable</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="n">onClick</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Row</span><span class="p">(</span><span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/*...*/</span> <span class="p">}</span>
+        <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">padding</span><span class="p">))</span>
+        <span class="n">Card</span><span class="p">(</span><span class="n">elevation</span> <span class="o">=</span> <span class="m">4.</span><span class="n">dp</span><span class="p">)</span> <span class="p">{</span> <span class="cm">/*...*/</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo5.png" width = "50%" height = "50%"></p>
+<p>在上面的代码中，你会注意到不同的 <code>modifier</code> 函数一起使用。</p>
+<ul>
+<li><code>clickable</code> 使一个 <strong><em>Composable</em></strong> 元素对用户的点击作出反应，并显示一个波纹。</li>
+<li><code>padding</code> 在一个元素的周围填充了空间。</li>
+<li><code>fillMaxWidth</code> 让 <strong><em>Composable</em></strong> 元素填满其父元素的最大宽度。</li>
+<li><code>size()</code> 来指定一个元素的宽度和高度。</li>
+</ul>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在其他方面，<code>Modifier</code> 的作用类似于基于 <code>view</code> 布局中的布局参数。然而，由于 <code>Modifier</code> 有时是特定范围的，它们提供了类型安全，也帮助你发现和理解什么是可用的，适用于某个布局。对于 XML 布局，有时很难发现某个特定的布局属性是否适用于某个视图。</p>
+</div>
+<p><code>Modifier</code> 函数的顺序是很<strong>重要</strong>的。因为每个函数都会对前一个函数返回的修改器进行修改，所以顺序会影响最终的结果。让我们来看看这个例子：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ArtistCard</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">padding</span> <span class="o">=</span> <span class="m">16.</span><span class="n">dp</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">clickable</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="n">onClick</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// rest of the implementation</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo6.gif" width = "35%" height = "35%"></p>
+<p>在上面的代码中，整个区域都是可点击的，包括周围的填充物，因为 <code>padding modifier</code> 被应用在 <code>clickable</code> 之后。如果 <code>modifier</code> 的顺序颠倒了，那么由 <code>padding</code> 增加的空间就不会对用户的输入做出反应。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ArtistCard</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">padding</span> <span class="o">=</span> <span class="m">16.</span><span class="n">dp</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">padding</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">clickable</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="n">onClick</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// rest of the implementation</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo7.gif" width = "35%" height = "35%"></p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>明确顺序有助于你推理不同的 <code>Modifier</code> 将如何相互作用。与基于 <code>view</code> 的系统相比，你必须学习盒子模型，即在元素的 "外面" 应用 <code>margin</code>，而在 "里面 "应用 <code>pading</code>，背景元素会有相应的大小
+<code>Modifier</code> 的设计使这种行为变得明确和可预测，并给你更多的控制来实现你想要的确切行为。这也解释了为什么没有 <code>margin</code> 修改器而只有 <code>padding</code> 修改器</p>
+</div>
+<h3 id="modifiers">内置 modifiers</h3>
+<p>Jetpack Compose 提供了一个内置 <code>modifiers</code> 的列表，以帮助你装饰或增强一个 <strong><em>Composable</em></strong>。下面是一个涵盖最常见的使用情况的列表：</p>
+<h4 id="1-padding-size">1. Padding 和 size</h4>
+<p>要在一个 <strong><em>Composable</em></strong> 的周围进行填充，请添加 <code>padding</code></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">PaddedComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Hello World&quot;</span><span class="p">,</span> 
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">20.</span><span class="n">dp</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo8.png" width = "35%" height = "35%"></p>
+<p>默认情况下，Compose 中提供的布局是包裹其子项的。</p>
+<p>然鹅，你可以通过使用 <code>size</code> 来设置一个尺寸</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">SizedComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">,</span> <span class="m">100.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>如果您指定的尺寸不满足来自布局父级的约束，则可能无法使用该尺寸。如果你要求的 <strong><em>Composable</em></strong> 的尺寸是固定的，不管传入的约束条件如何，请使用 <code>requiredSize</code></p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">FixedSizeComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">90.</span><span class="n">dp</span><span class="p">,</span> <span class="m">150.</span><span class="n">dp</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Box</span><span class="p">(</span>
+            <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">requiredSize</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">,</span> <span class="m">100.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo9.png" width = "35%" height = "35%"></p>
+<p>在这个例子中，即使父本的宽度被设置为 <code>90.dp</code>，内盒的宽度也将是 <code>100.dp</code></p>
+<p>因为内盒的 <code>requiredSize</code> 优先</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">FillSizeComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">10.</span><span class="n">dp</span><span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Box</span><span class="p">(</span>
+            <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Blue</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo10.png" width = "15%" height = "15%"></p>
+<p>如果你想让一个子布局的尺寸与父 <code>Box</code> 的尺寸相同而不影响 <code>Box</code> 的尺寸，请使用 <code>matchParentSize</code></p>
+<p>请注意，<code>matchParentSize</code> 只在 <code>Box</code> 范围内可用，也就是说，它只适用于 <code>Box</code> <strong><em>composables</em></strong> 的直接子代</p>
+<p>在下面的例子中，内部的 <code>Spacer</code> 从它的父 <code>Box</code> 中获取其大小，而父 <code>Box</code> 又从它包含的 <code>Text</code> 中获取其大小</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MatchParentSizeComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Box</span> <span class="p">{</span>
+        <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">matchParentSize</span><span class="p">().</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">))</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo11.png" width = "15%" height = "15%"></p>
+<p>如果使用 <code>fillMaxSize</code> 而不是<code>matchParentSize</code>，那么 <code>Spacer</code> 将占用允许给父代的所有可用空间，反过来导致父代扩展并填充所有可用空间</p>
+<p><img src = "../../assets/layout/overview/demo12.png" width = "55%" height = "55%"></p>
+<p>如果你想在文本基线上方添加 <code>padding</code> 使你达到从布局顶部到基线的特定距离</p>
+<p>那么请使用 <code>paddingFromBaseline</code></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TextWithPaddingFromBaseline</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hi there!&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">paddingFromBaseline</span><span class="p">(</span><span class="n">top</span> <span class="o">=</span> <span class="m">32.</span><span class="n">dp</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo13.png" width = "5%" height = "5%"></p>
+<h4 id="2-offset">2. offset</h4>
+<p>要将一个布局相对于它的原始位置进行定位，可以添加 <code>offet</code>，并在 x 和 y 轴上设置偏移量</p>
+<p>偏移量可以是正的，也可以是负的。<code>padding</code> 和 <code>offset</code> 的区别在于，给一个 <strong><em>Composable</em></strong> 添加 <code>offset</code> 并不会改变它的测量</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">OffsetComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">).</span><span class="na">size</span><span class="p">(</span><span class="n">width</span> <span class="o">=</span> <span class="m">150.</span><span class="n">dp</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="m">70.</span><span class="n">dp</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span>
+            <span class="s">&quot;Layout offset modifier sample&quot;</span><span class="p">,</span>
+            <span class="n">Modifier</span><span class="p">.</span><span class="na">offset</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">15.</span><span class="n">dp</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="m">20.</span><span class="n">dp</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo14.png" width = "35%" height = "35%"></p>
+<p><code>padding</code> modifier 根据布局方向在水平方向上应用。在从左到右的情况下，正的偏移值会将元素向右移动，而在从右到左的情况下，它会将元素向左移动。如果你需要在不考虑布局方向的情况下设置一个偏移量，请参见<code>absoluteOffset</code> 修改器，其中一个正的偏移值总是将元素向右移动</p>
+<h2 id="3">3. 响应性布局</h2>
+<p>设计布局时应考虑到不同的屏幕方向和外形尺寸。<code>Compose</code> 提供了一些机制来促进你的 <strong><em>Composable</em></strong> 布局适应各种屏幕配置</p>
+<h3 id="row-column-weight-modifier">Row 和 Column 中的 weight modifier</h3>
+<p>正如你在前面关于填充和尺寸的章节中所看到的，一个 <strong><em>Composable</em></strong> 尺寸默认是由它所包裹的内容来定义的。你可以将一个 <strong><em>Composable</em></strong> 尺寸设置为在其父级内容中具有灵活性。让我们来看看一个包含两个盒子的行的可组合尺寸。</p>
+<p>第一个盒子的权重是第二个盒子的两倍，所以它的宽度也是两倍。因为行的宽度是 <code>210.dp</code>，所以第一个盒子的宽度是 <code>140.dp</code>，而第二个是 <code>70.dp</code></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">FlexibleComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Row</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="m">210.</span><span class="n">dp</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">2f</span><span class="p">).</span><span class="na">height</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Blue</span><span class="p">))</span>
+        <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">).</span><span class="na">height</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo15.png" width = "35%" height = "35%"></p>
+<h2 id="4">4. 约束条件</h2>
+<p>为了知道来自父体的约束并相应地设计布局，你可以使用 <code>BoxWithConstraints</code>。测量约束可以在 <code>content lambda</code> 的范围内找到。你可以使用这些测量约束来为不同的屏幕配置组成不同的布局</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">WithConstraintsComposable</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">BoxWithConstraints</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;My minHeight is </span><span class="si">$</span><span class="n">minHeight</span><span class="s"> while my maxWidth is </span><span class="si">$</span><span class="n">maxWidth</span><span class="s">&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo16.png" width = "35%" height = "35%"></p>
+<h4 id="_1">基于插槽的布局</h4>
+<p><code>Compose</code> 通过 <code>androidx.compose.material:material</code> 依赖关系（在 Android Studio 中创建 <code>Compose</code> 工程时会包含在内）提供了大量基于 <code>Material Design</code>的可组合元素，使 UI 构建变得简单。像   <code>Drawer</code>、<code>FloatingActionButton</code> 和 <code>TopAppBar</code> 这样的元素都被提供。</p>
+<p>Material 组件大量使用插槽 API，这是 <code>Compose</code> 引入的一种模式，在可组合的基础上引入了一层定制。这种方法使组件更加灵活，因为它们接受一个可以自我配置的子元素，而不是必须暴露子元素的每一个配置参数。槽在用户界面中留下了一个空位，供开发者按照自己的意愿来填充。例如，这些是你可以在 <code>TopAppBar</code> 中自定义的位置</p>
+<p><img src = "../../assets/layout/overview/demo17.png" width = "35%" height = "35%"></p>
+<p><strong><em>Composable</em></strong> 通常采取一个 <code>content</code> 的 <strong><em>Composable</em></strong> ，<code>lambda(content: @Composable () -&gt; Unit)</code>。插槽 API 为特定用途公开了多个内容参数。例如，<code>TopAppBar</code> 允许你为标题、导航图标和行为提供内容。</p>
+<p>例如，<a href="scaffold/overview.md">Scaffold</a> 允许你用基本的 <code>Material Design</code> 布局结构来实现一个 UI。<code>Scaffold</code> 为最常见的顶层 <code>Material</code> 组件提供了插槽，如 <a href="https://material.io/components/app-bars-top#usage">TopAppBar</a>、<a href="https://material.io/components/app-bars-bottom/">BottomAppBar</a>、<a href="https://material.io/components/buttons-floating-action-button/">FloatingActionButton</a> 和 <a href="https://material.io/components/navigation-drawer">Drawer</a> 。通过使用 <code>Scaffold</code>，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。</p>
+<div class="admonition tips">
+<p class="admonition-title">Tips</p>
+<p>要更好的了解 <strong>Scaffold</strong> 可以参考<a href="scaffold/overview.md">这里</a></p>
+</div>
+<p><img src = "../../assets/layout/overview/demo18.png" width = "55%" height = "55%"></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">HomeScreen</span><span class="p">(</span><span class="cm">/*...*/</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Scaffold</span><span class="p">(</span>
+        <span class="n">drawerContent</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/*...*/</span> <span class="p">},</span>
+        <span class="n">topBar</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/*...*/</span> <span class="p">},</span>
+        <span class="n">bodyContent</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/*...*/</span> <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="5-constraintlayout">5. ConstraintLayout</h2>
+<p><code>ConstraintLayout</code> 可以帮助在屏幕上放置相对于其他的合成物，并且是使用多个嵌套的 <code>Row</code>, <code>Column</code>, <code>Box</code> 自定义布局元素的替代方案。</p>
+<p><code>ConstraintLayout</code> 在实现具有更复杂对齐要求的大型布局时很有用，但在创建简单的布局时，最好使用 <code>Columns</code>和 <code>Rows</code> 来代替。</p>
+<p>要在 <code>Compose</code> 中使用 <code>ConstraintLayout</code>，你需要在 <code>build.gradle</code> 中添加这个依赖项</p>
+<div class="highlight"><pre><span></span><code>implementation &quot;androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05&quot;
+</code></pre></div>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>注意：在 <code>View</code> 系统中，<code>ConstraintLayout</code> 是创建大型复杂布局的推荐方式，因为扁平的视图层次结构比嵌套的视图更有利于性能。然而，这在 <code>Compose</code> 中并不是一个问题，它能够有效地处理深层次的布局层次结构</p>
+</div>
+<p><code>Compose</code> 中的 <code>ConstraintLayout</code> 以 <a href="https://kotlinlang.org/docs/type-safe-builders.html">DSL</a> 方式工作。</p>
+<p>引用是用 <code>createRefs()</code> 或 <code>createRefFor()</code> 创建的，<code>ConstraintLayout</code> 中的每一个 <strong><em>Composable</em></strong> 都需要有一个与之相关的引用。
+约束条件使用 <code>constrainAs()</code> modifier 提供，它将引用作为一个参数，让你在主体 <code>lambda</code> 中指定其约束。
+约束条件使用 <code>linkTo()</code> 或其他有用的方法来指定。
+<code>paren</code> t是一个现有的引用，可以用来指定对 <code>ConstraintLayout composable</code> 本身的约束</p>
+<p>下面是一个使用 <code>ConstraintLayout</code> 的 <strong><em>Composable</em></strong> 例子：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ConstraintLayoutContent</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">ConstraintLayout</span> <span class="p">{</span>
+        <span class="c1">// 给需要约束的 Composable 元素创建引用</span>
+        <span class="kd">val</span> <span class="p">(</span><span class="nv">button</span><span class="p">,</span> <span class="nv">text</span><span class="p">)</span> <span class="o">=</span> <span class="n">createRefs</span><span class="p">()</span>
+
+        <span class="n">Button</span><span class="p">(</span>
+            <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* Do something */</span> <span class="p">},</span>
+
+            <span class="c1">// 将 button 的引用给 Button 控件</span>
+            <span class="c1">// 并且设置约束</span>
+
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">constrainAs</span><span class="p">(</span><span class="n">button</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">top</span><span class="p">.</span><span class="na">linkTo</span><span class="p">(</span><span class="n">parent</span><span class="p">.</span><span class="na">top</span><span class="p">,</span> <span class="n">margin</span> <span class="o">=</span> <span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">)</span> <span class="p">{</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Button&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+
+            <span class="c1">// 将 Text 的引用给 Text 控件</span>
+            <span class="c1">// 并且设置约束</span>
+
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">constrainAs</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">top</span><span class="p">.</span><span class="na">linkTo</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="na">bottom</span><span class="p">,</span> <span class="n">margin</span> <span class="o">=</span> <span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+        <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这段代码将 <code>Button</code> 的顶部约束到父级，边距为 <code>16.dp</code> ，将 <code>Text</code> 约束到 <code>Button</code> 的底部，边距也为 <code>16.dp</code></p>
+<p><img src = "../../assets/layout/overview/demo19.png" width = "5%" height = "5%"></p>
+<p>关于如何使用 <code>ConstraintLayout</code> 的更多例子，请参阅 <a href="https://developer.android.com/codelabs/jetpack-compose-layouts#0">layout codelab</a></p>
+<h3 id="api">解耦的 API</h3>
+<p>在 <code>ConstraintLayout</code> 的例子中，约束条件是内联指定的，在它们所应用的 <code>composable</code> 中带有一个 modifier。然而，在有些情况下，最好将约束与它们所应用的布局解耦。例如，你可能想根据屏幕配置来改变约束，或者在两个约束集之间制作动画。</p>
+<p>对于这样的情况，你可以用不同的方式来使用 <code>ConstraintLayout</code>：</p>
+<ul>
+<li>传入一个 <code>ConstraintSet</code> 作为 <code>ConstraintLayout</code> 的参数。</li>
+<li>使用 <code>layoutId</code> 修改器将 <code>ConstraintSet</code> 中创建的引用分配给 <strong><em>Composable</em></strong></li>
+</ul>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">DecoupledConstraintLayout</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">BoxWithConstraints</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">constraints</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">minWidth</span> <span class="o">&lt;</span> <span class="m">600.</span><span class="n">dp</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">decoupledConstraints</span><span class="p">(</span><span class="n">margin</span> <span class="o">=</span> <span class="m">16.</span><span class="n">dp</span><span class="p">)</span> <span class="c1">// 竖屏约束</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">decoupledConstraints</span><span class="p">(</span><span class="n">margin</span> <span class="o">=</span> <span class="m">32.</span><span class="n">dp</span><span class="p">)</span> <span class="c1">// 横屏约束</span>
+        <span class="p">}</span>
+
+        <span class="n">ConstraintLayout</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Button</span><span class="p">(</span>
+                <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* Do something */</span> <span class="p">},</span>
+                <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">layoutId</span><span class="p">(</span><span class="s">&quot;button&quot;</span><span class="p">)</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Button&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Text&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">layoutId</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">fun</span> <span class="nf">decoupledConstraints</span><span class="p">(</span><span class="n">margin</span><span class="p">:</span> <span class="n">Dp</span><span class="p">):</span> <span class="n">ConstraintSet</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">ConstraintSet</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">button</span> <span class="o">=</span> <span class="n">createRefFor</span><span class="p">(</span><span class="s">&quot;button&quot;</span><span class="p">)</span>
+        <span class="kd">val</span> <span class="nv">text</span> <span class="o">=</span> <span class="n">createRefFor</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">)</span>
+
+        <span class="n">constrain</span><span class="p">(</span><span class="n">button</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">top</span><span class="p">.</span><span class="na">linkTo</span><span class="p">(</span><span class="n">parent</span><span class="p">.</span><span class="na">top</span><span class="p">,</span> <span class="n">margin</span> <span class="o">=</span> <span class="n">margin</span><span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">constrain</span><span class="p">(</span><span class="n">text</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">top</span><span class="p">.</span><span class="na">linkTo</span><span class="p">(</span><span class="n">button</span><span class="p">.</span><span class="na">bottom</span><span class="p">,</span> <span class="n">margin</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>然后，当你需要改变约束时，你可以只传递一个不同的 <code>ConstraintSet</code></p>
+<h2 id="6">6. 自定义布局</h2>
+<p>在 <code>Compose</code> 中，UI 元素由 <strong><em>composable</em></strong> 函数表示，这些函数在被调用时发出一段 UI，然后被添加到一个 UI 树中，在屏幕上呈现。每个 UI 元素都有一个父元素和可能的许多子元素。每个元素都位于它的父元素中，被指定为一个（x，y）位置，以及一个尺寸，被指定为一个宽度和一个高度。</p>
+<p>父元素为他们的子元素定义约束条件。一个元素被要求在这些约束中定义它的尺寸。约束条件限制了一个元素的最小和最大宽度和高度。如果一个元素有子元素，它可以测量每个子元素以帮助确定其尺寸。一旦一个元素确定并告知了它自己的尺寸，它有机会定义如何相对于自身放置子元素，就像在创建自定义布局中详细描述的。</p>
+<p>注意：Compose UI 不允许多通道测量。这意味着一个布局元素不能多次测量它的任何子元素，以尝试不同的测量配置。</p>
+<p>单遍测量有助于提高性能，使 <code>Compose</code> 可以有效处理深层 UI 树。如果一个元素测量了它的子元素两次，而这个子元素又测量了它的一个子元素两次，以此类推，那么一次尝试布局整个 UI 就必须做很多工作，这就很难让你的应用程序保持良好的性能。然而，有些时候，你真的需要在单个子项测量所能告诉你的信息之上的额外信息。有一些方法可以有效地应对这样的情况，这些方法将在内在的测量部分讨论</p>
+<h3 id="layout-modifier">使用 layout modifier</h3>
+<p>你可以使用 layout modifier 来修改一个元素的测量和布局方式。<code>Layout</code> 是一个 <code>lambda</code>；它的参数包括你可以测量的元素，以可测量的方式传递，而这个 <strong><em>Composable</em></strong> 的传入约束则以约束的方式传递。一个自定义的 layout modifier 可以是这样的</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">customLayoutModifier</span><span class="p">(...)</span> <span class="o">=</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">layout</span> <span class="p">{</span> <span class="n">measurable</span><span class="p">,</span> <span class="n">constraints</span> <span class="o">-&gt;</span>
+        <span class="p">...</span>
+    <span class="p">})</span>
+</code></pre></div>
+<p>让我们在屏幕上显示一个文本，并控制第一行文本从顶部到基线的距离。这正是 <code>paddingFromBaseline</code> 的作用，我们在这里作为一个例子来实现它。要做到这一点，请使用 layout modifier 来手动将 <strong><em>Composable</em></strong> 的东西放在屏幕上。</p>
+<p>下面是期望的行为，文本顶部的 <code>padding</code> 被设置为 <code>24.dp</code></p>
+<p><img src = "../../assets/layout/overview/demo20.png" width = "45%" height = "45%"></p>
+<p>下面是产生这种间距的代码：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">firstBaselineToTop</span><span class="p">(</span>
+    <span class="n">firstBaselineToTop</span><span class="p">:</span> <span class="n">Dp</span>
+<span class="p">)</span> <span class="o">=</span> <span class="n">layout</span> <span class="p">{</span> <span class="n">measurable</span><span class="p">,</span> <span class="n">constraints</span> <span class="o">-&gt;</span>
+    <span class="c1">// Measure the composable</span>
+    <span class="kd">val</span> <span class="nv">placeable</span> <span class="o">=</span> <span class="n">measurable</span><span class="p">.</span><span class="na">measure</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
+
+    <span class="c1">// Check the composable has a first baseline</span>
+    <span class="n">check</span><span class="p">(</span><span class="n">placeable</span><span class="o">[</span><span class="n">FirstBaseline</span><span class="o">]</span> <span class="o">!=</span> <span class="n">AlignmentLine</span><span class="p">.</span><span class="na">Unspecified</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">firstBaseline</span> <span class="o">=</span> <span class="n">placeable</span><span class="o">[</span><span class="n">FirstBaseline</span><span class="o">]</span>
+
+    <span class="c1">// Height of the composable with padding - first baseline</span>
+    <span class="kd">val</span> <span class="nv">placeableY</span> <span class="o">=</span> <span class="n">firstBaselineToTop</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">()</span> <span class="o">-</span> <span class="n">firstBaseline</span>
+    <span class="kd">val</span> <span class="nv">height</span> <span class="o">=</span> <span class="n">placeable</span><span class="p">.</span><span class="na">height</span> <span class="o">+</span> <span class="n">placeableY</span>
+    <span class="n">layout</span><span class="p">(</span><span class="n">placeable</span><span class="p">.</span><span class="na">width</span><span class="p">,</span> <span class="n">height</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// Where the composable gets placed</span>
+        <span class="n">placeable</span><span class="p">.</span><span class="na">placeRelative</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="n">placeableY</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>以下是那段代码中的内容：</p>
+<ol>
+<li>在 <code>measurablelambda</code> 参数中，你通过调用 <code>measurable.measure(constraints)</code> 来测量由 <code>measurabl</code> 参数代表的 <code>Text</code>。</li>
+<li>你通过调用 <code>layout(width, height)</code> 方法来指定 <strong><em>Composable</em></strong> 的尺寸，该方法也给出了一个用于放置包装元素的 <code>lambda</code>。在这种情况下，它是最后一个 <code>baseline</code> 和增加的 <code>top padding</code> 之间的高度。</li>
+<li>你可以通过调用 <code>placeable.place(x, y)</code> 将被包装好的元素放置在屏幕上。如果被包装的元素没有被放置，它们将不可见。<code>y</code> position 对应的是 <code>top padding</code> -- 文本的第一条 baseline 的位置。</li>
+</ol>
+<p>为了验证这是否如预期的那样工作，请在 <code>Text</code> 上使用这个 <strong>modifier</strong>。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TextWithPaddingToBaselinePreview</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">MyApplicationTheme</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hi there!&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">firstBaselineToTop</span><span class="p">(</span><span class="m">32.</span><span class="n">dp</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TextWithNormalPaddingPreview</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">MyApplicationTheme</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hi there!&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">top</span> <span class="o">=</span> <span class="m">32.</span><span class="n">dp</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo21.png" width = "25%" height = "25%"></p>
+<h3 id="_2">创建自定义布局</h3>
+<p><code>layout</code> 修饰符仅更改调用可组合项。如需测量和布置多个可组合项，请改用 <code>Layout</code> 可组合项。此可组合项允许您手动测量和布置子项。<code>Column</code> 和 <code>Row</code> 等所有较高级别的布局都使用 <code>Layout</code> 可组合项构建而成。</p>
+<div class="admonition 注意">
+<p class="admonition-title">注意</p>
+<p>在 View 系统中，创建自定义布局必须扩展 ViewGroup 并实现测量和布局函数。在 Compose 中，您只需使用 Layout 可组合项编写一个函数即可</p>
+</div>
+<p>我们来构建一个非常基本的 Column。大多数自定义布局都遵循以下模式：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MyBasicColumn</span><span class="p">(</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span><span class="p">()</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Layout</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">,</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="n">content</span>
+    <span class="p">)</span> <span class="p">{</span> <span class="n">measurables</span><span class="p">,</span> <span class="n">constraints</span> <span class="o">-&gt;</span>
+        <span class="c1">// measure and position children given constraints logic here</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>与 <code>layout</code> 修饰符类似，<code>measurables</code> 是需要测量的子项的列表，而 <code>constraints</code> 是来自父项的约束条件。按照与前面相同的逻辑，可按如下方式实现 <code>MyBasicColumn</code>：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MyBasicColumn</span><span class="p">(</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span><span class="p">()</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Layout</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">,</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+    <span class="p">)</span> <span class="p">{</span> <span class="n">measurables</span><span class="p">,</span> <span class="n">constraints</span> <span class="o">-&gt;</span>
+        <span class="c1">// Don&#39;t constrain child views further, measure them with given constraints</span>
+        <span class="c1">// List of measured children</span>
+        <span class="kd">val</span> <span class="nv">placeables</span> <span class="o">=</span> <span class="n">measurables</span><span class="p">.</span><span class="na">map</span> <span class="p">{</span> <span class="n">measurable</span> <span class="o">-&gt;</span>
+            <span class="c1">// Measure each children</span>
+            <span class="n">measurable</span><span class="p">.</span><span class="na">measure</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
+        <span class="p">}</span>
+
+        <span class="c1">// Set the size of the layout as big as it can</span>
+        <span class="n">layout</span><span class="p">(</span><span class="n">constraints</span><span class="p">.</span><span class="na">maxWidth</span><span class="p">,</span> <span class="n">constraints</span><span class="p">.</span><span class="na">maxHeight</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// Track the y co-ord we have placed children up to</span>
+            <span class="kd">var</span> <span class="nv">yPosition</span> <span class="o">=</span> <span class="m">0</span>
+
+            <span class="c1">// Place children in the parent layout</span>
+            <span class="n">placeables</span><span class="p">.</span><span class="na">forEach</span> <span class="p">{</span> <span class="n">placeable</span> <span class="o">-&gt;</span>
+                <span class="c1">// Position item on the screen</span>
+                <span class="n">placeable</span><span class="p">.</span><span class="na">placeRelative</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">yPosition</span><span class="p">)</span>
+
+                <span class="c1">// Record the y co-ord placed up to</span>
+                <span class="n">yPosition</span> <span class="o">+=</span> <span class="n">placeable</span><span class="p">.</span><span class="na">height</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>可组合子项受 <code>Layout</code> 约束条件（没有 <code>minHeight</code> 约束条件）的约束，它们的放置基于前一个可组合项的 <code>yPosition</code>。</p>
+<p>该自定义可组合项的使用方式如下：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">CallingComposable</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">MyBasicColumn</span><span class="p">(</span><span class="n">modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">8.</span><span class="n">dp</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;MyBasicColumn&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;places items&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;vertically.&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;We&#39;ve done it by hand!&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../assets/layout/overview/demo22.png" width = "25%" height = "25%"></p>
+<h2 id="7">7. 布局方向</h2>
+<p>您可以通过更改 <code>LocalLayoutDirection</code> composeLocal 来更改可组合项的布局方向。</p>
+<p>如果您要将可组合项手动放置在屏幕上，则 <code>LayoutDirection</code> 是 <code>layout</code> 修饰符或 <code>Layout</code> 可组合项的 <code>LayoutScope</code> 的一部分。</p>
+<p>使用 <code>layoutDirection</code> 时，应使用 <code>place</code> 放置可组合项。与 <code>place</code> 方法不同，<code>place</code> 不会根据阅读方向（从左到右与从右到左）发生变化。</p>
+<h2 id="8">8. 固有特性测量</h2>
+<p>Compose 有一项规则，即，子项只能测量一次，测量两次就会引发运行时异常。但是，有时需要先收集一些关于子项的信息，然后再测量子项。</p>
+<p><strong>借助固有特性，您可以先查询子项，然后再进行实际测量。</strong></p>
+<p>对于可组合项，您可以查询其 <code>intrinsicWidth</code> 或 <code>intrinsicHeight</code>：</p>
+<ul>
+<li><code>(min|max)IntrinsicWidth</code>：给定此高度，可以正确绘制内容的最小/最大宽度是多少？</li>
+<li><code>(min|max)IntrinsicHeight</code>：给定此宽度，可以正确绘制内容的最小/最大高度是多少？
+例如，如果您查询具有无限 <code>width</code> 的 <code>Text</code> 的 <code>minIntrinsicHeight</code>，它将返回 <code>Text</code> 的 <code>height</code>，就好像该文本是在单行中绘制的一样。</li>
+</ul>
+<p>固有特性的实际运用</p>
+<p>假设我们需要创建一个可组合项，该可组合项在屏幕上显示两个用分隔线隔开的文本，如下所示：</p>
+<p><img src = "../../assets/layout/overview/demo23.png" width = "55%" height = "55%"></p>
+<p>我们该怎么做？我们可以将两个 Text 放在同一 Row，并在其中最大程度地扩展，另外在中间放置一个 Divider。我们需要将分隔线的高度设置为与最高的 Text 相同，粗细设置为 width = 1.dp。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TwoTexts</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Row</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="m">4.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">wrapContentWidth</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">Start</span><span class="p">),</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text1</span>
+        <span class="p">)</span>
+
+        <span class="n">Divider</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">,</span> <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxHeight</span><span class="p">().</span><span class="na">width</span><span class="p">(</span><span class="m">1.</span><span class="n">dp</span><span class="p">))</span>
+        <span class="n">Text</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">)</span>
+
+                <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">end</span> <span class="o">=</span> <span class="m">4.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">wrapContentWidth</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">End</span><span class="p">),</span>
+
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text2</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TwoTextsPreview</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">LayoutsCodelabTheme</span> <span class="p">{</span>
+        <span class="n">Surface</span> <span class="p">{</span>
+            <span class="n">TwoTexts</span><span class="p">(</span><span class="n">text1</span> <span class="o">=</span> <span class="s">&quot;Hi&quot;</span><span class="p">,</span> <span class="n">text2</span> <span class="o">=</span> <span class="s">&quot;there&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>预览时，我们发现分隔线扩展到整个屏幕，这并不是我们想要的效果：</p>
+<p><img src = "../../assets/layout/overview/demo24.png" width = "55%" height = "55%"></p>
+<p>之所以出现这种情况，是因为 <code>Row</code> 会逐个测量每个子项，并且 <code>Text</code> 的高度不能用于限制 <code>Divider</code>。我们希望 <code>Divider</code> 以一个给定的高度来填充可用空间。为此，我们可以使用 <code>height(IntrinsicSize.Min)</code> 修饰符。</p>
+<p><code>height(IntrinsicSize.Min)</code> 可将其子项的高度强行调整为最小固有高度。由于该修饰符具有递归性，因此它将查询 <code>Row</code> 及其子项 <code>minIntrinsicHeight</code>。</p>
+<p>将其应用到代码中，就能达到预期的效果：</p>
+<p><img src = "../../assets/layout/overview/demo25.png" width = "55%" height = "55%"></p>
+<p><code>Row</code> 可组合项的 <code>minIntrinsicHeight</code> 将作为其子项的最大 <code>minIntrinsicHeight</code>。<code>Divider</code> 元素的 <code>minIntrinsicHeight</code> 为 <code>0</code>，因为如果没有给出约束条件，它不会占用任何空间；如果给出特定 <code>width</code>，<code>Text</code> <code>minIntrinsicHeight</code> 将为文本的高度。因此，<code>Row</code> 元素的 <code>height</code> 约束条件将为 <code>Text</code> 的最大 m<code>inIntrinsicHeight</code>。而 <code>Divider</code> 会将其 <code>height</code> 扩展为 <code>Row</code> 给定的 <code>height</code> 约束条件。</p>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 7, 2021</span>
+      
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../../elements/textfield/" class="md-footer__link md-footer__link--prev" aria-label="上一页: TextField" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              TextField
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../bottomnavigation/" class="md-footer__link md-footer__link--next" aria-label="下一页: BottomNavigation" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              BottomNavigation
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/Compose-Museum/Compose-Tutorial/" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.76f349be.min.js"></script>
+      
+    
+  </body>
+</html>
