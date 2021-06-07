@@ -8,10 +8,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v2
         with:
           python-version: 3.x
-          fetch-depth: 0
       - run: pip install mkdocs-material
       - run: pip install mkdocs-git-revision-date-localized-plugin
       - run: mkdocs gh-deploy --force
