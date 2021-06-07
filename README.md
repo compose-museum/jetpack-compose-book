@@ -1,4 +1,4 @@
-![](docs/assets/tutorial-banner.png)
+![](//i1.hdslb.com/bfs/face/e1d390ad1c2af0f0a2a9ca65c6b4ba023a1a9e5b.jpg@128w_128h_1o.webp)
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3125541b-c17c-428e-b038-ad444205d56e/deploy-status)](https://app.netlify.com/sites/jetpack-compose/deploys)
 
