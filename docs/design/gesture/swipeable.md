@@ -61,22 +61,21 @@ var anchors = mapOf(
 我们接下来说明锚点间吸附动画的阈值。我们希望从关闭状态到开启状态，滑块仅需移动超过 30% 则会自动吸附到开启状态，从开启状态到关闭状态，滑块需移动超过 50% 才会自动吸附到关闭状态。
 
 ```kotlin
-Modifier
-		.swipeable(
-        state = swipeableState,
-        anchors = mapOf(
-            0f to Status.CLOSE,
-            blockSizePx to Status.OPEN
-        ),
-        thresholds = { from, to ->
-            if (from == Status.CLOSE) {
-                FractionalThreshold(0.3f)
-            } else {
-                FractionalThreshold(0.5f)
-            }
-        },
-        orientation = Orientation.Horizontal
-    )
+Modifier.swipeable(
+    state = swipeableState,
+    anchors = mapOf(
+        0f to Status.CLOSE,
+        blockSizePx to Status.OPEN
+    ),
+    thresholds = { from, to ->
+        if (from == Status.CLOSE) {
+            FractionalThreshold(0.3f)
+        } else {
+            FractionalThreshold(0.5f)
+        }
+    },
+    orientation = Orientation.Horizontal
+)
 ```
 
 接下来，我们就可以通过 SwipeableState 获取到偏移量信息了，我们希望滑块根据偏移量进行移动，在我们的示例中使用 <code>offset</code> 描述符即达成需求。
