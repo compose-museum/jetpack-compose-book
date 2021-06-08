@@ -1237,22 +1237,21 @@
 <span class="p">)</span>
 </code></pre></div>
 <p>我们接下来说明锚点间吸附动画的阈值。我们希望从关闭状态到开启状态，滑块仅需移动超过 30% 则会自动吸附到开启状态，从开启状态到关闭状态，滑块需移动超过 50% 才会自动吸附到关闭状态。</p>
-<div class="highlight"><pre><span></span><code><span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">swipeable</span><span class="p">(</span>
-        <span class="n">state</span> <span class="o">=</span> <span class="n">swipeableState</span><span class="p">,</span>
-        <span class="n">anchors</span> <span class="o">=</span> <span class="n">mapOf</span><span class="p">(</span>
-            <span class="m">0f</span> <span class="n">to</span> <span class="n">Status</span><span class="p">.</span><span class="na">CLOSE</span><span class="p">,</span>
-            <span class="n">blockSizePx</span> <span class="n">to</span> <span class="n">Status</span><span class="p">.</span><span class="na">OPEN</span>
-        <span class="p">),</span>
-        <span class="n">thresholds</span> <span class="o">=</span> <span class="p">{</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span> <span class="o">-&gt;</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">Status</span><span class="p">.</span><span class="na">CLOSE</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">FractionalThreshold</span><span class="p">(</span><span class="m">0.3f</span><span class="p">)</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="n">FractionalThreshold</span><span class="p">(</span><span class="m">0.5f</span><span class="p">)</span>
-            <span class="p">}</span>
-        <span class="p">},</span>
-        <span class="n">orientation</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">.</span><span class="na">Horizontal</span>
-    <span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="n">Modifier</span><span class="p">.</span><span class="na">swipeable</span><span class="p">(</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">swipeableState</span><span class="p">,</span>
+    <span class="n">anchors</span> <span class="o">=</span> <span class="n">mapOf</span><span class="p">(</span>
+        <span class="m">0f</span> <span class="n">to</span> <span class="n">Status</span><span class="p">.</span><span class="na">CLOSE</span><span class="p">,</span>
+        <span class="n">blockSizePx</span> <span class="n">to</span> <span class="n">Status</span><span class="p">.</span><span class="na">OPEN</span>
+    <span class="p">),</span>
+    <span class="n">thresholds</span> <span class="o">=</span> <span class="p">{</span> <span class="n">from</span><span class="p">,</span> <span class="n">to</span> <span class="o">-&gt;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">from</span> <span class="o">==</span> <span class="n">Status</span><span class="p">.</span><span class="na">CLOSE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">FractionalThreshold</span><span class="p">(</span><span class="m">0.3f</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">FractionalThreshold</span><span class="p">(</span><span class="m">0.5f</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="n">orientation</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">.</span><span class="na">Horizontal</span>
+<span class="p">)</span>
 </code></pre></div>
 <p>接下来，我们就可以通过 SwipeableState 获取到偏移量信息了，我们希望滑块根据偏移量进行移动，在我们的示例中使用 <code>offset</code> 描述符即达成需求。</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@ExperimentalMaterialApi</span>
@@ -1307,7 +1306,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 28, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 8, 2021</span>
       
     
   </small>

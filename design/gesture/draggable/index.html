@@ -1232,8 +1232,8 @@
 </code></pre></div>
 <p>接下来我们将为 <code>draggable</code> 修饰符提供给draggableState与orientation了。</p>
 <p><strong>注意：由于Modifer链式执行，此时offset必需在draggable与background前面。</strong></p>
-<p><strong>错误用例1(draggable在offset前面)</strong>: ，第二次拖动时UI控件拖动只能拖动初始位置才生效，不会跟随UI控件而移动监听，原因是每次拖动时draggable都监听的都是初始位置，不是偏移后位置。</p>
-<p><strong>错误用例2(background在offset前面)</strong>: ，UI控件绘制的黑块不会跟手，原因在于每次绘制时background都在初始位置绘制，不是偏移后位置。</p>
+<p><strong>⚠️错误示例1(draggable在offset前面)</strong>: 第二次拖动时UI控件拖动只能拖动初始位置才生效，不会跟随UI控件而移动监听，原因是每次拖动时draggable都监听的都是初始位置，不是偏移后位置。</p>
+<p><strong>⚠️错误示例2(background在offset前面)</strong>: UI控件绘制的黑块不会跟手，原因在于每次绘制时background都在初始位置绘制，不是偏移后位置。</p>
 <div class="highlight"><pre><span></span><code><span class="n">Box</span><span class="p">(</span>
     <span class="n">Modifier</span>
         <span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="n">boxSideLengthDp</span> <span class="o">*</span> <span class="m">4</span><span class="p">)</span>
@@ -1265,7 +1265,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 28, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 8, 2021</span>
       
     
   </small>
