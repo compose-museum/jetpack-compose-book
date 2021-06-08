@@ -50,9 +50,9 @@ val draggableState = rememberDraggableState {
 
 **注意：由于Modifer链式执行，此时offset必需在draggable与background前面。**
 
-**错误用例1(draggable在offset前面)**: ，第二次拖动时UI控件拖动只能拖动初始位置才生效，不会跟随UI控件而移动监听，原因是每次拖动时draggable都监听的都是初始位置，不是偏移后位置。
+**⚠️错误示例1(draggable在offset前面)**: 第二次拖动时UI控件拖动只能拖动初始位置才生效，不会跟随UI控件而移动监听，原因是每次拖动时draggable都监听的都是初始位置，不是偏移后位置。
 
-**错误用例2(background在offset前面)**: ，UI控件绘制的黑块不会跟手，原因在于每次绘制时background都在初始位置绘制，不是偏移后位置。
+**⚠️错误示例2(background在offset前面)**: UI控件绘制的黑块不会跟手，原因在于每次绘制时background都在初始位置绘制，不是偏移后位置。
 
 ```kotlin
 Box(
