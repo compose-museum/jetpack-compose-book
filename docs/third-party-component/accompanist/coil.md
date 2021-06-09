@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-coil)](https://search.maven.org/search?q=g:com.google.accompanist)
 
-该库提供了简单易用的 [Painter][https://developer.android.google.cn//reference/kotlin/androidx/compose/ui/graphics/painter/Painter]，它可以使用 [Coil][https://github.com/coil-kt/coil] 图像加载库获取并显示外部图像（例如网络图像等）。
+该库提供了简单易用的 [Painter](https://developer.android.google.cn//reference/kotlin/androidx/compose/ui/graphics/painter/Painter)，它可以使用 [Coil](https://github.com/coil-kt/coil) 图像加载库获取并显示外部图像（例如网络图像等）。
 
 <img src="https://coil-kt.github.io/coil/logo.svg" width="480" alt="Coil logo">
 
