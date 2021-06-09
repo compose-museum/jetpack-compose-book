@@ -62,6 +62,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#coil-for-jetpack-compose" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1099,10 +1104,91 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Coil
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Coil
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remembercoilpainter" class="md-nav__link">
+    rememberCoilPainter()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    淡入动画
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    自定义内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    预览
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gif" class="md-nav__link">
+    GIF
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    观察加载状态变化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imageloader" class="md-nav__link">
+    自定义 ImageLoader
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1280,6 +1366,87 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#remembercoilpainter" class="md-nav__link">
+    rememberCoilPainter()
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    淡入动画
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    自定义内容
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    预览
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gif" class="md-nav__link">
+    GIF
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    观察加载状态变化
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#imageloader" class="md-nav__link">
+    自定义 ImageLoader
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1290,9 +1457,125 @@
                   </a>
                 
                 
-                  <h1>Coil</h1>
-                
-                <p>这个人很懒，什么都没有留下</p>
+                <h1 id="coil-for-jetpack-compose">Coil for Jetpack Compose</h1>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-coil" /></a></p>
+<p>该库提供了简单易用的 [Painter][https://developer.android.google.cn//reference/kotlin/androidx/compose/ui/graphics/painter/Painter]，它可以使用 [Coil][https://github.com/coil-kt/coil] 图像加载库获取并显示外部图像（例如网络图像等）。</p>
+<p><img src="https://coil-kt.github.io/coil/logo.svg" width="480" alt="Coil logo"></p>
+<h2 id="remembercoilpainter"><code>rememberCoilPainter()</code></h2>
+<p>主要 API  <a href="https://google.github.io/accompanist/api/coil/coil/com.google.accompanist.coil/remember-coil-painter.html"><code>rememberCoilPainter()</code></a> 的最简单用法如下：</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.foundation.Image</span>
+<span class="k">import</span> <span class="nn">com.google.accompanist.coil.rememberCoilPainter</span>
+
+<span class="n">Image</span><span class="p">(</span>
+    <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberCoilPainter</span><span class="p">(</span><span class="s">&quot;https://picsum.photos/300/300&quot;</span><span class="p">),</span>
+    <span class="n">contentDescription</span> <span class="o">=</span> <span class="n">stringResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">image_content_desc</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><code>painter</code>使用 <a href="https://github.com/coil-kt/coil">Coil</a> 加载传入的数据，然后绘制结果图像。</p>
+<p>开发者也可以通过 <code>requestBuilder</code> 参数来自定义  <code>Coil</code> 的<a href="https://coil-kt.github.io/coil/image_requests/"><code>ImageRequest</code></a>。通过这种方式开发者可以实现如<code>CircleCropTransformation</code>、<code>BlurTransformation</code>、<code>GrayscaleTransformation</code>、<code>RoundedCornersTransformation</code> 等 <code>transformations</code> 之类的效果：</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.foundation.Image</span>
+<span class="k">import</span> <span class="nn">com.google.accompanist.coil.rememberCoilPainter</span>
+
+<span class="n">Image</span><span class="p">(</span>
+    <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberCoilPainter</span><span class="p">(</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="s">&quot;https://picsum.photos/300/300&quot;</span><span class="p">,</span>
+        <span class="n">requestBuilder</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">transformations</span><span class="p">(</span><span class="n">CircleCropTransformation</span><span class="p">())</span>
+        <span class="p">},</span>
+    <span class="p">),</span>
+    <span class="n">contentDescription</span> <span class="o">=</span> <span class="n">stringResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">image_content_desc</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="_1">淡入动画</h2>
+<p>该库内置支持图像加载过程中的<a href="https://material.io/archive/guidelines/patterns/loading-images.html">淡入动画</a>。</p>
+<p><img alt="" src="../../../assets/third-party-component/accompanist/coil/crossfade.gif" /></p>
+<p><a href="https://google.github.io/accompanist/api/coil/coil/com.google.accompanist.coil/remember-coil-painter.html"><code>rememberCoilPainter</code></a> 的函数参数 <code>fadeIn:Boolean</code> 默认为 <code>false</code>，当 <code>fadeIn = true</code> 时，一个默认的淡入动画将出现在图片成功加载过程中。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.foundation.Image</span>
+<span class="k">import</span> <span class="nn">com.google.accompanist.coil.rememberCoilPainter</span>
+
+<span class="n">Image</span><span class="p">(</span>
+    <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberCoilPainter</span><span class="p">(</span>
+        <span class="s">&quot;https://picsum.photos/300/300&quot;</span><span class="p">,</span>
+        <span class="n">fadeIn</span> <span class="o">=</span> <span class="kc">true</span>
+    <span class="p">),</span>
+    <span class="n">contentDescription</span> <span class="o">=</span> <span class="n">stringResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">image_content_desc</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+<h2 id="_2">自定义内容</h2>
+<p>有时开发者可能希望在图片加载时显示占位图片或者在图片加载失败时显示失败提示图片，<code>rememberCoilPainter()</code>返回的<code>painter</code>是 的一个<a href="https://google.github.io/accompanist/api/imageloading-core/imageloading-core/com.google.accompanist.imageloading/-load-painter/index.html"><code>LoadPainter</code></a>实例，<a href="https://google.github.io/accompanist/api/imageloading-core/imageloading-core/com.google.accompanist.imageloading/-image-load-state/index.html"><code>ImageLoadState</code></a> 有四种状态：<code>Empty</code>、<code>Loading</code>、<code>Success</code> 和 <code>Error</code>，分别对应着初始状态、加载状态、加载成功和加载失败。开发者可以根据需要显示不同的内容：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">painter</span> <span class="o">=</span> <span class="n">rememberCoilPainter</span><span class="p">(</span><span class="s">&quot;https://picsum.photos/300/300&quot;</span><span class="p">)</span>
+
+<span class="n">Box</span> <span class="p">{</span>
+    <span class="n">Image</span><span class="p">(</span>
+        <span class="n">painter</span> <span class="o">=</span> <span class="n">painter</span><span class="p">,</span>
+        <span class="n">contentDescription</span> <span class="o">=</span> <span class="n">stringResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">image_content_desc</span><span class="p">),</span>
+    <span class="p">)</span>
+
+    <span class="k">when</span> <span class="p">(</span><span class="n">painter</span><span class="p">.</span><span class="na">loadState</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">is</span> <span class="n">ImageLoadState</span><span class="p">.</span><span class="na">Loading</span> <span class="o">-&gt;</span> <span class="p">{</span>
+            <span class="c1">// Display a circular progress indicator whilst loading</span>
+            <span class="n">CircularProgressIndicator</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span><span class="p">))</span>
+        <span class="p">}</span>
+        <span class="k">is</span> <span class="n">ImageLoadState</span><span class="p">.</span><span class="na">Error</span> <span class="o">-&gt;</span> <span class="p">{</span>
+            <span class="c1">// If you wish to display some content if the request fails</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_3">预览</h2>
+<p>为了支持 Android Studio 的  <a href="https://developer.android.google.cn/jetpack/compose/tooling">Composable Previews</a> 功能，开发者可以通过 <code>previewPlaceholder</code> 参数传入一个图片资源 ID ，以便 Android Studio 预览布局时有图片展示：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Image</span><span class="p">(</span>
+    <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberCoilPainter</span><span class="p">(</span>
+        <span class="n">request</span> <span class="o">=</span> <span class="s">&quot;https://picsum.photos/300/300&quot;</span><span class="p">,</span>
+        <span class="n">previewPlaceholder</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">placeholder</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">contentDescription</span> <span class="o">=</span> <span class="n">stringResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">image_content_desc</span><span class="p">),</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>如果引用的 drawable 仅用于 <code>previewPlaceholder</code>，则可以将其放置在 <code>debug</code> 构建变体的资源中，例如：<code>app/debug/res/drawable/</code>，通过这种操作将 drawable 捆绑在调试版本中，同时也将其排除至发布版本外。</p>
+<h2 id="gif">GIF</h2>
+<p>Accompanist Coil 通过 Coil 内置 GIF 支持实现 GIF 图片加载。具体配置参考 Coil 库的<a href="https://coil-kt.github.io/coil/gifs/">配置说明</a>。</p>
+<h2 id="_4">观察加载状态变化</h2>
+<p>开发者可以使用<a href="https://developer.android.google.cn/reference/kotlin/androidx/compose/runtime/package-summary#snapshotflow"><code>snapshotFlow()</code></a>来观察 <code>painter.loadState</code>的变化情况，以此实现对图片加载状态的监听，然后根据需要调整代码逻辑：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">painter</span> <span class="o">=</span> <span class="n">rememberCoilPainter</span><span class="p">(</span><span class="s">&quot;https://image.url&quot;</span><span class="p">)</span>
+
+<span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">painter</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">snapshotFlow</span> <span class="p">{</span> <span class="n">painter</span><span class="p">.</span><span class="na">loadState</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">isFinalState</span><span class="p">()</span> <span class="p">}</span>
+        <span class="p">.</span><span class="na">collect</span> <span class="p">{</span> <span class="n">result</span> <span class="o">-&gt;</span>
+            <span class="c1">// TODO do something with result</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">Image</span><span class="p">(</span><span class="n">painter</span> <span class="o">=</span> <span class="n">painter</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="imageloader">自定义 ImageLoader</h2>
+<p>如果开发者希望在所有<code>rememberCoilPainter()</code> 调用中使用同一个默认的<a href="https://coil-kt.github.io/coil/image_loaders/"><code>ImageLoader</code></a>，就请使用 <a href="https://google.github.io/accompanist/api/coil/coil/com.google.accompanist.coil/-local-image-loader.html"><code>LocalImageLoader</code></a> 本地组合。</p>
+<p>示例如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">imageLoader</span> <span class="o">=</span> <span class="n">ImageLoader</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="c1">// customize the ImageLoader as needed</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">()</span>
+
+<span class="n">CompositionLocalProvider</span><span class="p">(</span><span class="n">LocalImageLoader</span> <span class="n">provides</span> <span class="n">imageLoader</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// This will automatically use the value of LocalImageLoader</span>
+    <span class="n">Image</span><span class="p">(</span>
+        <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberCoilPainter</span><span class="p">(...)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>更多有关本地组合的信息，请参见<a href="https://developer.android.google.cn/reference/kotlin/androidx/compose/runtime/CompositionLocal">此处</a>。</p>
+<h2 id="_5">下载</h2>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-coil" /></a></p>
+<div class="highlight"><pre><span></span><code><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s2">&quot;com.google.accompanist:accompanist-coil:&lt;version&gt;&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>Snapshots of the development version are available in [Sonatype's <code>snapshots</code> repository][snap]. These are updated on every commit.</p>
+<p><a href="https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-coil/">Sonatype's <code>snapshots</code> repository</a>中提供了开发版本的快照。每一次提交，快照都会更新。</p>
                 
                   
                     
