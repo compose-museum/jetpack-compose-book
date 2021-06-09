@@ -13,7 +13,7 @@ fun BottomNavigation(
 
 [Material Design bottom navigation](https://material.io/components/bottom-navigation)
 
-`Bottom navigation bars` 条允许在一个应用程序的主要目的地之间移动。
+`Bottom navigation bars` 允许在一个应用程序的主要目的地之间移动。
 
 ![](../../assets/layout/bottomnavigation/demo4.png)
 
