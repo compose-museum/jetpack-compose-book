@@ -68,9 +68,6 @@ nav:
     - '代码实验室': codelabs.md
     - '资源': resources.md
     - '关于贡献': contributing.md
-  - 'API 文档':
-    - '组件':
-      - 'Text': api/elements/text.md
   - '第三方组件':
     - 'Accompanist':
       - '概述': third-party-component/accompanist/overview.md
@@ -82,6 +79,9 @@ nav:
       - 'Pager layouts': third-party-component/accompanist/pager_layouts.md
       - 'Swipe Refresh': third-party-component/accompanist/swipe_refresh.md
       - 'Flow layouts': third-party-component/accompanist/flow_layouts.md
+  - 'API 文档':
+    - '组件':
+      - 'Text': api/elements/text.md
 
 extra:
   social:
