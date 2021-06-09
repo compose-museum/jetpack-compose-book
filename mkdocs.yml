@@ -65,6 +65,17 @@ nav:
       - '了解Compose的重组作用域': principle/recomposition_scope.md
     - '架构':
       - 'Compose架构如何选？MVP,MVVM,MVI': architecture/architecture_for_compose.md
+    - '第三方组件':
+      - 'Accompanist':
+        - '概述': third-party-component/accompanist/overview.md
+        - 'Coil': third-party-component/accompanist/overview.md
+        - 'Glide': third-party-component/accompanist/glide.md
+        - 'Insets': third-party-component/accompanist/insets.md
+        - 'System UI Controller': third-party-component/accompanist/system_ui_controller.md
+        - 'AppCompat Theme': third-party-component/accompanist/appcompat_theme.md
+        - 'Pager layouts': third-party-component/accompanist/pager_layouts.md
+        - 'Swipe Refresh': third-party-component/accompanist/swipe_refresh.md
+        - 'Flow layouts': third-party-component/accompanist/flow_layouts.md
     - '代码实验室': codelabs.md
     - '资源': resources.md
     - '关于贡献': contributing.md
