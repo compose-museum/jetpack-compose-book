@@ -2,11 +2,11 @@
 
 ##  Accompanist 是什么？
 
-Accompanist 是一组库，旨在扩充 Jetpack Compose 的功能，这些功能开发者普遍需要的，然而还没有被官方所提供。当前 Accompanist 包含：
+Accompanist 是一组旨在扩充 Jetpack Compose 功能的第三方库集合，这个库中所提供的功能是开发者普遍需要的。目前 Accompanist 中包含的子库有：
 
 ### 🖼️  图片加载
 
-一些将流行的图片加载库整合到 Jetpack Compose 的库：例如 [Coil](../../../third-party-component/accompanist/coil/) 与 [Glide](../../../third-party-component/accompanist/glide/)
+一些能够支持在 Jetpack Compose 中使用目前流行图片加载库的第三方支持库：例如 [Coil](../../../third-party-component/accompanist/coil/) 与 [Glide](../../../third-party-component/accompanist/glide/)
 
 ### 📐  [插图](../../../third-party-component/accompanist/insets/)
 
@@ -14,11 +14,11 @@ Accompanist 是一组库，旨在扩充 Jetpack Compose 的功能，这些功能
 
 ### 🍫  [系统UI控制器](../../../third-party-component/accompanist/system_ui_controller/)
 
-一个提供简单易用的系统UI控制库，用于更新 Jetpack Compose 的系统UI(状态和导航栏)的颜色。
+一个简单易用的系统UI控制库，用于更新 Jetpack Compose 的系统UI(状态和导航栏)的颜色。
 
 ### 🎨  [AppCompat 主题适配器](../../../third-party-component/accompanist/system_ui_controller/)
 
-一个能够在 Jetpack Compose 中重复使用 AppCompat XML 主题的库。
+一个能够在 Jetpack Compose 中复用传统 AppCompat XML 主题的库。
 
 ### 📖  [分页](../../../third-party-component/accompanist/pager_layouts/)
 
@@ -30,31 +30,31 @@ Accompanist 是一组库，旨在扩充 Jetpack Compose 的功能，这些功能
 
 ### ⬆️  [滑动刷新](../../../third-party-component/accompanist/swipe_refresh/)
 
-一个为 Jetpack Compose 提供了滑动刷新布局的库，类似于 Android 的 SwipeRefreshLayout。
+一个为 Jetpack Compose 提供了滑动刷新Layout的库，类似于 Android 的 SwipeRefreshLayout。
 
 
 
 ## 关于更新
 
-Jetpack Compose 是一个快速发展的项目，我们的目标让这些库的版本更新尽可能快的与 Jetpack Compose 最新版本保持同步。每一个库的版本都描述了其所依赖的 Jetpack Compose 版本。
+Jetpack Compose 是一个快速发展的项目，我们的目标让这些库的版本更新尽快与 Jetpack Compose 最新版本保持同步。每个子库的版本都描述了其所依赖的 Jetpack Compose 版本。
 
 
 
 ## 关于未来
 
-这组库的任何功能在未来可能都会过时，到那时他们可能将被废弃。我们将尽可能地提供一个迁移路线以取代任何功能。
+这些子库所提供的任何功能在未来可能都会过时，到那时他们可能将被废弃。届时，我们将会尽可能地提供一个迁移路线以取代任何功能。
 
 
 
 ## 关于快照
 
-目前Accompanist的开发版本快照是可用的，它将跟踪最新的提交。[点击查看更多信息](https://google.github.io/accompanist/using-snapshot-version)。
+目前Accompanist的版本快照是可用的，它将跟踪最新的提交。[点击查看更多信息](https://google.github.io/accompanist/using-snapshot-version)。
 
 
 
 ## 关于名字
 
-由于这个库是围绕着 Jetpack Compose 添加了些实用工具，音乐创作是由作曲家完成的，而这个库是用来支持作曲家完成音乐创作的，所以伴奏者是一个好名字。
+由于这个库是围绕着 Jetpack Compose 添加的一些实用工具。Compose在英语中有另一含义为作曲，作曲是由作曲家完成的，而这个库是用来支持作曲家完成作曲的，所以伴奏者是一个好名字。
 
 
 
