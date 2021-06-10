@@ -71,6 +71,18 @@
     padding-left: 4em;
 }
 
+@media screen and (max-width: 500px){
+    .md-content__inner.md-typeset {
+        border: 0px solid#DEE2E6;
+        border-radius: 0px;
+        padding: 10px;
+    }
+    .md-content {
+        padding-top: 20px;
+        padding-left: 0em;
+    }
+}
+
 blockquote{
     overflow: auto;
 }
