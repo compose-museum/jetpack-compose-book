@@ -1550,7 +1550,7 @@
 <span class="n">Image</span><span class="p">(</span><span class="n">painter</span> <span class="o">=</span> <span class="n">painter</span><span class="p">)</span>
 </code></pre></div>
 <h2 id="imageloader">自定义 ImageLoader</h2>
-<p>如果开发者希望在所有<code>rememberCoilPainter()</code> 调用中使用同一个默认的<a href="https://coil-kt.github.io/coil/image_loaders/"><code>ImageLoader</code></a>，就请使用 <a href="https://google.github.io/accompanist/api/coil/coil/com.google.accompanist.coil/-local-image-loader.html"><code>LocalImageLoader</code></a> 本地组合。</p>
+<p>如果开发者希望在所有<code>rememberCoilPainter()</code> 调用中使用同一个默认的<a href="https://coil-kt.github.io/coil/image_loaders/"><code>ImageLoader</code></a>，就请使用 <a href="https://google.github.io/accompanist/api/coil/coil/com.google.accompanist.coil/-local-image-loader.html"><code>LocalImageLoader</code></a> 。</p>
 <p>示例如下：</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">imageLoader</span> <span class="o">=</span> <span class="n">ImageLoader</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
     <span class="c1">// customize the ImageLoader as needed</span>
@@ -1563,7 +1563,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>更多有关本地组合的信息，请参见<a href="https://developer.android.google.cn/reference/kotlin/androidx/compose/runtime/CompositionLocal">此处</a>。</p>
+<p>更多有关 <code>CompositionLocal</code> 的信息，请参见<a href="https://developer.android.google.cn/reference/kotlin/androidx/compose/runtime/CompositionLocal">此处</a>。</p>
 <h2 id="_5">下载</h2>
 <p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-coil" /></a></p>
 <div class="highlight"><pre><span></span><code><span class="n">repositories</span> <span class="o">{</span>
@@ -1574,7 +1574,6 @@
     <span class="n">implementation</span> <span class="s2">&quot;com.google.accompanist:accompanist-coil:&lt;version&gt;&quot;</span>
 <span class="o">}</span>
 </code></pre></div>
-<p>Snapshots of the development version are available in [Sonatype's <code>snapshots</code> repository][snap]. These are updated on every commit.</p>
 <p><a href="https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-coil/">Sonatype's <code>snapshots</code> repository</a>中提供了开发版本的快照。每一次提交，快照都会更新。</p>
                 
                   
@@ -1584,7 +1583,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 9, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 10, 2021</span>
       
     
   </small>
