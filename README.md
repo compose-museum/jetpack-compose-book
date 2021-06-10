@@ -3,8 +3,6 @@
 ![GitHub stars](https://img.shields.io/github/stars/compose-museum/jetpack-compose-tutorial.svg?style=social&label=Star)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3125541b-c17c-428e-b038-ad444205d56e/deploy-status)](https://app.netlify.com/sites/jetpack-compose/deploys)
 
-<a src = "https://github.com/compose-museum/jetpack-compose-tutorial/graphs/contributors"></a>
-
 ## 介绍 💨
 
 ### Jetpack Compose 教程 (Jetpack Compose Tutorial) （开发中 ing... 咕咕咕） 
