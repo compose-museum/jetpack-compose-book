@@ -3,7 +3,7 @@
 ![GitHub stars](https://img.shields.io/github/stars/compose-museum/jetpack-compose-tutorial.svg?style=social&label=Star)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/3125541b-c17c-428e-b038-ad444205d56e/deploy-status)](https://app.netlify.com/sites/jetpack-compose/deploys)
 
-![](https://opencollective.com/compose-museum/contributors.svg?width=890&button=false)
+<img src= "https://opencollective.com/oi-wiki/contributors.svg?width=890&button=false">
 
 ## 介绍 💨
 
