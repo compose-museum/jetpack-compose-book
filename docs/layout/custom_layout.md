@@ -263,4 +263,3 @@ fun BodyContent(modifier: Modifier = Modifier) {
 预览效果
 
 <img src = "../../assets/layout/custom_layout/demo3.png" width = "50%" height = "50%">
-
