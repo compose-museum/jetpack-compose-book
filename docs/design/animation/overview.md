@@ -373,3 +373,364 @@ private fun updateTransitionData(boxState: BoxState): TransitionData {
 }
 ```
 
+### rememberInfiniteTransition
+
+`InfiniteTransition` 像 `Transition` 一样持有一个或多个子动画，但这些动画一进入构图就开始运行，除非它们被移除，否则不会停止。你可以用 `rememberInfiniteTransition` 创建一个 `InfiniteTransition` 的实例。子动画可以用 `animateColor`、`animatedFloat` 或 `animatedValue` 添加。你还需要指定一个 `infiniteRepeatable` 来指定动画形式。
+
+``` kotlin
+val infiniteTransition = rememberInfiniteTransition()
+val color by infiniteTransition.animateColor(
+    initialValue = Color.Red, // 初始值
+    targetValue = Color.Green, // 最终值
+    animationSpec = infiniteRepeatable(
+        animation = tween(1000, easing = LinearEasing), // 一个动画值的转换持续 1 秒，缓和方式为 LinearEasing
+        repeatMode = RepeatMode.Reverse 
+        // 指定动画重复运行的方式，
+        // Reverse 为 init -> target, target -> init, init -> target
+        // Repeat 为 init -> target, init -> target, init -> target
+    )
+)
+
+Box(Modifier.fillMaxSize().background(color))
+```
+
+![](../../../assets/design/animation/overview/demo7.gif)
+
+### TargetBasedAnimation
+
+`TargetBasedAnimation` 是我们到目前为止看到的最低级别的动画 `API`。其他 `API` 涵盖了大多数的使用情况，但直接使用 `TargetBasedAnimation` 可以让你自己控制动画的播放时间。在下面的例子中，`TargetAnimation` 的播放时间是根据 `withFrameMillis` 提供的帧时间手动控制的。
+
+``` kotlin
+val anim = remember {
+    TargetBasedAnimation(
+        animationSpec = tween(200),
+        typeConverter = Float.VectorConverter,
+        initialValue = 200f,
+        targetValue = 1000f
+    )
+}
+var playTime by remember { mutableStateOf(0L) }
+
+LaunchedEffect(anim) {
+    val startTime = withFrameNanos { it }
+
+    do {
+        playTime = withFrameNanos { it } - startTime
+        val animationValue = anim.getValueFromNanos(playTime)
+    } while (someCustomCondition())
+}
+```
+
+
+## 4. 自定义动画
+
+许多动画 `API` 通常接受参数来定制它的行为。
+
+### AnimationSpec
+
+大多数动画 `API` 允许开发者通过一个可选的 `AnimationSpec` 参数来定制动画规格。
+
+``` kotlin
+val alpha: Float by animateFloatAsState(
+    targetValue = if (enabled) 1f else 0.5f,
+    // 配置动画的持续时间和缓和度
+    animationSpec = tween(durationMillis = 300, easing = FastOutSlowInEasing)
+)
+```
+
+有不同种类的 `AnimationSpec` 用于创建不同类型的动画。
+
+**spring**
+
+`spring` 在起始值和结束值之间创建一个基于物理学的动画。它需要 `2` 个参数：阻尼率和刚度。
+
+`dampingRatio` 定义了弹簧的反弹程度。默认值是 `Spring.DampingRatioNoBouncy`。
+
+![](../../../assets/design/animation/overview/animation-spring.gif)
+
+`stiffness` 定义了弹簧向最终值移动的速度。默认值是 `Spring.StiffnessMedium`。
+
+``` kotlin
+val value by animateFloatAsState(
+    targetValue = 1f,
+    animationSpec = spring(
+        dampingRatio = Spring.DampingRatioHighBouncy,
+        stiffness = Spring.StiffnessMedium
+    )
+)
+```
+
+`spring` 可以比基于持续时间的 `AnimationSpec` 类型更顺利地处理中断，因为它保证了目标值在动画中变化时速度的连续性。 `spring` 被许多动画 `API` 用作默认的 `AnimationSpec`，如 `animate*AsState` 和 `updateTransition` 。
+
+**tween**
+
+`tween` 在指定的 `durationMillis` 上使用缓和曲线在开始和结束值之间进行动画。更多信息请看 [Easing](https://developer.android.com/jetpack/compose/animation#easing)。你也可以指定 `delayMillis` 来推迟动画的开始时间。
+
+``` kotlin
+val value by animateFloatAsState(
+    targetValue = 1f,
+    animationSpec = tween(
+        durationMillis = 300,
+        delayMillis = 50,
+        easing = LinearOutSlowInEasing
+    )
+)
+```
+
+**keyframes**
+
+`keyframes` 的动画基于动画持续时间中不同时间戳指定的快照值。在任何时候，动画值将在两个 `keyframes` 值之间插值。对于这些 `keyframes` 中的每一个，可以指定 `Easing` 来决定插值曲线。
+
+指定 `0` 毫秒处和持续时间处的数值是可选的。如果你不指定这些值，它们将分别默认为动画的开始和结束值。
+
+``` kotlin
+val value by animateFloatAsState(
+    targetValue = 1f,
+    animationSpec = keyframes {
+        durationMillis = 375
+        0.0f at 0 with LinearOutSlowInEasing
+        0.2f at 15 with FastOutLinearInEasing
+        0.4f at 75
+        0.4f at 225
+    }
+)
+```
+
+**repeatable**
+
+`repeatable` 重复运行一个基于持续时间的动画（比如 `Tween` 或关键帧），直到它达到指定的迭代次数。你可以通过 `repeatMode` 参数来指定动画是否应该从开始 `RepeatMode.Restart` 或从结束 `RepeatMode.Reverse` 开始重复。
+
+**infiniteRepeatable**
+
+`infiniteRepeatable` 和 `repeatable` 一样，但它会重复无限次的迭代。
+
+``` kotlin
+val value by animateFloatAsState(
+    targetValue = 1f,
+    animationSpec = infiniteRepeatable(
+        animation = tween(durationMillis = 300),
+        repeatMode = RepeatMode.Reverse
+    )
+)
+```
+
+在使用 `ComposeTestRule` 的测试中，使用 `infiniteRepeatable` 的动画不会被运行。该组件将使用每个动画值的初始值进行渲染。
+
+**snap**
+
+`snap` 是一个特殊的 `AnimationSpec`，可以立即将值切换到结束值。你可以指定 `delayMillis`，以便延迟动画的开始。
+
+``` kotlin
+val value by animateFloatAsState(
+    targetValue = 1f,
+    animationSpec = snap(delayMillis = 50)
+)
+```
+
+!!! note "注意"
+    在 `View UI` 系统中，我们需要使用 `ObjectAnimato` r等来实现基于时间的动画，而 `SpringAnimation` 则是基于物理的动画。要同时使用这两个不同的动画 `API` 并不容易。`Compose` 中的 `AnimationSpec` 允许我们以一种统一的方式来处理这些。
+
+### Easing
+
+基于持续时间的 `AnimationSpec` 操作（如 `tween` 或 `keyframes`）使用 `Easing` 来调整动画的分数。这允许动画值加速和减速，而不是以一个恒定的速度移动。分数是一个介于 `0`（开始）和 `1.0`（结束）之间的数值，表示动画的当前点。
+
+`Easing` 实际上是一个函数，它接收一个介于 `0` 和 `1.0` 之间的分数值并返回一个浮点数。返回的值可以在边界之外，以表示过冲或下冲的情况。一个自定义的 `Easing` 可以像下面的代码一样被创建。
+
+``` kotlin
+val CustomEasing = Easing { fraction -> fraction * fraction }
+
+@Composable
+fun EasingUsage() {
+    val value by animateFloatAsState(
+        targetValue = 1f,
+        animationSpec = tween(
+            durationMillis = 300,
+            easing = CustomEasing
+        )
+    )
+    // … …
+}
+```
+
+`Compose` 提供了几个内置的 `Easing` 功能，涵盖了大多数使用情况。请参阅 [Speed Material Design](https://material.io/design/motion/speed.html#easing)，了解更多关于根据你的情况使用何种 `Easing` 的信息。
+
+* FastOutSlowInEasing
+* LinearOutSlowInEasing
+* FastOutLinearEasing
+* LinearEasing
+* CubicBezierEasing
+
+!!! note "注意"
+    `Easing` 对象的工作方式与平台中 `Interpolator` 类的实例相同。它没有 `getInterpolation()` 方法，而是有 `transform()` 方法。
+
+### AnimationVector
+
+大多数 `Compose` 的动画 `API` 都支持 `Float`、`Color`、`Dp` 和其他基本数据类型作为开箱即用的动画值，但你有时需要对其他数据类型进行动画处理，包括你自定义的数据。在动画制作过程中，任何动画值都被表示为一个 `AnimationVector`。该值通过相应的 `TwoWayConverter` 转换为 `AnimationVector`，反之亦然，这样核心动画系统就可以统一处理它们。例如，一个 `Int` 被表示为一个 `AnimationVector1D`，它持有一个浮点值。`Int` 的 `TwoWayConverter` 看起来像这样。
+
+``` kotlin
+val IntToVector: TwoWayConverter<Int, AnimationVector1D> =
+    TwoWayConverter({ AnimationVector1D(it.toFloat()) }, { it.value.toInt() })
+```
+
+颜色本质上是一组 `4` 个值，红、绿、蓝和透明度，所以颜色被转换为一个 `AnimationVector4D`，持有 `4` 个浮点值。通过这种方式，动画中使用的每一种数据类型都被转换为 `AnimationVector1D`、`AnimationVector2D`、`AnimationVector3D` 或 `AnimationVector4D`，取决于其维度。这使得对象的不同组件可以独立地被动画化，每个组件都有自己的速度跟踪。基本数据类型的内置转换器可以使用 `Color.VectorConverter`、`Dp`、`VectorConverter` 等访问。
+
+当你想添加对一个新的数据类型作为动画值的支持时，你可以创建你自己的 `TwoWayConverter` 并将其提供给 `API`。例如，你可以使用 `animateValueAsState` 来使你的自定义数据类型产生动画，像这样。
+
+``` kotlin
+data class MySize(val width: Dp, val height: Dp)
+
+@Composable
+fun MyAnimation(targetSize: MySize) {
+    val animSize: MySize by animateValueAsState<MySize, AnimationVector2D>(
+        targetSize,
+        TwoWayConverter(
+            convertToVector = { size: MySize ->
+                // 从每个 Dp 字段中提取一个浮动值。
+                AnimationVector2D(size.width.value, size.height.value)
+            },
+            convertFromVector = { vector: AnimationVector2D ->
+                MySize(vector.v1.dp, vector.v2.dp)
+            }
+        )
+    )
+}
+```
+
+## 5. 手势与动画（高级）
+
+与单独处理动画相比，当我们处理触摸事件和动画时，有几件事我们必须考虑到。首先，当触摸事件开始时，我们可能需要中断正在进行的动画，因为用户互动应该有最高的优先权。
+
+在下面的例子中，我们用一个 `Animatable` 来表示一个圆形组件的偏移位置。触摸事件是用 `pointerInput` 修改器来处理的。当我们检测到一个新的轻敲事件时，我们调用 `animateTo` 来将偏移值动画化到轻敲位置。敲击事件也可以在动画中发生，在这种情况下，`animateTo` 中断正在进行的动画，并开始动画到新的目标位置，同时保持中断的动画的速度。
+
+``` kotlin
+@Composable
+fun Gesture() {
+    val offset = remember { Animatable(Offset(0f, 0f), Offset.VectorConverter) }
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                coroutineScope {
+                    while (true) {
+                        // 检测一个点击头事件并获得其位置。
+                        val position = awaitPointerEventScope {
+                            awaitFirstDown().position
+                        }
+                        launch {
+                            // 应用到点击的位置。
+                            offset.animateTo(position)
+                        }
+                    }
+                }
+            }
+    ) {
+        Circle(modifier = Modifier.offset { offset.value.toIntOffset() })
+    }
+}
+
+private fun Offset.toIntOffset() = IntOffset(x.roundToInt(), y.roundToInt())
+```
+
+![](../../../assets/design/animation/overview/demo8.gif)
+
+另一个常见的模式是我们需要将动画值与来自触摸事件的值同步，例如拖动。在下面的例子中，我们看到 "轻扫解散" 作为一个修改器来实现（而不是使用 `SwipeToDismiss` 的组合）。该元素的水平偏移被表示为一个`Animatable`。这个 `API` 有一个在手势动画中有用的特性。它的值可以被触摸事件以及动画所改变。当我们收到一个触摸事件时，我们通过 `stop` 方法停止 `Animatable`，这样任何正在进行的动画就被拦截了。
+
+在一个拖动事件中，我们用 `snapTo` 来更新 `Animatable` 的值，即从触摸事件中计算出来的值。对于拖动，`compose` 提供了 `VelocityTracker` 来记录拖动事件并计算出速度。速度可以直接反馈给`animateDecay`，用于制作翻转动画。当我们想把偏移值滑回到原始位置时，我们用 `animateTo` 方法指定目标偏移值为 `0f`。
+
+``` kotlin
+fun Modifier.swipeToDismiss(
+    onDismissed: () -> Unit
+): Modifier = composed {
+    val offsetX = remember { Animatable(0f) }
+    pointerInput(Unit) {
+        val decay = splineBasedDecay<Float>(this)
+        coroutineScope {
+            while (true) {
+                // 检测一个触摸事件。
+                val pointerId = awaitPointerEventScope { awaitFirstDown().id }
+                val velocityTracker = VelocityTracker()
+                // 拦截一个正在进行的动画（如果有的话
+                offsetX.stop()
+                awaitPointerEventScope {
+                    horizontalDrag(pointerId) { change ->
+                        // 用触摸事件更新动画值。
+                        launch {
+                            offsetX.snapTo(
+                                offsetX.value + change.positionChange().x
+                            )
+                        }
+                        velocityTracker.addPosition(
+                            change.uptimeMillis,
+                            change.position
+                        )
+                    }
+                }
+                val velocity = velocityTracker.calculateVelocity().x
+                val targetOffsetX = decay.calculateTargetValue(
+                    offsetX.value,
+                    velocity
+                )
+                // 当它到达边界时，动画停止。
+                offsetX.updateBounds(
+                    lowerBound = -size.width.toFloat(),
+                    upperBound = size.width.toFloat()
+                )
+                launch {
+                    if (targetOffsetX.absoluteValue <= size.width) {
+                        // 速度不够；向后滑动。
+                        offsetX.animateTo(
+                            targetValue = 0f,
+                            initialVelocity = velocity
+                        )
+                    } else {
+                        // 该元素被刷掉了。
+                        offsetX.animateDecay(velocity, decay)
+                        onDismissed()
+                    }
+                }
+            }
+        }
+    }
+        .offset { IntOffset(offsetX.value.roundToInt(), 0) }
+}
+```
+
+![](../../../assets/design/animation/overview/demo9.gif)
+
+
+## 6. 测试
+
+`Compose` 提供了 `ComposeTestRule`，允许你以确定的方式为动画编写测试，并对测试时钟进行完全控制。这使你可以验证中间的动画值。此外，一个测试可以比动画的实际持续时间更快运行。
+
+`ComposeTestRule` 将其测试时钟公开为 `mainClock`。你可以将 `autoAdvance` 属性设置为 `false` 来控制你测试代码中的时钟。在启动你要测试的动画后，时钟可以用 `advanceTimeBy` 向前移动。
+
+这里需要注意的一点是，`advanceTimeBy` 并不完全按照指定的持续时间来移动时钟。相反，它将其四舍五入到最近的持续时间，即帧持续时间的乘数。
+
+``` kotln
+@get:Rule
+val rule = createComposeRule()
+
+@Test
+fun testAnimationWithClock() {
+    // 暂停动画
+    rule.mainClock.autoAdvance = false
+    var enabled by mutableStateOf(false)
+    rule.setContent {
+        val color by animateColorAsState(
+            targetValue = if (enabled) Color.Red else Color.Green,
+            animationSpec = tween(durationMillis = 250)
+        )
+        Box(Modifier.size(64.dp).background(color))
+    }
+
+    // 启动动画
+    enabled = true
+
+    // 让动画继续进行。
+    rule.mainClock.advanceTimeBy(50L)
+
+    // 将结果与显示预期结果的图像进行比较。
+    rule.onRoot().captureToImage().assertAgainstGolden()
+}
+```
+
