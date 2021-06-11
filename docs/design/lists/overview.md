@@ -256,9 +256,107 @@ fun MessageList(messages: List<Message>) {
             onClick = {
                 scope.launch {
                     listState.animateScrollToItem(0) // 点击返回第一项
+                    // 你可以在后面的章节中看到这个方法
                 }
             }
         )
     }
 }
 ```
+
+!!! note "注意"
+    上面的例子使用 `derivedStateOf()` 来减少不必要的合成。了解更多信息，请参见[副作用](https://developer.android.com/jetpack/compose/side-effects#derivedstateof)文档。
+
+当你需要更新其他 `UI` 的 `composables` 时，直接在 `composables` 中读取状态是很有用的，但也有一些场景不需要在同一个 `composables` 中处理事件。一个常见的例子是，一旦用户滚动过某个点，就发送一个分析事件。为了有效地处理这个问题，我们可以使用一个 `snapshotFlow()`。
+
+``` kotlin
+val listState = rememberLazyListState()
+
+LazyColumn(state = listState) {
+    // ...
+}
+
+LaunchedEffect(listState) {
+    snapshotFlow { listState.firstVisibleItemIndex }
+        .map { index -> index > 0 }
+        .distinctUntilChanged()
+        .filter { it == true }
+        .collect {
+            MyAnalyticsService.sendScrolledPastFirstItemEvent()
+        }
+}
+```
+
+`LazyListState` 还通过 `layoutInfo` 属性提供了关于当前正在显示的所有项目以及它们在屏幕上的界限的信息。更多信息请参见 [`LazyListLayoutInfo`](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/LazyListLayoutInfo) 类。
+
+
+## 9. 控制滚动位置
+
+除了对滚动位置做出反应外，应用程序能够控制滚动位置也很有用。`LazyListState` 通过 `scrollToItem()` 函数和 `animateScrollToItem()` 函数支持这一点，前者 "立即 "锁定滚动位置，后者则使用动画进行滚动（也被称为平滑滚动）。
+
+
+!!! note "注意"
+    `scrollToItem()` 和 `animateScrollToItem()` 都是 `suspend` 函数，这意味着我们需要在一个协程中调用它们。关于如何在 `Compose` 中这样做的更多信息，请参阅我们的[协程文档](https://developer.android.com/jetpack/compose/kotlin#coroutines)
+
+
+## 10. 大型数据集（paging）
+
+`Paging` 库可以让应用程序能够支持大型项目列表，在必要时加载和显示列表的一小块。`Paging3.0`及以后的版本通过 `androidx.paging:paging-compose` 库提供 `Compose` 支持。
+
+!!! note "注意"
+    `Compose` 只支持 `Paging 3.0` 及以后的版本。如果你正在使用早期版本的 `Paging` 库，你需要先[迁移](https://developer.android.com/topic/libraries/architecture/paging/v3-migration)到 3.0。
+
+为了显示分页内容的列表，我们可以使用 `collectAsLazyPagingItems()` 扩展函数，然后将返回的 `LazyPagingItems` 传给我们 `LazyColumn` 中的 `items()`。类似于视图中的分页支持，你可以在数据加载时通过检查项目是否为空来显示占位符。
+
+``` kotlin
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.paging.compose.items
+
+@Composable
+fun MessageList(pager: Pager<Int, Message>) {
+    val lazyPagingItems = pager.flow.collectAsLazyPagingItems()
+
+    LazyColumn {
+        items(lazyPagingItems) { message ->
+            if (message != null) {
+                MessageRow(message)
+            } else {
+                MessagePlaceholder()
+            }
+        }
+    }
+```
+
+!!! warning "警告"
+
+    如果你使用 `RemoteMediator` 从网络服务中获取数据，请确保提供真实大小的占位项。如果你使用一个 `RemoteMediator`，它将被反复调用以获取新的数据，直到屏幕被内容填满。如果提供小的占位符（或者根本没有占位符），屏幕可能永远不会被填满，而你的应用程序将获取许多页的数据。
+
+## 11. Items Key
+
+默认情况下，每个 `item` 的状态都是根据该 `item` 在列表中的位置来确定的。然而，如果数据集发生变化，这可能会导致问题，因为改变位置的 `item` 会失去任何记忆中的状态。如果你想象一下 `LazyRow` 在`LazyColumn` 中的情景，如果该行改变了 `item` 的位置，用户就会失去他们在该行中的滚动位置。
+
+!!! note "注意"
+    如果你想了解更多 `Compose` 如何记住状态的，请参阅这篇[文档](https://developer.android.com/jetpack/compose/state)
+
+为了解决这个问题，你可以为每个项目提供一个稳定而唯一的密钥，为密钥参数提供一个块。提供一个稳定的键可以使 `item` 状态在数据集变化时保持一致。
+
+``` kotlin
+@Composable
+fun MessageList(messages: List<Message>) {
+    LazyColumn {
+        items(
+            items = messages,
+            key = { message ->
+                // 返回 item 的一个稳定的且唯一的键
+                message.id
+            }
+        ) { message ->
+            MessageRow(message)
+        }
+    }
+}
+```
+
+!!! note "注意"
+
+    所提供的任何密钥必须能够被存储在一个 [Bundle](https://developer.android.com/reference/android/os/Bundle) 中。关于哪些类型可以被存储，请看该类的信息。
