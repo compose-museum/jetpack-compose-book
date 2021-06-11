@@ -762,6 +762,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#updatetransition" class="md-nav__link">
+    updateTransition
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1455,6 +1462,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#updatetransition" class="md-nav__link">
+    updateTransition
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1697,6 +1711,104 @@
 <p>这是支持上一节中提到的 <code>animate*AsState</code> <code>API</code> 的动画实现。与 <code>animate*AsState</code> 相比，直接使用 <code>Animatable</code> 在几个方面给了我们更精细的控制。首先，<code>Animatable</code> 可以有一个不同于其第一个目标值的初始值。例如，上面的代码例子一开始显示的是一个灰色的盒子，当运行程序的时候立即开始动画地变成为绿色或红色。第二，<code>Animatable</code> 对内容值提供了更多的操作，即 <code>snapTo</code> 和 <code>animateDecay</code>。 <code>snapTo</code> 将当前值立即设置为目标值。当动画本身不是唯一的数据源，并且必须与其他状态同步时，例如触摸事件，这是非常有用的。 <code>animateDecay</code> 启动一个从给定速度开始放缓的动画。这对于实现甩动行为很有用。更多信息见手势和动画。</p>
 <p><code>Animatable</code> 支持 <code>Float</code> 和 <code>Color</code>，但任何数据类型都可以通过提供一个 <code>TwoWayConverter</code> 来使用。参见 <a href="">AnimationVector</a>获取更多信息。</p>
 <p>你可以通过提供一个 <code>AnimationSpec</code> 来定制动画规格。参见 <a href="">AnimationSpec</a>获取更多信息。</p>
+<h3 id="updatetransition">updateTransition</h3>
+<p><code>Transition</code> 管理一个或多个动画作为它的子项，并在多个状态之间同时运行它们。</p>
+<p>这些状态可以是任何数据类型。在许多情况下，你可以使用一个自定义的枚举类型来确保类型安全，就像这个例子中一样。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">private</span> <span class="kd">enum</span> <span class="kd">class</span> <span class="nc">BoxState</span> <span class="p">{</span>
+    <span class="n">Collapsed</span><span class="p">,</span>
+    <span class="n">Expanded</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>updateTransition</code> 可以创建并记住一个 <code>Transition</code> 的实例并更新其状态</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">currentState</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">val</span> <span class="nv">transition</span> <span class="o">=</span> <span class="n">updateTransition</span><span class="p">(</span><span class="n">currentState</span><span class="p">)</span>
+</code></pre></div>
+<p>然后你可以使用 <code>animate*</code> 扩展函数中的一个在这个过渡中定义一个子动画。指定每个状态的目标值。这些 <code>animate*</code> 函数返回一个动画值，在动画过程中，当用 <code>updateTransition</code> 更新过渡状态时，每一帧都会更新。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">currentState</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">val</span> <span class="nv">transition</span> <span class="o">=</span> <span class="n">updateTransition</span><span class="p">(</span><span class="n">currentState</span><span class="p">)</span>
+<span class="kd">val</span> <span class="nv">rect</span> <span class="k">by</span> <span class="n">transition</span><span class="p">.</span><span class="na">animateDp</span> <span class="p">{</span> <span class="n">state</span> <span class="o">-&gt;</span>
+    <span class="k">when</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span> <span class="o">-&gt;</span> <span class="m">0.</span><span class="n">dp</span>
+        <span class="n">BoxState</span><span class="p">.</span><span class="na">Expanded</span> <span class="o">-&gt;</span> <span class="m">150.</span><span class="n">dp</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="n">Box</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFF0079D3</span><span class="p">)),</span>
+<span class="p">){}</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/design/animation/overview/demo5.gif" /></p>
+<p>你可以选择传递一个 <code>transitionSpec</code> 参数，为每个过渡状态变化的组合指定一个不同的 <code>AnimationSpec</code>。参见 <a href="https://developer.android.com/jetpack/compose/animation#animationspec">AnimationSpec</a> 以了解更多信息。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">rect</span> <span class="k">by</span> <span class="n">transition</span><span class="p">.</span><span class="na">animateDp</span><span class="p">(</span>
+    <span class="n">transitionSpec</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="k">when</span> <span class="p">{</span>
+            <span class="n">BoxState</span><span class="p">.</span><span class="na">Expanded</span> <span class="n">isTransitioningTo</span> <span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span> <span class="o">-&gt;</span>
+                <span class="n">spring</span><span class="p">(</span><span class="n">stiffness</span> <span class="o">=</span> <span class="m">50f</span><span class="p">)</span>
+            <span class="k">else</span> <span class="o">-&gt;</span>
+                <span class="n">tween</span><span class="p">(</span><span class="n">durationMillis</span> <span class="o">=</span> <span class="m">500</span><span class="p">)</span> <span class="c1">// 动画时间</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">){</span> <span class="n">state</span> <span class="o">-&gt;</span>
+    <span class="k">when</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span> <span class="o">-&gt;</span> <span class="m">0.</span><span class="n">dp</span>
+        <span class="n">BoxState</span><span class="p">.</span><span class="na">Expanded</span> <span class="o">-&gt;</span> <span class="m">150.</span><span class="n">dp</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/design/animation/overview/demo6.gif" /></p>
+<p>一旦一个 <code>transition</code> 到达目标状态，<code>Transition.currentState</code> 将与 <code>Transition.targetState</code> 相同。这可以作为过渡是否完成的一个信号。</p>
+<p>我们有时希望有一个与第一个目标状态不同的初始状态。我们可以使用 <code>updateTransition</code> 与 <code>MutableTransitionState</code> 来实现这一点。例如，它允许我们在代码进入合成时立即开始动画。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">currentState</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableTransitionState</span><span class="p">(</span><span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c1">// 在运行程序时，将 currentState 的值变为 BoxState.Expanded，也就意味着，将会直接运行动画</span>
+<span class="n">currentState</span><span class="p">.</span><span class="na">targetState</span> <span class="o">=</span> <span class="n">BoxState</span><span class="p">.</span><span class="na">Expanded</span>
+<span class="kd">val</span> <span class="nv">transition</span> <span class="o">=</span> <span class="n">updateTransition</span><span class="p">(</span><span class="n">currentState</span><span class="p">)</span>
+</code></pre></div>
+<p><strong>封装一个 Transition 并让它可以重复使用</strong></p>
+<p>对于简单的用例，在与你的用户界面相同的 <code>composable</code> 中定义过渡动画是一个完全有效的选择。然而，当你正在处理一个有许多动画值的复杂组件时，你可能想把动画实现与可组合的用户界面分开。</p>
+<p>你可以通过创建一个持有所有动画值的类和一个返回该类实例的 "更新 "函数来做到这一点。过渡的实现可以被提取到新的独立函数中。当需要集中动画逻辑或使复杂的动画可重复使用时，这种模式很有用。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">enum</span> <span class="kd">class</span> <span class="nc">BoxState</span> <span class="p">{</span> <span class="n">Collapsed</span><span class="p">,</span> <span class="n">Expanded</span> <span class="p">}</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">AnimatingBox</span><span class="p">(</span><span class="n">boxState</span><span class="p">:</span> <span class="n">BoxState</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">transitionData</span> <span class="o">=</span> <span class="n">updateTransitionData</span><span class="p">(</span><span class="n">boxState</span><span class="p">)</span>
+    <span class="c1">// UI 树</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">transitionData</span><span class="p">.</span><span class="na">color</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">transitionData</span><span class="p">.</span><span class="na">size</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// 保存动画数值</span>
+<span class="kd">private</span> <span class="kd">class</span> <span class="nc">TransitionData</span><span class="p">(</span>
+    <span class="n">color</span><span class="p">:</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">Color</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">size</span><span class="p">:</span> <span class="n">State</span><span class="o">&lt;</span><span class="n">Dp</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">color</span> <span class="k">by</span> <span class="n">color</span>
+    <span class="kd">val</span> <span class="nv">size</span> <span class="k">by</span> <span class="n">size</span>
+<span class="p">}</span>
+
+<span class="c1">// 创建一个 Transition 并返回其动画值。</span>
+<span class="nd">@Composable</span>
+<span class="kd">private</span> <span class="kd">fun</span> <span class="nf">updateTransitionData</span><span class="p">(</span><span class="n">boxState</span><span class="p">:</span> <span class="n">BoxState</span><span class="p">):</span> <span class="n">TransitionData</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">transition</span> <span class="o">=</span> <span class="n">updateTransition</span><span class="p">(</span><span class="n">boxState</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">color</span> <span class="o">=</span> <span class="n">transition</span><span class="p">.</span><span class="na">animateColor</span> <span class="p">{</span> <span class="n">state</span> <span class="o">-&gt;</span>
+        <span class="k">when</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span> <span class="o">-&gt;</span> <span class="n">Color</span><span class="p">.</span><span class="na">Gray</span>
+            <span class="n">BoxState</span><span class="p">.</span><span class="na">Expanded</span> <span class="o">-&gt;</span> <span class="n">Color</span><span class="p">.</span><span class="na">Red</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="kd">val</span> <span class="nv">size</span> <span class="o">=</span> <span class="n">transition</span><span class="p">.</span><span class="na">animateDp</span> <span class="p">{</span> <span class="n">state</span> <span class="o">-&gt;</span>
+        <span class="k">when</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span> <span class="o">-&gt;</span> <span class="m">64.</span><span class="n">dp</span>
+            <span class="n">BoxState</span><span class="p">.</span><span class="na">Expanded</span> <span class="o">-&gt;</span> <span class="m">128.</span><span class="n">dp</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">remember</span><span class="p">(</span><span class="n">transition</span><span class="p">)</span> <span class="p">{</span> <span class="n">TransitionData</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
                 
                   
                     
@@ -1705,7 +1817,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 2, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 11, 2021</span>
       
     
   </small>
