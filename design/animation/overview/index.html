@@ -769,8 +769,70 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rememberinfinitetransition" class="md-nav__link">
+    rememberInfiniteTransition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targetbasedanimation" class="md-nav__link">
+    TargetBasedAnimation
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 自定义动画
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自定义动画">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#animationspec" class="md-nav__link">
+    AnimationSpec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easing" class="md-nav__link">
+    Easing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animationvector" class="md-nav__link">
+    AnimationVector
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 手势与动画（高级）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 测试
+  </a>
   
 </li>
       
@@ -1469,8 +1531,70 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#rememberinfinitetransition" class="md-nav__link">
+    rememberInfiniteTransition
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#targetbasedanimation" class="md-nav__link">
+    TargetBasedAnimation
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 自定义动画
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 自定义动画">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#animationspec" class="md-nav__link">
+    AnimationSpec
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#easing" class="md-nav__link">
+    Easing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#animationvector" class="md-nav__link">
+    AnimationVector
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 手势与动画（高级）
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6" class="md-nav__link">
+    6. 测试
+  </a>
   
 </li>
       
@@ -1808,6 +1932,293 @@
     <span class="p">}</span>
     <span class="k">return</span> <span class="n">remember</span><span class="p">(</span><span class="n">transition</span><span class="p">)</span> <span class="p">{</span> <span class="n">TransitionData</span><span class="p">(</span><span class="n">color</span><span class="p">,</span> <span class="n">size</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
+</code></pre></div>
+<h3 id="rememberinfinitetransition">rememberInfiniteTransition</h3>
+<p><code>InfiniteTransition</code> 像 <code>Transition</code> 一样持有一个或多个子动画，但这些动画一进入构图就开始运行，除非它们被移除，否则不会停止。你可以用 <code>rememberInfiniteTransition</code> 创建一个 <code>InfiniteTransition</code> 的实例。子动画可以用 <code>animateColor</code>、<code>animatedFloat</code> 或 <code>animatedValue</code> 添加。你还需要指定一个 <code>infiniteRepeatable</code> 来指定动画形式。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">infiniteTransition</span> <span class="o">=</span> <span class="n">rememberInfiniteTransition</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">color</span> <span class="k">by</span> <span class="n">infiniteTransition</span><span class="p">.</span><span class="na">animateColor</span><span class="p">(</span>
+    <span class="n">initialValue</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">,</span> <span class="c1">// 初始值</span>
+    <span class="n">targetValue</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">,</span> <span class="c1">// 最终值</span>
+    <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">infiniteRepeatable</span><span class="p">(</span>
+        <span class="n">animation</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span><span class="m">1000</span><span class="p">,</span> <span class="n">easing</span> <span class="o">=</span> <span class="n">LinearEasing</span><span class="p">),</span> <span class="c1">// 一个动画值的转换持续 1 秒，缓和方式为 LinearEasing</span>
+        <span class="n">repeatMode</span> <span class="o">=</span> <span class="n">RepeatMode</span><span class="p">.</span><span class="na">Reverse</span> 
+        <span class="c1">// 指定动画重复运行的方式，</span>
+        <span class="c1">// Reverse 为 init -&gt; target, target -&gt; init, init -&gt; target</span>
+        <span class="c1">// Repeat 为 init -&gt; target, init -&gt; target, init -&gt; target</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">().</span><span class="na">background</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/design/animation/overview/demo7.gif" /></p>
+<h3 id="targetbasedanimation">TargetBasedAnimation</h3>
+<p><code>TargetBasedAnimation</code> 是我们到目前为止看到的最低级别的动画 <code>API</code>。其他 <code>API</code> 涵盖了大多数的使用情况，但直接使用 <code>TargetBasedAnimation</code> 可以让你自己控制动画的播放时间。在下面的例子中，<code>TargetAnimation</code> 的播放时间是根据 <code>withFrameMillis</code> 提供的帧时间手动控制的。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">anim</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span>
+    <span class="n">TargetBasedAnimation</span><span class="p">(</span>
+        <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span><span class="m">200</span><span class="p">),</span>
+        <span class="n">typeConverter</span> <span class="o">=</span> <span class="kt">Float</span><span class="p">.</span><span class="na">VectorConverter</span><span class="p">,</span>
+        <span class="n">initialValue</span> <span class="o">=</span> <span class="m">200f</span><span class="p">,</span>
+        <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1000f</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+<span class="kd">var</span> <span class="nv">playTime</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0L</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="n">LaunchedEffect</span><span class="p">(</span><span class="n">anim</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">startTime</span> <span class="o">=</span> <span class="n">withFrameNanos</span> <span class="p">{</span> <span class="nb">it</span> <span class="p">}</span>
+
+    <span class="k">do</span> <span class="p">{</span>
+        <span class="n">playTime</span> <span class="o">=</span> <span class="n">withFrameNanos</span> <span class="p">{</span> <span class="nb">it</span> <span class="p">}</span> <span class="o">-</span> <span class="n">startTime</span>
+        <span class="kd">val</span> <span class="nv">animationValue</span> <span class="o">=</span> <span class="n">anim</span><span class="p">.</span><span class="na">getValueFromNanos</span><span class="p">(</span><span class="n">playTime</span><span class="p">)</span>
+    <span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">someCustomCondition</span><span class="p">())</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="4">4. 自定义动画</h2>
+<p>许多动画 <code>API</code> 通常接受参数来定制它的行为。</p>
+<h3 id="animationspec">AnimationSpec</h3>
+<p>大多数动画 <code>API</code> 允许开发者通过一个可选的 <code>AnimationSpec</code> 参数来定制动画规格。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">alpha</span><span class="p">:</span> <span class="kt">Float</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
+    <span class="n">targetValue</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">enabled</span><span class="p">)</span> <span class="m">1f</span> <span class="k">else</span> <span class="m">0.5f</span><span class="p">,</span>
+    <span class="c1">// 配置动画的持续时间和缓和度</span>
+    <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span><span class="n">durationMillis</span> <span class="o">=</span> <span class="m">300</span><span class="p">,</span> <span class="n">easing</span> <span class="o">=</span> <span class="n">FastOutSlowInEasing</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>有不同种类的 <code>AnimationSpec</code> 用于创建不同类型的动画。</p>
+<p><strong>spring</strong></p>
+<p><code>spring</code> 在起始值和结束值之间创建一个基于物理学的动画。它需要 <code>2</code> 个参数：阻尼率和刚度。</p>
+<p><code>dampingRatio</code> 定义了弹簧的反弹程度。默认值是 <code>Spring.DampingRatioNoBouncy</code>。</p>
+<p><img alt="" src="../../../assets/design/animation/overview/animation-spring.gif" /></p>
+<p><code>stiffness</code> 定义了弹簧向最终值移动的速度。默认值是 <code>Spring.StiffnessMedium</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">value</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
+    <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1f</span><span class="p">,</span>
+    <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">spring</span><span class="p">(</span>
+        <span class="n">dampingRatio</span> <span class="o">=</span> <span class="n">Spring</span><span class="p">.</span><span class="na">DampingRatioHighBouncy</span><span class="p">,</span>
+        <span class="n">stiffness</span> <span class="o">=</span> <span class="n">Spring</span><span class="p">.</span><span class="na">StiffnessMedium</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><code>spring</code> 可以比基于持续时间的 <code>AnimationSpec</code> 类型更顺利地处理中断，因为它保证了目标值在动画中变化时速度的连续性。 <code>spring</code> 被许多动画 <code>API</code> 用作默认的 <code>AnimationSpec</code>，如 <code>animate*AsState</code> 和 <code>updateTransition</code> 。</p>
+<p><strong>tween</strong></p>
+<p><code>tween</code> 在指定的 <code>durationMillis</code> 上使用缓和曲线在开始和结束值之间进行动画。更多信息请看 <a href="https://developer.android.com/jetpack/compose/animation#easing">Easing</a>。你也可以指定 <code>delayMillis</code> 来推迟动画的开始时间。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">value</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
+    <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1f</span><span class="p">,</span>
+    <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span>
+        <span class="n">durationMillis</span> <span class="o">=</span> <span class="m">300</span><span class="p">,</span>
+        <span class="n">delayMillis</span> <span class="o">=</span> <span class="m">50</span><span class="p">,</span>
+        <span class="n">easing</span> <span class="o">=</span> <span class="n">LinearOutSlowInEasing</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><strong>keyframes</strong></p>
+<p><code>keyframes</code> 的动画基于动画持续时间中不同时间戳指定的快照值。在任何时候，动画值将在两个 <code>keyframes</code> 值之间插值。对于这些 <code>keyframes</code> 中的每一个，可以指定 <code>Easing</code> 来决定插值曲线。</p>
+<p>指定 <code>0</code> 毫秒处和持续时间处的数值是可选的。如果你不指定这些值，它们将分别默认为动画的开始和结束值。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">value</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
+    <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1f</span><span class="p">,</span>
+    <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">keyframes</span> <span class="p">{</span>
+        <span class="n">durationMillis</span> <span class="o">=</span> <span class="m">375</span>
+        <span class="m">0.0f</span> <span class="n">at</span> <span class="m">0</span> <span class="n">with</span> <span class="n">LinearOutSlowInEasing</span>
+        <span class="m">0.2f</span> <span class="n">at</span> <span class="m">15</span> <span class="n">with</span> <span class="n">FastOutLinearInEasing</span>
+        <span class="m">0.4f</span> <span class="n">at</span> <span class="m">75</span>
+        <span class="m">0.4f</span> <span class="n">at</span> <span class="m">225</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><strong>repeatable</strong></p>
+<p><code>repeatable</code> 重复运行一个基于持续时间的动画（比如 <code>Tween</code> 或关键帧），直到它达到指定的迭代次数。你可以通过 <code>repeatMode</code> 参数来指定动画是否应该从开始 <code>RepeatMode.Restart</code> 或从结束 <code>RepeatMode.Reverse</code> 开始重复。</p>
+<p><strong>infiniteRepeatable</strong></p>
+<p><code>infiniteRepeatable</code> 和 <code>repeatable</code> 一样，但它会重复无限次的迭代。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">value</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
+    <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1f</span><span class="p">,</span>
+    <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">infiniteRepeatable</span><span class="p">(</span>
+        <span class="n">animation</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span><span class="n">durationMillis</span> <span class="o">=</span> <span class="m">300</span><span class="p">),</span>
+        <span class="n">repeatMode</span> <span class="o">=</span> <span class="n">RepeatMode</span><span class="p">.</span><span class="na">Reverse</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>在使用 <code>ComposeTestRule</code> 的测试中，使用 <code>infiniteRepeatable</code> 的动画不会被运行。该组件将使用每个动画值的初始值进行渲染。</p>
+<p><strong>snap</strong></p>
+<p><code>snap</code> 是一个特殊的 <code>AnimationSpec</code>，可以立即将值切换到结束值。你可以指定 <code>delayMillis</code>，以便延迟动画的开始。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">value</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
+    <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1f</span><span class="p">,</span>
+    <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">snap</span><span class="p">(</span><span class="n">delayMillis</span> <span class="o">=</span> <span class="m">50</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>在 <code>View UI</code> 系统中，我们需要使用 <code>ObjectAnimato</code> r等来实现基于时间的动画，而 <code>SpringAnimation</code> 则是基于物理的动画。要同时使用这两个不同的动画 <code>API</code> 并不容易。<code>Compose</code> 中的 <code>AnimationSpec</code> 允许我们以一种统一的方式来处理这些。</p>
+</div>
+<h3 id="easing">Easing</h3>
+<p>基于持续时间的 <code>AnimationSpec</code> 操作（如 <code>tween</code> 或 <code>keyframes</code>）使用 <code>Easing</code> 来调整动画的分数。这允许动画值加速和减速，而不是以一个恒定的速度移动。分数是一个介于 <code>0</code>（开始）和 <code>1.0</code>（结束）之间的数值，表示动画的当前点。</p>
+<p><code>Easing</code> 实际上是一个函数，它接收一个介于 <code>0</code> 和 <code>1.0</code> 之间的分数值并返回一个浮点数。返回的值可以在边界之外，以表示过冲或下冲的情况。一个自定义的 <code>Easing</code> 可以像下面的代码一样被创建。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">CustomEasing</span> <span class="o">=</span> <span class="n">Easing</span> <span class="p">{</span> <span class="n">fraction</span> <span class="o">-&gt;</span> <span class="n">fraction</span> <span class="o">*</span> <span class="n">fraction</span> <span class="p">}</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">EasingUsage</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">value</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
+        <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1f</span><span class="p">,</span>
+        <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span>
+            <span class="n">durationMillis</span> <span class="o">=</span> <span class="m">300</span><span class="p">,</span>
+            <span class="n">easing</span> <span class="o">=</span> <span class="n">CustomEasing</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="c1">// … …</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>Compose</code> 提供了几个内置的 <code>Easing</code> 功能，涵盖了大多数使用情况。请参阅 <a href="https://material.io/design/motion/speed.html#easing">Speed Material Design</a>，了解更多关于根据你的情况使用何种 <code>Easing</code> 的信息。</p>
+<ul>
+<li>FastOutSlowInEasing</li>
+<li>LinearOutSlowInEasing</li>
+<li>FastOutLinearEasing</li>
+<li>LinearEasing</li>
+<li>CubicBezierEasing</li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p><code>Easing</code> 对象的工作方式与平台中 <code>Interpolator</code> 类的实例相同。它没有 <code>getInterpolation()</code> 方法，而是有 <code>transform()</code> 方法。</p>
+</div>
+<h3 id="animationvector">AnimationVector</h3>
+<p>大多数 <code>Compose</code> 的动画 <code>API</code> 都支持 <code>Float</code>、<code>Color</code>、<code>Dp</code> 和其他基本数据类型作为开箱即用的动画值，但你有时需要对其他数据类型进行动画处理，包括你自定义的数据。在动画制作过程中，任何动画值都被表示为一个 <code>AnimationVector</code>。该值通过相应的 <code>TwoWayConverter</code> 转换为 <code>AnimationVector</code>，反之亦然，这样核心动画系统就可以统一处理它们。例如，一个 <code>Int</code> 被表示为一个 <code>AnimationVector1D</code>，它持有一个浮点值。<code>Int</code> 的 <code>TwoWayConverter</code> 看起来像这样。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">IntToVector</span><span class="p">:</span> <span class="n">TwoWayConverter</span><span class="o">&lt;</span><span class="kt">Int</span><span class="p">,</span> <span class="n">AnimationVector1D</span><span class="o">&gt;</span> <span class="o">=</span>
+    <span class="n">TwoWayConverter</span><span class="p">({</span> <span class="n">AnimationVector1D</span><span class="p">(</span><span class="nb">it</span><span class="p">.</span><span class="na">toFloat</span><span class="p">())</span> <span class="p">},</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">toInt</span><span class="p">()</span> <span class="p">})</span>
+</code></pre></div>
+<p>颜色本质上是一组 <code>4</code> 个值，红、绿、蓝和透明度，所以颜色被转换为一个 <code>AnimationVector4D</code>，持有 <code>4</code> 个浮点值。通过这种方式，动画中使用的每一种数据类型都被转换为 <code>AnimationVector1D</code>、<code>AnimationVector2D</code>、<code>AnimationVector3D</code> 或 <code>AnimationVector4D</code>，取决于其维度。这使得对象的不同组件可以独立地被动画化，每个组件都有自己的速度跟踪。基本数据类型的内置转换器可以使用 <code>Color.VectorConverter</code>、<code>Dp</code>、<code>VectorConverter</code> 等访问。</p>
+<p>当你想添加对一个新的数据类型作为动画值的支持时，你可以创建你自己的 <code>TwoWayConverter</code> 并将其提供给 <code>API</code>。例如，你可以使用 <code>animateValueAsState</code> 来使你的自定义数据类型产生动画，像这样。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">MySize</span><span class="p">(</span><span class="kd">val</span> <span class="nv">width</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">height</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MyAnimation</span><span class="p">(</span><span class="n">targetSize</span><span class="p">:</span> <span class="n">MySize</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">animSize</span><span class="p">:</span> <span class="n">MySize</span> <span class="k">by</span> <span class="n">animateValueAsState</span><span class="o">&lt;</span><span class="n">MySize</span><span class="p">,</span> <span class="n">AnimationVector2D</span><span class="o">&gt;</span><span class="p">(</span>
+        <span class="n">targetSize</span><span class="p">,</span>
+        <span class="n">TwoWayConverter</span><span class="p">(</span>
+            <span class="n">convertToVector</span> <span class="o">=</span> <span class="p">{</span> <span class="n">size</span><span class="p">:</span> <span class="n">MySize</span> <span class="o">-&gt;</span>
+                <span class="c1">// 从每个 Dp 字段中提取一个浮动值。</span>
+                <span class="n">AnimationVector2D</span><span class="p">(</span><span class="n">size</span><span class="p">.</span><span class="na">width</span><span class="p">.</span><span class="na">value</span><span class="p">,</span> <span class="n">size</span><span class="p">.</span><span class="na">height</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+            <span class="p">},</span>
+            <span class="n">convertFromVector</span> <span class="o">=</span> <span class="p">{</span> <span class="n">vector</span><span class="p">:</span> <span class="n">AnimationVector2D</span> <span class="o">-&gt;</span>
+                <span class="n">MySize</span><span class="p">(</span><span class="n">vector</span><span class="p">.</span><span class="na">v1</span><span class="p">.</span><span class="na">dp</span><span class="p">,</span> <span class="n">vector</span><span class="p">.</span><span class="na">v2</span><span class="p">.</span><span class="na">dp</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="5">5. 手势与动画（高级）</h2>
+<p>与单独处理动画相比，当我们处理触摸事件和动画时，有几件事我们必须考虑到。首先，当触摸事件开始时，我们可能需要中断正在进行的动画，因为用户互动应该有最高的优先权。</p>
+<p>在下面的例子中，我们用一个 <code>Animatable</code> 来表示一个圆形组件的偏移位置。触摸事件是用 <code>pointerInput</code> 修改器来处理的。当我们检测到一个新的轻敲事件时，我们调用 <code>animateTo</code> 来将偏移值动画化到轻敲位置。敲击事件也可以在动画中发生，在这种情况下，<code>animateTo</code> 中断正在进行的动画，并开始动画到新的目标位置，同时保持中断的动画的速度。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Gesture</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">offset</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">Animatable</span><span class="p">(</span><span class="n">Offset</span><span class="p">(</span><span class="m">0f</span><span class="p">,</span> <span class="m">0f</span><span class="p">),</span> <span class="n">Offset</span><span class="p">.</span><span class="na">VectorConverter</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">pointerInput</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">coroutineScope</span> <span class="p">{</span>
+                    <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// 检测一个点击头事件并获得其位置。</span>
+                        <span class="kd">val</span> <span class="nv">position</span> <span class="o">=</span> <span class="n">awaitPointerEventScope</span> <span class="p">{</span>
+                            <span class="n">awaitFirstDown</span><span class="p">().</span><span class="na">position</span>
+                        <span class="p">}</span>
+                        <span class="n">launch</span> <span class="p">{</span>
+                            <span class="c1">// 应用到点击的位置。</span>
+                            <span class="n">offset</span><span class="p">.</span><span class="na">animateTo</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Circle</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">offset</span> <span class="p">{</span> <span class="n">offset</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">toIntOffset</span><span class="p">()</span> <span class="p">})</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">private</span> <span class="kd">fun</span> <span class="n">Offset</span><span class="p">.</span><span class="nf">toIntOffset</span><span class="p">()</span> <span class="o">=</span> <span class="n">IntOffset</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">(),</span> <span class="n">y</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">())</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/design/animation/overview/demo8.gif" /></p>
+<p>另一个常见的模式是我们需要将动画值与来自触摸事件的值同步，例如拖动。在下面的例子中，我们看到 "轻扫解散" 作为一个修改器来实现（而不是使用 <code>SwipeToDismiss</code> 的组合）。该元素的水平偏移被表示为一个<code>Animatable</code>。这个 <code>API</code> 有一个在手势动画中有用的特性。它的值可以被触摸事件以及动画所改变。当我们收到一个触摸事件时，我们通过 <code>stop</code> 方法停止 <code>Animatable</code>，这样任何正在进行的动画就被拦截了。</p>
+<p>在一个拖动事件中，我们用 <code>snapTo</code> 来更新 <code>Animatable</code> 的值，即从触摸事件中计算出来的值。对于拖动，<code>compose</code> 提供了 <code>VelocityTracker</code> 来记录拖动事件并计算出速度。速度可以直接反馈给<code>animateDecay</code>，用于制作翻转动画。当我们想把偏移值滑回到原始位置时，我们用 <code>animateTo</code> 方法指定目标偏移值为 <code>0f</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">swipeToDismiss</span><span class="p">(</span>
+    <span class="n">onDismissed</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">):</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">composed</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">offsetX</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">Animatable</span><span class="p">(</span><span class="m">0f</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">pointerInput</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">decay</span> <span class="o">=</span> <span class="n">splineBasedDecay</span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span><span class="p">(</span><span class="k">this</span><span class="p">)</span>
+        <span class="n">coroutineScope</span> <span class="p">{</span>
+            <span class="k">while</span> <span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// 检测一个触摸事件。</span>
+                <span class="kd">val</span> <span class="nv">pointerId</span> <span class="o">=</span> <span class="n">awaitPointerEventScope</span> <span class="p">{</span> <span class="n">awaitFirstDown</span><span class="p">().</span><span class="na">id</span> <span class="p">}</span>
+                <span class="kd">val</span> <span class="nv">velocityTracker</span> <span class="o">=</span> <span class="n">VelocityTracker</span><span class="p">()</span>
+                <span class="c1">// 拦截一个正在进行的动画（如果有的话</span>
+                <span class="n">offsetX</span><span class="p">.</span><span class="na">stop</span><span class="p">()</span>
+                <span class="n">awaitPointerEventScope</span> <span class="p">{</span>
+                    <span class="n">horizontalDrag</span><span class="p">(</span><span class="n">pointerId</span><span class="p">)</span> <span class="p">{</span> <span class="n">change</span> <span class="o">-&gt;</span>
+                        <span class="c1">// 用触摸事件更新动画值。</span>
+                        <span class="n">launch</span> <span class="p">{</span>
+                            <span class="n">offsetX</span><span class="p">.</span><span class="na">snapTo</span><span class="p">(</span>
+                                <span class="n">offsetX</span><span class="p">.</span><span class="na">value</span> <span class="o">+</span> <span class="n">change</span><span class="p">.</span><span class="na">positionChange</span><span class="p">().</span><span class="na">x</span>
+                            <span class="p">)</span>
+                        <span class="p">}</span>
+                        <span class="n">velocityTracker</span><span class="p">.</span><span class="na">addPosition</span><span class="p">(</span>
+                            <span class="n">change</span><span class="p">.</span><span class="na">uptimeMillis</span><span class="p">,</span>
+                            <span class="n">change</span><span class="p">.</span><span class="na">position</span>
+                        <span class="p">)</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+                <span class="kd">val</span> <span class="nv">velocity</span> <span class="o">=</span> <span class="n">velocityTracker</span><span class="p">.</span><span class="na">calculateVelocity</span><span class="p">().</span><span class="na">x</span>
+                <span class="kd">val</span> <span class="nv">targetOffsetX</span> <span class="o">=</span> <span class="n">decay</span><span class="p">.</span><span class="na">calculateTargetValue</span><span class="p">(</span>
+                    <span class="n">offsetX</span><span class="p">.</span><span class="na">value</span><span class="p">,</span>
+                    <span class="n">velocity</span>
+                <span class="p">)</span>
+                <span class="c1">// 当它到达边界时，动画停止。</span>
+                <span class="n">offsetX</span><span class="p">.</span><span class="na">updateBounds</span><span class="p">(</span>
+                    <span class="n">lowerBound</span> <span class="o">=</span> <span class="o">-</span><span class="n">size</span><span class="p">.</span><span class="na">width</span><span class="p">.</span><span class="na">toFloat</span><span class="p">(),</span>
+                    <span class="n">upperBound</span> <span class="o">=</span> <span class="n">size</span><span class="p">.</span><span class="na">width</span><span class="p">.</span><span class="na">toFloat</span><span class="p">()</span>
+                <span class="p">)</span>
+                <span class="n">launch</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">targetOffsetX</span><span class="p">.</span><span class="na">absoluteValue</span> <span class="o">&lt;=</span> <span class="n">size</span><span class="p">.</span><span class="na">width</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// 速度不够；向后滑动。</span>
+                        <span class="n">offsetX</span><span class="p">.</span><span class="na">animateTo</span><span class="p">(</span>
+                            <span class="n">targetValue</span> <span class="o">=</span> <span class="m">0f</span><span class="p">,</span>
+                            <span class="n">initialVelocity</span> <span class="o">=</span> <span class="n">velocity</span>
+                        <span class="p">)</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                        <span class="c1">// 该元素被刷掉了。</span>
+                        <span class="n">offsetX</span><span class="p">.</span><span class="na">animateDecay</span><span class="p">(</span><span class="n">velocity</span><span class="p">,</span> <span class="n">decay</span><span class="p">)</span>
+                        <span class="n">onDismissed</span><span class="p">()</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+        <span class="p">.</span><span class="na">offset</span> <span class="p">{</span> <span class="n">IntOffset</span><span class="p">(</span><span class="n">offsetX</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">(),</span> <span class="m">0</span><span class="p">)</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/design/animation/overview/demo9.gif" /></p>
+<h2 id="6">6. 测试</h2>
+<p><code>Compose</code> 提供了 <code>ComposeTestRule</code>，允许你以确定的方式为动画编写测试，并对测试时钟进行完全控制。这使你可以验证中间的动画值。此外，一个测试可以比动画的实际持续时间更快运行。</p>
+<p><code>ComposeTestRule</code> 将其测试时钟公开为 <code>mainClock</code>。你可以将 <code>autoAdvance</code> 属性设置为 <code>false</code> 来控制你测试代码中的时钟。在启动你要测试的动画后，时钟可以用 <code>advanceTimeBy</code> 向前移动。</p>
+<p>这里需要注意的一点是，<code>advanceTimeBy</code> 并不完全按照指定的持续时间来移动时钟。相反，它将其四舍五入到最近的持续时间，即帧持续时间的乘数。</p>
+<div class="highlight"><pre><span></span><code>@get:Rule
+val rule = createComposeRule()
+
+@Test
+fun testAnimationWithClock() {
+    // 暂停动画
+    rule.mainClock.autoAdvance = false
+    var enabled by mutableStateOf(false)
+    rule.setContent {
+        val color by animateColorAsState(
+            targetValue = if (enabled) Color.Red else Color.Green,
+            animationSpec = tween(durationMillis = 250)
+        )
+        Box(Modifier.size(64.dp).background(color))
+    }
+
+    // 启动动画
+    enabled = true
+
+    // 让动画继续进行。
+    rule.mainClock.advanceTimeBy(50L)
+
+    // 将结果与显示预期结果的图像进行比较。
+    rule.onRoot().captureToImage().assertAgainstGolden()
+}
 </code></pre></div>
                 
                   
