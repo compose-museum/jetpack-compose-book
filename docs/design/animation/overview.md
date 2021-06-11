@@ -246,3 +246,130 @@ LaunchedEffect(flag) {
 
 你可以通过提供一个 `AnimationSpec` 来定制动画规格。参见 [AnimationSpec]()获取更多信息。
 
+### updateTransition
+
+`Transition` 管理一个或多个动画作为它的子项，并在多个状态之间同时运行它们。
+
+这些状态可以是任何数据类型。在许多情况下，你可以使用一个自定义的枚举类型来确保类型安全，就像这个例子中一样。
+
+``` kotlin
+private enum class BoxState {
+    Collapsed,
+    Expanded
+}
+```
+
+`updateTransition` 可以创建并记住一个 `Transition` 的实例并更新其状态
+
+``` kotlin
+var currentState by remember { mutableStateOf(BoxState.Collapsed) }
+val transition = updateTransition(currentState)
+```
+
+然后你可以使用 `animate*` 扩展函数中的一个在这个过渡中定义一个子动画。指定每个状态的目标值。这些 `animate*` 函数返回一个动画值，在动画过程中，当用 `updateTransition` 更新过渡状态时，每一帧都会更新。
+
+``` kotlin
+var currentState by remember { mutableStateOf(BoxState.Collapsed) }
+val transition = updateTransition(currentState)
+val rect by transition.animateDp { state ->
+    when (state) {
+        BoxState.Collapsed -> 0.dp
+        BoxState.Expanded -> 150.dp
+    }
+}
+Box(
+    modifier = Modifier
+        .size(rect)
+        .background(Color(0xFF0079D3)),
+){}
+                    
+```
+
+![](../../../assets/design/animation/overview/demo5.gif)
+
+
+你可以选择传递一个 `transitionSpec` 参数，为每个过渡状态变化的组合指定一个不同的 `AnimationSpec`。参见 [AnimationSpec](https://developer.android.com/jetpack/compose/animation#animationspec) 以了解更多信息。
+
+
+``` kotlin
+val rect by transition.animateDp(
+    transitionSpec = {
+        when {
+            BoxState.Expanded isTransitioningTo BoxState.Collapsed ->
+                spring(stiffness = 50f)
+            else ->
+                tween(durationMillis = 500) // 动画时间
+        }
+    }
+){ state ->
+    when (state) {
+        BoxState.Collapsed -> 0.dp
+        BoxState.Expanded -> 150.dp
+    }
+}
+```
+
+![](../../../assets/design/animation/overview/demo6.gif)
+
+
+一旦一个 `transition` 到达目标状态，`Transition.currentState` 将与 `Transition.targetState` 相同。这可以作为过渡是否完成的一个信号。
+
+我们有时希望有一个与第一个目标状态不同的初始状态。我们可以使用 `updateTransition` 与 `MutableTransitionState` 来实现这一点。例如，它允许我们在代码进入合成时立即开始动画。
+
+``` kotlin
+var currentState = remember { MutableTransitionState(BoxState.Collapsed) }
+
+// 在运行程序时，将 currentState 的值变为 BoxState.Expanded，也就意味着，将会直接运行动画
+currentState.targetState = BoxState.Expanded
+val transition = updateTransition(currentState)
+```
+
+**封装一个 Transition 并让它可以重复使用**
+
+对于简单的用例，在与你的用户界面相同的 `composable` 中定义过渡动画是一个完全有效的选择。然而，当你正在处理一个有许多动画值的复杂组件时，你可能想把动画实现与可组合的用户界面分开。
+
+你可以通过创建一个持有所有动画值的类和一个返回该类实例的 "更新 "函数来做到这一点。过渡的实现可以被提取到新的独立函数中。当需要集中动画逻辑或使复杂的动画可重复使用时，这种模式很有用。
+
+``` kotlin
+enum class BoxState { Collapsed, Expanded }
+
+@Composable
+fun AnimatingBox(boxState: BoxState) {
+    val transitionData = updateTransitionData(boxState)
+    // UI 树
+    Box(
+        modifier = Modifier
+            .background(transitionData.color)
+            .size(transitionData.size)
+    )
+}
+
+// 保存动画数值
+private class TransitionData(
+    color: State<Color>,
+    size: State<Dp>
+) {
+    val color by color
+    val size by size
+}
+
+// 创建一个 Transition 并返回其动画值。
+@Composable
+private fun updateTransitionData(boxState: BoxState): TransitionData {
+    val transition = updateTransition(boxState)
+    val color = transition.animateColor { state ->
+        when (state) {
+            BoxState.Collapsed -> Color.Gray
+            BoxState.Expanded -> Color.Red
+        }
+    }
+    val size = transition.animateDp { state ->
+        when (state) {
+            BoxState.Collapsed -> 64.dp
+            BoxState.Expanded -> 128.dp
+        }
+    }
+    return remember(transition) { TransitionData(color, size) }
+}
+```
+
