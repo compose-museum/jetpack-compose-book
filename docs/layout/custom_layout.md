@@ -52,6 +52,7 @@ fun Modifier.firstBaselineToTop(
 }
 ```
 
+
 正如我们在 Compose 布局原理中所提到的，**每个子元素只允许被测量一次**。
 
 通过使用 <code>measurable.measure(constraints)</code> 完成子元素的测量，如果将 lambda 的 constraints 直接传入则意味着：你将父元素给当前元素的限制直接提供了当前元素的子元素，自身没有增加任何额外的限制。子元素测量的结果被包装在一个 <code>Placeable</code> 实例中，可通过该<code>Placeable</code> 实例获取子元素测量结果。
