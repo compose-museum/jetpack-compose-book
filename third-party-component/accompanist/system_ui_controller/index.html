@@ -62,6 +62,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#system-ui-controller-for-jetpack-compose" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1135,10 +1140,76 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          System UI Controller
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         System UI Controller
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    状态栏图标颜色
+  </a>
+  
+    <nav class="md-nav" aria-label="状态栏图标颜色">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scrim" class="md-nav__link">
+    调整 Scrim 逻辑
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1280,6 +1351,72 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    状态栏图标颜色
+  </a>
+  
+    <nav class="md-nav" aria-label="状态栏图标颜色">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scrim" class="md-nav__link">
+    调整 Scrim 逻辑
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    示例
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1290,9 +1427,54 @@
                   </a>
                 
                 
-                  <h1>System UI Controller</h1>
-                
-                <p>这个人很懒，什么都没有留下</p>
+                <h1 id="system-ui-controller-for-jetpack-compose">System UI Controller for Jetpack Compose</h1>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller" /></a></p>
+<p>System UI Controller 提供简单易用的方法帮助开发者在  Jetpack Compose 中更新系统栏（Android 平台上指状态栏和导航栏）的颜色。</p>
+<h2 id="_1">用法</h2>
+<p>开发者若想在 Compose 布局中控制 System UI，就必须获取 <a href="https://google.github.io/accompanist/api/systemuicontroller/systemuicontroller/com.google.accompanist.systemuicontroller/-system-ui-controller/"><code>SystemUiController</code></a> 对象。通过该库提供 <a href="https://google.github.io/accompanist/api/systemuicontroller/systemuicontroller/com.google.accompanist.systemuicontroller/remember-system-ui-controller.html"><code>rememberSystemUiController</code></a> 函数，开发者可以获取当前操作系统（目前仅支持 Android 系统）的  <a href="https://google.github.io/accompanist/api/systemuicontroller/systemuicontroller/com.google.accompanist.systemuicontroller/-system-ui-controller/"><code>SystemUiController</code></a> 对象。</p>
+<p>开发者可以通过如下方式在布局中更新系统栏（Android 平台上指状态栏和导航栏）的颜色：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Remember a SystemUiController</span>
+<span class="kd">val</span> <span class="nv">systemUiController</span> <span class="o">=</span> <span class="n">rememberSystemUiController</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">useDarkIcons</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">isLight</span>
+
+<span class="n">SideEffect</span> <span class="p">{</span>
+    <span class="c1">// Update all of the system bar colors to be transparent, and use</span>
+    <span class="c1">// dark icons if we&#39;re in light theme</span>
+    <span class="n">systemUiController</span><span class="p">.</span><span class="na">setSystemBarsColor</span><span class="p">(</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Transparent</span><span class="p">,</span>
+        <span class="n">darkIcons</span> <span class="o">=</span> <span class="n">useDarkIcons</span>
+    <span class="p">)</span>
+
+    <span class="c1">// setStatusBarsColor() and setNavigationBarsColor() also exist</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_2">状态栏图标颜色</h2>
+<p>该库在 Android 平台上使用时，可自动处理 API 版本差异。比如，Android 原生从 API 23 才开始支持状态栏深色图标，那么针对低版本设备，该库通过使用 Scrim 自动调整状态栏颜色以此来保持状态栏整体的对比度：</p>
+<p><img alt="" src="https://google.github.io/accompanist/systemuicontroller/api-scrim.png" /></p>
+<p>同理，由于Android 原生从 API 26 以后才支持导航栏深色图标，针对低版本设备  <code>SystemUiController</code> 也会采用相同的处理方式。</p>
+<h3 id="scrim">调整 Scrim 逻辑</h3>
+<p>如果开发者对 <code>SystemUiController</code>自动处理的颜色不太满意，亦可自行处理：</p>
+<div class="highlight"><pre><span></span><code><span class="n">systemUiController</span><span class="p">.</span><span class="na">setStatusBarsColor</span><span class="p">(</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Transparent</span><span class="p">,</span>
+    <span class="n">darkIcons</span> <span class="o">=</span> <span class="kc">true</span>
+<span class="p">)</span> <span class="p">{</span> <span class="n">requestedColor</span> <span class="o">-&gt;</span>
+    <span class="c1">// TODO: return a darkened color to be used when the system doesn&#39;t</span>
+    <span class="c1">// natively support dark icons</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_3">示例</h2>
+<p><a href="https://github.com/google/accompanist/tree/main/sample/src/main/java/com/google/accompanist/sample/insets">Insets 示例</a>中的透明系统栏（Android 平台上指状态栏和导航栏）都是通过<code>SystemUiController</code>实现，若有需要，请自行查阅。</p>
+<h2 id="_4">下载</h2>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller" /></a></p>
+<div class="highlight"><pre><span></span><code><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s2">&quot;com.google.accompanist:accompanist-systemuicontroller:&lt;version&gt;&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p><a href="https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-systemuicontroller/">Sonatype's <code>snapshots</code> repository</a> 中提供了开发版本的快照。每一次提交，快照都会更新。</p>
                 
                   
                     
@@ -1301,7 +1483,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 9, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2021</span>
       
     
   </small>
