@@ -1,0 +1,1984 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+        <link rel="canonical" href="https://docs.compose.net.cn/tutorial/">
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.8">
+    
+    
+      
+        <title>快速入门 - Jetpack Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.ca7ac06f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.f1a3b89f.min.css">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=:300,400,400i,700%7CJetbrains+Mono&display=fallback">
+        <style>:root{--md-text-font-family:"";--md-code-font-family:"Jetbrains Mono"}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    
+      
+
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    <script>function __prefix(e){return new URL("..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jetpack Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              快速入门
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href=".." class="md-tabs__link md-tabs__link--active">
+        Jetpack Compose
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../third-party-component/accompanist/overview/" class="md-tabs__link">
+        第三方组件
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../api/elements/text/" class="md-tabs__link">
+        API 文档
+      </a>
+    </li>
+  
+
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../assets/logo.png" alt="logo">
+
+    </a>
+    Jetpack Compose
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往 GitHub 仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      <label class="md-nav__link" for="__nav_1">
+        Jetpack Compose
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Jetpack Compose" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Jetpack Compose
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../start/" class="md-nav__link">
+        在开始之前
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          快速入门
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        快速入门
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-composable" class="md-nav__link">
+    1. 第一步：Composable 函数
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 第一步：Composable 函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#text" class="md-nav__link">
+    添加一个 text 元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composable" class="md-nav__link">
+    定义一个 composable 函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#android-studio" class="md-nav__link">
+    在 Android Studio 中预览你的函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 第二步：界面
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 第二步：界面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    让我们从一些文本开始
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column" class="md-nav__link">
+    使用 Column
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column_1" class="md-nav__link">
+    给 Column 添加样式设置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    添加一张图片
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#material-design" class="md-nav__link">
+    第三步：Material design
+  </a>
+  
+    <nav class="md-nav" aria-label="第三步：Material design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    应用一个形状
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文字风格
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 完成
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      <label class="md-nav__link" for="__nav_1_4">
+        基本组件
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="基本组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          基本组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/alertdialog/" class="md-nav__link">
+        AlertDialog
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/card/" class="md-nav__link">
+        Card
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/floatingactionbutton/" class="md-nav__link">
+        FloatingActionButton
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/icon/" class="md-nav__link">
+        Icon
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/image/" class="md-nav__link">
+        Image
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/iconbutton/" class="md-nav__link">
+        IconButton
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/surface/" class="md-nav__link">
+        Surface
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/slider/" class="md-nav__link">
+        Slider
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/textfield/" class="md-nav__link">
+        TextField
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      <label class="md-nav__link" for="__nav_1_5">
+        布局
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="布局" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          布局
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/bottomnavigation/" class="md-nav__link">
+        BottomNavigation
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/column/" class="md-nav__link">
+        Column
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/modalbottomsheetlayout/" class="md-nav__link">
+        ModalBottomSheetLayout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/row/" class="md-nav__link">
+        Row
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/spacer/" class="md-nav__link">
+        Spacer
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/scaffold/" class="md-nav__link">
+        Scaffold
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/topappbar/" class="md-nav__link">
+        TopAppBar
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/custom_layout/" class="md-nav__link">
+        自定义Layout
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../layout/intrinsic/" class="md-nav__link">
+        固有特性测量
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      <label class="md-nav__link" for="__nav_1_6">
+        设计
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="设计" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1" type="checkbox" id="__nav_1_6_1" >
+      
+      <label class="md-nav__link" for="__nav_1_6_1">
+        动画
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="动画" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          动画
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/animation/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/animation/animationvisibility/" class="md-nav__link">
+        AnimationVisibility
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/animation/animatestate/" class="md-nav__link">
+        Animate*State
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" >
+      
+      <label class="md-nav__link" for="__nav_1_6_2">
+        主题
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="主题" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          主题
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/theme/meet_material_theme/" class="md-nav__link">
+        初识 MaterialTheme
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/theme/understanding_material_theme/" class="md-nav__link">
+        深入理解 MaterialTheme 与 CompositionLocal
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/theme/custom_your_theme/" class="md-nav__link">
+        自定义你的主题方案
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3" type="checkbox" id="__nav_1_6_3" >
+      
+      <label class="md-nav__link" for="__nav_1_6_3">
+        手势
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="手势" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          手势
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/gesture/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/gesture/draggable/" class="md-nav__link">
+        Draggable拖动
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/gesture/swipeable/" class="md-nav__link">
+        Swipeable滑动
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" >
+      
+      <label class="md-nav__link" for="__nav_1_6_4">
+        列表
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="列表" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          列表
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design/lists/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      <label class="md-nav__link" for="__nav_1_7">
+        参数
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="参数" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          参数
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../parameters/modifier/" class="md-nav__link">
+        Modifier
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      <label class="md-nav__link" for="__nav_1_8">
+        技术原理
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="技术原理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          技术原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../principle/recomposition_scope/" class="md-nav__link">
+        了解Compose的重组作用域
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      <label class="md-nav__link" for="__nav_1_9">
+        架构
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="架构" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          架构
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../architecture/architecture_for_compose/" class="md-nav__link">
+        Compose架构如何选？MVP,MVVM,MVI
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../codelabs/" class="md-nav__link">
+        代码实验室
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../resources/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../contributing/" class="md-nav__link">
+        关于贡献
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      <label class="md-nav__link" for="__nav_2">
+        第三方组件
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="第三方组件" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          第三方组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      <label class="md-nav__link" for="__nav_2_1">
+        Accompanist
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="Accompanist" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Accompanist
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/glide/" class="md-nav__link">
+        Glide
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/insets/" class="md-nav__link">
+        Insets
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+        System UI Controller
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+        AppCompat Theme
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+        Pager layouts
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+        Swipe Refresh
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+        Flow layouts
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      <label class="md-nav__link" for="__nav_3">
+        API 文档
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="API 文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API 文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      <label class="md-nav__link" for="__nav_3_1">
+        组件
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+      <nav class="md-nav" aria-label="组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api/elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    介绍
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#1-composable" class="md-nav__link">
+    1. 第一步：Composable 函数
+  </a>
+  
+    <nav class="md-nav" aria-label="1. 第一步：Composable 函数">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#text" class="md-nav__link">
+    添加一个 text 元素
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#composable" class="md-nav__link">
+    定义一个 composable 函数
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#android-studio" class="md-nav__link">
+    在 Android Studio 中预览你的函数
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 第二步：界面
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 第二步：界面">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    让我们从一些文本开始
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column" class="md-nav__link">
+    使用 Column
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#column_1" class="md-nav__link">
+    给 Column 添加样式设置
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    添加一张图片
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#material-design" class="md-nav__link">
+    第三步：Material design
+  </a>
+  
+    <nav class="md-nav" aria-label="第三步：Material design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    应用一个形状
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    文字风格
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4" class="md-nav__link">
+    4. 完成
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/tutorial.md" title="编辑此页" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                  <h1>快速入门</h1>
+                
+                <h2 id="_1">介绍</h2>
+<p><code>Jetpack Compose</code> 是一个用于构建原生 <code>Android UI</code> 的现代工具包。<code>Jetpack Compose</code> 用更少的代码、强大的工具和直观的 <code>Kotlin API</code> 简化并加速了 <code>Android</code> 上的 <code>UI</code> 开发。</p>
+<p>在本教程中，你将用声明式函数构建一个简单的 <code>UI</code> 组件。你将不会编辑任何 <code>XML</code> 布局或直接创建 <code>UI</code> 部件。相反，你将调用 <code>Jetpack Compose</code> 函数来说明你想要的元素，剩下的就由 <code>Compose</code> 编译器来完成。</p>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p><code>Jetpack Compose</code> 目前还处于 <code>beta</code> 阶段，请参阅 <code>Jetpack</code> <a href="https://developer.android.com/jetpack/androidx/versions/all-channel">发布</a> 说明，了解最新的更新。</p>
+</div>
+<h2 id="1-composable">1. 第一步：Composable 函数</h2>
+<p><code>Jetpack Compose</code>是围绕着 <code>Composable</code> 函数建立的。这些函数让你通过描述它的形状和数据依赖性，以编程方式定义你的应用程序的用户界面，而不是专注于用户界面的构建过程。要创建一个 <code>Composable</code> 函数，只需在函数名称中添加 <code>@Composable</code> 注解。</p>
+<p><img src = "../assets/tutorial/demo.gif" width = "600" height = "600" ></p>
+<h3 id="text">添加一个 text 元素</h3>
+<p>现在你可以在你的 <code>activity</code> 添加一个 <code>text</code> 元素。你可以通过定义一个内容块，并调用 <code>Text()</code> 函数来实现。</p>
+<p><code>setContent</code> 块定义了这个 <code>activity</code> 的布局。我们不使用 <code>XML</code> 文件来定义布局内容，而是调用 <code>Composable</code> 函数。<code>Jetpack Compose</code>使用一个自定义的 <code>Kotlin</code> 编译器插件来将这些 <code>Composable</code> 函数转化为应用程序的 <code>UI</code> 元素。例如，<code>Text()</code> 函数是由 <code>Compose UI</code> 库定义的；你调用这个函数来声明你的应用程序中的文本元素。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello world!&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo.png" /></p>
+<h3 id="composable">定义一个 composable 函数</h3>
+<p><code>composable</code> 函数只能从其他 <code>composable</code> 函数的范围内调用。要使用一个 <code>composable</code> 函数，请添加 <code>@Composable</code> 注解。为了尝试理解这一点，我们可以定义一个 <code>Greeting()</code> 函数，它包含了一个 <code>name</code> 参数，并使用这个参数来配置文本元素</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">Greeting</span><span class="p">(</span><span class="s">&quot;Android&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Greeting</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Text</span> <span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Hello </span><span class="si">$</span><span class="n">name</span><span class="s">!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo2.png" /></p>
+<h3 id="android-studio">在 Android Studio 中预览你的函数</h3>
+<p>目前，<code>Android Studio Canary</code> 版本可以让你在 <code>IDE</code> 中预览你的 <code>Composable</code> 函数，而不需要将应用下载到 <code>Android</code> 设备或模拟器上。主要的限制是, <code>Composable</code> 函数必须不能携带任何参数。由于这个原因，你不能直接预览 <code>Greeting()</code> 函数。但是，你可以尝试写第二个名为 <code>PreviewGreeting()</code> 的函数，它调用带有适当参数的 <code>Greeting()</code>。在 <code>@Composable</code> 之前添加 <code>@Preview</code> 注解。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Greeting</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Text</span> <span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Hello </span><span class="si">$</span><span class="n">name</span><span class="s">!&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">PreviewGreeting</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Greeting</span><span class="p">(</span><span class="s">&quot;Android&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>重新运行你的项目。应用程序本身并没有改变，因为新的 <code>previewGreeting()</code> 函数并没有在任何地方被调用，但 <code>Android Studio</code> 增加了一个预览窗口。这个窗口显示了由标有 <code>@Preview</code> 注解的 <code>Composable</code> 函数创建的 <code>UI</code> 元素的预览。要在任何时候更新预览，请点击预览窗口顶部的刷新按钮。</p>
+<p><img alt="" src="../assets/tutorial/demo3.png" /></p>
+<h2 id="2">2. 第二步：界面</h2>
+<p><code>UI</code> 元素是分层次的，元素包含在其他元素中。在 <code>Compos</code> e中，你通过从其他 <code>Composable</code> 函数中调用 <code>Composable</code> 函数来建立一个 <code>UI</code> 层次结构。</p>
+<p><img src = "../assets/tutorial/demo4.gif" width = "600" height = "600" ></p>
+<h3 id="_2">让我们从一些文本开始</h3>
+<p>回到你的 <code>activity</code>，用一个新的 <code>NewsStory()</code> 函数替换 <code>Greeting()</code> 函数。在本教程的其余部分，你将修改 <code>NewsStory()</code> 函数，而不会再去碰 <code>Activity</code> 的代码。</p>
+<p>创建独立的、不被应用程序调用的预览函数是一种最佳做法；有专门的预览函数可以提高性能，也可以使以后设置多个预览更容易。因此，创建一个默认的预览函数，除了调用 <code>NewsStory()</code> 函数，什么都不做。当你通过本教程对 <code>NewsStory(</code> )进行修改时，预览会反映这些修改。</p>
+<p>这段代码在内容视图内创建了三个文本元素。然而，由于我们并没有安排如何排布它们，这三个文本元素重叠在了一块，使得文本无法阅读。</p>
+<p><img alt="" src="../assets/tutorial/demo5.png" /></p>
+<h3 id="column">使用 Column</h3>
+<p><code>Column</code> 函数可以让你垂直地堆叠元素。在 <code>NewsStory(</code> )函数中加入 <code>Column</code>。</p>
+<p>默认设置是直接堆叠所有的子元素，一个接一个，没有间隔。<code>Column</code> 本身被放在内容视图的左上角。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo6.png" /></p>
+<h3 id="column_1">给 Column 添加样式设置</h3>
+<p>通过向 <code>Column</code> 调用传递参数，你可以设置 <code>Column</code> 的大小和位置，以及 <code>Column</code> 的子项如何排列。</p>
+<p>设置有以下含义。</p>
+<p><code>modifier</code>：让你配置布局。在这个情况下，应用一个 <code>Modifier.padding</code> <strong>modifier</strong>，会将 <code>Column</code> 从周围的视图中嵌入。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+    <span class="p">){</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo7.png" /></p>
+<h3 id="_3">添加一张图片</h3>
+<p>我们要在文本上方添加一张图片。使用资源管理器将这张照片添加到你的应用程序的 <code>drawable resources</code> 中，名称为 header。</p>
+<p><img alt="" src="../assets/tutorial/demo8.png" /></p>
+<p><img src = "../assets/tutorial/header.jpg" width = "300" height = "300"></p>
+<p><a href = "../assets/tutorial/header.jpg" download>下载图片</a></p>
+<p>现在修改你的 <code>NewsStory()</code> 函数。你将添加一个 <code>Image()</code> 函数，并把这张图片放在 <code>Column</code> 中。这些 <code>composables</code> 在 <code>foundation</code> 包中可用，你可能需要添加它。见 <a href="https://developer.android.com/jetpack/compose/setup">Jetpack Compose 设置说明</a>。图片的比例不会正确，但这没关系，你将在下一步解决这个问题。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Image</span><span class="p">(</span>
+            <span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">header</span><span class="p">),</span>
+            <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span>
+        <span class="p">)</span>
+
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo9.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>你还需要为图片提供一个 <code>contentDescription</code>。这个描述用于无障碍。然而，在这种情况下，图像纯粹是装饰性的，将描述设置为空是合适的。</p>
+</div>
+<p>图片被添加到你的布局中，但它的大小还不合适。要设计图片，请在调用 <code>Image()</code> 时传递一个 <code>size Moidifer</code>。</p>
+<p><code>height(180.dp)</code>。指定图像的高度。</p>
+<p><code>fillMaxWidth()</code>。指定图像的宽度应足以填满它所属的布局。</p>
+<p>你还需要向 <code>Image()</code> 传递一个 <code>contentScale</code> 参数。</p>
+<p><code>contentScale = ContentScale.Crop</code>：指定图片应该填满这个 <code>Column</code> 的宽度，如果有必要，还可以裁剪到合适的高度。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+    <span class="p">){</span>
+        <span class="n">Image</span><span class="p">(</span>
+            <span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">header</span><span class="p">),</span>
+            <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">180.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+            <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">Crop</span>
+        <span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo10.png" /></p>
+<p>添加一个 <code>Spacer</code>，将图片与标题分开。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+    <span class="p">){</span>
+        <span class="n">Image</span><span class="p">(</span>
+            <span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">header</span><span class="p">),</span>
+            <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">180.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+            <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">Crop</span>
+        <span class="p">)</span>
+<span class="hll">        <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+</span>        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo11.png" /></p>
+<h2 id="material-design">第三步：Material design</h2>
+<p><code>Compose</code> 是为支持 <code>Material design</code> 原则而建立的。它的许多 <code>UI</code> 元素都是开箱即用的 <code>Material design</code>。在这一步中，你将用 <code>Material</code> 小部件来设计你的应用程序。</p>
+<p><img alt="" src="../assets/tutorial/demo3.gif" /></p>
+<h3 id="_4">应用一个形状</h3>
+<p><code>Material design</code> 系统的支柱之一是形状。使用 <code>clip()</code> 函数将图片的边角修圆。</p>
+<p>形状是不可见的，但图片被裁剪以适应形状，所以它现在有轻微的圆角。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+    <span class="p">){</span>
+        <span class="n">Image</span><span class="p">(</span>
+            <span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">header</span><span class="p">),</span>
+            <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">180.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">clip</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">4.</span><span class="n">dp</span><span class="p">)),</span>
+            <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">Crop</span>
+        <span class="p">)</span>
+        <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">)</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo12.png" /></p>
+<h3 id="_5">文字风格</h3>
+<p><code>Compose</code> 可以让你轻松地利用 <code>Material Design</code> 原则。将 <code>MaterialTheme</code> 应用于你所创建的组件。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">MaterialTheme</span> <span class="p">{</span>
+        <span class="n">Column</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+        <span class="p">){</span>
+            <span class="n">Image</span><span class="p">(</span>
+                <span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">header</span><span class="p">),</span>
+                <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                    <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">180.</span><span class="n">dp</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+                    <span class="p">.</span><span class="na">clip</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">4.</span><span class="n">dp</span><span class="p">)),</span>
+                <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">Crop</span>
+            <span class="p">)</span>
+            <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">)</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">)</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo13.png" /></p>
+<p>变化是微妙的，但现在的文本使用 <code>MaterialTheme</code> 的默认文本样式。接下来，对每个文本元素应用特定的段落样式。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">MaterialTheme</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">typography</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span>
+        <span class="n">Column</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+        <span class="p">){</span>
+            <span class="n">Image</span><span class="p">(</span>
+                <span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">header</span><span class="p">),</span>
+                <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+                <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                    <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">180.</span><span class="n">dp</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+                    <span class="p">.</span><span class="na">clip</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">4.</span><span class="n">dp</span><span class="p">)),</span>
+                <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">Crop</span>
+            <span class="p">)</span>
+            <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天&quot;</span><span class="p">,</span>
+                <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">h6</span><span class="p">)</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">,</span>
+                <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">body2</span><span class="p">)</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">,</span>
+                <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">body2</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo14.png" /></p>
+<p>在这种情况下，文章的标题是相当短的。但有时一篇文章的标题很长，我们不希望这个长标题影响到应用程序的外观。试着改变第一个文本元素。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天，我们畅谈了许多美好的事情，由衷的庆幸大家似乎对未来有了更好的期待&quot;</span><span class="p">,</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">h6</span><span class="p">)</span>
+<span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">,</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">body2</span><span class="p">)</span>
+<span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">,</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">body2</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo15.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">Text</span><span class="p">(</span><span class="s">&quot;在朋友家度过的一天，我们畅谈了许多美好的事情，由衷的庆幸大家似乎对未来有了更好的期待&quot;</span><span class="p">,</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">h6</span><span class="p">,</span>
+    <span class="n">maxLines</span> <span class="o">=</span> <span class="m">2</span><span class="p">,</span>
+    <span class="n">overflow</span> <span class="o">=</span> <span class="n">TextOverflow</span><span class="p">.</span><span class="na">Ellipsis</span><span class="p">)</span>
+<span class="n">Text</span><span class="p">(</span><span class="s">&quot;北京，朝阳区&quot;</span><span class="p">,</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">body2</span><span class="p">)</span>
+<span class="n">Text</span><span class="p">(</span><span class="s">&quot;2020 年 9 月 18 日&quot;</span><span class="p">,</span>
+    <span class="n">style</span> <span class="o">=</span> <span class="n">typography</span><span class="p">.</span><span class="na">body2</span><span class="p">)</span>
+</code></pre></div>
+<p><img alt="" src="../assets/tutorial/demo16.png" /></p>
+<h2 id="4">4. 完成</h2>
+<p>恭喜你，看到这里
+你已经学会了 <code>Compose</code> 的基础知识。</p>
+<p>我掌握了什么？</p>
+<ul>
+<li>定义一个 <code>Composable</code> 函数</li>
+<li>使用和改造 <code>Column</code> 来改善布局</li>
+<li>用 <code>Material Design</code> 原则来设计你的应用程序</li>
+</ul>
+<p>如果你想深入了解其中的一些步骤，请探索下面的资源。</p>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../layout/overview/">布局</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+                
+                  
+                    
+
+<hr>
+<div class="md-source-date">
+  <small>
+    
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 12, 2021</span>
+      
+    
+  </small>
+</div>
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../start/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 在开始之前" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              在开始之前
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../elements/alertdialog/" class="md-footer__link md-footer__link--next" aria-label="下一页: AlertDialog" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              AlertDialog
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://github.com/Compose-Museum/Compose-Tutorial/" target="_blank" rel="noopener" title="github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../assets/javascripts/workers/search.b0710199.min.js", "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.76f349be.min.js"></script>
+      
+    
+  </body>
+</html>
