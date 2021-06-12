@@ -138,20 +138,10 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyApplicationTheme {
-                Greeting()
-            }
+            
         }
     }
 }
-
-@Composable
-fun Greeting() {
-    Text(text = "Hello World")
-}
 ```
-尝试运行，如果一切正常，你将会看到 Hello World 显示在您的 **虚拟机/手机** 上
 
-## 7. 关于 Composable
-一个基本的 **Compose** 视图是使用一个普通的 **Kotlin** 函数，该函数被注解为 **@Composable**，
-所以我们使用 **Compose** 当中的东西时，需要在函数前加上 **@Composable**
+在下一节的教程中，你将会通过添加不同的元素来构建一个简单的 app
