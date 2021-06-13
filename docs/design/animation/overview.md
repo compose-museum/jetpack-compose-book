@@ -706,7 +706,7 @@ fun Modifier.swipeToDismiss(
 
 这里需要注意的一点是，`advanceTimeBy` 并不完全按照指定的持续时间来移动时钟。相反，它将其四舍五入到最近的持续时间，即帧持续时间的乘数。
 
-``` kotln
+``` kotlin
 @get:Rule
 val rule = createComposeRule()
 
