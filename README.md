@@ -109,7 +109,7 @@
 ## 贡献者
 
 <a href="https://github.com/compose-museum/compose-tutorial/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=compose-museum/compose-tutorial" />
+  <img src="https://opencollective.com/compose-museum/contributors.svg?width=890&button=false" />
 </a>
 
 ### License
