@@ -2208,31 +2208,31 @@
 <p><code>Compose</code> 提供了 <code>ComposeTestRule</code>，允许你以确定的方式为动画编写测试，并对测试时钟进行完全控制。这使你可以验证中间的动画值。此外，一个测试可以比动画的实际持续时间更快运行。</p>
 <p><code>ComposeTestRule</code> 将其测试时钟公开为 <code>mainClock</code>。你可以将 <code>autoAdvance</code> 属性设置为 <code>false</code> 来控制你测试代码中的时钟。在启动你要测试的动画后，时钟可以用 <code>advanceTimeBy</code> 向前移动。</p>
 <p>这里需要注意的一点是，<code>advanceTimeBy</code> 并不完全按照指定的持续时间来移动时钟。相反，它将其四舍五入到最近的持续时间，即帧持续时间的乘数。</p>
-<div class="highlight"><pre><span></span><code>@get:Rule
-val rule = createComposeRule()
+<div class="highlight"><pre><span></span><code><span class="nd">@get</span><span class="p">:</span><span class="n">Rule</span>
+<span class="kd">val</span> <span class="nv">rule</span> <span class="o">=</span> <span class="n">createComposeRule</span><span class="p">()</span>
 
-@Test
-fun testAnimationWithClock() {
-    // 暂停动画
-    rule.mainClock.autoAdvance = false
-    var enabled by mutableStateOf(false)
-    rule.setContent {
-        val color by animateColorAsState(
-            targetValue = if (enabled) Color.Red else Color.Green,
-            animationSpec = tween(durationMillis = 250)
-        )
-        Box(Modifier.size(64.dp).background(color))
-    }
+<span class="nd">@Test</span>
+<span class="kd">fun</span> <span class="nf">testAnimationWithClock</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// 暂停动画</span>
+    <span class="n">rule</span><span class="p">.</span><span class="na">mainClock</span><span class="p">.</span><span class="na">autoAdvance</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="kd">var</span> <span class="nv">enabled</span> <span class="k">by</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+    <span class="n">rule</span><span class="p">.</span><span class="na">setContent</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">color</span> <span class="k">by</span> <span class="n">animateColorAsState</span><span class="p">(</span>
+            <span class="n">targetValue</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">enabled</span><span class="p">)</span> <span class="n">Color</span><span class="p">.</span><span class="na">Red</span> <span class="k">else</span> <span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">,</span>
+            <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span><span class="n">durationMillis</span> <span class="o">=</span> <span class="m">250</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">64.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
+    <span class="p">}</span>
 
-    // 启动动画
-    enabled = true
+    <span class="c1">// 启动动画</span>
+    <span class="n">enabled</span> <span class="o">=</span> <span class="kc">true</span>
 
-    // 让动画继续进行。
-    rule.mainClock.advanceTimeBy(50L)
+    <span class="c1">// 让动画继续进行。</span>
+    <span class="n">rule</span><span class="p">.</span><span class="na">mainClock</span><span class="p">.</span><span class="na">advanceTimeBy</span><span class="p">(</span><span class="m">50L</span><span class="p">)</span>
 
-    // 将结果与显示预期结果的图像进行比较。
-    rule.onRoot().captureToImage().assertAgainstGolden()
-}
+    <span class="c1">// 将结果与显示预期结果的图像进行比较。</span>
+    <span class="n">rule</span><span class="p">.</span><span class="na">onRoot</span><span class="p">().</span><span class="na">captureToImage</span><span class="p">().</span><span class="na">assertAgainstGolden</span><span class="p">()</span>
+<span class="p">}</span>
 </code></pre></div>
                 
                   
@@ -2242,7 +2242,7 @@ fun testAnimationWithClock() {
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 11, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2021</span>
       
     
   </small>
