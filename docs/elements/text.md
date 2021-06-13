@@ -190,7 +190,38 @@ Column {
 ![](../assets/elements/text/text10.png)
 
 
-## 5. 可点击的 Text
+## 5. fontFamily 参数
+
+使用 `fontFamily` 参数可以让我们自定义字体，它的调用方法是这样的：
+
+``` kotlin
+Column {
+    Text("Hello World", fontFamily = FontFamily.Serif)
+    Text("Hello World", fontFamily = FontFamily.SansSerif)
+}
+```
+
+![](../assets/elements/text/text13.png)
+
+你也可以加载 `res/font` 下的字体。
+
+创建一个 `font` 文件夹可以右键 `res` 文件夹，选择 `Android Resource Directory` -> 选择 `font`
+
+![](../assets/elements/text/text14.png)
+
+``` kotlin
+Text(
+    text = "在朋友家度过的一天，我们畅谈了许多美好的事情，由衷的庆幸大家似乎对未来有了更好的期待",
+    fontFamily = FontFamily(
+        Font(R.font.pingfang, FontWeight.W700)
+    )
+)
+```
+
+![](../assets/elements/text/text15.png)
+
+
+## 6. 可点击的 Text
 
 有的时候也许您需要将文本当作按钮，那么只需要添加 `Modifier.clickable` 即可
 
@@ -240,7 +271,7 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text3.png)  
 
-## 6. 特定的文字显示
+## 7. 特定的文字显示
 
 如果我们想让一个 `Text` 语句中使用不同的样式，比如粗体提醒，特殊颜色
 
@@ -283,7 +314,7 @@ fun TextDemo() {
 
 ![](../assets/elements/text/text4.png)  
 
-## 7. 文字超链接？（ClickableText）
+## 8. 文字超链接？（ClickableText）
 
 在第 [#6](../text/#6) 部分我们已经介绍了可以通过 `AnnotatedString` 来完成在一个 `Text` 中给不同的文字应用不同的样式
 
@@ -371,7 +402,7 @@ ClickableText(
 1. [Mkdocs](../code/elements/text/用户协议.md)
 2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/elements/text/用户协议.kt)
 
-## 8. 复制文字
+## 9. 复制文字
 
 默认情况下 `Text` 并不能进行复制等操作，我们需要设置 `SelectionContainer` 来包装 `Text`
 
@@ -403,7 +434,7 @@ fun TextDemo() {
 ```
 ![](../assets/elements/text/text6.png)  
 
-## 9. 文字强调效果
+## 10. 文字强调效果
 
 文字根据不同情况来确定文字的强调程度，以突出重点并体现出视觉上的层次感。
 
@@ -436,7 +467,7 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 ![](../assets/elements/text/demo.png)
 
 
-## 10. 更多
+## 11. 更多
 
 [Text 参数详情](../api/elements/text.md)
 
