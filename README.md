@@ -108,7 +108,7 @@
 
 ## 贡献者
 
-<img src="https://opencollective.com/compose-museum/contributors.svg?width=890&button=false" />
+<a href = "https://opencollective.com/compose-museum/contributors.svg?width=890&button=false" />
 
 ### License
 ```
