@@ -554,11 +554,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-text" class="md-nav__link">
-    5. 可点击的 Text
+  <a href="#5-fontfamily" class="md-nav__link">
+    5. fontFamily 参数
   </a>
   
-    <nav class="md-nav" aria-label="5. 可点击的 Text">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-text" class="md-nav__link">
+    6. 可点击的 Text
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 可点击的 Text">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -574,18 +581,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    6. 特定的文字显示
+  <a href="#7" class="md-nav__link">
+    7. 特定的文字显示
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-clickabletext" class="md-nav__link">
-    7. 文字超链接？（ClickableText）
+  <a href="#8-clickabletext" class="md-nav__link">
+    8. 文字超链接？（ClickableText）
   </a>
   
-    <nav class="md-nav" aria-label="7. 文字超链接？（ClickableText）">
+    <nav class="md-nav" aria-label="8. 文字超链接？（ClickableText）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -601,22 +608,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8" class="md-nav__link">
-    8. 复制文字
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#9" class="md-nav__link">
-    9. 文字强调效果
+    9. 复制文字
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#10" class="md-nav__link">
-    10. 更多
+    10. 文字强调效果
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    11. 更多
   </a>
   
 </li>
@@ -1527,11 +1534,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#5-text" class="md-nav__link">
-    5. 可点击的 Text
+  <a href="#5-fontfamily" class="md-nav__link">
+    5. fontFamily 参数
   </a>
   
-    <nav class="md-nav" aria-label="5. 可点击的 Text">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#6-text" class="md-nav__link">
+    6. 可点击的 Text
+  </a>
+  
+    <nav class="md-nav" aria-label="6. 可点击的 Text">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1547,18 +1561,18 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#6" class="md-nav__link">
-    6. 特定的文字显示
+  <a href="#7" class="md-nav__link">
+    7. 特定的文字显示
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#7-clickabletext" class="md-nav__link">
-    7. 文字超链接？（ClickableText）
+  <a href="#8-clickabletext" class="md-nav__link">
+    8. 文字超链接？（ClickableText）
   </a>
   
-    <nav class="md-nav" aria-label="7. 文字超链接？（ClickableText）">
+    <nav class="md-nav" aria-label="8. 文字超链接？（ClickableText）">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1574,22 +1588,22 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#8" class="md-nav__link">
-    8. 复制文字
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#9" class="md-nav__link">
-    9. 文字强调效果
+    9. 复制文字
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#10" class="md-nav__link">
-    10. 更多
+    10. 文字强调效果
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#11" class="md-nav__link">
+    11. 更多
   </a>
   
 </li>
@@ -1760,7 +1774,26 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../assets/elements/text/text10.png" /></p>
-<h2 id="5-text">5. 可点击的 Text</h2>
+<h2 id="5-fontfamily">5. fontFamily 参数</h2>
+<p>使用 <code>fontFamily</code> 参数可以让我们自定义字体，它的调用方法是这样的：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Column</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="n">fontFamily</span> <span class="o">=</span> <span class="n">FontFamily</span><span class="p">.</span><span class="na">Serif</span><span class="p">)</span>
+    <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello World&quot;</span><span class="p">,</span> <span class="n">fontFamily</span> <span class="o">=</span> <span class="n">FontFamily</span><span class="p">.</span><span class="na">SansSerif</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../../assets/elements/text/text13.png" /></p>
+<p>你也可以加载 <code>res/font</code> 下的字体。</p>
+<p>创建一个 <code>font</code> 文件夹可以右键 <code>res</code> 文件夹，选择 <code>Android Resource Directory</code> -&gt; 选择 <code>font</code></p>
+<p><img alt="" src="../../assets/elements/text/text14.png" /></p>
+<div class="highlight"><pre><span></span><code><span class="n">Text</span><span class="p">(</span>
+    <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;在朋友家度过的一天，我们畅谈了许多美好的事情，由衷的庆幸大家似乎对未来有了更好的期待&quot;</span><span class="p">,</span>
+    <span class="n">fontFamily</span> <span class="o">=</span> <span class="n">FontFamily</span><span class="p">(</span>
+        <span class="n">Font</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">font</span><span class="p">.</span><span class="na">pingfang</span><span class="p">,</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">W700</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img alt="" src="../../assets/elements/text/text15.png" /></p>
+<h2 id="6-text">6. 可点击的 Text</h2>
 <p>有的时候也许您需要将文本当作按钮，那么只需要添加 <code>Modifier.clickable</code> 即可</p>
 <p>代码如下：</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
@@ -1799,7 +1832,7 @@
 </code></pre></div>
 <p>效果如下：</p>
 <p><img alt="" src="../../assets/elements/text/text3.png" />  </p>
-<h2 id="6">6. 特定的文字显示</h2>
+<h2 id="7">7. 特定的文字显示</h2>
 <p>如果我们想让一个 <code>Text</code> 语句中使用不同的样式，比如粗体提醒，特殊颜色</p>
 <p>则我们需要使用到 <code>AnnotatedString</code></p>
 <p><code>AnnotatedString</code> 是一个数据类，其中包含了：</p>
@@ -1833,7 +1866,7 @@
 </code></pre></div></p>
 <p>效果如下：</p>
 <p><img alt="" src="../../assets/elements/text/text4.png" />  </p>
-<h2 id="7-clickabletext">7. 文字超链接？（ClickableText）</h2>
+<h2 id="8-clickabletext">8. 文字超链接？（ClickableText）</h2>
 <p>在第 <a href="../text/#6">#6</a> 部分我们已经介绍了可以通过 <code>AnnotatedString</code> 来完成在一个 <code>Text</code> 中给不同的文字应用不同的样式</p>
 <p>在第 <a href="../text/#5-text">#5</a> 部分我们已经介绍了可以通过 <code>Modifier.Clickable()</code> 来完成检测 <code>Text</code> 的点击</p>
 <p>但是 <code>Modifier.Clickable()</code> 无法检测 <code>Text</code> 中的部分点击，那如果我们需要检测一个 <code>Text</code> 中的部分点击事件该怎么办呢？就像我们经常在 App 底下看到的用户协议等</p>
@@ -1904,7 +1937,7 @@
 <li><a href="../../code/elements/text/%E7%94%A8%E6%88%B7%E5%8D%8F%E8%AE%AE/">Mkdocs</a></li>
 <li><a href="https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/elements/text/用户协议.kt">Github</a></li>
 </ol>
-<h2 id="8">8. 复制文字</h2>
+<h2 id="9">9. 复制文字</h2>
 <p>默认情况下 <code>Text</code> 并不能进行复制等操作，我们需要设置 <code>SelectionContainer</code> 来包装 <code>Text</code></p>
 <p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextDemo</span><span class="p">()</span> <span class="p">{</span>
@@ -1932,7 +1965,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <img alt="" src="../../assets/elements/text/text6.png" />  </p>
-<h2 id="9">9. 文字强调效果</h2>
+<h2 id="10">10. 文字强调效果</h2>
 <p>文字根据不同情况来确定文字的强调程度，以突出重点并体现出视觉上的层次感。</p>
 <p><strong>Material Design</strong> 建议采用不同的不透明度来传达这些不同的重要程度，你可以通过 <code>LocalContentAlpha</code> 实现此功能。  </p>
 <p>您可以通过为此 <code>CompositionLocal</code> 提供一个值来为层次结构指定内容 <strong>Alpha</strong> 值。（<code>CompositionLocal</code> 是一个用于隐式的传递参数的组件，后续会讲到）</p>
@@ -1954,7 +1987,7 @@
 <p><img alt="" src="../../assets/elements/text/content_alpha.png" /></p>
 <p>这张图可以很好的说明这个效果</p>
 <p><img alt="" src="../../assets/elements/text/demo.png" /></p>
-<h2 id="10">10. 更多</h2>
+<h2 id="11">11. 更多</h2>
 <p><a href="../../api/elements/text/">Text 参数详情</a></p>
 <p><a href="https://developer.android.com/jetpack/compose/text">Text 一些用法</a></p>
                 
@@ -1965,7 +1998,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 18, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2021</span>
       
     
   </small>
