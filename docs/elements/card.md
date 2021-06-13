@@ -1,20 +1,9 @@
 
 <img src = "../../assets/elements/card/carbon.png" width = "80%" height = "50%">
 
-`Card` 是 Compose 中一个布局组件，我们用它可以来创造出一些好看的界面
+`Card` 是 Compose 中一个布局组件，我们用它可以来创造出一些类似于卡片界面
 
 ``` kotlin
-class MainActivity : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ExamplesTheme() { // 和每个人的项目名不同
-                CardDemo()
-            }
-        }
-    }
-}
-
 @Composable
 fun CardDemo() {
     Card(
