@@ -1,42 +1,42 @@
 
 
-Jeptack Compose 主要用来提高 UI 层的开发效率，但一个完整项目还少不了逻辑层、数据层的配合。幸好 Jetpack 中不少组件库已经与 Compose 进行了适配，开发者可以使用这些组件库完成UI以外的功能。
+`Jeptack Compose` 主要用来提高 `UI` 层的开发效率，但一个完整项目还少不了逻辑层、数据层的配合。幸好 `Jetpack` 中不少组件库已经与 `Compose` 进行了适配，开发者可以使用这些组件库完成 `UI` 以外的功能。
 
-**Bloom** 是一个 Compose 最佳实践的 Demo App，主要用来展示各种植物列表以及详细信息。
+**Bloom** 是一个 `Compose` 最佳实践的 Demo App，主要用来展示各种植物列表以及详细信息。
 
 ![Bloom](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/580baeee44b847bd96f3c7c134aa2c6d~tplv-k3u1fbpfcp-watermark.image)
 
 
 
-接下来以 Bloom 为例，看一下如何在 Compose 中使用 Jetpack 进行开发
+接下来以 `Bloom` 为例，看一下如何在 `Compose` 中使用 `Jetpack` 进行开发
 
 
 <br/>
 
 
-# 1. 整体架构：App Architecture
+## 1. 整体架构：App Architecture
 
 
 在架构上，Bloom 完全基于 Jetpack + Compose 搭建
 
 ![Architecture](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/000f0b2c6171422898e5cd0252b91733~tplv-k3u1fbpfcp-watermark.image)
 
-从下往上依次用到的 Jetpack 组件如下：
+从下往上依次用到的 `Jetpack` 组件如下：
 
 - **Room**： 作为数据源提供数据持久化能力
 - **Paging**： 分页加载能力。分页请求 Room 的数据并进行显示
-- **Corouinte Flow**：响应式能力。UI层通过 Flow 订阅 Paging 的数据变化
-- **ViewModel**：数据管理能力。ViewModel 管理 Flow 类型的数据供 UI 层订阅
-- **Compose**：UI 层完全使用 Compose 实现
-- **Hilt**：依赖注入能力。ViewModel 等依赖 Hilt 来构建
+- **Corouinte Flow**：响应式能力。`UI` 层通过 `Flow` 订阅 `Paging` 的数据变化
+- **ViewModel**：数据管理能力。`ViewModel` 管理 `Flow` 类型的数据供 `UI` 层订阅
+- **Compose**：UI 层完全使用 `Compose` 实现
+- **Hilt**：依赖注入能力。`ViewModel` 等依赖 Hilt 来构建
 
-Jetpack MVVM 指导我们将 UI层、逻辑层、数据层进行了很好地解耦。上图除了 UI 层的 Compose 以外，与一个常规的 Jetpack MVVM 项目并无不同。
+`Jetpack MVVM` 指导我们将 `UI` 层、逻辑层、数据层进行了很好地解耦。上图除了 `UI` 层的 `Compose` 以外，与一个常规的 `Jetpack MVVM` 项目并无不同。
 
-接下来通过代码，看看 Compose 如何配合各 Jetpack 完成 `HomeScreen` 和 `PlantDetailScreen` 的实现。
+接下来通过代码，看看 `Compose` 如何配合各 `Jetpack` 完成 `HomeScreen` 和 `PlantDetailScreen` 的实现。
 
 <br/>
 
-# 2. 列表页：HomeScreen
+## 2. 列表页：HomeScreen
 
 
 HomeScreen 在布局上主要由三部分组成，最上面的搜索框，中间的轮播图，以及下边的的列表
@@ -44,10 +44,10 @@ HomeScreen 在布局上主要由三部分组成，最上面的搜索框，中间
 
 ![HomeScreen](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/60a0166056194bd092ab4fb1147492fe~tplv-k3u1fbpfcp-watermark.image)
 
-## ViewModel + Compose
+### ViewModel + Compose
 
 
-我们希望 Composable 只负责UI，状态管理放到 ViewModel 中。 HomeScreen 作为入口的 Composable 一般在 Activity 或者 Fragment 中调用。 
+我们希望 `Composable` 只负责 `UI`，状态管理放到 `ViewModel` 中。 `HomeScreen` 作为入口的 `Composable` 一般在 `Activity` 或者 `Fragment` 中调用。 
 
 > **viewmodel-compose** 可以方便地从当前 ViewModelStore 中获取 ViewModel：<br/> `"androidx.lifecycle:lifecycle-viewmodel-compose:$version"`
 
@@ -62,11 +62,11 @@ fun HomeScreen() {
 }
 ```
 
-## Stateless Composable
+### Stateless Composable
 
-持有 ViewModel 的 Composalbe 相当于一个 **“Statful Composalbe”** ，这样的 ViewModel 很难复用和单测，而且携带 ViewModel 的 Composable 也无法在 IDE 中预览。 因此，我们更欢迎 Composable 是一个 **"Stateless Composable"**。 
+持有 `ViewModel` 的 `Composalbe` 相当于一个 **“Statful Composalbe”** ，这样的 `ViewModel` 很难复用和单测，而且携带 `ViewModel` 的 `Composable` 也无法在 `IDE` 中预览。 因此，我们更欢迎 `Composable` 是一个 **"Stateless Composable"**。 
 
-创建 StatelessComposable 的常见做法是将 ViewModel 上提，ViewModel 的创建委托给父级，仅作为参数传入，这可以使得 Composalbe 专注 UI
+创建 `StatelessComposable` 的常见做法是将 `ViewModel` 上提，`ViewModel` 的创建委托给父级，仅作为参数传入，这可以使得 `Composalbe` 专注 `UI`
 
 
 ```kotlin
@@ -79,13 +79,13 @@ fun HomeScreen(
 
 }
 ```
-当然，也可以直接将 State 作为参数传入，可以进一步摆脱对 ViewModel 具体类型的依赖。
+当然，也可以直接将 `State` 作为参数传入，可以进一步摆脱对 `ViewMode`l 具体类型的依赖。
 
-接下来看一下 `HomeViewModel` 的实现，以及其内部 State 的定义
+接下来看一下 `HomeViewModel` 的实现，以及其内部 `State` 的定义
 
 <br/>
 
-# 3. HomeViewModel
+## 3. HomeViewModel
 
 
 `HomeViewModel` 是一个标准的 Jetpack ViewModel 子类, 可以在ConfigurationChanged时保持数据。
@@ -524,7 +524,7 @@ class PlantViewModel @Inject constructor(
 # Recap
 
 
-一句话总结各 Jetpack 库为 Compose 带来的能力：
+一句话总结各 `Jetpack` 库为 `Compose` 带来的能力：
 
 - **viewmodel-compose** 可以从当前 ViewModelStore 中获取 ViewModel
 - **livedate-compose** 将 LiveData 转换为 Composable 可订阅的 state 。
@@ -534,8 +534,8 @@ class PlantViewModel @Inject constructor(
 
 此外，还有几点设计规范需要遵守：
 
-- 将 Composable 的 ViewModel 上提，有利于保持其可复用性和可测试性
-- 当 Composable 在同一 Scope 内复用时，避免使用 ViewModel 管理 State
+- 将 `Composable` 的 `ViewModel` 上提，有利于保持其可复用性和可测试性
+- 当 `Composable` 在同一 `Scope` 内复用时，避免使用 `ViewModel` 管理 `State`
 
 
 
