@@ -168,7 +168,25 @@ fun main() {
 - `Snapshot.notifyObjectsInitialized`。这会为自上次调用以来更改的任何状态发送通知。
 - `Snapshot.sendApplyNotifications()`。这类似于 notifyObjectsInitialized，但只有在实际发生更改时才会推进快照。在第一种情况下，只要将任何可变快照应用于全局快照，就会隐式调用此函数。
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ec91178df2a944938a9763fa82bec4b8~tplv-k3u1fbpfcp-zoom-1.image)
+```kotlin
+internal object GlobalSnapshotManager {
+    private val started = AtomicBoolean(false)
+
+    fun ensureStarted() {
+        if (started.compareAndSet(false, true)) {
+            val channel = Channel<Unit>(Channel.CONFLATED)
+            CoroutineScope(AndroidUiDispatcher.Main).launch {
+                channel.consumeEach {
+                    Snapshot.sendApplyNotifications()
+                }
+            }
+            Snapshot.registerGlobalWriteObserver {
+                channel.offer(Unit)
+            }
+        }
+    }
+}
+```
 
 可以看到在 `android` 平台上注册了 `writeObserver`,它还有 `ApplyObserver` 我们后面再说。
 
@@ -176,9 +194,25 @@ fun main() {
 ## 多线程
 在给定线程的快照中，在应用该快照之前，不会看到其他线程对状态值所做的更改。快照与其他快照“隔离”。在应用快照并自动推进全局快照之前，对快照内的状态所做的任何更改对其他线程都将不可见。
 看这个类名大家就懂了 `SnapshotThreadLocal`:
+```kotlin
+internal actual class SnapshotThreadLocal<T> {
+    private val map = AtomicReference<ThreadMap>(emptyThreadMap)
+    private val writeMutex = Any()
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83387c8c03f5409dabd3b110cb925fd3~tplv-k3u1fbpfcp-zoom-1.image)
+    @Suppress("UNCHECKED_CAST")
+    actual fun get(): T? = map.get().get(Thread.currentThread().id) as T?
 
+    actual fun set(value: T?) {
+        val key = Thread.currentThread().id
+        synchronized(writeMutex) {
+            val current = map.get()
+            if (current.trySet(key, value)) return
+            map.set(current.newWith(key, value))
+        }
+    }
+}
+
+```
 
 ## 冲突
 如果我们"拍摄"了多个快照并且均应用修改会怎样呢？
@@ -259,27 +293,65 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
 - 隔离性：有状态代码可以对状态进行操作，而不必担心在不同线程上运行的代码会改变该状态。`Compose` 可以利用这一点来实现旧的 `View` 系统无法实现的效果，例如将重构放到多个后台线程上去执行。
 
 ## 解惑
-- **为什么 `state` 变化能触发重组呢？**
->Jetpack Compose在执行时注册了 `readObserverOf` 和`writeObserverOf`:
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3022c953f764413abf122f32dc4ce9f4~tplv-k3u1fbpfcp-zoom-1.image)
-
+- **为什么`state`变化能触发重组呢？**
+>Jetpack Compose在执行时注册了 `readObserverOf` 和`writeObserverOf` :
+```kotlin
+ private inline fun <T> composing(
+        composition: ControlledComposition,
+        modifiedValues: IdentityArraySet<Any>?,
+        block: () -> T
+    ): T {
+        val snapshot = Snapshot.takeMutableSnapshot(
+            readObserverOf(composition), writeObserverOf(composition, modifiedValues)
+        )
+        try {
+            return snapshot.enter(block)
+        } finally {
+            applyAndCheck(snapshot)
+        }
+    }
+```
 其中在读取状态的地方会执行：
-- `readObserverOf` 来记录哪些 `scope` 使用了此 `state`
+- `readObserverOf` 来记录哪些 `scope 使用了此 `state` :
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3363effe534a45318a93011fb32cfc68~tplv-k3u1fbpfcp-zoom-1.image)
+```kotlin
+ override fun recordReadOf(value: Any) {
+        if (!areChildrenComposing) {
+            composer.currentRecomposeScope?.let {
+                it.used = true
+                observations.add(value, it)
+                ...
+            }
+        }
+    }
+```
 
 - `writeObserverOf`
- 而写入时会找出对应使用此 `state` 的 `scope` 使其 `invalidate`
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bf5f7e19316642b5ab2642b40e2a55c8~tplv-k3u1fbpfcp-zoom-1.image)
+ 而写入时会找出对应使用此 `state` 的 `scope` 使其 `invalidate` :
+```kotlin
+ override fun recordWriteOf(value: Any) = synchronized(lock) {
+        invalidateScopeOfLocked(value)
 
-在下次帧信号到达时对于这些 `scope` 执行重组。
+        derivedStates.forEachScopeOf(value) {
+            invalidateScopeOfLocked(it)
+        }
+    }
+
+  private fun invalidateScopeOfLocked(value: Any) {
+          observations.forEachScopeOf(value) { scope ->
+            if (scope.invalidateForResult(value) == InvalidationResult.IMMINENT) {
+                observationsProcessed.add(value, scope)
+            }
+        }
+    }
+```
+在下次帧信号到达时对于这些`scope`执行重组。
 
 - **它是如何确定重组范围呢？**
+
+>能够被标记为 Invalid 的代码必须是非 inline 且无返回值的 @Composalbe function/lambda，必须遵循 重组范围最小化 原则。
 详细参见：[Compose 如何确定重组范围](https://compose.net.cn/principle/recomposition_scope/)
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/471e96af3e2b45e2ba742fcca6af91bf~tplv-k3u1fbpfcp-zoom-1.image)
-
-我们刚才看了 `readObserver`,就是在读取 `value` 的可重组的 `@composable` 函数。
 
 - **只要 `state` 变化就一定会重组吗？**  
 不一定，具体案例请看以下例子：
@@ -299,11 +371,8 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
         }
     }
 ``` 
-不会重组，因为 `delay` 导致状态的读取是在 `apply` 方法之外执行的:
-
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/200c1034eeb847ef8cd91c91ec5578e5~tplv-k3u1fbpfcp-zoom-1.image)
-
-因此也就不会注册 `readObserverOf`,自然也就不会与 `composeScope` 挂钩，也就不会触发重组，如果是在 `delay` 之前读取则会重组哦。
+不会重组，因为 `delay` 导致状态的读取是在 `snap.apply` 方法之外执行的,
+因此也就不会注册 `readObserverOf` ,自然也就不会与 `composeScope` 挂钩，也就不会触发重组，在这个例子里如果是在 `delay` 之前读取则会重组。
 
 ### 2. 例子②
 ```kotlin
@@ -319,7 +388,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
     }
 ```
 
-这个就比较简单了，在不同线程调用，想想`SnapshotThreadLocal`,互不干扰（直到 `apply` )，因此也不会触发重组。
+这个就比较简单了，在不同线程调用，想想 `SnapshotThreadLocal` ,互不干扰（直到 `apply` )，因此也不会触发重组。
 ### 3. 例子③
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -333,14 +402,40 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ```
 这个也没触发重组，可能大家会疑惑，这个没异步，断点也有 `readObserver` 和 `writeObserver` 为啥不会触发重组呢？  不是说状态变更会将使用它的 `scope` 记为 `invalid` 吗？
 
-然而实际运行中，`InvalidationResult` 为`IGNORE`
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b6117049e5cf49348060cdacd4b7dfc4~tplv-k3u1fbpfcp-zoom-1.image)
+然而实际运行中，`InvalidationResult`为`IGNORE`
+```kotlin
+ fun invalidate(scope: RecomposeScopeImpl, instance: Any?): InvalidationResult {
+        ...
+
+        if (anchor == null || !slotTable.ownsAnchor(anchor) || !anchor.valid)
+            // The scope has not yet entered the composition
+            return InvalidationResult.IGNORED 
+
+        ...
+    }
+```
 
 首先我们确实记录下了使用 `state` 的 `scope`,不然也不会在修改时触发 `invalidate` 行为。但此时 `slotTable` 里并还没有可重组的区域锚点信息，只有在组合完成之后才能拿到每个区域的锚点` anchors`。
-简单描述就是 `Compose` 使用 `SlotTable` 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。
+简单描述就是 `Compose` 使用 `SlotTable` 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。  
+  
+> 有关 `SlotTable` 的更多信息请参阅：[深入详解JetpackCompose|实现原理](https://juejin.cn/post/6889797083667267598)
 
+其次就是由于 `state` 的创建是在 `enter` 代码块中，此时 `state.snapshotId`==`Snapshot.id` ,并不会记录 `state` 的变化。毕竟快照的 `diff` 是作用在两个快照之间。
+```kotlin
+internal fun <T : StateRecord> T.overwritableRecord(
+    state: StateObject,
+    snapshot: Snapshot,
+    candidate: T
+): T {
+    ...
 
-有关 `SlotTable` 的更多信息请参阅：[深入详解JetpackCompose|实现原理](https://juejin.cn/post/6889797083667267598)
+    val id = snapshot.id
+    //此时直接返回，并没有记录state变化
+    if (candidate.snapshotId == id) return candidate
+
+     ...
+}
+```
 
 但是如果你把 `state` 的创建放到 `setContent` 之外呢？
 
@@ -359,22 +454,79 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 **答案是会重组**  
 
-因为这个状态是在拍摄之前创建的，此时 `state.snapshotId`!=`Snapshot.id`,此期间对 `state` 的修改虽然不会立即标记为 `invalid`,但是会计入 `modified`, `apply` 之后，由全局快照进行通知:
+因为这个状态是在拍摄之前创建的，此时 `state.snapshotId`!=`Snapshot.id`,此期间对 `state` 的修改虽然不会立即标记为 `invalid` ,但是会计入  `modified` , `apply` 之后，由全局快照进行通知:
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a5b1c55012fa419992cff8849c0f283d~tplv-k3u1fbpfcp-zoom-1.image)
+```kotlin
+internal fun <T : StateRecord> T.overwritableRecord(
+    state: StateObject,
+    snapshot: Snapshot,
+    candidate: T
+): T {
+    ...
+
+    val id = snapshot.id
+
+    if (candidate.snapshotId == id) return candidate
+
+    val newData = newOverwritableRecord(state, snapshot)
+    newData.snapshotId = id
+
+   //记录变化
+    snapshot.recordModified(state)
+
+    return newData
+}
+```
 
 会在 `apply` 时通知到观察者 `ApplyObserver`（刚才还提到 writerObserver ），记录下 `changed`:
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8b9382ce65dd406bbd0cbf9b5dba32ea~tplv-k3u1fbpfcp-zoom-1.image)
+```kotlin
+val unregisterApplyObserver = Snapshot.registerApplyObserver { changed, _ ->
+                synchronized(stateLock) {
+                    if (_state.value >= State.Idle) {
+                        // here
+                        snapshotInvalidations += changed
+                        deriveStateLocked()
+                    } else null
+                }?.resume(Unit)
+            }
+```
 
-`composation` 则会找出观察了对应变化状态的 `scope` 进行重组。  
+`composation` 则会找出观察了对应变化状态的 `scope` 标记为 `invalid` 等待重组：  
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5fc67b68700b44279fa48f001041a1ac~tplv-k3u1fbpfcp-zoom-1.image)
+```kotlin
+ private fun addPendingInvalidationsLocked(values: Set<Any>) {
+        var invalidated: HashSet<RecomposeScopeImpl>? = null
 
+        fun invalidate(value: Any) {
+            observations.forEachScopeOf(value) { scope ->
+                if (
+                    !observationsProcessed.remove(value, scope) &&
+                    scope.invalidateForResult(value) != InvalidationResult.IGNORED
+                ) {
+                    val set = invalidated
+                        ?: HashSet<RecomposeScopeImpl>().also {
+                            invalidated = it
+                        }
+                    set.add(scope)
+                }
+            }
+        }
 
+        for (value in values) {
+            if (value is RecomposeScopeImpl) {
+                value.invalidateForResult(null)
+            } else {
+                invalidate(value)
+                derivedStates.forEachScopeOf(value) {
+                    invalidate(it)
+                }
+            }
+        }
+        invalidated?.let {
+            observations.removeValueIf { scope -> scope in it }
+        }
+    }
+```
 
-
-> 以上就是快照系统的使用和 `Jetpack Compose` 重组的机制，有任何不正确的地方欢迎指正。
-
-
-
+> 以上就是快照系统的使用和` Jetpack Compose` 重组的机制，有任何不正确的地方欢迎指正。
