@@ -1354,26 +1354,21 @@
 <span class="p">)</span>
 </code></pre></div>
 <div class="highlight"><pre><span></span><code><span class="c1">// 滑条未经过部分的默认 alpha 值</span>
-
 <span class="kd">const</span> <span class="kd">val</span> <span class="nv">InactiveTrackAlpha</span> <span class="o">=</span> <span class="m">0.24f</span>
 
 <span class="c1">// 当滑条被禁用的状态下已经过部分的默认 alpha 值</span>
-
 <span class="kd">const</span> <span class="kd">val</span> <span class="nv">DisabledInactiveTrackAlpha</span> <span class="o">=</span> <span class="m">0.12f</span>
 
 <span class="c1">// 当滑条被禁用的状态下未经过部分的默认 alpha 值</span>
-
 <span class="kd">const</span> <span class="kd">val</span> <span class="nv">DisabledActiveTrackAlpha</span> <span class="o">=</span> <span class="m">0.32f</span>
 
 <span class="c1">// 在滑条上方显示的刻度的默认的 alpha 值</span>
-
 <span class="kd">const</span> <span class="kd">val</span> <span class="nv">TickAlpha</span> <span class="o">=</span> <span class="m">0.54f</span>
 
 <span class="c1">// 当刻度线被禁用时，默认的 alpha 值</span>
-
 <span class="kd">const</span> <span class="kd">val</span> <span class="nv">DisabledTickAlpha</span> <span class="o">=</span> <span class="m">0.12f</span>
 </code></pre></div>
-<p>从源码中，我们可以知道，设置滑条颜色的是 <code>activeTrackColor</code>, 而滑条中未经过的地方是 <code>inactiveTrackColor</code>，它将 <code>activeTrackColor</code> 复制，并且设置了 <code>0.24f</code> 的透明度</p>
+<p>从源码中，我们可以知道，设置滑条经过区域的颜色是 <code>activeTrackColor</code>, 而滑条中未经过的地方是 <code>inactiveTrackColor</code>，它将 <code>activeTrackColor</code> 复制，并且设置了 <code>0.24f</code> 的透明度</p>
 <p>所以一般来说，我们只需要设置 <code>activeTrackColor</code> 的值就可以改变滑条的总体颜色（经过和未经过的区域）</p>
                 
                   
@@ -1383,7 +1378,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 19, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>
