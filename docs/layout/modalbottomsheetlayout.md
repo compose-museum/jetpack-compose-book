@@ -1,4 +1,19 @@
-<img src = "../../assets/layout/modalbottomsheetlayout/carbon.png" width = "100%" height = "50%">
+```kotlin
+@Composable
+@ExperimentalMaterialApi
+fun ModalBottomSheetLayout(
+    sheetContent: @Composable ColumnScope.() -> Unit,
+    modifier: Modifier = Modifier,
+    sheetState: ModalBottomSheetState =
+        rememberModalBottomSheetState(ModalBottomSheetValue.Hidden),
+    sheetShape: Shape = MaterialTheme.shapes.large,
+    sheetElevation: Dp = ModalBottomSheetDefaults.Elevation,
+    sheetBackgroundColor: Color = MaterialTheme.colors.surface,
+    sheetContentColor: Color = contentColorFor(sheetBackgroundColor),
+    scrimColor: Color = ModalBottomSheetDefaults.scrimColor,
+    content: @Composable () -> Unit
+)
+```
 
 ## 1. ModalBottomSheetLayout 概述
 

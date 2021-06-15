@@ -1,4 +1,15 @@
-<img src = "../../assets/elements/image/carbon.png" width = "80%" height = "50%">
+```kotlin
+@Composable
+fun Image(
+    painter: Painter,
+    contentDescription: String?,
+    modifier: Modifier = Modifier,
+    alignment: Alignment = Alignment.Center,
+    contentScale: ContentScale = ContentScale.Fit,
+    alpha: Float = DefaultAlpha,
+    colorFilter: ColorFilter? = null
+)
+```
 
 !!! 注意
     目前在 `Compose` 中 `Image` 有三种，详情可先在[底部](http://localhost:8000/elements/image/#4)找到
