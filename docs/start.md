@@ -1,8 +1,3 @@
-
-# 在开始之前，由于夹藏私货，不妨先来听一首作者推荐的一首歌吧！
-
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="100%" height=86 src="//music.163.com/outchain/player?type=2&id=1357774614&auto=0&height=66"></iframe>
-
 在开始用 Jetpack Compose 来编写软件时，我们需要
 
 ### 1. 一台可以 **联网** 的电脑
