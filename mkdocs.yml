@@ -68,6 +68,7 @@ nav:
       - '透过Snapshot看重组': principle/snapshot.md
     - '架构':
       - 'Compose架构如何选？MVP,MVVM,MVI': architecture/architecture_for_compose.md
+      - '在 Compose 中使用 Jetpack 组件库': architecture/use_jetpack_in_compose.md
     - '代码实验室': codelabs.md
     - '资源': resources.md
     - '关于贡献': contributing.md
