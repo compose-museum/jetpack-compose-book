@@ -41,6 +41,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.compose.net.cn/architecture/use_jetpack_in_compose/</loc>
+         <lastmod>2021-06-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.compose.net.cn/code/design/overview/stickyHeader/</loc>
          <lastmod>2021-06-15</lastmod>
          <changefreq>daily</changefreq>
