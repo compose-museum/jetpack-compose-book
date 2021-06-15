@@ -52,6 +52,7 @@ class Dog {
 
 ## 可变快照
 我们尝试在 `enter` 块中更改狗狗的名字：
+
 ```Kotlin
 fun main() {
   val dog = Dog()
@@ -73,8 +74,8 @@ Spot
 Spot
 
 java.lang.IllegalStateException: Cannot modify a state object in a read-only snapshot
+
 ```
---- 
 
 会发现当我们尝试修改值时报错了，因为 `takeSnapshot()` 是只读的,因此在 `enter` 内部我们可以读但不能写，如果想要创建一个可变快照应使用 `takeMutableSnapshot()` 方法。
 
@@ -97,7 +98,7 @@ Spot
 Fido
 Spot 
 ```  
---- 
+
 可以看到程序没有崩溃了，但是在 `enter` 里的操作并没有在其范围之外生效！这是一个很重要的隔离机制，如果我们想要应用 `enter` 内部的变更需要调用 `apply()` 方法：  
 ```Kotlin
  fun main() {
@@ -283,7 +284,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
 - **只要 `state` 变化就一定会重组吗？**  
 不一定，具体案例请看以下例子：
 
-### 例子①
+### 1. 例子①
 ```kotlin
     val darkMode = mutableStateOf("hello")
 
@@ -304,7 +305,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
 
 因此也就不会注册 `readObserverOf`,自然也就不会与 `composeScope` 挂钩，也就不会触发重组，如果是在 `delay` 之前读取则会重组哦。
 
-### 例子②
+### 2. 例子②
 ```kotlin
    val darkMode = mutableStateOf("hello")
 
@@ -319,7 +320,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
 ```
 
 这个就比较简单了，在不同线程调用，想想`SnapshotThreadLocal`,互不干扰（直到 `apply` )，因此也不会触发重组。
-### 例子③
+### 3. 例子③
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -343,7 +344,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 但是如果你把 `state` 的创建放到 `setContent` 之外呢？
 
-### 例子④
+### 4. 例子④
 ```kotlin
   val darkMode = mutableStateOf("hello")
 
@@ -355,6 +356,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
         }
     }
 ```
+
 **答案是会重组**  
 
 因为这个状态是在拍摄之前创建的，此时 `state.snapshotId`!=`Snapshot.id`,此期间对 `state` 的修改虽然不会立即标记为 `invalid`,但是会计入 `modified`, `apply` 之后，由全局快照进行通知:
