@@ -528,5 +528,40 @@ val unregisterApplyObserver = Snapshot.registerApplyObserver { changed, _ ->
         }
     }
 ```
+### 5. 例子⑤
+```kotlin
+var onlyDisplay = mutableStateOf("onlyDisplay")
 
+class MainActivity : ComponentActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            Text(
+                text = onlyDisplay.value,
+                fontSize = 50.sp,
+            )
+            onlyDisplay.value = "Display"
+        }
+    }
+}
+```
+如果把`state`声明放到`kt`文件最外层，是否会重  
+组？
+
+答案是不会，因为在`kotlin`中如果把变量不放到类里，直接放到文件顶层。编译之后其实会生成一个文件，而这个属性则变成`static`的。
+```java
+public final class MainActivityKt {
+       static MutableState<String> onlyDisplay = SnapshotStateKt.mutableStateOf$default("onlyDisplay", null, 2, null);
+}
+```
+
+因此这个例子就涉及了类的初始化问题：
+> 只有主动请求一个类,这个类才会初始化,仅包含静态变量,函数,等静态的东西.  
+---
+也就是说在这个例子里只有在调用 `onlyDisplay`时，才执行初始化，所以其`state.snapshotId==snapshot.Id` ,此时首次组合尚未执行完毕，本次的`invalidateResult==IGNORE`，也不会记为`modified`，就和例子③ 一样的问题了。
+  
+
+
+  ---
 > 以上就是快照系统的使用和` Jetpack Compose` 重组的机制，有任何不正确的地方欢迎指正。
