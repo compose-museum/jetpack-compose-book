@@ -1,5 +1,15 @@
-
-<img src = "../../assets/elements/card/carbon.png" width = "80%" height = "50%">
+```kotlin
+@Composable
+fun Card(
+    modifier: Modifier = Modifier,
+    shape: Shape = MaterialTheme.shapes.medium,
+    backgroundColor: Color = MaterialTheme.colors.surface,
+    contentColor: Color = contentColorFor(backgroundColor),
+    border: BorderStroke? = null,
+    elevation: Dp = 1.dp,
+    content: @Composable () -> Unit
+)
+```
 
 `Card` 是 Compose 中一个布局组件，我们用它可以来创造出一些类似于卡片界面
 

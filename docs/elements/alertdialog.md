@@ -1,4 +1,17 @@
-<img src = "../../assets/elements/alertdialog/carbon.png" width = "50%" height = "50%">
+``` kotlin
+@Composable
+fun AlertDialog(
+    onDismissRequest: () -> Unit,
+    buttons: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    title: (@Composable () -> Unit)? = null,
+    text: @Composable (() -> Unit)? = null,
+    shape: Shape = MaterialTheme.shapes.medium,
+    backgroundColor: Color = MaterialTheme.colors.surface,
+    contentColor: Color = contentColorFor(backgroundColor),
+    properties: DialogProperties = DialogProperties()
+)
+```
 
 [Material Design AlertDialog](https://material.io/components/dialogs#alert-dialog)
 

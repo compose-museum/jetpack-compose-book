@@ -371,6 +371,10 @@ Text("2020 年 9 月 18 日",
 
 如果你想深入了解其中的一些步骤，请探索下面的资源。
 
-|资源||
+|设计||
 |----|----|
-|[布局](../layout/overview/)||
+|[布局概述](../layout/overview/)||
+|[动画概述](../design/animation/overview/)||
+|[主题概述](../design/theme/overview/)||
+|[手势概述](../design/gesture/overview/)||
+|[列表概述](../design/lists/overview/)||

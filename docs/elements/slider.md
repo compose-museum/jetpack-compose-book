@@ -1,5 +1,18 @@
-
-<img src = "../../assets/elements/slider/carbon.png" width = "80%" height = "50%">
+```kotlin
+@Composable
+fun Slider(
+    value: Float,
+    onValueChange: (Float) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    valueRange: ClosedFloatingPointRange<Float> = 0f..1f,
+    /*@IntRange(from = 0)*/
+    steps: Int = 0,
+    onValueChangeFinished: (() -> Unit)? = null,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    colors: SliderColors = SliderDefaults.colors()
+)
+```
 
 `Slider` 允许用户从一定范围的数值中进行选择。
 
