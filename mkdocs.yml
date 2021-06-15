@@ -64,6 +64,7 @@ nav:
       - 'Modifier': parameters/modifier.md
     - '技术原理':
       - '了解Compose的重组作用域': principle/recomposition_scope.md
+      - '透过Snapshot看重组': principle/snapshot.md
     - '架构':
       - 'Compose架构如何选？MVP,MVVM,MVI': architecture/architecture_for_compose.md
     - '代码实验室': codelabs.md
