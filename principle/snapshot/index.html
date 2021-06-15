@@ -1026,30 +1026,6 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#fun-main-val-dog-dog-dognamevalue-spot-val-snapshot-snapshottakemutablesnapshot-printlndognamevalue-snapshotenter-dognamevalue-fido-printlndognamevalue-printlndognamevalue-output-spot-fido-spot" class="md-nav__link">
-    fun main() {
-  val dog = Dog()
-  dog.name.value = &quot;Spot&quot;
-
-  val snapshot = Snapshot.takeMutableSnapshot()
-  println(dog.name.value)
-  snapshot.enter {
-    dog.name.value = &quot;Fido&quot;
-    println(dog.name.value)
-  }
-  println(dog.name.value)
-}
-
-// Output:
-Spot
-Fido
-Spot 
-
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     观察读取和写入
   </a>
@@ -1093,29 +1069,29 @@ Spot
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    例子①
+  <a href="#1-1" class="md-nav__link">
+    1. 例子①
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    例子②
+  <a href="#2-2" class="md-nav__link">
+    2. 例子②
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    例子③
+  <a href="#3-3" class="md-nav__link">
+    3. 例子③
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    例子④
+  <a href="#4-4" class="md-nav__link">
+    4. 例子④
   </a>
   
 </li>
@@ -1512,30 +1488,6 @@ Spot
 </li>
         
           <li class="md-nav__item">
-  <a href="#fun-main-val-dog-dog-dognamevalue-spot-val-snapshot-snapshottakemutablesnapshot-printlndognamevalue-snapshotenter-dognamevalue-fido-printlndognamevalue-printlndognamevalue-output-spot-fido-spot" class="md-nav__link">
-    fun main() {
-  val dog = Dog()
-  dog.name.value = &quot;Spot&quot;
-
-  val snapshot = Snapshot.takeMutableSnapshot()
-  println(dog.name.value)
-  snapshot.enter {
-    dog.name.value = &quot;Fido&quot;
-    println(dog.name.value)
-  }
-  println(dog.name.value)
-}
-
-// Output:
-Spot
-Fido
-Spot 
-
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     观察读取和写入
   </a>
@@ -1579,29 +1531,29 @@ Spot
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    例子①
+  <a href="#1-1" class="md-nav__link">
+    1. 例子①
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    例子②
+  <a href="#2-2" class="md-nav__link">
+    2. 例子②
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3" class="md-nav__link">
-    例子③
+  <a href="#3-3" class="md-nav__link">
+    3. 例子③
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    例子④
+  <a href="#4-4" class="md-nav__link">
+    4. 例子④
   </a>
   
 </li>
@@ -1677,7 +1629,7 @@ Spot
 </ul>
 <p>因此我们看到仅在 <code>enter</code> 中是旧值。</p>
 <h2 id="_2">可变快照</h2>
-<p>我们尝试在 <code>enter</code> 块中更改狗狗的名字：
+<p>我们尝试在 <code>enter</code> 块中更改狗狗的名字：</p>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
   <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Spot&quot;</span>
@@ -1698,10 +1650,9 @@ Spot
 <span class="n">Spot</span>
 
 <span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">IllegalStateException</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">modify</span> <span class="n">a</span> <span class="n">state</span> <span class="kd">object</span> <span class="nc">in</span> <span class="n">a</span> <span class="n">read</span><span class="o">-</span><span class="n">only</span> <span class="n">snapshot</span>
-</code></pre></div></p>
-<hr />
+</code></pre></div>
 <p>会发现当我们尝试修改值时报错了，因为 <code>takeSnapshot()</code> 是只读的,因此在 <code>enter</code> 内部我们可以读但不能写，如果想要创建一个可变快照应使用 <code>takeMutableSnapshot()</code> 方法。</p>
-<h2 id="fun-main-val-dog-dog-dognamevalue-spot-val-snapshot-snapshottakemutablesnapshot-printlndognamevalue-snapshotenter-dognamevalue-fido-printlndognamevalue-printlndognamevalue-output-spot-fido-spot"><div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
   <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Spot&quot;</span>
 
@@ -1718,7 +1669,7 @@ Spot
 <span class="n">Spot</span>
 <span class="n">Fido</span>
 <span class="n">Spot</span> 
-</code></pre></div></h2>
+</code></pre></div>
 <p>可以看到程序没有崩溃了，但是在 <code>enter</code> 里的操作并没有在其范围之外生效！这是一个很重要的隔离机制，如果我们想要应用 <code>enter</code> 内部的变更需要调用 <code>apply()</code> 方法：<br />
 <div class="highlight"><pre><span></span><code> <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
   <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
@@ -1884,7 +1835,7 @@ Spot
 <li><strong>只要 <code>state</code> 变化就一定会重组吗？</strong><br />
 不一定，具体案例请看以下例子：</li>
 </ul>
-<h3 id="1">例子①</h3>
+<h3 id="1-1">1. 例子①</h3>
 <p><div class="highlight"><pre><span></span><code>    <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
 
     <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
@@ -1901,7 +1852,7 @@ Spot
 不会重组，因为 <code>delay</code> 导致状态的读取是在 <code>apply</code> 方法之外执行的:</p>
 <p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/200c1034eeb847ef8cd91c91ec5578e5~tplv-k3u1fbpfcp-zoom-1.image" /></p>
 <p>因此也就不会注册 <code>readObserverOf</code>,自然也就不会与 <code>composeScope</code> 挂钩，也就不会触发重组，如果是在 <code>delay</code> 之前读取则会重组哦。</p>
-<h3 id="2">例子②</h3>
+<h3 id="2-2">2. 例子②</h3>
 <div class="highlight"><pre><span></span><code>   <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
 
     <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
@@ -1914,7 +1865,7 @@ Spot
     <span class="p">}</span>
 </code></pre></div>
 <p>这个就比较简单了，在不同线程调用，想想<code>SnapshotThreadLocal</code>,互不干扰（直到 <code>apply</code> )，因此也不会触发重组。</p>
-<h3 id="3">例子③</h3>
+<h3 id="3-3">3. 例子③</h3>
 <p><div class="highlight"><pre><span></span><code><span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
         <span class="n">setContent</span> <span class="p">{</span>
@@ -1931,8 +1882,8 @@ Spot
 简单描述就是 <code>Compose</code> 使用 <code>SlotTable</code> 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。</p>
 <p>有关 <code>SlotTable</code> 的更多信息请参阅：<a href="https://juejin.cn/post/6889797083667267598">深入详解JetpackCompose|实现原理</a></p>
 <p>但是如果你把 <code>state</code> 的创建放到 <code>setContent</code> 之外呢？</p>
-<h3 id="4">例子④</h3>
-<p><div class="highlight"><pre><span></span><code>  <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+<h3 id="4-4">4. 例子④</h3>
+<div class="highlight"><pre><span></span><code>  <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
 
     <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
@@ -1942,7 +1893,7 @@ Spot
         <span class="p">}</span>
     <span class="p">}</span>
 </code></pre></div>
-<strong>答案是会重组</strong>  </p>
+<p><strong>答案是会重组</strong>  </p>
 <p>因为这个状态是在拍摄之前创建的，此时 <code>state.snapshotId</code>!=<code>Snapshot.id</code>,此期间对 <code>state</code> 的修改虽然不会立即标记为 <code>invalid</code>,但是会计入 <code>modified</code>, <code>apply</code> 之后，由全局快照进行通知:</p>
 <p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a5b1c55012fa419992cff8849c0f283d~tplv-k3u1fbpfcp-zoom-1.image" /></p>
 <p>会在 <code>apply</code> 时通知到观察者 <code>ApplyObserver</code>（刚才还提到 writerObserver ），记录下 <code>changed</code>:</p>
