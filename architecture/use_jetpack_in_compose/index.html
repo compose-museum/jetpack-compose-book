@@ -64,6 +64,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1-app-architecture" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -980,6 +985,18 @@
   
 
           
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/gap_buffer/" class="md-nav__link">
+        Compose运行原理与GapBuffer
+      </a>
+    </li>
+  
+
+          
         </ul>
       </nav>
     </li>
@@ -1031,6 +1048,8 @@
       
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
+      
+        
       
       
       <a href="./" class="md-nav__link md-nav__link--active">
@@ -1330,6 +1349,23 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1340,9 +1376,413 @@
                   </a>
                 
                 
-                  <h1>在 Compose 中使用 Jetpack 组件库</h1>
-                
-                
+                <p>Jeptack Compose 主要用来提高 UI 层的开发效率，但一个完整项目还少不了逻辑层、数据层的配合。幸好 Jetpack 中不少组件库已经与 Compose 进行了适配，开发者可以使用这些组件库完成UI以外的功能。</p>
+<p><strong>Bloom</strong> 是一个 Compose 最佳实践的 Demo App，主要用来展示各种植物列表以及详细信息。</p>
+<p><img alt="Bloom" src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/580baeee44b847bd96f3c7c134aa2c6d~tplv-k3u1fbpfcp-watermark.image" /></p>
+<p>接下来以 Bloom 为例，看一下如何在 Compose 中使用 Jetpack 进行开发</p>
+<p><br/></p>
+<h1 id="1-app-architecture">1. 整体架构：App Architecture</h1>
+<p>在架构上，Bloom 完全基于 Jetpack + Compose 搭建</p>
+<p><img alt="Architecture" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/000f0b2c6171422898e5cd0252b91733~tplv-k3u1fbpfcp-watermark.image" /></p>
+<p>从下往上依次用到的 Jetpack 组件如下：</p>
+<ul>
+<li><strong>Room</strong>： 作为数据源提供数据持久化能力</li>
+<li><strong>Paging</strong>： 分页加载能力。分页请求 Room 的数据并进行显示</li>
+<li><strong>Corouinte Flow</strong>：响应式能力。UI层通过 Flow 订阅 Paging 的数据变化</li>
+<li><strong>ViewModel</strong>：数据管理能力。ViewModel 管理 Flow 类型的数据供 UI 层订阅</li>
+<li><strong>Compose</strong>：UI 层完全使用 Compose 实现</li>
+<li><strong>Hilt</strong>：依赖注入能力。ViewModel 等依赖 Hilt 来构建</li>
+</ul>
+<p>Jetpack MVVM 指导我们将 UI层、逻辑层、数据层进行了很好地解耦。上图除了 UI 层的 Compose 以外，与一个常规的 Jetpack MVVM 项目并无不同。</p>
+<p>接下来通过代码，看看 Compose 如何配合各 Jetpack 完成 <code>HomeScreen</code> 和 <code>PlantDetailScreen</code> 的实现。</p>
+<p><br/></p>
+<h1 id="2-homescreen">2. 列表页：HomeScreen</h1>
+<p>HomeScreen 在布局上主要由三部分组成，最上面的搜索框，中间的轮播图，以及下边的的列表</p>
+<p><img alt="HomeScreen" src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/60a0166056194bd092ab4fb1147492fe~tplv-k3u1fbpfcp-watermark.image" /></p>
+<h2 id="viewmodel-compose">ViewModel + Compose</h2>
+<p>我们希望 Composable 只负责UI，状态管理放到 ViewModel 中。 HomeScreen 作为入口的 Composable 一般在 Activity 或者 Fragment 中调用。 </p>
+<blockquote>
+<p><strong>viewmodel-compose</strong> 可以方便地从当前 ViewModelStore 中获取 ViewModel：<br/> <code>"androidx.lifecycle:lifecycle-viewmodel-compose:$version"</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">homeViewModel</span> <span class="o">=</span> <span class="n">viewModel</span><span class="o">&lt;</span><span class="n">HomeViewModel</span><span class="o">&gt;</span><span class="p">()</span> 
+
+    <span class="c1">//...</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="stateless-composable">Stateless Composable</h2>
+<p>持有 ViewModel 的 Composalbe 相当于一个 <strong>“Statful Composalbe”</strong> ，这样的 ViewModel 很难复用和单测，而且携带 ViewModel 的 Composable 也无法在 IDE 中预览。 因此，我们更欢迎 Composable 是一个 <strong>"Stateless Composable"</strong>。 </p>
+<p>创建 StatelessComposable 的常见做法是将 ViewModel 上提，ViewModel 的创建委托给父级，仅作为参数传入，这可以使得 Composalbe 专注 UI</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">HomeScreen</span><span class="p">(</span>
+    <span class="n">homeViewModel</span> <span class="o">=</span> <span class="n">viewModel</span><span class="o">&lt;</span><span class="n">HomeViewModel</span><span class="o">&gt;</span><span class="p">()</span> 
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1">//...</span>
+
+<span class="p">}</span>
+</code></pre></div>
+当然，也可以直接将 State 作为参数传入，可以进一步摆脱对 ViewModel 具体类型的依赖。</p>
+<p>接下来看一下 <code>HomeViewModel</code> 的实现，以及其内部 State 的定义</p>
+<p><br/></p>
+<h1 id="3-homeviewmodel">3. HomeViewModel</h1>
+<p><code>HomeViewModel</code> 是一个标准的 Jetpack ViewModel 子类, 可以在ConfigurationChanged时保持数据。</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@HiltViewModel</span>
+<span class="kd">class</span> <span class="nc">HomeViewModel</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">plantsRepository</span><span class="p">:</span> <span class="n">PlantsRepository</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_uiState</span> <span class="o">=</span> <span class="n">MutableStateFlow</span><span class="p">(</span><span class="n">HomeUiState</span><span class="p">(</span><span class="n">loading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">))</span>
+    <span class="kd">val</span> <span class="nv">uiState</span><span class="p">:</span> <span class="n">StateFlow</span><span class="o">&lt;</span><span class="n">HomeUiState</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">_uiState</span>
+
+    <span class="kd">val</span> <span class="nv">pagedPlants</span><span class="p">:</span> <span class="n">Flow</span><span class="o">&lt;</span><span class="n">PagingData</span><span class="o">&lt;</span><span class="n">Plant</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="n">plantsRepository</span><span class="p">.</span><span class="na">plants</span>
+
+    <span class="k">init</span> <span class="p">{</span>
+
+        <span class="n">viewModelScope</span><span class="p">.</span><span class="na">launch</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">collections</span> <span class="o">=</span> <span class="n">plantsRepository</span><span class="p">.</span><span class="na">getCollections</span><span class="p">()</span>
+            <span class="n">_uiState</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">HomeUiState</span><span class="p">(</span><span class="n">plantCollections</span> <span class="o">=</span> <span class="n">collections</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+添加了 <code>@AndroidEntryPoint</code> 的 Activity 或者 Fragment ，可以使用 Hilt 为 Composalbe 创建 ViewModel。 Hilt 可以帮助 ViewModel 注入 <code>@Inject</code> 声明的依赖。例如本例中使用的 <code>PlantsRepository</code></p>
+<p><code>pagedPlants</code> 通过 Paging 向 Composable 提供分页加载的列表数据，数据源来自 Room 。</p>
+<p>分页列表以外的数据在 <code>HomeUiState</code> 中集中管理，包括轮播图中所需的植物集合以及页面加载状态等信息：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">HomeUiState</span><span class="p">(</span>
+    <span class="kd">val</span> <span class="nv">plantCollections</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Collection</span><span class="o">&lt;</span><span class="n">Plant</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="n">emptyList</span><span class="p">(),</span>
+    <span class="kd">val</span> <span class="nv">loading</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">refreshError</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">carouselState</span><span class="p">:</span> <span class="n">CollectionsCarouselState</span>
+        <span class="o">=</span> <span class="n">CollectionsCarouselState</span><span class="p">(</span><span class="n">emptyList</span><span class="p">())</span> <span class="c1">//轮播图状态，后文介绍</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>HomeScreen 中通过 <code>collectAsState()</code> 将 Flow 转换为 Composalbe 可订阅的 State：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">HomeScreen</span><span class="p">(</span>
+    <span class="n">homeViewModel</span> <span class="o">=</span> <span class="n">viewModel</span><span class="o">&lt;</span><span class="n">HomeViewModel</span><span class="o">&gt;</span><span class="p">()</span> 
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">uiState</span> <span class="k">by</span> <span class="n">homeViewModel</span><span class="p">.</span><span class="na">uiState</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">uiState</span><span class="p">.</span><span class="na">loading</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//...</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        <span class="c1">//...</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="livedata-compose">LiveData + Compose</h2>
+<p>此处的 Flow 也可以替换成 <code>LiveData</code></p>
+<blockquote>
+<p><strong>livedata-compose</strong> 将 LiveData 转换为 Composable 可订阅的 state :<br/> <code>"androidx.compose.runtime:runtime-livedata:$compose_version"</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">HomeScreen</span><span class="p">(</span>
+    <span class="n">homeViewModel</span> <span class="o">=</span> <span class="n">viewModel</span><span class="o">&lt;</span><span class="n">HomeViewModel</span><span class="o">&gt;</span><span class="p">()</span> 
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">uiState</span> <span class="k">by</span> <span class="n">homeViewModel</span><span class="p">.</span><span class="na">uiState</span><span class="p">.</span><span class="na">observeAsState</span><span class="p">()</span> <span class="c1">//uiState is a LiveData</span>
+
+    <span class="c1">//...</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>此外，还有 <strong>rxjava-compose</strong> 可供使用，功能类似。</p>
+<p><br/></p>
+<h1 id="4-plantlist">4. 分页列表：PlantList</h1>
+<p><code>PlantList</code> 分页加载并显示植物列表。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">PlantList</span><span class="p">(</span><span class="n">plants</span><span class="p">:</span> <span class="n">Flow</span><span class="o">&lt;</span><span class="n">PagingData</span><span class="o">&lt;</span><span class="n">Plant</span><span class="o">&gt;&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">pagedPlantItems</span> <span class="o">=</span> <span class="n">plants</span><span class="p">.</span><span class="na">collectAsLazyPagingItems</span><span class="p">()</span>
+
+    <span class="n">LazyColumn</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">pagedPlantItems</span><span class="p">.</span><span class="na">loadState</span><span class="p">.</span><span class="na">refresh</span> <span class="o">==</span> <span class="n">LoadState</span><span class="p">.</span><span class="na">Loading</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">item</span> <span class="p">{</span> <span class="n">LoadingIndicator</span><span class="p">()</span> <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">itemsIndexed</span><span class="p">(</span><span class="n">pagedPlantItems</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span><span class="p">,</span> <span class="n">plant</span> <span class="o">-&gt;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">plant</span> <span class="o">!=</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">PlantItem</span><span class="p">(</span><span class="n">plant</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">PlantPlaceholder</span><span class="p">()</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">pagedPlantItems</span><span class="p">.</span><span class="na">loadState</span><span class="p">.</span><span class="na">append</span> <span class="o">==</span> <span class="n">LoadState</span><span class="p">.</span><span class="na">Loading</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">item</span> <span class="p">{</span> <span class="n">LoadingIndicator</span><span class="p">()</span> <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="paging-compose">Paging + Compose</h2>
+<blockquote>
+<p><strong>paging-compose</strong> 提供了 pagging 的分页数据 LazyPagingItems：<br/> <code>"androidx.paging:paging-compose:$version"</code></p>
+</blockquote>
+<p>注意此处的 <code>itemsIndexed</code> 来自paging-compoee，如果用错了，可能无法loadMore</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span> <span class="p">:</span> <span class="n">Any</span><span class="o">&gt;</span> <span class="n">LazyListScope</span><span class="p">.</span><span class="nf">itemsIndexed</span><span class="p">(</span>
+    <span class="n">lazyPagingItems</span><span class="p">:</span> <span class="n">LazyPagingItems</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">itemContent</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="n">LazyItemScope</span><span class="p">.(</span><span class="n">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">T?)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">items</span><span class="p">(</span><span class="n">lazyPagingItems</span><span class="p">.</span><span class="na">itemCount</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span> <span class="o">-&gt;</span>
+        <span class="n">itemContent</span><span class="p">(</span><span class="n">index</span><span class="p">,</span> <span class="n">lazyPagingItems</span><span class="p">.</span><span class="na">getAsState</span><span class="p">(</span><span class="n">index</span><span class="p">).</span><span class="na">value</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<code>itemsIndexed</code> 接受 <code>LazyPagingItems</code> 参数， <code>LazyPagingItems#getAsState</code> 中从 <code>PagingDataDiffer</code> 中获取数据，当 index 处于列表尾部时，触发 loadMore 请求，实现分页加载。</p>
+<p><br/></p>
+<h1 id="5-collectionscarousel">5. 轮播图：CollectionsCarousel</h1>
+<p><code>CollectionsCarousel</code> 是显示轮播图的 Composable。 </p>
+<p>在下面页面中都有对轮播图的使用，因此我们要求 <code>CollectionsCarousel</code> 具有可复用性。</p>
+<p><img alt="CollectionsCarousel" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4520abe0e9c34b569696c3e61b197295~tplv-k3u1fbpfcp-watermark.image" /></p>
+<h2 id="reusable-composable">Reusable Composable</h2>
+<p>对于有复用性要求的 Composable，我们需要特别注意：<strong>可复用组件不应该通过 ViewModel 管理 State</strong>。 因为 ViewModel 在 Scope 内是共享的，但是在同一 Scope 内复用的 Composable 需要独享其 State 实例。</p>
+<p>因此 CollectionsCarousel 不能使用 ViewModel 管理 State，必须通过参数传入状态以及事件回调。</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">CollectionsCarousel</span><span class="p">(</span>
+    <span class="c1">// State in,</span>
+    <span class="c1">// Events out</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+参数传递的方式使得 CollectionsCarousel 将自己的状态委托给了父级 Composable。</p>
+<h2 id="collectionscarouselstate">CollectionsCarouselState</h2>
+<p>既然委托到了父级, 为了方便父级的使用，可以对 State 进行一定封装，被封装后的 State 与 Composable 配套使用。这在 Compose 中也是常见的做法，比如 <code>LazyColumn</code> 的 <code>LazyListState</code> ，或者 <code>Scallfold</code> 的 <code>ScaffoldState</code> 等</p>
+<p>对于 CollectionsCarousel 我们有这样一个需求：点击某一 Item 时，轮播图的布局会展开</p>
+<p><img alt="" src="https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/20f9f112f9e94df1b9a7e94ffbbde960~tplv-k3u1fbpfcp-watermark.image" /></p>
+<p>由于不能使用 ViewModel， 所以使用常规 Class 定义 <code>CollectionsCarouselState</code> 并实现 <code>onCollectionClick</code> 等相关逻辑 </p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">PlantCollection</span><span class="p">(</span>
+    <span class="kd">val</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="nd">@IdRes</span> <span class="kd">val</span> <span class="nv">asset</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">plants</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Plant</span><span class="o">&gt;</span>
+<span class="p">)</span>
+
+<span class="kd">class</span> <span class="nc">CollectionsCarouselState</span><span class="p">(</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">collections</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">PlantCollection</span><span class="o">&gt;</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">var</span> <span class="nv">selectedIndex</span><span class="p">:</span> <span class="kt">Int?</span> <span class="k">by</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+
+    <span class="kd">val</span> <span class="nv">isExpended</span><span class="p">:</span> <span class="kt">Boolean</span>
+        <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">selectedIndex</span> <span class="o">!=</span> <span class="kc">null</span>
+
+    <span class="n">privat</span> <span class="kd">var</span> <span class="nv">plants</span> <span class="k">by</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">emptyList</span><span class="o">&lt;</span><span class="n">Plant</span><span class="o">&gt;</span><span class="p">())</span>
+
+    <span class="kd">val</span> <span class="nv">selectPlant</span> <span class="k">by</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+        <span class="n">private</span> <span class="k">set</span>
+
+    <span class="c1">//...</span>
+
+    <span class="kd">fun</span> <span class="nf">onCollectionClick</span><span class="p">(</span><span class="n">index</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">&gt;=</span> <span class="n">collections</span><span class="p">.</span><span class="na">size</span> <span class="o">||</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="m">0</span><span class="p">)</span> <span class="k">return</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">index</span> <span class="o">==</span> <span class="n">selectedIndex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">selectedIndex</span> <span class="o">=</span> <span class="kc">null</span>
+        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+            <span class="n">plants</span> <span class="o">=</span> <span class="n">collections</span><span class="o">[</span><span class="n">index</span><span class="o">]</span><span class="p">.</span><span class="na">plants</span>
+            <span class="n">selectedIndex</span> <span class="o">=</span> <span class="n">index</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+然后将其定义为 <code>CollectionsCarousel</code> 的参数</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">CollectionsCarousel</span><span class="p">(</span>
+    <span class="n">carouselState</span><span class="p">:</span> <span class="n">CollectionsCarouselState</span><span class="p">,</span>
+    <span class="n">onPlantClick</span><span class="p">:</span> <span class="p">(</span><span class="n">Plant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>为了进一步方便父级调用，可以提供
+<code>rememberCollectionsCarouselState()</code>方法， 效果相当于
+<code>remember { CollectionsCarouselState() }</code></p>
+<p>最后，父Composalbe 访问 CollectionsCarouselState 时，可以将它放置父级的 ViewModel 中保存，以支持 ConfigurationChanged 。例如本例中会放到  <code>HomeUiState</code> 中管理。</p>
+<p><br/></p>
+<h1 id="6-plantdetailscreen-plantviewmodel">6. 详情页：PlantDetailScreen &amp; PlantViewModel</h1>
+<p><code>PlantDetailScreen</code> 中除了复用 <code>CollectionsCarousel</code> 以外，大部分都是常规布局，比较简单。</p>
+<p>重点说明一下 <code>PlantViewModel</code>， 通过 <code>id</code> 从 <code>PlantsRepository</code> 中获取详情信息。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">PlantViewModel</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="n">plantsRepository</span><span class="p">:</span> <span class="n">PlantsRepository</span><span class="p">,</span>
+    <span class="n">id</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">plantDetails</span><span class="p">:</span> <span class="n">Flow</span><span class="o">&lt;</span><span class="n">Plant</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">plantsRepository</span><span class="p">.</span><span class="na">getPlantDetails</span><span class="p">(</span><span class="n">id</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>此处的 id 该如何传入呢？</p>
+<p>一个做法是借助 <code>ViewModelProvider.Factory</code> 构造 ViewModel 并传入 id</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">PlantDetailScreen</span><span class="p">(</span><span class="n">id</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">plantViewModel</span> <span class="p">:</span> <span class="n">PlantViewModel</span> <span class="o">=</span> <span class="n">viewModel</span><span class="p">(</span><span class="n">id</span><span class="p">,</span> <span class="n">remember</span> <span class="p">{</span>
+        <span class="k">object</span> <span class="p">:</span> <span class="nc">ViewModelProvider</span><span class="p">.</span><span class="na">Factory</span> <span class="p">{</span>
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="o">&gt;</span> <span class="nf">create</span><span class="p">(</span><span class="n">modelClass</span><span class="p">:</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">):</span> <span class="n">T</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="n">PlantViewModel</span><span class="p">(</span><span class="n">PlantRepository</span><span class="p">,</span> <span class="n">id</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这种构造方式成本较高，而且按照前文介绍的，如果想保证 <code>PlantDetailScreen</code> 的可复用性和可测试性，最好将 ViewModel 的创建委托到父级。</p>
+<p>除了委托到父级创建，我们还可以配合 <code>Navigation</code> 和 <code>Hilt</code> 更合理的创建 <code>PlantViewModel</code>，这将在后文中介绍。</p>
+<p><br/></p>
+<h1 id="7-navigation">7. 页面跳转：Navigation</h1>
+<p>在 <code>HomeScreen</code> 列表中点击某 Plant 后跳转 <code>PlantDetailScreen</code>。</p>
+<p>实现多个页面之间跳转，其中一个常见思路是为 Screen 包装一个 Framgent，然后借助 <code>Navigation</code> 实现对 Fragment 的跳转</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@AndroidEntryPoint</span>
+<span class="kd">class</span> <span class="nc">HomeFragment</span> <span class="p">:</span> <span class="n">Fragment</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreateView</span><span class="p">(</span><span class="n">inflater</span><span class="p">:</span> <span class="n">LayoutInflater</span><span class="p">,</span> 
+        <span class="n">container</span><span class="err">：</span> <span class="n">ViewGroup?,</span>  <span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?</span>
+    <span class="p">)</span> <span class="o">=</span> <span class="n">ComposeView</span><span class="p">(</span><span class="n">requireContext</span><span class="p">()).</span><span class="na">apply</span> <span class="p">{</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">HomeScreen</span><span class="p">(...)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+Navigation 将回退栈中的节点抽象成一个 <code>Destination</code> , 所以这个 Destination 不一定非要用 Fragment 实现， 没有 Fragment 也可以实现 Composable 级别的页面跳转。</p>
+<h2 id="navigation-compose">Navigation + Compose</h2>
+<blockquote>
+<p><strong>navigation-compose</strong> 可以将 Composalbe 作为 Destination 在 Navigation 中使用 <br/> <code>"androidx.navigation:navigation-compose:$version"</code></p>
+</blockquote>
+<p>因此，我们摆脱 Framgent 实现页面跳转：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@AndroidEntryPoint</span>
+<span class="kd">class</span> <span class="nc">BloomAcivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?,</span> <span class="n">persistentState</span><span class="p">:</span> <span class="n">PersistableBundle?)</span> <span class="p">{</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+
+            <span class="kd">val</span> <span class="nv">navController</span> <span class="o">=</span> <span class="n">rememberNavController</span><span class="p">()</span>
+
+            <span class="n">Scaffold</span><span class="p">(</span>
+                <span class="n">bottomBar</span> <span class="o">=</span> <span class="p">{</span><span class="cm">/*...*/</span> <span class="p">}</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">NavHost</span><span class="p">(</span><span class="n">navController</span> <span class="o">=</span> <span class="n">navController</span><span class="p">,</span> <span class="n">startDestination</span> <span class="o">=</span> <span class="s">&quot;home&quot;</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">composable</span><span class="p">(</span><span class="n">route</span> <span class="o">=</span> <span class="s">&quot;home&quot;</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">HomeScreen</span><span class="p">(...)</span> <span class="p">{</span> <span class="n">plant</span> <span class="o">-&gt;</span>
+                            <span class="n">navController</span><span class="p">.</span><span class="na">navigate</span><span class="p">(</span><span class="s">&quot;plant/</span><span class="si">${</span><span class="n">plant</span><span class="p">.</span><span class="na">id</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+                        <span class="p">}</span>
+                    <span class="p">}</span>
+                    <span class="n">composable</span><span class="p">(</span>
+                        <span class="n">route</span> <span class="o">=</span> <span class="s">&quot;plant/{id}&quot;</span><span class="p">,</span>
+                        <span class="n">arguments</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="n">navArgument</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="n">type</span> <span class="o">=</span> <span class="n">NavType</span><span class="p">.</span><span class="na">IntType</span> <span class="p">})</span>
+                    <span class="p">)</span> <span class="p">{</span>
+                        <span class="n">PlantDetailScreen</span><span class="p">(...)</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Navigaion 的使用依靠两个东西： <code>NavController</code> 和 <code>NavHost</code>：</p>
+<ul>
+<li>
+<p><code>NavController</code> 保存了当前 Navigation 的 BackStack 信息，因此是一个携带状态的对象，需要像 <code>CollectionsCarouselState</code> 那样，跨越 <code>NavHost</code> 的 Scope 之外创建。 </p>
+</li>
+<li>
+<p><code>NavHost</code> 是 <code>NavGraph</code> 的容器， 将 <code>NavController</code> 作为参数传入。 NavGraph 中的Destinations（各Composable）将 NavController 作为 <strong>SSOT（Single Source Of Truth）</strong> 监听其变化。</p>
+</li>
+</ul>
+<h2 id="navgraph">NavGraph</h2>
+<p>不同于传统的 XML 方式， navigation-compose 则使用 Kotlin DSL 定义 NavGraph:</p>
+<p><div class="highlight"><pre><span></span><code><span class="n">comosable</span><span class="p">(</span><span class="n">route</span> <span class="o">=</span> <span class="err">“$</span><span class="n">id</span><span class="err">”</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">//...</span>
+<span class="p">}</span>
+</code></pre></div>
+<code>route</code> 设置 Destination 的索引 id。 HomeScreen 使用 <code>“home”</code> 作为唯一id; 而  PlantDetailScreen 使用 <code>“plant/{id}”</code> 作为id。 其中 <code>{id}</code>中的 id 来自前一页面跳转时携带的 URI 中的参数 key。 本例中就是 <code>plant.id</code>:
+<div class="highlight"><pre><span></span><code><span class="n">HomeScreen</span><span class="p">(...)</span> <span class="p">{</span> <span class="n">plant</span> <span class="o">-&gt;</span>
+    <span class="n">navController</span><span class="p">.</span><span class="na">navigate</span><span class="p">(</span><span class="s">&quot;plant/</span><span class="si">${</span><span class="n">plant</span><span class="p">.</span><span class="na">id</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">composable</span><span class="p">(</span>
+    <span class="n">route</span> <span class="o">=</span> <span class="s">&quot;plant/{id}&quot;</span><span class="p">,</span>
+    <span class="n">arguments</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="n">navArgument</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="n">type</span> <span class="o">=</span> <span class="n">NavType</span><span class="p">.</span><span class="na">IntType</span> <span class="p">})</span>
+<span class="p">)</span> <span class="p">{</span> <span class="c1">//it: NavBackStackEntry </span>
+    <span class="kd">val</span> <span class="nv">id</span> <span class="o">=</span> <span class="nb">it</span><span class="p">.</span><span class="na">arguments</span><span class="o">?.</span><span class="na">getString</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span> <span class="o">?:</span> <span class="s">&quot;&quot;</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<code>navArgument</code>可以将 URI 中的参数转化为 Destination 的 <code>arguments</code> , 并通过 <code>NavBackStackEntry</code> 获取</p>
+<p>如上所述，我们可以利用 Navigation 进行 Screen 之间的跳转并携带一些基本参数。此外， Navigation 帮助我们管理回退栈，大大降低了开发成本。 </p>
+<h2 id="hilt-compose">Hilt + Compose</h2>
+<p>前文中介绍过，为了保证 Screen 的独立复用，我们可以将 ViewModel 创建委托到父级 Composable。 那么在 Navigation 的 NavHost 中我们该如何创建 ViewModel 呢？</p>
+<blockquote>
+<p><strong>hilt-navigation-compose</strong> 允许我们在 Navigation 中使用 Hilt 构建 ViewModel：<br/> <code>"androidx.hilt:hilt-navigation-compose:$version"</code></p>
+</blockquote>
+<div class="highlight"><pre><span></span><code><span class="n">NavHost</span><span class="p">(</span><span class="n">navController</span> <span class="o">=</span> <span class="n">navController</span><span class="p">,</span> 
+        <span class="n">startDestination</span> <span class="o">=</span> <span class="s">&quot;home&quot;</span><span class="p">,</span>
+        <span class="n">route</span> <span class="o">=</span> <span class="s">&quot;root&quot;</span> <span class="c1">// 此处为 NavGraph 设置 id。</span>
+        <span class="p">)</span> <span class="p">{</span>
+      <span class="n">composable</span><span class="p">(</span><span class="n">route</span> <span class="o">=</span> <span class="s">&quot;home&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">homeViewModel</span><span class="p">:</span> <span class="n">HomeViewModel</span> <span class="o">=</span> <span class="n">hiltNavGraphViewModel</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="nv">uiState</span> <span class="k">by</span> <span class="n">homeViewModel</span><span class="p">.</span><span class="na">uiState</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="nv">plantList</span> <span class="o">=</span> <span class="n">homeViewModel</span><span class="p">.</span><span class="na">pagedPlants</span>
+
+            <span class="n">HomeScreen</span><span class="p">(</span><span class="n">uiState</span> <span class="o">=</span> <span class="n">uiState</span><span class="p">)</span> <span class="p">{</span> <span class="n">plant</span> <span class="o">-&gt;</span>
+                   <span class="n">navController</span><span class="p">.</span><span class="na">navigate</span><span class="p">(</span><span class="s">&quot;plant/</span><span class="si">${</span><span class="n">plant</span><span class="p">.</span><span class="na">id</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="n">composable</span><span class="p">(</span>
+            <span class="n">route</span> <span class="o">=</span> <span class="s">&quot;plant/{id}&quot;</span><span class="p">,</span>
+            <span class="n">arguments</span> <span class="o">=</span> <span class="n">listOf</span><span class="p">(</span><span class="n">navArgument</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="n">type</span> <span class="o">=</span> <span class="n">NavType</span><span class="p">.</span><span class="na">IntType</span> <span class="p">})</span>
+        <span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">plantViewModel</span><span class="p">:</span> <span class="n">PlantViewModel</span> <span class="o">=</span> <span class="n">hiltNavGraphViewModel</span><span class="p">()</span>
+            <span class="kd">val</span> <span class="nv">plant</span><span class="p">:</span> <span class="n">Plant</span> <span class="k">by</span> <span class="n">plantViewModel</span><span class="p">.</span><span class="na">plantDetails</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">(</span><span class="n">Plant</span><span class="p">(</span><span class="m">0</span><span class="p">))</span>
+
+            <span class="n">PlantDetailScreen</span><span class="p">(</span><span class="n">plant</span> <span class="o">=</span> <span class="n">plant</span><span class="p">)</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Navigation 中，每个 Destination 都是一个 ViewModelStore, 因此 ViewModel 的 Scope 可以限制在 Destination 内部而不用放大到整个 Activity，更加合理。而且，当 Destination 从 BackStack 弹出时， 对应的 Screen 从视图树上卸载，同时 Scope 内的 ViewModel 被清空，避免泄露。</p>
+<ul>
+<li>
+<p><code>hiltNavGraphViewModel()</code> : 可以获取 Destination Scope 的 ViewModel，并使用 Hilt 构建。</p>
+</li>
+<li>
+<p><code>hiltNavGraphViewModel("root")</code> : 指定 NavHost 的 routeId，则可以在 NavGraph Scope 内共享ViewModel</p>
+</li>
+</ul>
+<p>Screen 的 ViewModel 被代理到 NavHost 中进行， 不持有 ViewModel 的 Screen 具有良好的可测试性。</p>
+<h2 id="plantviewmodel">再看一看 PlantViewModel</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@HiltViewModel</span>
+<span class="kd">class</span> <span class="nc">PlantViewModel</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="n">plantsRepository</span><span class="p">:</span> <span class="n">PlantsRepository</span><span class="p">,</span>
+    <span class="n">savedStateHandle</span><span class="p">:</span> <span class="n">SavedStateHandle</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">plantDetails</span><span class="p">:</span> <span class="n">Flow</span><span class="o">&lt;</span><span class="n">Plant</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">plantsRepository</span><span class="p">.</span><span class="na">getPlantDetails</span><span class="p">(</span>
+        <span class="n">savedStateHandle</span><span class="p">.</span><span class="na">get</span><span class="o">&lt;</span><span class="kt">Int</span><span class="o">&gt;</span><span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">)</span><span class="o">!!</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>SavedStateHandle</code> 实际上是一个键值对的 map。 当使用 Hilt 在构建 ViewModel 时，此 map 会被自动填充 <code>NavBackStackEntry</code> 中的 arguments，之后被参数注入 ViewModel。 此后在 ViewModel 内部可以通过 <code>get(xxx)</code> 获取键值。</p>
+<p>至此， <code>PlantViewModel</code> 通过 Hilt 完成了创建，相比与之前的 <code>ViewModelProvider.Factory</code> 简单得多。</p>
+<p><br/></p>
+<h1 id="recap">Recap</h1>
+<p>一句话总结各 Jetpack 库为 Compose 带来的能力：</p>
+<ul>
+<li><strong>viewmodel-compose</strong> 可以从当前 ViewModelStore 中获取 ViewModel</li>
+<li><strong>livedate-compose</strong> 将 LiveData 转换为 Composable 可订阅的 state 。</li>
+<li><strong>paging-compose</strong> 提供了 pagging 的分页数据 LazyPagingItems</li>
+<li><strong>navigation-compose</strong> 可以将 Composalbe 作为 Destination 在 Navigation 中使用</li>
+<li><strong>hilt-navigation-compose</strong> 允许我们在 Navigation 中使用 Hilt 构建 ViewModel</li>
+</ul>
+<p>此外，还有几点设计规范需要遵守：</p>
+<ul>
+<li>将 Composable 的 ViewModel 上提，有利于保持其可复用性和可测试性</li>
+<li>当 Composable 在同一 Scope 内复用时，避免使用 ViewModel 管理 State</li>
+</ul>
+<p>参考 ： https://www.youtube.com/watch?v=0z_dwBGQQWQ</p>
                 
                   
                     
