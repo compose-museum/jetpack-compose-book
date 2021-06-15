@@ -417,10 +417,26 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ```
 
 首先我们确实记录下了使用 `state` 的 `scope`,不然也不会在修改时触发 `invalidate` 行为。但此时 `slotTable` 里并还没有可重组的区域锚点信息，只有在组合完成之后才能拿到每个区域的锚点` anchors`。
-简单描述就是 `Compose` 使用 `SlotTable` 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。
+简单描述就是 `Compose` 使用 `SlotTable` 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。  
+  
+> 有关 `SlotTable` 的更多信息请参阅：[深入详解JetpackCompose|实现原理](https://juejin.cn/post/6889797083667267598)
 
+其次就是由于`state`的创建是在`enter`代码块中，此时`state.snapshotId`==`Snapshot.id`,并不会记录`state`的变化。毕竟快照的`diff`是作用在两个快照之间。
+```kotlin
+internal fun <T : StateRecord> T.overwritableRecord(
+    state: StateObject,
+    snapshot: Snapshot,
+    candidate: T
+): T {
+    ...
 
-有关 `SlotTable` 的更多信息请参阅：[深入详解JetpackCompose|实现原理](https://juejin.cn/post/6889797083667267598)
+    val id = snapshot.id
+    //此时直接返回，并没有记录state变化
+    if (candidate.snapshotId == id) return candidate
+
+     ...
+}
+```
 
 但是如果你把 `state` 的创建放到 `setContent` 之外呢？
 
@@ -441,15 +457,77 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 因为这个状态是在拍摄之前创建的，此时 `state.snapshotId`!=`Snapshot.id`,此期间对 `state` 的修改虽然不会立即标记为 `invalid`,但是会计入 `modified`, `apply` 之后，由全局快照进行通知:
 
-![](../../assets/principle/overitableRecord.png)
+```kotlin
+internal fun <T : StateRecord> T.overwritableRecord(
+    state: StateObject,
+    snapshot: Snapshot,
+    candidate: T
+): T {
+    ...
+
+    val id = snapshot.id
+
+    if (candidate.snapshotId == id) return candidate
+
+    val newData = newOverwritableRecord(state, snapshot)
+    newData.snapshotId = id
+
+   //记录变化
+    snapshot.recordModified(state)
+
+    return newData
+}
+```
 
 会在 `apply` 时通知到观察者 `ApplyObserver`（刚才还提到 writerObserver ），记录下 `changed`:
 
-![](../../assets/principle/applyObserver.png)
+```kotlin
+val unregisterApplyObserver = Snapshot.registerApplyObserver { changed, _ ->
+                synchronized(stateLock) {
+                    if (_state.value >= State.Idle) {
+                        // here
+                        snapshotInvalidations += changed
+                        deriveStateLocked()
+                    } else null
+                }?.resume(Unit)
+            }
+```
 
-`composation` 则会找出观察了对应变化状态的 `scope` 进行重组。  
+`composation` 则会找出观察了对应变化状态的 `scope` 标记为`invalid`等待重组：  
 
-![](../../assets/principle/findAndInvalid.png)
+```kotlin
+ private fun addPendingInvalidationsLocked(values: Set<Any>) {
+        var invalidated: HashSet<RecomposeScopeImpl>? = null
 
+        fun invalidate(value: Any) {
+            observations.forEachScopeOf(value) { scope ->
+                if (
+                    !observationsProcessed.remove(value, scope) &&
+                    scope.invalidateForResult(value) != InvalidationResult.IGNORED
+                ) {
+                    val set = invalidated
+                        ?: HashSet<RecomposeScopeImpl>().also {
+                            invalidated = it
+                        }
+                    set.add(scope)
+                }
+            }
+        }
+
+        for (value in values) {
+            if (value is RecomposeScopeImpl) {
+                value.invalidateForResult(null)
+            } else {
+                invalidate(value)
+                derivedStates.forEachScopeOf(value) {
+                    invalidate(it)
+                }
+            }
+        }
+        invalidated?.let {
+            observations.removeValueIf { scope -> scope in it }
+        }
+    }
+```
 
 > 以上就是快照系统的使用和`Jetpack Compose`重组的机制，有任何不正确的地方欢迎指正。
