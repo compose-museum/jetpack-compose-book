@@ -96,7 +96,7 @@ android {
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.4.32'
+        kotlinCompilerVersion '1.5.10'
     }
 }
 ```
