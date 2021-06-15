@@ -546,9 +546,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
-如果把`state`声明放到`kt`文件最外层，是否会重  
-组？
-
+如果把`state`声明放到`kt`文件最外层，是否会重组？
+  
+  
 答案是不会，因为在`kotlin`中如果把变量不放到类里，直接放到文件顶层。编译之后其实会生成一个文件，而这个属性则变成`static`的。
 ```java
 public final class MainActivityKt {
