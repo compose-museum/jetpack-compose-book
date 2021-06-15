@@ -1643,10 +1643,10 @@
 <h2 id="1-composable">1. 第一步：Composable 函数</h2>
 <p><code>Jetpack Compose</code>是围绕着 <code>Composable</code> 函数建立的。这些函数让你通过描述它的形状和数据依赖性，以编程方式定义你的应用程序的用户界面，而不是专注于用户界面的构建过程。要创建一个 <code>Composable</code> 函数，只需在函数名称中添加 <code>@Composable</code> 注解。</p>
 <p><img src = "../assets/tutorial/demo.gif" width = "600" height = "600" ></p>
-<h3 id="text">添加一个 text 元素</h3>
+<h3 id="text">添加一个 text 元素</h3></h3>
 <p>现在你可以在你的 <code>activity</code> 添加一个 <code>text</code> 元素。你可以通过定义一个内容块，并调用 <code>Text()</code> 函数来实现。</p>
 <p><code>setContent</code> 块定义了这个 <code>activity</code> 的布局。我们不使用 <code>XML</code> 文件来定义布局内容，而是调用 <code>Composable</code> 函数。<code>Jetpack Compose</code>使用一个自定义的 <code>Kotlin</code> 编译器插件来将这些 <code>Composable</code> 函数转化为应用程序的 <code>UI</code> 元素。例如，<code>Text()</code> 函数是由 <code>Compose UI</code> 库定义的；你调用这个函数来声明你的应用程序中的文本元素。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+<p><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
     <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
         <span class="n">setContent</span> <span class="p">{</span>
@@ -1655,7 +1655,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../assets/tutorial/demo.png" /></p>
+<img alt="" src="../assets/tutorial/demo.png" /></p>
 <h3 id="composable">定义一个 composable 函数</h3>
 <p><code>composable</code> 函数只能从其他 <code>composable</code> 函数的范围内调用。要使用一个 <code>composable</code> 函数，请添加 <code>@Composable</code> 注解。为了尝试理解这一点，我们可以定义一个 <code>Greeting()</code> 函数，它包含了一个 <code>name</code> 参数，并使用这个参数来配置文本元素</p>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
