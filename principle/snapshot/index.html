@@ -1728,12 +1728,45 @@
 <p>它通过调用：
 - <code>Snapshot.notifyObjectsInitialized</code>。这会为自上次调用以来更改的任何状态发送通知。
 - <code>Snapshot.sendApplyNotifications()</code>。这类似于 notifyObjectsInitialized，但只有在实际发生更改时才会推进快照。在第一种情况下，只要将任何可变快照应用于全局快照，就会隐式调用此函数。</p>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/ec91178df2a944938a9763fa82bec4b8~tplv-k3u1fbpfcp-zoom-1.image" /></p>
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">object</span> <span class="nc">GlobalSnapshotManager</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">started</span> <span class="o">=</span> <span class="n">AtomicBoolean</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+
+    <span class="kd">fun</span> <span class="nf">ensureStarted</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">started</span><span class="p">.</span><span class="na">compareAndSet</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">))</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">channel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Channel</span><span class="p">.</span><span class="na">CONFLATED</span><span class="p">)</span>
+            <span class="n">CoroutineScope</span><span class="p">(</span><span class="n">AndroidUiDispatcher</span><span class="p">.</span><span class="na">Main</span><span class="p">).</span><span class="na">launch</span> <span class="p">{</span>
+                <span class="n">channel</span><span class="p">.</span><span class="na">consumeEach</span> <span class="p">{</span>
+                    <span class="n">Snapshot</span><span class="p">.</span><span class="na">sendApplyNotifications</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">Snapshot</span><span class="p">.</span><span class="na">registerGlobalWriteObserver</span> <span class="p">{</span>
+                <span class="n">channel</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>可以看到在 <code>android</code> 平台上注册了 <code>writeObserver</code>,它还有 <code>ApplyObserver</code> 我们后面再说。</p>
 <h2 id="_5">多线程</h2>
 <p>在给定线程的快照中，在应用该快照之前，不会看到其他线程对状态值所做的更改。快照与其他快照“隔离”。在应用快照并自动推进全局快照之前，对快照内的状态所做的任何更改对其他线程都将不可见。
-看这个类名大家就懂了 <code>SnapshotThreadLocal</code>:</p>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/83387c8c03f5409dabd3b110cb925fd3~tplv-k3u1fbpfcp-zoom-1.image" /></p>
+看这个类名大家就懂了 <code>SnapshotThreadLocal</code>:
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">actual</span> <span class="kd">class</span> <span class="nc">SnapshotThreadLocal</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">map</span> <span class="o">=</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">ThreadMap</span><span class="o">&gt;</span><span class="p">(</span><span class="n">emptyThreadMap</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">writeMutex</span> <span class="o">=</span> <span class="kt">Any</span><span class="p">()</span>
+
+    <span class="nd">@Suppress</span><span class="p">(</span><span class="s">&quot;UNCHECKED_CAST&quot;</span><span class="p">)</span>
+    <span class="kd">actual</span> <span class="kd">fun</span> <span class="nf">get</span><span class="p">():</span> <span class="n">T? </span><span class="o">=</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">T?</span>
+
+    <span class="kd">actual</span> <span class="kd">fun</span> <span class="nf">set</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">T?)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">id</span>
+        <span class="n">synchronized</span><span class="p">(</span><span class="n">writeMutex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">current</span> <span class="o">=</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="na">trySet</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="k">return</span>
+            <span class="n">map</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="na">newWith</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <h2 id="_6">冲突</h2>
 <p>如果我们"拍摄"了多个快照并且均应用修改会怎样呢？
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
@@ -1810,27 +1843,68 @@
 - 隔离性：有状态代码可以对状态进行操作，而不必担心在不同线程上运行的代码会改变该状态。<code>Compose</code> 可以利用这一点来实现旧的 <code>View</code> 系统无法实现的效果，例如将重构放到多个后台线程上去执行。</p>
 <h2 id="_8">解惑</h2>
 <ul>
-<li><strong>为什么 <code>state</code> 变化能触发重组呢？</strong><blockquote>
-<p>Jetpack Compose在执行时注册了 <code>readObserverOf</code> 和<code>writeObserverOf</code>:
-<img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3022c953f764413abf122f32dc4ce9f4~tplv-k3u1fbpfcp-zoom-1.image" /></p>
+<li><strong>为什么<code>state</code>变化能触发重组呢？</strong><blockquote>
+<p>Jetpack Compose在执行时注册了 <code>readObserverOf</code> 和<code>writeObserverOf</code> :
+<div class="highlight"><pre><span></span><code> <span class="kd">private</span> <span class="kd">inline</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">composing</span><span class="p">(</span>
+        <span class="n">composition</span><span class="p">:</span> <span class="n">ControlledComposition</span><span class="p">,</span>
+        <span class="n">modifiedValues</span><span class="p">:</span> <span class="n">IdentityArraySet</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;?</span><span class="p">,</span>
+        <span class="n">block</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">T</span>
+    <span class="p">):</span> <span class="n">T</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">snapshot</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeMutableSnapshot</span><span class="p">(</span>
+            <span class="n">readObserverOf</span><span class="p">(</span><span class="n">composition</span><span class="p">),</span> <span class="n">writeObserverOf</span><span class="p">(</span><span class="n">composition</span><span class="p">,</span> <span class="n">modifiedValues</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">snapshot</span><span class="p">.</span><span class="na">enter</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+            <span class="n">applyAndCheck</span><span class="p">(</span><span class="n">snapshot</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+其中在读取状态的地方会执行：</p>
 </blockquote>
 </li>
+<li><code>readObserverOf</code> 来记录哪些 <code>scope 使用了此</code>state` :</li>
 </ul>
-<p>其中在读取状态的地方会执行：
-- <code>readObserverOf</code> 来记录哪些 <code>scope</code> 使用了此 <code>state</code></p>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/3363effe534a45318a93011fb32cfc68~tplv-k3u1fbpfcp-zoom-1.image" /></p>
+<div class="highlight"><pre><span></span><code> <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">recordReadOf</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">areChildrenComposing</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">composer</span><span class="p">.</span><span class="na">currentRecomposeScope</span><span class="o">?.</span><span class="na">let</span> <span class="p">{</span>
+                <span class="nb">it</span><span class="p">.</span><span class="na">used</span> <span class="o">=</span> <span class="kc">true</span>
+                <span class="n">observations</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">it</span><span class="p">)</span>
+                <span class="p">...</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
 <ul>
-<li><code>writeObserverOf</code>
- 而写入时会找出对应使用此 <code>state</code> 的 <code>scope</code> 使其 <code>invalidate</code>
-<img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bf5f7e19316642b5ab2642b40e2a55c8~tplv-k3u1fbpfcp-zoom-1.image" /></li>
+<li>
+<p><code>writeObserverOf</code>
+ 而写入时会找出对应使用此 <code>state</code> 的 <code>scope</code> 使其 <code>invalidate</code> :
+<div class="highlight"><pre><span></span><code> <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">recordWriteOf</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">=</span> <span class="n">synchronized</span><span class="p">(</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">invalidateScopeOfLocked</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="n">derivedStates</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">invalidateScopeOfLocked</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">invalidateScopeOfLocked</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">observations</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">scope</span> <span class="o">-&gt;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">scope</span><span class="p">.</span><span class="na">invalidateForResult</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="n">InvalidationResult</span><span class="p">.</span><span class="na">IMMINENT</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">observationsProcessed</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+在下次帧信号到达时对于这些<code>scope</code>执行重组。</p>
+</li>
+<li>
+<p><strong>它是如何确定重组范围呢？</strong></p>
+</li>
 </ul>
-<p>在下次帧信号到达时对于这些 <code>scope</code> 执行重组。</p>
-<ul>
-<li><strong>它是如何确定重组范围呢？</strong>
-详细参见：<a href="https://compose.net.cn/principle/recomposition_scope/">Compose 如何确定重组范围</a></li>
-</ul>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/471e96af3e2b45e2ba742fcca6af91bf~tplv-k3u1fbpfcp-zoom-1.image" /></p>
-<p>我们刚才看了 <code>readObserver</code>,就是在读取 <code>value</code> 的可重组的 <code>@composable</code> 函数。</p>
+<blockquote>
+<p>能够被标记为 Invalid 的代码必须是非 inline 且无返回值的 @Composalbe function/lambda，必须遵循 重组范围最小化 原则。
+详细参见：<a href="https://compose.net.cn/principle/recomposition_scope/">Compose 如何确定重组范围</a></p>
+</blockquote>
 <ul>
 <li><strong>只要 <code>state</code> 变化就一定会重组吗？</strong><br />
 不一定，具体案例请看以下例子：</li>
@@ -1849,9 +1923,8 @@
         <span class="p">}</span>
     <span class="p">}</span>
 </code></pre></div>
-不会重组，因为 <code>delay</code> 导致状态的读取是在 <code>apply</code> 方法之外执行的:</p>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/200c1034eeb847ef8cd91c91ec5578e5~tplv-k3u1fbpfcp-zoom-1.image" /></p>
-<p>因此也就不会注册 <code>readObserverOf</code>,自然也就不会与 <code>composeScope</code> 挂钩，也就不会触发重组，如果是在 <code>delay</code> 之前读取则会重组哦。</p>
+不会重组，因为 <code>delay</code> 导致状态的读取是在 <code>snap.apply</code> 方法之外执行的,
+因此也就不会注册 <code>readObserverOf</code> ,自然也就不会与 <code>composeScope</code> 挂钩，也就不会触发重组，在这个例子里如果是在 <code>delay</code> 之前读取则会重组。</p>
 <h3 id="2-2">2. 例子②</h3>
 <div class="highlight"><pre><span></span><code>   <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
 
@@ -1864,7 +1937,7 @@
         <span class="p">}</span>
     <span class="p">}</span>
 </code></pre></div>
-<p>这个就比较简单了，在不同线程调用，想想<code>SnapshotThreadLocal</code>,互不干扰（直到 <code>apply</code> )，因此也不会触发重组。</p>
+<p>这个就比较简单了，在不同线程调用，想想 <code>SnapshotThreadLocal</code> ,互不干扰（直到 <code>apply</code> )，因此也不会触发重组。</p>
 <h3 id="3-3">3. 例子③</h3>
 <p><div class="highlight"><pre><span></span><code><span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
@@ -1876,11 +1949,37 @@
     <span class="p">}</span>
 </code></pre></div>
 这个也没触发重组，可能大家会疑惑，这个没异步，断点也有 <code>readObserver</code> 和 <code>writeObserver</code> 为啥不会触发重组呢？  不是说状态变更会将使用它的 <code>scope</code> 记为 <code>invalid</code> 吗？</p>
-<p>然而实际运行中，<code>InvalidationResult</code> 为<code>IGNORE</code>
-<img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/b6117049e5cf49348060cdacd4b7dfc4~tplv-k3u1fbpfcp-zoom-1.image" /></p>
+<p>然而实际运行中，<code>InvalidationResult</code>为<code>IGNORE</code>
+<div class="highlight"><pre><span></span><code> <span class="kd">fun</span> <span class="nf">invalidate</span><span class="p">(</span><span class="n">scope</span><span class="p">:</span> <span class="n">RecomposeScopeImpl</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="kt">Any?</span><span class="p">):</span> <span class="n">InvalidationResult</span> <span class="p">{</span>
+        <span class="p">...</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">anchor</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">slotTable</span><span class="p">.</span><span class="na">ownsAnchor</span><span class="p">(</span><span class="n">anchor</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">anchor</span><span class="p">.</span><span class="na">valid</span><span class="p">)</span>
+            <span class="c1">// The scope has not yet entered the composition</span>
+            <span class="k">return</span> <span class="n">InvalidationResult</span><span class="p">.</span><span class="na">IGNORED</span> 
+
+        <span class="p">...</span>
+    <span class="p">}</span>
+</code></pre></div></p>
 <p>首先我们确实记录下了使用 <code>state</code> 的 <code>scope</code>,不然也不会在修改时触发 <code>invalidate</code> 行为。但此时 <code>slotTable</code> 里并还没有可重组的区域锚点信息，只有在组合完成之后才能拿到每个区域的锚点<code>anchors</code>。
-简单描述就是 <code>Compose</code> 使用 <code>SlotTable</code> 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。</p>
+简单描述就是 <code>Compose</code> 使用 <code>SlotTable</code> 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。  </p>
+<blockquote>
 <p>有关 <code>SlotTable</code> 的更多信息请参阅：<a href="https://juejin.cn/post/6889797083667267598">深入详解JetpackCompose|实现原理</a></p>
+</blockquote>
+<p>其次就是由于 <code>state</code> 的创建是在 <code>enter</code> 代码块中，此时 <code>state.snapshotId</code>==<code>Snapshot.id</code> ,并不会记录 <code>state</code> 的变化。毕竟快照的 <code>diff</code> 是作用在两个快照之间。
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span> <span class="p">:</span> <span class="n">StateRecord</span><span class="o">&gt;</span> <span class="n">T</span><span class="p">.</span><span class="nf">overwritableRecord</span><span class="p">(</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">StateObject</span><span class="p">,</span>
+    <span class="n">snapshot</span><span class="p">:</span> <span class="n">Snapshot</span><span class="p">,</span>
+    <span class="n">candidate</span><span class="p">:</span> <span class="n">T</span>
+<span class="p">):</span> <span class="n">T</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+    <span class="kd">val</span> <span class="nv">id</span> <span class="o">=</span> <span class="n">snapshot</span><span class="p">.</span><span class="na">id</span>
+    <span class="c1">//此时直接返回，并没有记录state变化</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">candidate</span><span class="p">.</span><span class="na">snapshotId</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="k">return</span> <span class="n">candidate</span>
+
+     <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
 <p>但是如果你把 <code>state</code> 的创建放到 <code>setContent</code> 之外呢？</p>
 <h3 id="4-4">4. 例子④</h3>
 <div class="highlight"><pre><span></span><code>  <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
@@ -1894,14 +1993,74 @@
     <span class="p">}</span>
 </code></pre></div>
 <p><strong>答案是会重组</strong>  </p>
-<p>因为这个状态是在拍摄之前创建的，此时 <code>state.snapshotId</code>!=<code>Snapshot.id</code>,此期间对 <code>state</code> 的修改虽然不会立即标记为 <code>invalid</code>,但是会计入 <code>modified</code>, <code>apply</code> 之后，由全局快照进行通知:</p>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a5b1c55012fa419992cff8849c0f283d~tplv-k3u1fbpfcp-zoom-1.image" /></p>
+<p>因为这个状态是在拍摄之前创建的，此时 <code>state.snapshotId</code>!=<code>Snapshot.id</code>,此期间对 <code>state</code> 的修改虽然不会立即标记为 <code>invalid</code> ,但是会计入  <code>modified</code> , <code>apply</code> 之后，由全局快照进行通知:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span> <span class="p">:</span> <span class="n">StateRecord</span><span class="o">&gt;</span> <span class="n">T</span><span class="p">.</span><span class="nf">overwritableRecord</span><span class="p">(</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">StateObject</span><span class="p">,</span>
+    <span class="n">snapshot</span><span class="p">:</span> <span class="n">Snapshot</span><span class="p">,</span>
+    <span class="n">candidate</span><span class="p">:</span> <span class="n">T</span>
+<span class="p">):</span> <span class="n">T</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+    <span class="kd">val</span> <span class="nv">id</span> <span class="o">=</span> <span class="n">snapshot</span><span class="p">.</span><span class="na">id</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">candidate</span><span class="p">.</span><span class="na">snapshotId</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="k">return</span> <span class="n">candidate</span>
+
+    <span class="kd">val</span> <span class="nv">newData</span> <span class="o">=</span> <span class="n">newOverwritableRecord</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">)</span>
+    <span class="n">newData</span><span class="p">.</span><span class="na">snapshotId</span> <span class="o">=</span> <span class="n">id</span>
+
+   <span class="c1">//记录变化</span>
+    <span class="n">snapshot</span><span class="p">.</span><span class="na">recordModified</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">newData</span>
+<span class="p">}</span>
+</code></pre></div>
 <p>会在 <code>apply</code> 时通知到观察者 <code>ApplyObserver</code>（刚才还提到 writerObserver ），记录下 <code>changed</code>:</p>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8b9382ce65dd406bbd0cbf9b5dba32ea~tplv-k3u1fbpfcp-zoom-1.image" /></p>
-<p><code>composation</code> 则会找出观察了对应变化状态的 <code>scope</code> 进行重组。  </p>
-<p><img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/5fc67b68700b44279fa48f001041a1ac~tplv-k3u1fbpfcp-zoom-1.image" /></p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">unregisterApplyObserver</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">registerApplyObserver</span> <span class="p">{</span> <span class="n">changed</span><span class="p">,</span> <span class="n">_</span> <span class="o">-&gt;</span>
+                <span class="n">synchronized</span><span class="p">(</span><span class="n">stateLock</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span> <span class="o">&gt;=</span> <span class="n">State</span><span class="p">.</span><span class="na">Idle</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// here</span>
+                        <span class="n">snapshotInvalidations</span> <span class="o">+=</span> <span class="n">changed</span>
+                        <span class="n">deriveStateLocked</span><span class="p">()</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="kc">null</span>
+                <span class="p">}</span><span class="o">?.</span><span class="na">resume</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span>
+            <span class="p">}</span>
+</code></pre></div>
+<p><code>composation</code> 则会找出观察了对应变化状态的 <code>scope</code> 标记为 <code>invalid</code> 等待重组：  </p>
+<div class="highlight"><pre><span></span><code> <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">addPendingInvalidationsLocked</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Set</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nv">invalidated</span><span class="p">:</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">RecomposeScopeImpl</span><span class="o">&gt;?</span> <span class="o">=</span> <span class="kc">null</span>
+
+        <span class="kd">fun</span> <span class="nf">invalidate</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">observations</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">scope</span> <span class="o">-&gt;</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="o">!</span><span class="n">observationsProcessed</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                    <span class="n">scope</span><span class="p">.</span><span class="na">invalidateForResult</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InvalidationResult</span><span class="p">.</span><span class="na">IGNORED</span>
+                <span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">val</span> <span class="nv">set</span> <span class="o">=</span> <span class="n">invalidated</span>
+                        <span class="o">?:</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">RecomposeScopeImpl</span><span class="o">&gt;</span><span class="p">().</span><span class="na">also</span> <span class="p">{</span>
+                            <span class="n">invalidated</span> <span class="o">=</span> <span class="nb">it</span>
+                        <span class="p">}</span>
+                    <span class="k">set</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">value</span> <span class="k">in</span> <span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="k">is</span> <span class="n">RecomposeScopeImpl</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">value</span><span class="p">.</span><span class="na">invalidateForResult</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">invalidate</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">derivedStates</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">invalidate</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">invalidated</span><span class="o">?.</span><span class="na">let</span> <span class="p">{</span>
+            <span class="n">observations</span><span class="p">.</span><span class="na">removeValueIf</span> <span class="p">{</span> <span class="n">scope</span> <span class="o">-&gt;</span> <span class="n">scope</span> <span class="k">in</span> <span class="nb">it</span> <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
 <blockquote>
-<p>以上就是快照系统的使用和 <code>Jetpack Compose</code> 重组的机制，有任何不正确的地方欢迎指正。</p>
+<p>以上就是快照系统的使用和<code>Jetpack Compose</code> 重组的机制，有任何不正确的地方欢迎指正。</p>
 </blockquote>
                 
                   
