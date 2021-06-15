@@ -1,10 +1,10 @@
 
 
-Jetpack Compose 的 Insets 采用了很多 View 系统中 Insetter 组件库的理念，使他们可以在 composables 中被使用。
+Jetpack Compose 的 Insets 采用了 View 系统中 Insetter 组件库的设计理念，使其可以在 composables 中被使用。
 
 ## 用法
 
-为了能在你的 composables 中 Insets , 你需要调用 <code>ProvideWindowInsets</code> 方法并将包裹住你的视图内容。这部操作通常要在你的composable层级的顶部附近进行。
+为了能在你的 composables 中使用 Insets , 你需要使用 <code>ProvideWindowInsets</code> 方法并将你的视图内容声明在尾部lambda中。这步操作通常要在你的composable层级的顶部附近进行。
 
 ```kotlin
 setContent {
@@ -16,7 +16,7 @@ setContent {
 }
 ```
 
-> ⚠️ 本组件默认不会禁用 Window 的 Decor 适配， 为了使你的 view 层级能够获取到 insets， 你需要确保在你Activity中使用 [WindowCompat.setDecorFitsSystemWindows(window, false)](https://developer.android.com/reference/androidx/core/view/WindowCompat#setDecorFitsSystemWindows(android.view.Window, boolean))。如果你还想设置你的系统状态栏的颜色，可以使用系统UI控制器来完成。
+> ⚠️ 为了使你的 view 层级能够获取到 Insets， 你需要确保在你Activity中使用 <code>WindowCompat.setDecorFitsSystemWindows(window, false)</code>。如果你还想为你的系统状态栏设置颜色，可以使用Accompanist组件库提供的[系统UI控制器](../../../third-party-component/accompanist/system_ui_controller/)来完成。
 
 通过使用 <code>ProvideWindowInsets</code> 将允许本组件在 content 中设置一个 [OnApplyWindowInsetsListener](https://developer.android.com/reference/kotlin/androidx/core/view/OnApplyWindowInsetsListener)，这个Listener将会被用来更新 <code>LocalWindowInsets</code> 这个 CompositionLocal。
 
@@ -48,7 +48,7 @@ fun ImeAvoidingBox() {
 - [Modifier.imePadding()](https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/ime-padding.html)
 - [Modifier.navigationBarsWithImePadding()](https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/navigation-bars-with-ime-padding.html)
 
-这些方法通常会被用来将 composable 移出系统状态栏或导航栏等，[FloatingActionButton](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#floatingactionbutton) 就是一个典型的例子，通常我们都希望将这个悬浮按钮移动至系统导航栏上方不被遮盖。
+这些方法通常会被用来将 composable 移出系统状态栏或导航栏等，[FloatingActionButton](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#floatingactionbutton) 就是一个典型的例子，通常我们都希望将这个悬浮按钮移动至系统导航栏上方, 不希望被系统导航栏遮盖。
 
 ```kotlin
 FloatingActionButton(
@@ -72,7 +72,7 @@ FloatingActionButton(
 - [Modifier.navigationBarsHeight()](https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/navigation-bars-height.html)
 - [Modifier.navigationBarsWidth()](https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/navigation-bars-width.html)
 
-我门通常可以让composable为系统栏提供背景，类似如下。
+我门通常可以让 composable 为系统栏提供背景，类似如下。
 
 ```kotlin
 Spacer(
@@ -85,9 +85,9 @@ Spacer(
 
 ### PaddingValues
 
-Compose 提供了 [PaddingValues](https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues) 的理念，该数据类中包含着所有要被施加的 padding 信息(类似于一个 Rect)。这通常用于一些容器类型 composables，例如为 [LazyColumn](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/package-summary#lazycolumn) 设置内容 padding。
+Compose 提供了 [PaddingValues](https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues) 的理念，该数据类包含着所有要被施加的 padding 信息(类似于一个 Rect)。通常会被用于一些容器类型 composables，例如为 [LazyColumn](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/package-summary#lazycolumn) 设置内容 padding。
 
-你可能需要使用某个具体 Inset 信息作为内容的 padding，所以本组件提供了 [rememberInsetsPaddingValues()](https://google.github.io/accompanist//api/insets/insets/com.google.accompanist.insets/remember-insets-padding-values.html) 扩展方法用于转化 Inset 数值为 PaddingValues，下面就是一个使用系统栏的Inset信息。
+你可能需要使用某个具体 Inset 信息作为内容 padding，所以本组件提供了 [rememberInsetsPaddingValues()](https://google.github.io/accompanist//api/insets/insets/com.google.accompanist.insets/remember-insets-padding-values.html) 扩展方法用于将 Inset 转化为 PaddingValues，下面的例子中就获取了系统栏Inset信息。
 
 ```kotlin
 LazyColumn(
@@ -134,7 +134,7 @@ TopAppBar(
 }
 ```
 
-这个兄弟组件库还提供了Scaffold的修改版，通过在content中绘制顶部和底部栏，更好地支持边靠边的布局。
+这个兄弟组件库还提供了 Scaffold 的修改版，通过在 content 中绘制顶部和底部栏，更好地支持边靠边的布局。
 
 ```kotlin
 Scaffold(
@@ -211,11 +211,11 @@ OutlinedTextField(
 </activity>
 ```
 
-<code> windowSoftInputMode</code> 默认值应该也有效，但是Compose当前没有设置必要的标识 (详情看 [这里](https://issuetracker.google.com/154101484))
+<code> windowSoftInputMode</code> 默认值应该也有效，但是Compose当前没有设置必要的标识 (详情看[这里](https://issuetracker.google.com/154101484))
 
 本组件库已经支持通过手势操作来控制软键盘，这将允许你的可滚动的组件将软键盘拉进或拉出屏幕，对于这种嵌套手势滑动可以使用内置的 [NestedScrollConnection](https://developer.android.com/reference/kotlin/androidx/compose/ui/gesture/nestedscroll/NestedScrollConnection) 接口进行实现，本组件提供了 [rememberImeNestedScrollConnection()](https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/remember-ime-nested-scroll-connection.html) 方法直接获取这种软键盘动画场景的嵌套手势滑动实现类。
 
-⚠️ 此功能仅在使用 API >= 30 的设备上有效运行。
+⚠️ 此功能仅在 API >= 30 的设备上才能正常运行。
 
 #### 使用方法
 
@@ -254,9 +254,9 @@ dependencies {
 
 每个版本可以在 [快照仓库](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-insets/) 中被找到，每次提交时都会更新。
 
-## 出现了什么问题
+## 可能出现的问题
 
-如果你发现有些东西不能正常的工作，这里有一个检查清单可以查看。
+如果你发现运行时出现了一些问题，这里有一个错误清单可以查阅。
 
 * 确保你在Activity中执行了 [WindowCompat.setDecorFitsSystemWindows(window, false)](https://developer.android.com/reference/androidx/core/view/WindowCompat#setDecorFitsSystemWindows(android.view.Window, boolean)) 。除非你这么做了，否则 DecorView 将消费这些insets，他们的信息不回被分配到 content 中。
 * 如果有什么跟软键盘相关的操作，确保 AndroidManifest 清单中当前 Activity 的 <code>windowSoftInputMode</code> 属性被设置为 <code>adjustResize</code>。否则 IME 的可见性变化将不会作为Insets 变化而发送。

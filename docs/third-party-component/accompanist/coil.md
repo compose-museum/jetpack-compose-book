@@ -126,7 +126,7 @@ Image(painter = painter)
 
 ## 自定义 ImageLoader 
 
-如果开发者希望在所有`rememberCoilPainter()` 调用中使用同一个默认的[`ImageLoader`](https://coil-kt.github.io/coil/image_loaders/)，就请使用 [`LocalImageLoader`](https://google.github.io/accompanist/api/coil/coil/com.google.accompanist.coil/-local-image-loader.html) 本地组合。
+如果开发者希望在所有`rememberCoilPainter()` 调用中使用同一个默认的[`ImageLoader`](https://coil-kt.github.io/coil/image_loaders/)，就请使用 [`LocalImageLoader`](https://google.github.io/accompanist/api/coil/coil/com.google.accompanist.coil/-local-image-loader.html) 。
 
 示例如下：
 
@@ -143,7 +143,7 @@ CompositionLocalProvider(LocalImageLoader provides imageLoader) {
 }
 ```
 
-更多有关本地组合的信息，请参见[此处](https://developer.android.google.cn/reference/kotlin/androidx/compose/runtime/CompositionLocal)。
+更多有关 `CompositionLocal` 的信息，请参见[此处](https://developer.android.google.cn/reference/kotlin/androidx/compose/runtime/CompositionLocal)。
 
 ## 下载
 
@@ -158,8 +158,6 @@ dependencies {
     implementation "com.google.accompanist:accompanist-coil:<version>"
 }
 ```
-
-Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap]. These are updated on every commit.
 
  [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-coil/)中提供了开发版本的快照。每一次提交，快照都会更新。
 

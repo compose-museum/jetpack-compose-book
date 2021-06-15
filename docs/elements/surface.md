@@ -36,10 +36,11 @@ Surface(
     modifier = Modifier
         .fillMaxWidth()
         .padding(15.dp) // 外边距
-        .clickable{ },
 ){
     Column(
-        modifier = Modifier.padding(15.dp) // 内边距
+        modifier = Modifier
+            .clickable{ }
+            .padding(15.dp) // 内边距
     ) {
         Text(
             buildAnnotatedString {
