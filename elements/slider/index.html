@@ -749,6 +749,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1318,7 +1330,20 @@
                 
                   <h1>Slider</h1>
                 
-                <p><img src = "../../assets/elements/slider/carbon.png" width = "80%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Slider</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">:</span> <span class="kt">Float</span><span class="p">,</span>
+    <span class="n">onValueChange</span><span class="p">:</span> <span class="p">(</span><span class="kt">Float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">valueRange</span><span class="p">:</span> <span class="n">ClosedFloatingPointRange</span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span> <span class="o">=</span> <span class="m">0f</span><span class="p">..</span><span class="m">1f</span><span class="p">,</span>
+    <span class="cm">/*@IntRange(from = 0)*/</span>
+    <span class="n">steps</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+    <span class="n">onValueChangeFinished</span><span class="p">:</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">SliderColors</span> <span class="o">=</span> <span class="n">SliderDefaults</span><span class="p">.</span><span class="na">colors</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
 <p><code>Slider</code> 允许用户从一定范围的数值中进行选择。</p>
 <p><code>Slider</code> 反映了一个沿条的数值范围，用户可以从中选择一个单一的数值。它们是调整音量、亮度或应用图像过滤器等设置的理想选择。</p>
 <p><a href="https://material.io/components/sliders">Material Design Slider</a></p>

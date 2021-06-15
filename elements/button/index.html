@@ -782,6 +782,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1381,7 +1393,21 @@
                 
                   <h1>Button</h1>
                 
-                <p><img src = "../../assets/elements/button/carbon.png" width = "80%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@OptIn</span><span class="p">(</span><span class="n">ExperimentalMaterialApi</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Button</span><span class="p">(</span>
+    <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">elevation</span><span class="p">:</span> <span class="n">ButtonElevation? </span><span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">elevation</span><span class="p">(),</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">shapes</span><span class="p">.</span><span class="na">small</span><span class="p">,</span>
+    <span class="n">border</span><span class="p">:</span> <span class="n">BorderStroke? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">ButtonColors</span> <span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(),</span>
+    <span class="n">contentPadding</span><span class="p">:</span> <span class="n">PaddingValues</span> <span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">ContentPadding</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="n">RowScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span>
+</code></pre></div>
 <p><strong>Compose</strong> 的 <code>Button</code> 是基于 <strong>Material Design</strong> 实现的，和传统的 <strong>XML Button</strong> 截然不同</p>
 <p>以下是简单创建一个默认的 <code>Button</code> 代码：</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.material.Button</span>
@@ -1423,7 +1449,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>

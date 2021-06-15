@@ -817,6 +817,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1451,7 +1463,30 @@
                 
                   <h1>TextField</h1>
                 
-                <p><img src = "../../assets/elements/textfield/carbon.png" width = "100%" height = "70%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TextField</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">onValueChange</span><span class="p">:</span> <span class="p">(</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">readOnly</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">textStyle</span><span class="p">:</span> <span class="n">TextStyle</span> <span class="o">=</span> <span class="n">LocalTextStyle</span><span class="p">.</span><span class="na">current</span><span class="p">,</span>
+    <span class="n">label</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">placeholder</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">leadingIcon</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">trailingIcon</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">isError</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">visualTransformation</span><span class="p">:</span> <span class="n">VisualTransformation</span> <span class="o">=</span> <span class="n">VisualTransformation</span><span class="p">.</span><span class="na">None</span><span class="p">,</span>
+    <span class="n">keyboardOptions</span><span class="p">:</span> <span class="n">KeyboardOptions</span> <span class="o">=</span> <span class="n">KeyboardOptions</span><span class="p">.</span><span class="na">Default</span><span class="p">,</span>
+    <span class="n">keyboardActions</span><span class="p">:</span> <span class="n">KeyboardActions</span> <span class="o">=</span> <span class="n">KeyboardActions</span><span class="p">(),</span>
+    <span class="n">singleLine</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">maxLines</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kt">Int</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">,</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span> <span class="o">=</span>
+        <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">shapes</span><span class="p">.</span><span class="na">small</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">bottomEnd</span> <span class="o">=</span> <span class="n">ZeroCornerSize</span><span class="p">,</span> <span class="n">bottomStart</span> <span class="o">=</span> <span class="n">ZeroCornerSize</span><span class="p">),</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">TextFieldColors</span> <span class="o">=</span> <span class="n">TextFieldDefaults</span><span class="p">.</span><span class="na">textFieldColors</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
 <p><code>textfield</code> 可以创建一个输入框。</p>
 <p>一个简单使用的例子是这样的：</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.runtime.*</span>
@@ -1655,7 +1690,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 29, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>

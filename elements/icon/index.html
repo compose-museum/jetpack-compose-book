@@ -749,6 +749,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1318,7 +1330,14 @@
                 
                   <h1>Icon</h1>
                 
-                <p><img src = "../../assets/elements/icon/carbon.png" width = "80%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Icon</span><span class="p">(</span>
+    <span class="n">imageVector</span><span class="p">:</span> <span class="n">ImageVector</span><span class="p">,</span>
+    <span class="n">contentDescription</span><span class="p">:</span> <span class="kt">String?</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">tint</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">LocalContentColor</span><span class="p">.</span><span class="na">current</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="n">LocalContentAlpha</span><span class="p">.</span><span class="na">current</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
 <p>一个图标组件，使用 <code>tint</code> 可以修改 <code>Icon</code> 的颜色，默认为 <code>LocalContentColor</code>。对于一个可点击的图标，请查阅 <a href="../iconbutton/">IconButton</a>。</p>
 <div class="highlight"><pre><span></span><code><span class="n">Row</span><span class="p">{</span>
     <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">ArrowBack</span><span class="p">,</span> <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span>
@@ -1339,7 +1358,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 22, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>

@@ -911,6 +911,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1639,7 +1651,26 @@
                 
                   <h1>Text</h1>
                 
-                <p><img src = "../../assets/elements/text/code.png" width = "50%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Text</span><span class="p">(</span>
+    <span class="n">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">color</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Unspecified</span><span class="p">,</span>
+    <span class="n">fontSize</span><span class="p">:</span> <span class="n">TextUnit</span> <span class="o">=</span> <span class="n">TextUnit</span><span class="p">.</span><span class="na">Unspecified</span><span class="p">,</span>
+    <span class="n">fontStyle</span><span class="p">:</span> <span class="n">FontStyle? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">fontWeight</span><span class="p">:</span> <span class="n">FontWeight? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">fontFamily</span><span class="p">:</span> <span class="n">FontFamily? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">letterSpacing</span><span class="p">:</span> <span class="n">TextUnit</span> <span class="o">=</span> <span class="n">TextUnit</span><span class="p">.</span><span class="na">Unspecified</span><span class="p">,</span>
+    <span class="n">textDecoration</span><span class="p">:</span> <span class="n">TextDecoration? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">textAlign</span><span class="p">:</span> <span class="n">TextAlign? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">lineHeight</span><span class="p">:</span> <span class="n">TextUnit</span> <span class="o">=</span> <span class="n">TextUnit</span><span class="p">.</span><span class="na">Unspecified</span><span class="p">,</span>
+    <span class="n">overflow</span><span class="p">:</span> <span class="n">TextOverflow</span> <span class="o">=</span> <span class="n">TextOverflow</span><span class="p">.</span><span class="na">Clip</span><span class="p">,</span>
+    <span class="n">softWrap</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">maxLines</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kt">Int</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">,</span>
+    <span class="n">onTextLayout</span><span class="p">:</span> <span class="p">(</span><span class="n">TextLayoutResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">style</span><span class="p">:</span> <span class="n">TextStyle</span> <span class="o">=</span> <span class="n">LocalTextStyle</span><span class="p">.</span><span class="na">current</span>
+<span class="p">)</span>
+</code></pre></div>
 <p><code>Text</code> 是 <code>Compose</code> 中最基本的布局组件，它可以显示文字</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextDemo</span><span class="p">()</span> <span class="p">{</span>
@@ -2010,7 +2041,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>

@@ -789,6 +789,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1395,7 +1407,28 @@
                 
                   <h1>Scaffold</h1>
                 
-                <p><img src = "../../../assets/layout/scaffold/carbon.png" width = "70%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Scaffold</span><span class="p">(</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">scaffoldState</span><span class="p">:</span> <span class="n">ScaffoldState</span> <span class="o">=</span> <span class="n">rememberScaffoldState</span><span class="p">(),</span>
+    <span class="n">topBar</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">bottomBar</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">snackbarHost</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">SnackbarHostState</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{</span> <span class="n">SnackbarHost</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+    <span class="n">floatingActionButton</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">floatingActionButtonPosition</span><span class="p">:</span> <span class="n">FabPosition</span> <span class="o">=</span> <span class="n">FabPosition</span><span class="p">.</span><span class="na">End</span><span class="p">,</span>
+    <span class="n">isFloatingActionButtonDocked</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">drawerContent</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">ColumnScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">drawerGesturesEnabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">drawerShape</span><span class="p">:</span> <span class="n">Shape</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">shapes</span><span class="p">.</span><span class="na">large</span><span class="p">,</span>
+    <span class="n">drawerElevation</span><span class="p">:</span> <span class="n">Dp</span> <span class="o">=</span> <span class="n">DrawerDefaults</span><span class="p">.</span><span class="na">Elevation</span><span class="p">,</span>
+    <span class="n">drawerBackgroundColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">surface</span><span class="p">,</span>
+    <span class="n">drawerContentColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">contentColorFor</span><span class="p">(</span><span class="n">drawerBackgroundColor</span><span class="p">),</span>
+    <span class="n">drawerScrimColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">DrawerDefaults</span><span class="p">.</span><span class="na">scrimColor</span><span class="p">,</span>
+    <span class="n">backgroundColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">background</span><span class="p">,</span>
+    <span class="n">contentColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">contentColorFor</span><span class="p">(</span><span class="n">backgroundColor</span><span class="p">),</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">PaddingValues</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span>
+</code></pre></div>
 <h2 id="1">1. 概述</h2>
 <p><code>Scaffold</code> 实现了 <strong>Material Design</strong> 的基本视图界面结构</p>
 <p>如以下的侧边应用栏、底部导航栏、导航栏等效果</p>
@@ -1429,7 +1462,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 4, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>

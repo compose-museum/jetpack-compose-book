@@ -789,6 +789,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1395,7 +1407,19 @@
                 
                   <h1>AlertDialog</h1>
                 
-                <p><img src = "../../assets/elements/alertdialog/carbon.png" width = "50%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">AlertDialog</span><span class="p">(</span>
+    <span class="n">onDismissRequest</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">buttons</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="p">(</span><span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">shapes</span><span class="p">.</span><span class="na">medium</span><span class="p">,</span>
+    <span class="n">backgroundColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">surface</span><span class="p">,</span>
+    <span class="n">contentColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">contentColorFor</span><span class="p">(</span><span class="n">backgroundColor</span><span class="p">),</span>
+    <span class="n">properties</span><span class="p">:</span> <span class="n">DialogProperties</span> <span class="o">=</span> <span class="n">DialogProperties</span><span class="p">()</span>
+<span class="p">)</span>
+</code></pre></div>
 <p><a href="https://material.io/components/dialogs#alert-dialog">Material Design AlertDialog</a></p>
 <h2 id="1">1. 简单使用</h2>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">openDialog</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">}</span>
@@ -1512,7 +1536,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 20, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>

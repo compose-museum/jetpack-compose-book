@@ -101,6 +101,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.compose.net.cn/design/theme/overview/</loc>
+         <lastmod>2021-06-15</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.compose.net.cn/design/theme/understanding_material_theme/</loc>
          <lastmod>2021-06-15</lastmod>
          <changefreq>daily</changefreq>

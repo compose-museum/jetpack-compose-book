@@ -782,6 +782,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1381,7 +1393,15 @@
                 
                   <h1>IconButton</h1>
                 
-                <p><img src = "../../assets/elements/iconbutton/carbon.png" width = "80%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">IconButton</span><span class="p">(</span>
+    <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span>
+</code></pre></div>
 <p><code>IconButton</code> 可以帮助我们生成一个可点击的图标按钮</p>
 <p><code>IconButton</code> 是一个可点击的图标，用于表示动作（复制，粘贴，保存，等等）。<code>IconButton</code> 的整体最小触摸目标尺寸为 <strong>48 x 48dp</strong>，以满足无障碍准则。<code>content</code> 会在 <code>IconButton</code> 内居中。</p>
 <p>这个组件通常用于应用栏内的导航图标/动作。</p>
@@ -1464,7 +1484,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 29, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>

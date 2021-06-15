@@ -803,6 +803,18 @@
   
   
     <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
@@ -1423,7 +1435,17 @@
                 
                   <h1>Image</h1>
                 
-                <p><img src = "../../assets/elements/image/carbon.png" width = "80%" height = "50%"></p>
+                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Image</span><span class="p">(</span>
+    <span class="n">painter</span><span class="p">:</span> <span class="n">Painter</span><span class="p">,</span>
+    <span class="n">contentDescription</span><span class="p">:</span> <span class="kt">String?</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">alignment</span><span class="p">:</span> <span class="n">Alignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span><span class="p">,</span>
+    <span class="n">contentScale</span><span class="p">:</span> <span class="n">ContentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">Fit</span><span class="p">,</span>
+    <span class="n">alpha</span><span class="p">:</span> <span class="kt">Float</span> <span class="o">=</span> <span class="n">DefaultAlpha</span><span class="p">,</span>
+    <span class="n">colorFilter</span><span class="p">:</span> <span class="n">ColorFilter? </span><span class="o">=</span> <span class="kc">null</span>
+<span class="p">)</span>
+</code></pre></div>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>目前在 <code>Compose</code> 中 <code>Image</code> 有三种，详情可先在<a href="http://localhost:8000/elements/image/#4">底部</a>找到</p>
@@ -1526,7 +1548,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 18, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
       
     
   </small>
