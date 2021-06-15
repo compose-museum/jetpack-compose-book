@@ -441,15 +441,15 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 因为这个状态是在拍摄之前创建的，此时 `state.snapshotId`!=`Snapshot.id`,此期间对 `state` 的修改虽然不会立即标记为 `invalid`,但是会计入 `modified`, `apply` 之后，由全局快照进行通知:
 
-![](../../../assets/principle/overitableRecord.png)
+![](../../assets/principle/overitableRecord.png)
 
 会在 `apply` 时通知到观察者 `ApplyObserver`（刚才还提到 writerObserver ），记录下 `changed`:
 
-![](../../../assets/principle/applyObserver.png)
+![](../../assets/principle/applyObserver.png)
 
 `composation` 则会找出观察了对应变化状态的 `scope` 进行重组。  
 
-![](../../../assets/principle/findAndInvalid.png)
+![](../../assets/principle/findAndInvalid.png)
 
 
 > 以上就是快照系统的使用和`Jetpack Compose`重组的机制，有任何不正确的地方欢迎指正。
