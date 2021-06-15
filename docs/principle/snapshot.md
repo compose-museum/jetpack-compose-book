@@ -294,7 +294,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
 
 ## 解惑
 - **为什么`state`变化能触发重组呢？**
->Jetpack Compose在执行时注册了`readObserverOf`和`writeObserverOf`:
+>Jetpack Compose在执行时注册了 `readObserverOf` 和`writeObserverOf` :
 ```kotlin
  private inline fun <T> composing(
         composition: ControlledComposition,
@@ -312,7 +312,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
     }
 ```
 其中在读取状态的地方会执行：
-- `readObserverOf`来记录哪些`scope`使用了此`state` :
+- `readObserverOf` 来记录哪些 `scope 使用了此 `state` :
 
 ```kotlin
  override fun recordReadOf(value: Any) {
@@ -327,7 +327,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
 ```
 
 - `writeObserverOf`
- 而写入时会找出对应使用此`state`的`scope`使其`invalidate`
+ 而写入时会找出对应使用此 `state` 的 `scope` 使其 `invalidate` :
 ```kotlin
  override fun recordWriteOf(value: Any) = synchronized(lock) {
         invalidateScopeOfLocked(value)
@@ -350,7 +350,6 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
 - **它是如何确定重组范围呢？**
 
 >能够被标记为 Invalid 的代码必须是非 inline 且无返回值的 @Composalbe function/lambda，必须遵循 重组范围最小化 原则。
-
 详细参见：[Compose 如何确定重组范围](https://compose.net.cn/principle/recomposition_scope/)
 
 
@@ -372,8 +371,8 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
         }
     }
 ``` 
-不会重组，因为`delay`导致状态的读取是在`snap.apply`方法之外执行的,
-因此也就不会注册`readObserverOf`,自然也就不会与`composeScope`挂钩，也就不会触发重组，在这个例子里如果是在`delay`之前读取则会重组。
+不会重组，因为 `delay` 导致状态的读取是在 `snap.apply` 方法之外执行的,
+因此也就不会注册 `readObserverOf` ,自然也就不会与 `composeScope` 挂钩，也就不会触发重组，在这个例子里如果是在 `delay` 之前读取则会重组。
 
 ### 2. 例子②
 ```kotlin
@@ -389,7 +388,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
     }
 ```
 
-这个就比较简单了，在不同线程调用，想想`SnapshotThreadLocal`,互不干扰（直到 `apply` )，因此也不会触发重组。
+这个就比较简单了，在不同线程调用，想想 `SnapshotThreadLocal` ,互不干扰（直到 `apply` )，因此也不会触发重组。
 ### 3. 例子③
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -421,7 +420,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
   
 > 有关 `SlotTable` 的更多信息请参阅：[深入详解JetpackCompose|实现原理](https://juejin.cn/post/6889797083667267598)
 
-其次就是由于`state`的创建是在`enter`代码块中，此时`state.snapshotId`==`Snapshot.id`,并不会记录`state`的变化。毕竟快照的`diff`是作用在两个快照之间。
+其次就是由于 `state` 的创建是在 `enter` 代码块中，此时 `state.snapshotId`==`Snapshot.id` ,并不会记录 `state` 的变化。毕竟快照的 `diff` 是作用在两个快照之间。
 ```kotlin
 internal fun <T : StateRecord> T.overwritableRecord(
     state: StateObject,
@@ -455,7 +454,7 @@ internal fun <T : StateRecord> T.overwritableRecord(
 
 **答案是会重组**  
 
-因为这个状态是在拍摄之前创建的，此时 `state.snapshotId`!=`Snapshot.id`,此期间对 `state` 的修改虽然不会立即标记为 `invalid`,但是会计入 `modified`, `apply` 之后，由全局快照进行通知:
+因为这个状态是在拍摄之前创建的，此时 `state.snapshotId`!=`Snapshot.id`,此期间对 `state` 的修改虽然不会立即标记为 `invalid` ,但是会计入  `modified` , `apply` 之后，由全局快照进行通知:
 
 ```kotlin
 internal fun <T : StateRecord> T.overwritableRecord(
@@ -493,7 +492,7 @@ val unregisterApplyObserver = Snapshot.registerApplyObserver { changed, _ ->
             }
 ```
 
-`composation` 则会找出观察了对应变化状态的 `scope` 标记为`invalid`等待重组：  
+`composation` 则会找出观察了对应变化状态的 `scope` 标记为 `invalid` 等待重组：  
 
 ```kotlin
  private fun addPendingInvalidationsLocked(values: Set<Any>) {
@@ -530,4 +529,4 @@ val unregisterApplyObserver = Snapshot.registerApplyObserver { changed, _ ->
     }
 ```
 
-> 以上就是快照系统的使用和`Jetpack Compose`重组的机制，有任何不正确的地方欢迎指正。
+> 以上就是快照系统的使用和` Jetpack Compose` 重组的机制，有任何不正确的地方欢迎指正。
