@@ -14,7 +14,7 @@
 
 <img src = "../assets/tutorial/demo.gif" width = "600" height = "600" >
 
-### 添加一个 text 元素
+### 添加一个 text 元素</h3>
 
 现在你可以在你的 `activity` 添加一个 `text` 元素。你可以通过定义一个内容块，并调用 `Text()` 函数来实现。
 
@@ -30,7 +30,6 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
-
 ![](assets/tutorial/demo.png)
 
 
