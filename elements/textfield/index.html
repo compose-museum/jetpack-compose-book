@@ -540,6 +540,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#6-visualtransformation" class="md-nav__link">
+    6. visualTransformation 参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     更多
   </a>
@@ -1462,6 +1469,13 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#6-visualtransformation" class="md-nav__link">
+    6. visualTransformation 参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     更多
   </a>
@@ -1704,6 +1718,32 @@
 <p><img alt="" src="../../assets/elements/textfield/demo5.png" /></p>
 <p>解决方法如下，手动打完函数名</p>
 <p><img alt="" src="../../assets/elements/textfield/demo4.gif" /></p>
+<h2 id="6-visualtransformation">6. visualTransformation 参数</h2>
+<p><code>visualTransformation</code> 可以帮助我们应用输入框的显示模式</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">text</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)}</span>
+<span class="kd">var</span> <span class="nv">passwordHidden</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)}</span>
+
+<span class="n">TextField</span><span class="p">(</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span>
+    <span class="n">onValueChange</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="nb">it</span>
+    <span class="p">},</span>
+    <span class="n">trailingIcon</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">IconButton</span><span class="p">(</span>
+            <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">passwordHidden</span> <span class="o">=</span> <span class="o">!</span><span class="n">passwordHidden</span>
+            <span class="p">}</span>
+        <span class="p">){</span>
+            <span class="n">Icon</span><span class="p">(</span><span class="n">painterResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">visibility</span><span class="p">),</span> <span class="kc">null</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="n">label</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;密码&quot;</span><span class="p">)</span>
+    <span class="p">},</span>
+    <span class="n">visualTransformation</span> <span class="o">=</span> <span class="k">if</span><span class="p">(</span><span class="n">passwordHidden</span><span class="p">)</span> <span class="n">PasswordVisualTransformation</span><span class="p">()</span> <span class="k">else</span> <span class="n">VisualTransformation</span><span class="p">.</span><span class="na">None</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img alt="" src="../../assets/elements/textfield/demo5.gif" /></p>
 <h2 id="_1">更多</h2>
 <p><a href="https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#textfield">TextField 参数详情</a></p>
                 
@@ -1714,7 +1754,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 16, 2021</span>
       
     
   </small>
