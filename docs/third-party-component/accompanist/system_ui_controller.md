@@ -50,7 +50,7 @@ systemUiController.setStatusBarsColor(
 
 ## 示例
 
- [Insets 示例](https://github.com/google/accompanist/tree/main/sample/src/main/java/com/google/accompanist/sample/insets)中的透明系统栏（Android 平台上指状态栏和导航栏）都是通过`SystemUiController`实现，若有需要，请自行查阅。
+ [Insets 示例](https://github.com/google/accompanist/tree/main/sample/src/main/java/com/google/accompanist/sample/insets) 中的透明系统栏（Android 平台上指状态栏和导航栏）都是通过`SystemUiController`实现，若有需要，请自行查阅。
 
 ## 下载
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller)](https://search.maven.org/search?q=g:com.google.accompanist)
@@ -66,4 +66,4 @@ dependencies {
 ```
 
 
- [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-systemuicontroller/) 中提供了开发版本的快照。每一次提交，快照都会更新。
+每个版本可以在 [快照仓库](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-systemuicontroller/) 中被找到，每次提交时都会更新。

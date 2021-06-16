@@ -1,5 +1,9 @@
 
 
+# Insets for Jetpack Compose
+
+[![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-insets)](https://search.maven.org/search?q=g:com.google.accompanist)
+
 Jetpack Compose 的 Insets 采用了 View 系统中 Insetter 组件库的设计理念，使其可以在 composables 中被使用。
 
 ## 用法

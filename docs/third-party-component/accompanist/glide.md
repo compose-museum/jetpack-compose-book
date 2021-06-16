@@ -139,7 +139,7 @@ CompositionLocalProvider(LocalRequestManager provides requestManager) {
 
 更多有关 `CompositionLocal` 的信息，请参见[此处](https://developer.android.google.cn/reference/kotlin/androidx/compose/runtime/CompositionLocal)。
 
-## Download
+## 下载
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-glide)](https://search.maven.org/search?q=g:com.google.accompanist)
 
@@ -153,5 +153,5 @@ dependencies {
 }
 ```
 
- [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-glide/) 中提供了开发版本的快照。每一次提交，快照都会更新。
+每个版本可以在 [快照仓库](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-glide/) 中被找到，每次提交时都会更新。
 

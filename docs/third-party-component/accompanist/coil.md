@@ -159,5 +159,5 @@ dependencies {
 }
 ```
 
- [Sonatype's `snapshots` repository](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-coil/)中提供了开发版本的快照。每一次提交，快照都会更新。
+每个版本可以在 [快照仓库](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-coil/) 中被找到，每次提交时都会更新。
 
