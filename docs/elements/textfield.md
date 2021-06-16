@@ -266,6 +266,38 @@ TextField(
 
 ![](../assets/elements/textfield/demo4.gif)
 
+## 6. visualTransformation 参数
+
+`visualTransformation` 可以帮助我们应用输入框的显示模式
+
+``` kotlin
+var text by remember{mutableStateOf("")}
+var passwordHidden by remember{ mutableStateOf(false)}
+
+TextField(
+    value = text,
+    onValueChange = {
+        text = it
+    },
+    trailingIcon = {
+        IconButton(
+            onClick = {
+                passwordHidden = !passwordHidden
+            }
+        ){
+            Icon(painterResource(id = R.drawable.visibility), null)
+        }
+    },
+    label = {
+        Text("密码")
+    },
+    visualTransformation = if(passwordHidden) PasswordVisualTransformation() else VisualTransformation.None
+)
+```
+
+![](../assets/elements/textfield/demo5.gif)
+
+
 ## 更多
 
 [TextField 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#textfield)
