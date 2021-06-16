@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#insets-for-jetpack-compose" class="md-skip">
           跳转至
         </a>
       
@@ -1190,6 +1190,8 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           Insets
@@ -1204,6 +1206,8 @@
 <nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
+  
+    
   
   
     <label class="md-nav__title" for="__toc">
@@ -1512,6 +1516,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1671,9 +1677,9 @@
                   </a>
                 
                 
-                  <h1>Insets</h1>
-                
-                <p>Jetpack Compose 的 Insets 采用了 View 系统中 Insetter 组件库的设计理念，使其可以在 composables 中被使用。</p>
+                <h1 id="insets-for-jetpack-compose">Insets for Jetpack Compose</h1>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-insets" /></a></p>
+<p>Jetpack Compose 的 Insets 采用了 View 系统中 Insetter 组件库的设计理念，使其可以在 composables 中被使用。</p>
 <h2 id="_1">用法</h2>
 <p>为了能在你的 composables 中使用 Insets , 你需要使用 <code>ProvideWindowInsets</code> 方法并将你的视图内容声明在尾部lambda中。这步操作通常要在你的composable层级的顶部附近进行。</p>
 <div class="highlight"><pre><span></span><code><span class="n">setContent</span> <span class="p">{</span>
@@ -1872,7 +1878,7 @@ TopAppBar(
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 10, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 16, 2021</span>
       
     
   </small>
