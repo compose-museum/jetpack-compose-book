@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-appcompat-theme)](https://search.maven.org/search?q=g:com.google.accompanist)
 
-这个库将允许开发者将传统 AppCompat XML 主题配置复用到 Jetpack Compose 中
+这个库将允许开发者将传统 AppCompat XML 主题配置复用到 `Jetpack Compose` 中
 
 Jetpack Compose 的基础主题配置采用 MaterialTheme， 可以通过配置 `Colors` 、`Shapes` 、`Typography` 等参数来定制你的主题效果，具体操作过程与工作原理详见 [主题](../../../design/theme/overview/) 章节。
 
@@ -34,7 +34,7 @@ AppCompatTheme {
 }
 ```
 
-每当你打算将一个现有应用的某个 UI 容器迁移至 Jetpack Compose，这个库所提供的主题配置能力将会使迁移过程变得非常容易。
+每当你打算将一个现有应用的某个 `UI` 容器迁移至 `Jetpack Compose`，这个库所提供的主题配置能力将会使迁移过程变得非常容易。
 
 > ⚠️ 注意
 >
