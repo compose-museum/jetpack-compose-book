@@ -1,4 +1,4 @@
-# AppCompat Theme
+# AppCompat Compose Theme Adapter
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-appcompat-theme)](https://search.maven.org/search?q=g:com.google.accompanist)
 
@@ -128,4 +128,5 @@ dependencies {
 }
 ```
 
-每个版本可以在 [快照仓库](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-insets/) 中被找到，每次提交时都会更新。
+每个版本可以在 [快照仓库](https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-appcompat-theme/) 中被找到，每次提交时都会更新。
+
