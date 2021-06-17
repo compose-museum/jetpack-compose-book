@@ -1,5 +1,17 @@
 # 一些对 Compose 项目开发有帮助的资源
 
+
+
+## 官方依赖
+
+|依赖名|版本|
+|------|-----|
+|[GradlePluginVersion]()|7.0.0-beta04|
+|[kotlinVersion](https://github.com/JetBrains/kotlin/releases)|1.5.10|
+|[composeVersion](https://developer.android.com/jetpack/androidx/releases/compose)|1.0.0-beta09|
+|[navigationComposeVersion](https://developer.android.com/jetpack/androidx/releases/navigation)|2.4.0-alpha03|
+
+
 ## 库
 
 | 项目名 | 介绍 |
