@@ -8,17 +8,25 @@
 
 尝试使用最新的 `Compose` 版本和 `Kotlin` 版本
 
+`Gradle 版本`: 7.0.2
+
+可手动在 `gradle-wrapper.properties` 中更新
+
+```
+distributionUrl=https\://services.gradle.org/distributions/gradle-7.0.2-bin.zip
+```
+
 `build.gralde.kts (Project)`
 
 ```kotlin
 buildscript {
-    val compose_version by extra("1.0.0-beta08") // Compose 版本
+    val compose_version by extra("1.0.0-beta09") // Compose 版本
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-beta03")
+        classpath("com.android.tools.build:gradle:7.0.0-beta04")
 
         // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
@@ -34,14 +42,14 @@ buildscript {
 ```kotlin
 buildscript {
     ext {
-        compose_version = '1.0.0-beta08'
+        compose_version = '1.0.0-beta09'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0-beta03'
+        classpath 'com.android.tools.build:gradle:7.0.0-beta04'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
 
         // NOTE: Do not place your application dependencies here; they belong
