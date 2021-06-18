@@ -236,6 +236,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.compose.net.cn/principle/recompose_working_principle/</loc>
+         <lastmod>2021-06-18</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.compose.net.cn/principle/recomposition_scope/</loc>
          <lastmod>2021-06-18</lastmod>
          <changefreq>daily</changefreq>
