@@ -1619,7 +1619,7 @@
                 
                   <h1>重组的工作流程</h1>
                 
-                <p>我们都知道 Jetpack Compose 是一套声明式 UI 系统，当 UI 组件所依赖的状态发生改变时会自动发生重绘刷新，这个过程被官方称作<strong>重组</strong>，前面已经有人总结过 Compose 的重组范围了，文章详见 <a href="https://juejin.cn/post/6964185100971950093">《Compose 的重组会影响性能吗？聊一聊 recomposition scope》</a>  ，也有人总结过重组过程使用到的快照系统，文章详见<a href="https://juejin.cn/post/6972692477505437733">《Jetpack Compose · 快照系统》</a>。本文将带领大家来看看 Compose 源码中从状态更新到 recompose 过程在源码中是如何进行的，并且讲解快照系统在 recompose 过程中如何被使用到的。</p>
+                <p>我们都知道 Jetpack Compose 是一套声明式 UI 系统，当 UI 组件所依赖的状态发生改变时会自动发生重绘刷新，这个过程被官方称作<strong>重组</strong>，前面已经总结过 <a href="../../principle/recomposition_scope/">Compose 的重组范围</a>，以及 <a href="../../principle/snapshot/">重组过程使用的Snapshot</a>。本文将带领大家来看看 Compose 源码中从状态更新到 recompose 过程在源码中是如何进行的，并且讲解快照系统在 recompose 过程中如何被使用到的。</p>
 <h2 id="_1">意义</h2>
 <p>本文通过阅读源码来解读 recompose 流程，阅读源码其实是一个非常枯燥的过程，源码中存在着大量逻辑分支导致许多人看着看着就被绕晕了。本文剔除了所有与主线流程无关的逻辑分支，并结合配图进行逻辑表达，希望能够帮助大家理解 recompose 工作原理。通过这篇文章希望大家能够对 recompose工作原理产生一种感性认知，并在本文的基础上能够继续深入探索recompose流程中的各种技术细节。</p>
 <p>⚠️ Tips：由于 recompose 流程十分复杂，本文目前仅对 recompose 主线流程进行了描述，其中包含的许多技术细节没有深挖。由于本人采用动静结合方式进行源码分析，难免出现有些case流程没有覆盖到的情况，如果文章存在错误欢迎提出。</p>
@@ -1718,7 +1718,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>可能你对 mutableState 更新操作是否在 ComposeScope 中而感到困惑，举个例子其实就明白了。recompose 能够执行到就在 ComposeScope 中，不能执行到就不在 ComposeScope 中。</p>
-<p>这个在后面 <a href="#heading-9"><strong><em>takeMutableSnapshot读观察者与写观察者</em></strong> </a> 部分是会进行解释。</p>
+<p>这个在后面 <a href="#takemutablesnapshot"><strong><em>takeMutableSnapshot读观察者与写观察者</em></strong> </a> 部分是会进行解释。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">display</span> <span class="k">by</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;Init&quot;</span><span class="p">)</span>
 <span class="nd">@Preview</span>
 <span class="nd">@Composable</span>
@@ -2018,7 +2018,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <h4 id="applyapplyobservers">apply中使用的applyObservers</h4>
-<p>我们再进入<code>MutableSnapshot.apply</code> 一探究竟，此时将当前 modified 在 <code>snapshot.recordModified(state)</code> 已经更新过了，忘记的话可以回头看看，前面已经讲过了。此时仍然使用了 <code>applyObservers</code> 进行遍历通知。这个<code>applyObservers</code> 其实是个静态变量，所以不同的 GlobalSnapshot 与MutableSnapshot 可以共享，接下来仍然通过预先订阅好的 <code>recompositionRunner</code> 用来处理 recompose 过程，详见 <a href="#heading-6"><strong><em>applyObservers之recompositionRunner</em></strong></a>，接下来的recompose流程就完全相同了。</p>
+<p>我们再进入<code>MutableSnapshot.apply</code> 一探究竟，此时将当前 modified 在 <code>snapshot.recordModified(state)</code> 已经更新过了，忘记的话可以回头看看，前面已经讲过了。此时仍然使用了 <code>applyObservers</code> 进行遍历通知。这个<code>applyObservers</code> 其实是个静态变量，所以不同的 GlobalSnapshot 与MutableSnapshot 可以共享，接下来仍然通过预先订阅好的 <code>recompositionRunner</code> 用来处理 recompose 过程，详见 <a href="#applyobserversrecompositionrunne"><strong><em>applyObservers之recompositionRunner</em></strong></a>，接下来的recompose流程就完全相同了。</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// androidx.compose.runtime.snapshots.Snapshot</span>
 <span class="kd">open</span> <span class="kd">fun</span> <span class="nf">apply</span><span class="p">():</span> <span class="n">SnapshotApplyResult</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="nv">modified</span> <span class="o">=</span> <span class="n">modified</span>
@@ -2049,7 +2049,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 18, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 19, 2021</span>
       
     
   </small>

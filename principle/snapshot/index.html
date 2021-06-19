@@ -986,6 +986,8 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
           透过Snapshot看重组
@@ -1001,6 +1003,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1009,70 +1013,62 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#snapshot" class="md-nav__link">
-    Snapshot
+  <a href="#snapshot-api" class="md-nav__link">
+    Snapshot API
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#snapshot-api" class="md-nav__link">
-    Snapshot API
-  </a>
-  
-    <nav class="md-nav" aria-label="Snapshot API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     创建快照
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     可变快照
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     观察读取和写入
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     全局快照
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     多线程
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     冲突
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     总结
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     解惑
   </a>
@@ -1112,11 +1108,6 @@
   <a href="#5-5" class="md-nav__link">
     5. 例子⑤
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
         
@@ -1506,6 +1497,8 @@
   
   
   
+    
+  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1514,70 +1507,62 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#snapshot" class="md-nav__link">
-    Snapshot
+  <a href="#snapshot-api" class="md-nav__link">
+    Snapshot API
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#snapshot-api" class="md-nav__link">
-    Snapshot API
-  </a>
-  
-    <nav class="md-nav" aria-label="Snapshot API">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     创建快照
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
     可变快照
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
     观察读取和写入
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
     全局快照
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
     多线程
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
     冲突
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_7" class="md-nav__link">
     总结
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
     解惑
   </a>
@@ -1624,11 +1609,6 @@
     </nav>
   
 </li>
-        
-      </ul>
-    </nav>
-  
-</li>
       
     </ul>
   
@@ -1647,7 +1627,7 @@
                   </a>
                 
                 
-                <h2 id="snapshot">Snapshot</h2>
+                <h1 id="snapshot">透过Snapshot看重组</h1>
 <p>Jetpack Compose 引入了一种处理可观察状态的新方法 —— <code>Snapsot</code>（快照）。在 Compose 中我们通过 <code>state</code> 的变化来触发重组，那么请思考以下几个问题：
 - 为什么 <code>state</code> 变化能触发重组呢？
 - 它是如何确定重组范围呢？
@@ -1656,7 +1636,7 @@
 <blockquote>
 <p>本文部分例子和内容来自：<a href="https://dev.to/zachklipp/introduction-to-the-compose-snapshot-system-19cn">Introduction to the Compose Snapshot system</a></p>
 </blockquote>
-<h1 id="snapshot-api">Snapshot API</h1>
+<h2 id="snapshot-api">Snapshot API</h2>
 <blockquote>
 <p>一般情况下我们不需要了解快照如何使用，这些都是框架应该做的事情，我们手动操作很可能搞出问题。所以这里只是演示快照的使用（不涉及底层实现），这样有助于理解Compose重组的机制。</p>
 </blockquote>
@@ -2162,7 +2142,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 19, 2021</span>
       
     
   </small>
