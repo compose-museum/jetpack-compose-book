@@ -1,4 +1,4 @@
-我们都知道 Jetpack Compose 是一套声明式 UI 系统，当 UI 组件所依赖的状态发生改变时会自动发生重绘刷新，这个过程被官方称作**重组**，前面已经有人总结过 Compose 的重组范围了，文章详见 [《Compose 的重组会影响性能吗？聊一聊 recomposition scope》](https://juejin.cn/post/6964185100971950093)  ，也有人总结过重组过程使用到的快照系统，文章详见[《Jetpack Compose · 快照系统》](https://juejin.cn/post/6972692477505437733)。本文将带领大家来看看 Compose 源码中从状态更新到 recompose 过程在源码中是如何进行的，并且讲解快照系统在 recompose 过程中如何被使用到的。
+我们都知道 Jetpack Compose 是一套声明式 UI 系统，当 UI 组件所依赖的状态发生改变时会自动发生重绘刷新，这个过程被官方称作**重组**，前面已经总结过 [Compose 的重组范围](../../principle/recomposition_scope/)，以及 [重组过程使用的Snapshot](../../principle/snapshot/)。本文将带领大家来看看 Compose 源码中从状态更新到 recompose 过程在源码中是如何进行的，并且讲解快照系统在 recompose 过程中如何被使用到的。
 
 ## 意义
 
@@ -122,7 +122,7 @@ override fun recordModified(state: StateObject) {
 
 可能你对 mutableState 更新操作是否在 ComposeScope 中而感到困惑，举个例子其实就明白了。recompose 能够执行到就在 ComposeScope 中，不能执行到就不在 ComposeScope 中。
 
-这个在后面 [***takeMutableSnapshot读观察者与写观察者*** ](#heading-9) 部分是会进行解释。
+这个在后面 [***takeMutableSnapshot读观察者与写观察者*** ](#takemutablesnapshot) 部分是会进行解释。
 
 ```kotlin
 var display by mutableStateOf("Init")
@@ -485,7 +485,7 @@ private fun applyAndCheck(snapshot: MutableSnapshot) {
 
 #### apply中使用的applyObservers
 
-我们再进入`MutableSnapshot.apply` 一探究竟，此时将当前 modified 在 `snapshot.recordModified(state)` 已经更新过了，忘记的话可以回头看看，前面已经讲过了。此时仍然使用了 `applyObservers` 进行遍历通知。这个`applyObservers` 其实是个静态变量，所以不同的 GlobalSnapshot 与MutableSnapshot 可以共享，接下来仍然通过预先订阅好的 `recompositionRunner` 用来处理 recompose 过程，详见 [***applyObservers之recompositionRunner***](#heading-6)，接下来的recompose流程就完全相同了。
+我们再进入`MutableSnapshot.apply` 一探究竟，此时将当前 modified 在 `snapshot.recordModified(state)` 已经更新过了，忘记的话可以回头看看，前面已经讲过了。此时仍然使用了 `applyObservers` 进行遍历通知。这个`applyObservers` 其实是个静态变量，所以不同的 GlobalSnapshot 与MutableSnapshot 可以共享，接下来仍然通过预先订阅好的 `recompositionRunner` 用来处理 recompose 过程，详见 [***applyObservers之recompositionRunner***](#applyobserversrecompositionrunne)，接下来的recompose流程就完全相同了。
 
 ```kotlin
 // androidx.compose.runtime.snapshots.Snapshot
