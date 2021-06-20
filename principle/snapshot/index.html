@@ -1974,12 +1974,26 @@
         <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
         <span class="n">setContent</span> <span class="p">{</span>
             <span class="n">thread</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="nv">text</span> <span class="o">=</span>  <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span>
                 <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Compose&quot;</span>
             <span class="p">}</span>
         <span class="p">}</span>
     <span class="p">}</span>
 </code></pre></div>
-<p>这个就比较简单了，在不同线程调用，想想 <code>SnapshotThreadLocal</code> ,互不干扰（直到 <code>apply</code> )，因此也不会触发重组。</p>
+<p><code>thread</code> 中的<code>state</code>在不同线程读取，由于<code>SnapshotThreadLocal</code>机制，如果此线程无快照，则获取<code>GlobalSnapshot</code>：
+<div class="highlight"><pre><span></span><code>internal fun currentSnapshot(): Snapshot =
+    threadSnapshot.get() ?: currentGlobalSnapshot.get()
+</code></pre></div>
+由于没有对应的<code>readObserver</code>,因此此例子不会重组。但是如果在<code>composable</code>内读取了此<code>state</code>是会重组的，因为<code>ReComposer</code>注册了<code>ApplyObserver</code>,在<code>apply</code>时也会对<code>globalModified</code>进行记录，在下一帧信号到达时去查找对应的<code>scope</code>（大家可以断点跟一下流程）：
+<div class="highlight"><pre><span></span><code> <span class="kd">val</span> <span class="nv">unregisterApplyObserver</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">registerApplyObserver</span> <span class="p">{</span> <span class="n">changed</span><span class="p">,</span> <span class="n">_</span> <span class="o">-&gt;</span>
+                <span class="n">synchronized</span><span class="p">(</span><span class="n">stateLock</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span> <span class="o">&gt;=</span> <span class="n">State</span><span class="p">.</span><span class="na">Idle</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">snapshotInvalidations</span> <span class="o">+=</span> <span class="n">changed</span>
+                        <span class="n">deriveStateLocked</span><span class="p">()</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="kc">null</span>
+                <span class="p">}</span><span class="o">?.</span><span class="na">resume</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span>
+            <span class="p">}</span>
+</code></pre></div></p>
 <h3 id="3-3">3. 例子③</h3>
 <p><div class="highlight"><pre><span></span><code><span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
         <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
@@ -2142,7 +2156,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 19, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2021</span>
       
     
   </small>
