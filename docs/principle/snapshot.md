@@ -389,12 +389,23 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
     }
 ```
 
-`thread` 中的`state`在不同线程读取，获取的是不同的快照（`GlobalSnapshot`)：
+`thread` 中的`state`在不同线程读取，由于`SnapshotThreadLocal`机制，如果此线程无快照，则获取`GlobalSnapshot`：
 ```
 internal fun currentSnapshot(): Snapshot =
     threadSnapshot.get() ?: currentGlobalSnapshot.get()
 ```
-因此没有对应的`readObserver`,因此此例子不会重组，但是如果在`composable`内读取了此`state`是会重组的。
+因此没有对应的`readObserver`,因此此例子不会重组。但是如果在`composable`内读取了此`state`是会重组的，因为`ReComposer`注册了`ApplyObserver`,在`apply`时会记录下来，在下一帧信号到达时去查找对应的`scope`（大家可以断点跟一下流程）：
+```kotlin
+ val unregisterApplyObserver = Snapshot.registerApplyObserver { changed, _ ->
+                synchronized(stateLock) {
+                    if (_state.value >= State.Idle) {
+                        snapshotInvalidations += changed
+                        deriveStateLocked()
+                    } else null
+                }?.resume(Unit)
+            }
+```
+
 ### 3. 例子③
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
