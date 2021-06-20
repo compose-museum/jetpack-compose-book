@@ -1672,9 +1672,9 @@
     <span class="kd">private</span> <span class="kd">var</span> <span class="nv">next</span><span class="p">:</span> <span class="n">StateStateRecord</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">StateStateRecord</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>接下来会通过 <code>Snapshot.current</code> 获取当前上下文中的 Snapshot，如果你对 mutableState 更新操作在异步执行代码块中，其返回的实例类型是 <code>GlobalSnapshot</code> ，否则就是一个 <code>MutableSnapshot</code>。这将会影响到后续写入recompose的执行流程。</p>
-<p><img alt="image-20210618231652055" src="../../assets/principle/recompose_working_principle/demo1.png" /> </p>
+<p>接下来会通过 <code>Snapshot.current</code> 获取当前上下文中的 Snapshot，如果你对 mutableState 更新操作在异步执行代码块中，由于我们知道 Snapshot 是一个 ThreadLocal 此时会返回当前执行线程的 Snapshot，当若当前执行线程的 Snapshot 为空时默认返回 <code>GlobalSnapshot</code>，如果你对 mutableState 更新操作直接在 Composable 中，当前 Composable 执行线程的 Snapshot 就是 <code>MutableSnapshot</code>。这将会影响到后续 recompose 的执行流程。</p>
 <p>⚠️ Tips：GlobalSnapshot 实际上是 MutableSnapShot 的子类</p>
+<p><img alt="image-20210618231652055" src="../../assets/principle/recompose_working_principle/demo1.png" /> </p>
 <div class="highlight"><pre><span></span><code><span class="c1">// androidx.compose.runtime.snapshots.Snapshot</span>
 <span class="kd">internal</span> <span class="kd">inline</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span> <span class="p">:</span> <span class="n">StateRecord</span><span class="p">,</span> <span class="n">R</span><span class="o">&gt;</span> <span class="n">T</span><span class="p">.</span><span class="nf">overwritable</span><span class="p">(</span>
     <span class="n">state</span><span class="p">:</span> <span class="n">StateObject</span><span class="p">,</span>
@@ -2049,7 +2049,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 19, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2021</span>
       
     
   </small>
