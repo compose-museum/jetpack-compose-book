@@ -382,13 +382,19 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
         super.onCreate(savedInstanceState)
         setContent {
             thread {
+                val text =  darkMode.value
                 darkMode.value = "Compose"
             }
         }
     }
 ```
 
-这个就比较简单了，在不同线程调用，想想 `SnapshotThreadLocal` ,互不干扰（直到 `apply` )，因此也不会触发重组。
+`thread` 中的`state`在不同线程读取，获取的是不同的快照（`GlobalSnapshot`)：
+```
+internal fun currentSnapshot(): Snapshot =
+    threadSnapshot.get() ?: currentGlobalSnapshot.get()
+```
+因此没有对应的`readObserver`,因此此例子不会重组，但是如果在`composable`内读取了此`state`是会重组的。
 ### 3. 例子③
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
