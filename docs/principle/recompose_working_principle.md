@@ -67,11 +67,11 @@ internal open class SnapshotMutableStateImpl<T>(
 }
 ```
 
-接下来会通过 `Snapshot.current` 获取当前上下文中的 Snapshot，如果你对 mutableState 更新操作在异步执行代码块中，其返回的实例类型是 `GlobalSnapshot` ，否则就是一个 `MutableSnapshot`。这将会影响到后续写入recompose的执行流程。
-
-![image-20210618231652055](../../assets/principle/recompose_working_principle/demo1.png) 
+接下来会通过 `Snapshot.current` 获取当前上下文中的 Snapshot，如果你对 mutableState 更新操作在异步执行代码块中，由于我们知道 Snapshot 是一个 ThreadLocal 此时会返回当前执行线程的 Snapshot，当若当前执行线程的 Snapshot 为空时默认返回 `GlobalSnapshot`，如果你对 mutableState 更新操作直接在 Composable 中，当前 Composable 执行线程的 Snapshot 就是 `MutableSnapshot`。这将会影响到后续 recompose 的执行流程。
 
  ⚠️ Tips：GlobalSnapshot 实际上是 MutableSnapShot 的子类
+
+![image-20210618231652055](../../assets/principle/recompose_working_principle/demo1.png) 
 
 ```kotlin
 // androidx.compose.runtime.snapshots.Snapshot
