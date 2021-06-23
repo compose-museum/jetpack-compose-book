@@ -64,6 +64,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#jetpack-compose-flow-layouts" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1257,10 +1262,49 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Flow layouts
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Flow layouts
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1354,6 +1398,45 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    用法
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1364,9 +1447,30 @@
                   </a>
                 
                 
-                  <h1>Flow layouts</h1>
-                
-                <p>这个人很懒，什么都没有留下</p>
+                <h1 id="jetpack-compose-flow-layouts">Jetpack Compose Flow Layouts</h1>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller" /></a></p>
+<p>这个库提供了 Jetpack Compose 版本的流式布局，与标准 Row 组件与 Column 组件不同的是，这个组件的子元素在排列时如果出现可用空间不足的情况会自动拓展为多行或多列。</p>
+<h2 id="_1">用法</h2>
+<div class="highlight"><pre><span></span><code><span class="n">FlowRow</span> <span class="p">{</span>
+    <span class="c1">// row contents</span>
+<span class="p">}</span>
+
+<span class="n">FlowColumn</span> <span class="p">{</span>
+    <span class="c1">// column contents</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>使用案例参考<a href="https://github.com/google/accompanist/tree/main/sample/src/main/java/com/google/accompanist/sample/flowlayout">这里</a></p>
+<h2 id="_2">下载</h2>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller" /></a></p>
+<div class="highlight"><pre><span></span><code><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s2">&quot;com.google.accompanist:accompanist-flowlayout:&lt;version&gt;&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>每个版本可以在 <a href="https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-flowlayout/">快照仓库</a> 中被找到，每次提交时都会更新。</p>
                 
                   
                     
@@ -1375,7 +1479,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 9, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 23, 2021</span>
       
     
   </small>

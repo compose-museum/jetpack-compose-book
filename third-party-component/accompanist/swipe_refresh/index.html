@@ -64,6 +64,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#swipe-refresh-for-jetpack-compose" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -1245,10 +1250,89 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Swipe Refresh
+          <span class="md-nav__icon md-icon"></span>
+        </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
         Swipe Refresh
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    用法
+  </a>
+  
+    <nav class="md-nav" aria-label="用法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    无需手势滑动数据刷新
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    刷新指示器
+  </a>
+  
+    <nav class="md-nav" aria-label="刷新指示器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    定制默认指示器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    定制指示器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1354,6 +1438,85 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    用法
+  </a>
+  
+    <nav class="md-nav" aria-label="用法">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    无需手势滑动数据刷新
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    刷新指示器
+  </a>
+  
+    <nav class="md-nav" aria-label="刷新指示器">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    定制默认指示器
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    定制指示器
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    下载
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1364,9 +1527,76 @@
                   </a>
                 
                 
-                  <h1>Swipe Refresh</h1>
-                
-                <p>这个人很懒，什么都没有留下</p>
+                <h1 id="swipe-refresh-for-jetpack-compose">Swipe Refresh for Jetpack Compose</h1>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller" /></a></p>
+<p>这个库提供了较为常用的滑动刷新组件，类似于传统View系统中的 <a href="https://developer.android.google.cn/reference/androidx/swiperefreshlayout/widget/SwipeRefreshLayout">SwipeRefreshLayout</a>。</p>
+<div align="center">
+<iframe  width="380" height="492" src="../../../assets/third-party-component/accompanist/swipe_refresh/demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+</div>
+
+<h2 id="_1">用法</h2>
+<p>为了能够使用滑动刷新组件，需要使用两个关键API，<code>SwipeRefresh</code> 为滑动刷新组件提供了布局信息，<code>rememberSwipeRefreshState()</code> 提供了滑动刷新状态信息。</p>
+<p>在使用了 ViewModel 的场景下，我们一般这么使用 <code>SwipeRefresh</code> 。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">viewModel</span><span class="p">:</span> <span class="n">MyViewModel</span> <span class="o">=</span> <span class="n">viewModel</span><span class="p">()</span>
+<span class="kd">val</span> <span class="nv">isRefreshing</span> <span class="k">by</span> <span class="n">viewModel</span><span class="p">.</span><span class="na">isRefreshing</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
+
+<span class="n">SwipeRefresh</span><span class="p">(</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">rememberSwipeRefreshState</span><span class="p">(</span><span class="n">isRefreshing</span><span class="p">),</span>
+    <span class="n">onRefresh</span> <span class="o">=</span> <span class="p">{</span> <span class="n">viewModel</span><span class="p">.</span><span class="na">refresh</span><span class="p">()</span> <span class="p">},</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">LazyColumn</span> <span class="p">{</span>
+        <span class="n">items</span><span class="p">(</span><span class="m">30</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span> <span class="o">-&gt;</span>
+            <span class="c1">// TODO: list items</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这个例子的全部信息，包括 ViewModel 的实现可以在<a href="https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/swiperefresh/DocsSamples.kt">这里</a>被找到。</p>
+<p>内容需要是可滚动的，以便 <code>SwipeRefresh</code> 能够对滑动手势作出相对应的行为。</p>
+<p>像 <code>LazyColumn</code> 这类可以通过手势滑动自动进行滚动的组件就是可以的。而像 <code>Column</code> 这类固定的组件则不行，对于这类组件你可以提供一个 <code>Modifier.verticalScroll</code> 修饰符为其拓展可滚动的能力。</p>
+<div class="highlight"><pre><span></span><code><span class="n">SwipeRefresh</span><span class="p">(</span>
+    <span class="c1">// ...</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">verticalScroll</span><span class="p">(</span><span class="n">rememberScrollState</span><span class="p">()))</span> <span class="p">{</span>
+        <span class="c1">// content</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_2">无需手势滑动数据刷新</h3>
+<p>滑动刷新通过一个独立状态进行管理，即使没有手势滑动也可以显示刷新指示器。</p>
+<p>下面这个不切实际的例子展示了一个永远在刷新的指示器。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">swipeRefreshState</span> <span class="o">=</span> <span class="n">rememberSwipeRefreshState</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+
+<span class="n">SwipeRefresh</span><span class="p">(</span>
+    <span class="n">state</span> <span class="o">=</span> <span class="n">swipeRefreshState</span><span class="p">,</span>
+    <span class="n">onRefresh</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* todo */</span> <span class="p">},</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">LazyColumn</span> <span class="p">{</span>
+        <span class="n">items</span><span class="p">(</span><span class="m">30</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span> <span class="o">-&gt;</span>
+            <span class="c1">// TODO: list items</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_3">刷新指示器</h2>
+<p>滑动刷新组件提供了一个默认刷新指示器 <code>SwipeRefreshIndicator()</code> ，<code>SwipeRefresh</code> 组件中自动使用的就是这个刷新指示器。 当然你也可以定制自己的刷新指示器， 将你的刷新指示器配置 到 <code>SwipeRefresh</code> 的 <code>indicator</code> 参数即可。</p>
+<h3 id="_4">定制默认指示器</h3>
+<p>为实现默认指示器的定制，我们可以提供我们自己的 <code>indicator</code> 内容代码块，需要在 <code>indicator</code> lambda参数结尾调用<code>SwipeRefreshIndicator()</code>，并在其中配置定制化参数。</p>
+<p>使用案例参考<a href="https://github.com/google/accompanist/tree/main/sample/src/main/java/com/google/accompanist/sample/flowlayout">这里</a></p>
+<h3 id="_5">定制指示器</h3>
+<p>正如前文所说，你可以提供你的定制 <code>indicator</code> 内容代码块。<code>SwipeRefreshState</code> 被提供到<code>indicator</code> 内容代码块， 这其中包含了必要信息去实现滑动刷新手势。</p>
+<p>定制指示器的例子可以参考<a href="https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/swiperefresh/SwipeRefreshCustomIndicatorSample.kt">这里</a></p>
+<h2 id="_6">下载</h2>
+<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller" /></a></p>
+<div class="highlight"><pre><span></span><code><span class="n">repositories</span> <span class="o">{</span>
+    <span class="n">mavenCentral</span><span class="o">()</span>
+<span class="o">}</span>
+
+<span class="n">dependencies</span> <span class="o">{</span>
+    <span class="n">implementation</span> <span class="s2">&quot;com.google.accompanist:accompanist-swiperefresh:&lt;version&gt;&quot;</span>
+<span class="o">}</span>
+</code></pre></div>
+<p>每个版本可以在 <a href="https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-swiperefresh/">快照仓库</a> 中被找到，每次提交时都会更新。</p>
                 
                   
                     
@@ -1375,7 +1605,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 9, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 23, 2021</span>
       
     
   </small>
