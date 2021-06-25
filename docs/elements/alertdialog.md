@@ -2,15 +2,16 @@
 @Composable
 fun AlertDialog(
     onDismissRequest: () -> Unit,
-    buttons: @Composable () -> Unit,
+    confirmButton: () -> Unit,
     modifier: Modifier = Modifier,
-    title: (@Composable () -> Unit)? = null,
-    text: @Composable (() -> Unit)? = null,
+    dismissButton: () -> Unit = null,
+    title: () -> Unit = null,
+    text: () -> Unit = null,
     shape: Shape = MaterialTheme.shapes.medium,
     backgroundColor: Color = MaterialTheme.colors.surface,
     contentColor: Color = contentColorFor(backgroundColor),
     properties: DialogProperties = DialogProperties()
-)
+): @Composable Unit
 ```
 
 [Material Design AlertDialog](https://material.io/components/dialogs#alert-dialog)
