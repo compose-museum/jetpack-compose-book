@@ -1,6 +1,4 @@
-
-
-## Snapshot
+# 透过Snapshot看重组
 
 Jetpack Compose 引入了一种处理可观察状态的新方法 —— `Snapsot`（快照）。在 Compose 中我们通过 `state` 的变化来触发重组，那么请思考以下几个问题：
 - 为什么 `state` 变化能触发重组呢？
@@ -12,7 +10,8 @@ Jetpack Compose 引入了一种处理可观察状态的新方法 —— `Snapsot
 
 > 本文部分例子和内容来自：[Introduction to the Compose Snapshot system](https://dev.to/zachklipp/introduction-to-the-compose-snapshot-system-19cn)
 
-# Snapshot API
+## Snapshot API
+
 > 一般情况下我们不需要了解快照如何使用，这些都是框架应该做的事情，我们手动操作很可能搞出问题。所以这里只是演示快照的使用（不涉及底层实现），这样有助于理解Compose重组的机制。
 
 `Snapshot`(快照)，简单比喻就是给所有 `state` 拍了个照，因此你能获取到拍摄之前的状态。
@@ -25,6 +24,7 @@ class Dog {
 }
 ```
 ## 创建快照
+
 ```Kotlin
   val dog = Dog()
   dog.name.value = “Spot”
@@ -44,7 +44,7 @@ class Dog {
 ```
 
 ---
-  
+
 - `takeSnapshot()` 将`"拍摄"`程序中所有 `State` 值的快照，无论它们是在何处创建的
 - `enter` 函数会把快照状态恢复并应用到函数体中
 
@@ -97,7 +97,7 @@ fun main() {
 Spot
 Fido
 Spot 
-```  
+```
 
 可以看到程序没有崩溃了，但是在 `enter` 里的操作并没有在其范围之外生效！这是一个很重要的隔离机制，如果我们想要应用 `enter` 内部的变更需要调用 `apply()` 方法：  
 ```Kotlin
@@ -370,7 +370,7 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
             }
         }
     }
-``` 
+```
 不会重组，因为 `delay` 导致状态的读取是在 `snap.apply` 方法之外执行的,
 因此也就不会注册 `readObserverOf` ,自然也就不会与 `composeScope` 挂钩，也就不会触发重组，在这个例子里如果是在 `delay` 之前读取则会重组。
 
@@ -382,13 +382,30 @@ after applying 2: Fluffy, briefly known as Fido, originally known as Spot
         super.onCreate(savedInstanceState)
         setContent {
             thread {
+                val text =  darkMode.value
                 darkMode.value = "Compose"
             }
         }
     }
 ```
 
-这个就比较简单了，在不同线程调用，想想 `SnapshotThreadLocal` ,互不干扰（直到 `apply` )，因此也不会触发重组。
+`thread` 中的`state`在不同线程读取，由于`SnapshotThreadLocal`机制，如果此线程无快照，则获取`GlobalSnapshot`：
+```
+internal fun currentSnapshot(): Snapshot =
+    threadSnapshot.get() ?: currentGlobalSnapshot.get()
+```
+由于没有对应的`readObserver`,因此此例子不会重组。但是如果在`composable`内读取了此`state`是会重组的，因为`ReComposer`注册了`ApplyObserver`,在`apply`时也会对`globalModified`进行记录，在下一帧信号到达时去查找对应的`scope`（大家可以断点跟一下流程）：
+```kotlin
+ val unregisterApplyObserver = Snapshot.registerApplyObserver { changed, _ ->
+                synchronized(stateLock) {
+                    if (_state.value >= State.Idle) {
+                        snapshotInvalidations += changed
+                        deriveStateLocked()
+                    } else null
+                }?.resume(Unit)
+            }
+```
+
 ### 3. 例子③
 ```kotlin
 override fun onCreate(savedInstanceState: Bundle?) {
@@ -417,7 +434,7 @@ override fun onCreate(savedInstanceState: Bundle?) {
 
 首先我们确实记录下了使用 `state` 的 `scope`,不然也不会在修改时触发 `invalidate` 行为。但此时 `slotTable` 里并还没有可重组的区域锚点信息，只有在组合完成之后才能拿到每个区域的锚点` anchors`。
 简单描述就是 `Compose` 使用 `SlotTable` 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。  
-  
+
 > 有关 `SlotTable` 的更多信息请参阅：[深入详解JetpackCompose|实现原理](https://juejin.cn/post/6889797083667267598)
 
 其次就是由于 `state` 的创建是在 `enter` 代码块中，此时 `state.snapshotId`==`Snapshot.id` ,并不会记录 `state` 的变化。毕竟快照的 `diff` 是作用在两个快照之间。
@@ -547,8 +564,8 @@ class MainActivity : ComponentActivity() {
 }
 ```
 如果把 `state` 声明放到 `kt` 文件最外层，是否会重组？
-  
-  
+
+
 答案是不会，因为在 `kotlin` 中如果把变量不放到类里，直接放到文件顶层。编译之后其实会生成一个文件，而这个属性则变成 `static` 的。
 
 ```java
@@ -561,8 +578,8 @@ public final class MainActivityKt {
 > 只有主动请求一个类,这个类才会初始化,仅包含静态变量,函数,等静态的东西.  
 ---
 也就是说在这个例子里只有在调用 `onlyDisplay` 时，才执行初始化，所以其 `state.snapshotId==snapshot.Id` ,此时首次组合尚未执行完毕，本次的 `invalidateResult==IGNORE`，也不会记为 `modified`，就和例子③ 一样的问题了。
-  
 
 
-  ---
+
+---
 > 以上就是快照系统的使用和` Jetpack Compose` 重组的机制，有任何不正确的地方欢迎指正。
