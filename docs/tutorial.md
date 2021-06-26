@@ -73,13 +73,13 @@ fun PreviewGreeting() {
 }
 ```
 
-重新运行你的项目。应用程序本身并没有改变，因为新的 `previewGreeting()` 函数并没有在任何地方被调用，但 `Android Studio` 增加了一个预览窗口。这个窗口显示了由标有 `@Preview` 注解的 `Composable` 函数创建的 `UI` 元素的预览。要在任何时候更新预览，请点击预览窗口顶部的刷新按钮。
+重新运行你的项目。应用程序本身并没有改变，因为新的 `PreviewGreeting()` 函数并没有在任何地方被调用，但 `Android Studio` 增加了一个预览窗口。这个窗口显示了由标有 `@Preview` 注解的 `Composable` 函数创建的 `UI` 元素的预览。要在任何时候更新预览，请点击预览窗口顶部的刷新按钮。
 
 ![](assets/tutorial/demo3.png)
 
 ## 2. 第二步：界面
 
-`UI` 元素是分层次的，元素包含在其他元素中。在 `Compos` e中，你通过从其他 `Composable` 函数中调用 `Composable` 函数来建立一个 `UI` 层次结构。
+`UI` 元素是分层次的，元素包含在其他元素中。在 `Compose` 中，你通过从其他 `Composable` 函数中调用 `Composable` 函数来建立一个 `UI` 层次结构。
 
 <img src = "../assets/tutorial/demo4.gif" width = "600" height = "600" >
 
