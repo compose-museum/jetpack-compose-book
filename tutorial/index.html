@@ -1705,11 +1705,11 @@
 <p><img src = "../assets/tutorial/demo4.gif" width = "600" height = "600" ></p>
 <h3 id="_2">让我们从一些文本开始</h3>
 <p>回到你的 <code>activity</code>，用一个新的 <code>NewsStory()</code> 函数替换 <code>Greeting()</code> 函数。在本教程的其余部分，你将修改 <code>NewsStory()</code> 函数，而不会再去碰 <code>Activity</code> 的代码。</p>
-<p>创建独立的、不被应用程序调用的预览函数是一种最佳做法；有专门的预览函数可以提高性能，也可以使以后设置多个预览更容易。因此，创建一个默认的预览函数，除了调用 <code>NewsStory()</code> 函数，什么都不做。当你通过本教程对 <code>NewsStory(</code> )进行修改时，预览会反映这些修改。</p>
-<p>这段代码在内容视图内创建了三个文本元素。然而，由于我们并没有安排如何排布它们，这三个文本元素重叠在了一块，使得文本无法阅读。</p>
+<p>创建独立的、不被应用程序调用的预览函数是一种最佳做法；有专门的预览函数可以提高性能，也可以使以后设置多个预览更容易。因此，创建一个默认的预览函数，除了调用 <code>NewsStory()</code> 函数，什么都不做。当你通过本教程对 <code>NewsStory()</code> 进行修改时，预览会更新这些修改。</p>
+<p>这段代码在 app 内创建了三个文本元素。然而，由于我们并没有安排如何排布它们，这三个文本元素重叠在了一块，使得文本无法阅读。</p>
 <p><img alt="" src="../assets/tutorial/demo5.png" /></p>
 <h3 id="column">使用 Column</h3>
-<p><code>Column</code> 函数可以让你垂直地堆叠元素。在 <code>NewsStory(</code> )函数中加入 <code>Column</code>。</p>
+<p><code>Column</code> 函数可以让你垂直地堆叠元素。在 <code>NewsStory()</code> 函数中加入 <code>Column</code>。</p>
 <p>默认设置是直接堆叠所有的子元素，一个接一个，没有间隔。<code>Column</code> 本身被放在内容视图的左上角。</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">NewsStory</span><span class="p">()</span> <span class="p">{</span>
