@@ -1,12 +1,12 @@
 ## 1. Transformer 能做什么
 
-<code>transformer</code> 修饰符允许开发者监听UI组件的双指拖动、缩放或旋转手势，通过所提供的信息来实现 UI 动画效果。
+<code>transformer</code> 修饰符允许开发者监听 UI 组件的双指拖动、缩放或旋转手势，通过所提供的信息来实现 UI 动画效果。
 
 ## 2. Transformer 参数列表
 
 使用 <code>transformer</code> 修饰符至少需要传入一个参数 <code>transformableState</code> 
 
-transformableState：通过使用 `rememberTransformableState` 可以创建一个 `transformableState`, 通过 `rememberTransformableState` 的尾部 lambda 可以获取当前双指拖动、缩放或旋转手势信息。通过 `transformableState` 还允许开发者根据需求动态对UI组件进行双指拖动、缩放或旋转操作，最终都会 `rememberTransformableState` 的尾部 lambda 回调。
+transformableState：通过使用 `rememberTransformableState` 可以创建一个 `transformableState`, 通过 `rememberTransformableState` 的尾部 lambda 可以获取当前双指拖动、缩放或旋转手势信息。通过 `transformableState` 还允许开发者根据需求动态对 UI 组件进行双指拖动、缩放或旋转操作，最终都会 `rememberTransformableState` 的尾部 lambda 回调。
 
 lockRotationOnZoomPan(可选参数)：当主动设置为 true 时，当UI组件已发生双指拖动或缩放时，将获取不到旋转角度偏移量信息。
 
