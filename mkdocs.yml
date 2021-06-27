@@ -59,6 +59,7 @@ nav:
         - '概述': design/gesture/overview.md
         - 'Draggable拖动': design/gesture/draggable.md
         - 'Swipeable滑动': design/gesture/swipeable.md
+        - 'Transformer双指拖动、缩放与旋转': design/gesture/transformer.md
       - '列表':
         - '概述': design/lists/overview.md
     - '参数':
