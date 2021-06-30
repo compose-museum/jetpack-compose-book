@@ -1,14 +1,14 @@
 ## 概述
 
- Jetpack Compose 已经为我们提供了各类手势处理的 Modifier，对于常见业务需求来说这已足够使用了，然后在一些对手势有定制需求场景中，就需要我们具备手势处理的自定义能力。通过使用官方所提供的基础 API 来完成以完成各类需求，手势操作的基础 API 类似传统 View 系统的 `onTouchEvent()`。 当然 Compose 中同样也支持类似于传统 ViewGroup 中的 `onInterceptTouchEvent()` 的手势处理。Compose 对于这些手势处理操作的使用方法，都会在本节中详细说明。通过对自定义触摸反馈的学习将允许你能够完成绝大多数场景下的手势处理需求。
+ Jetpack Compose 为我们提供了许多手势处理 Modifier，对于常见业务需求来说已足够我们使用了，然而在一些对手势有定制需求场景，就需要我们具备自定义触摸反馈的能力了。通过使用官方所提供的基础 API 来完成各类手势交互需求，触摸反馈基础 API 类似传统 View 系统的 `onTouchEvent()`。 当然 Compose 中也支持类似传统 ViewGroup 中的 `onInterceptTouchEvent()` 的定制手势事件分发流程。通过对自定义触摸反馈的学习将允许开发者能够完成绝大多数场景下的手势处理需求。
 
 ## 使用 PointerInput Modifier
 
-对于所有手势操作的处理都需要封装在这个 Modifier 中，我们知道 Modifier 是用来修饰 UI 组件对，所以将手势操作的处理封装在 Modifier 是符合开发者的设计直觉的。由于你所定制的手势处理逻辑被封装在一个 Modifier 中，这也说明你可以将手势操作施加在各类 UI 组件中，这也做到了手势处理逻辑与 UI 视图的解耦，从而提高了复用性。
+对于所有手势操作的处理都需要封装在这个 Modifier 中，我们知道 Modifier 是用来修饰 UI 组件的，所以将手势操作的处理封装在 Modifier 符合开发者设计直觉，这同时也做到了手势处理逻辑与 UI 视图的解耦，从而提高复用性。
 
-通过翻阅 `Swipeable Modifier` 、`Draggable Modifier `以及 `Transformer Modifier`， 你都能看到 `PointerInput Modifier` 的身影。因为这类手势处理 Modifier 其实都是基于这个基础 Modifier 进行实现的。所以我们的自定义手势处理的流程也必然需要在这个 Modifier 中实现。
+通过翻阅 `Swipeable Modifier` 、`Draggable Modifier ` 以及 `Transformer Modifier`，我们都能看到 `PointerInput Modifier` 的身影。因为这类上层的手势处理 Modifier 其实都是基于这个基础 Modifier 实现的。所以既然要自定义触摸反馈流程，自定义逻辑也必然要在这个 Modifier 中进行实现。
 
-通过 `PointerInput Modifier` 实现我们可以看出，对于自定义的手势处理过程均发生在 `PointerInputScope` 中，通过 suspend 关键字我们也可以看出 Compose 的手势处理流程是发生在协程作用域中的。这其实是无可厚非的，在探索重组工作原理的过程中我们也经常能够看到协程的身影。伴随着越来越多的主流开发技术拥抱协程，这也就意味着协程成了 Android 开发者未来必须掌握的技能。推广协程同时其实也是在推广 Kotlin，即使官方一直强调不会放弃 Java，然而谁又会在 Java 中使用 Kotlin 协程呢？ 
+通过 `PointerInput Modifier` 实现我们可以看出，我们所定义的自定义触摸反馈流程均发生在 `PointerInputScope` 中，suspend 关键字也告知我们自定义手势处理流程是发生在协程中。这其实是无可厚非的，在探索重组工作原理的过程中我们也经常能够看到协程的身影。伴随着越来越多的主流开发技术拥抱协程，这也就意味着协程成了 Android 开发者未来必须掌握的技能。推广协程同时其实也是在推广 Kotlin，即使官方一直强调不会放弃 Java，然而谁又会在 Java 中使用 Kotlin 协程呢？ 
 
 ```kotlin
 fun Modifier.pointerInput(
@@ -32,7 +32,7 @@ fun Modifier.pointerInput(
 
 ### 拖动类型基础 API
 
-#### API 
+#### API 介绍
 
 | API名称                          | 作用                 |
 | -------------------------------- | -------------------- |
@@ -41,7 +41,7 @@ fun Modifier.pointerInput(
 | detectHorizontalDragGestures     | 监听水平拖动手势     |
 | detectVerticalDragGestures       | 监听垂直拖动手势     |
 
-谈及拖动，许多人第一个反应就是 `Draggable Modifier`，因为 `Draggable Modifier` 为我们提供了监听 UI 组件拖动能力。然而 `Draggable Modifier` 在提供了监听 UI 组件拖动能力的同时也增加其他功能，我们通过 `Draggable Modifier` 参数列表即可看出。例如通过使用 `DraggableState` 允许开发者根据需求来动态使 UI 组件自动被拖动。
+谈及拖动，许多人第一个反应就是 `Draggable Modifier`，因为 `Draggable Modifier` 为我们提供了监听 UI 组件拖动能力。然而 `Draggable Modifier` 在提供了监听 UI 组件拖动能力的同时也拓展增加其他功能，我们通过 `Draggable Modifier` 参数列表即可看出。例如通过使用 `DraggableState` 允许开发者根据需求使 UI 组件自动被拖动。
 
 ```kotlin
 fun Modifier.draggable(
@@ -56,11 +56,11 @@ fun Modifier.draggable(
 )
 ```
 
-我们上面所罗列的这些拖动 API 只提供了监听 UI 组件拖动的能力，我们可以根据需求为其拓展功能，这也是这些API他们所存在的意义。我们从字面上就可以看出每个 API 所对应的含义，由于这些API的功能与参数相近，仅以 `detectDragGestures` 作为举例说明。
+我们上面所罗列的这些拖动 API 只提供了监听 UI 组件拖动的能力，我们可以根据需求为其拓展功能，这也是这些API所存在的意义。我们从字面上就可以看出每个 API 所对应的含义，由于这些API的功能与参数相近，这里我们仅以 `detectDragGestures` 作为举例说明。
 
-#### 举例
+#### 举例说明
 
-接下来我们将完成一个绿色方块的手势拖动。在 `Draggabel Modifier` 中我们还只能监听垂直或水平中某一个方向的手势拖动，而使用 `detectDragGestures` 所有手势信息都是可以拿到的。如果你还是只希望拿到某一个方向的手势拖动，使用 `detectHorizontalDragGestures`  或 `detectVerticalDragGestures` 即可，当然你也可以使用 `detectDragGestures` 并且忽略掉某个方向的手势信息。如果你希望在长按后才能拿到手势信息可以使用 `detectDragGesturesAfterLongPress`。
+接下来我们将完成一个绿色方块的手势拖动。在 `Draggabel Modifier` 中我们还只能监听垂直或水平中某一个方向的手势拖动，而使用 `detectDragGestures` 所有手势信息都是可以拿到的。如果我们还是只希望拿到某一个方向的手势拖动，使用 `detectHorizontalDragGestures`  或 `detectVerticalDragGestures` 即可，当然我们也可以使用 `detectDragGestures` 并且忽略掉某个方向的手势信息。如果我们希望在长按后才能拿到手势信息可以使用 `detectDragGesturesAfterLongPress`。
 
 `detectDragGestures` 提供了四个参数。
 
@@ -71,6 +71,8 @@ onDragEnd (可选)：拖动结束时回调
 onDragCancel (可选)：拖动取消时回调
 
 onDrag (必须)：拖动时回调
+
+`decectDragGestures` 的源码分析在 *awaitTouchSlopOrCancellation* 小节会有讲解。
 
 ```kotlin
 suspend fun PointerInputScope.detectDragGestures(
@@ -130,7 +132,7 @@ fun DragGestureDemo() {
 
 ### 点击类型基础 API
 
-#### API 
+#### API 介绍
 
 | API名称           | 作用         |
 | ----------------- | ------------ |
@@ -138,7 +140,7 @@ fun DragGestureDemo() {
 
 与 `Clickable Modifier` 不同的是，`detectTapGestures` 可以监听更多的点击事件。作为手机监听的基础 API，必然不会存在 `Clickable Modifier` 所拓展的涟漪效果。
 
-#### 举例
+#### 举例说明
 
 接下来我们将为一个绿色方块添加点击手势处理逻辑。`detectTapGestures` 提供了四个可选参数，用来监听不同点击事件。
 
@@ -203,7 +205,7 @@ fun TapGestureDemo() {
 
 ### 变换类型基础 API
 
-#### API 
+#### API 介绍
 
 | API名称                 | 作用                     |
 | ----------------------- | ------------------------ |
@@ -211,9 +213,9 @@ fun TapGestureDemo() {
 
 与 `Transfomer Modifier` 不同的是，通过这个 API 可以监听单指的拖动手势，和拖动类型基础 API所提供的功能一样，除此之外还支持监听双指缩放与旋转手势。反观`Transfomer Modifier` 只能监听到双指拖动手势，不知设计成这样的行为不一致是否是 Google 有意而为之。
 
-#### 举例
+#### 举例说明
 
-接下来我们仍然为这个绿色方块添加变化手势处理逻辑。`detectTransformGestures` 提供了两个参数。
+接下来我们为这个绿色方块添加变化手势处理逻辑。`detectTransformGestures` 方法提供了两个参数。
 
 panZoomLock(可选)： 当拖动或缩放手势发生时是否支持旋转
 
@@ -272,7 +274,7 @@ fun TransformGestureDemo() {
 
 ### forEachGesture
 
-在传统 View 系统中，当手指按下、移动到抬起的过程被称作一次手势事件序列的处理。 Compose 提供了 `forEachGesture` 来支持这个理念，以允许用户可以多次对 UI 组件进行手势交互处理。有些同学可能会问，为什么我不能在手势处理逻辑最外层套一层 `while(true) ` 呢，通过 `forEachGesture` 的实现我们可以看到 `forEachGesture` 其实内部也是由`while(true) ` 实现的，不过他可以保证协程只有存活时才能监听手势事件，同时也可以保证每次交互结束时所有手指都是离开屏幕的。其实，前面我们所提到的绝大多数 API 其内部实现均使用了 `forEachGesture` 。有些特殊场景下我们仅使用前面所提出的 API 可能仍然无法满足我们的需求，当然如果可以满足的话我们直接使用其分别对应的 `Modifier` 即可，前面所提出的 API 存在的意义是为了方便开发者为其进行功能拓展。既然要掌握自定义触摸反馈，我们就要从更底层角度来看这些上层 API 是如何实现的，了解原理我们就可以轻松自定义了。
+在传统 View 系统中，一次手指按下、移动到抬起过程中的所有手势事件可以共同构成一个手势事件序列。我们可以通过自定义触摸反馈来对于每一个手势事件序列进行定制处理。Compose 提供了 `forEachGesture` 以允许用户可以对每一个手势事件序列进行相同的定制处理。如果我们忘记使用 `forEachGesture` ，那么只会处理第一次手势事件序列。有些同学可能会问，为什么我不能在手势处理逻辑最外层套一层 `while(true) ` 呢，通过 `forEachGesture` 的实现我们可以看到 `forEachGesture` 其实内部也是由`while ` 实现的，除此之外他保证了协程只有存活时才能监听手势事件，同时也保证了每次交互结束时所有手指都是离开屏幕的。有些同学看到 `while` 可能新生疑问，难道这样不会阻塞主线程嘛？其实我们在介绍 `PointerInput Modifier` 时就提到过，我们的手势操作处理均发生在协程中。其实前面我们所提到的绝大多数 API 其内部实现均使用了 `forEachGesture` 。有些特殊场景下我们仅使用前面所提出的 API 可能仍然无法满足我们的需求，当然如果可以满足的话我们直接使用其分别对应的 `Modifier` 即可，前面所提出的 API 存在的意义是为了方便开发者为其进行功能拓展。既然要掌握自定义触摸反馈，我们就要从更底层角度来看这些上层 API 是如何实现的，了解原理我们就可以轻松自定义了。
 
 ```kotlin
 suspend fun PointerInputScope.forEachGesture(block: suspend PointerInputScope.() -> Unit) {
@@ -301,7 +303,7 @@ suspend fun <R> awaitPointerEventScope(
 ): R
 ```
 
-我们在 `AwaitPointerEventScope` 中发现了以下这些基础手势方法，可以发现这些 API 均是挂起函数，接下来我会对每个 API 进行描述说明。
+我们在 `AwaitPointerEventScope` 中发现了以下这些基础手势方法，可以发现这些 API 均是挂起函数，接下来我们会对每个 API 进行描述说明。
 
 | API名称                                | 作用                 |
 | -------------------------------------- | -------------------- |
@@ -319,7 +321,7 @@ suspend fun <R> awaitPointerEventScope(
 
 ### 万物之源 awaitPointerEvent
 
-`awaitPointerEvent` 的概念类似于传统 View 系统的 `onTouchEvent()` 。无论用户是按下、移动或抬起都将视作一次手势事件，当手势事件发生时 `awaitPointerEvent` 会恢复执行并将手势事件作为返回值返回。
+`awaitPointerEvent` 类似于传统 View 系统的 `onTouchEvent()` 。无论用户是按下、移动或抬起都将视作一次手势事件，当手势事件发生时 `awaitPointerEvent` 会恢复执行并将手势事件返回。
 
 ```kotlin
 suspend fun awaitPointerEvent(
@@ -329,7 +331,7 @@ suspend fun awaitPointerEvent(
 
 通过 API 声明可以看到 `awaitPointerEvent` 有个可选参数 `PointerEventPass`
 
-我们知道手势事件的分发是由父组件到子组件的单链结构。这个参数目的是用以设置父组件与子组件的事件分发顺序，`PointerEventPass` 有3个枚举值可供选择，每个枚举值的具体含义如下
+我们知道手势事件的分发是由父组件到子组件的单链结构。这个参数目的是用以设置父组件与子组件的事件分发顺序，`PointerEventPass` 有 3 个枚举值可供选择，每个枚举值的具体含义如下
 
 | 枚举值                   | 含义                                                         |
 | ------------------------ | ------------------------------------------------------------ |
@@ -339,9 +341,9 @@ suspend fun awaitPointerEvent(
 
 大家可能觉得 Main 与 Final 是等价的。但其实两者在作为子组件时分发顺序会完全不同，举个例子。
 
-当父组件为Final，子组件为Main时，根据规则分发顺序为： 子组件  -> 父组件
+当父组件为Final，子组件为Main时，事件分发顺序： 子组件  -> 父组件
 
-当父组件为Final，子组件为Final时，根据规则分发顺序为： 父组件 -> 子组件
+当父组件为Final，子组件为Final时，事件分发顺序： 父组件 -> 子组件
 
 文字描述可能并不直观，接下来进行举例说明。
 
@@ -353,9 +355,9 @@ suspend fun awaitPointerEvent(
 
 如果我们点击中间的绿色方块时，便会触发手势事件。
 
-当三层 Box 均使用默认 Main 模式时，根据规则分发顺序为：第三层 -> 第二层 -> 第一层
+当三层 Box 均使用默认 Main 模式时，事件分发顺序为：第三层 -> 第二层 -> 第一层
 
-当第一层Box使用 Inital 模式，第二层使用 Final 模式，第三层使用 Main 模式时，根据规则分发顺序为：第一层 -> 第三层 -> 第二层
+当第一层Box使用 Inital 模式，第二层使用 Final 模式，第三层使用 Main 模式时，事件分发顺序为：第一层 -> 第三层 -> 第二层
 
 ```kotlin
 @Preview
@@ -400,15 +402,15 @@ fun NestedBoxDemo() {
 }
 ```
 
-能够确定事件分发顺序之后，我们就可以控制手势事件由事件分发单链条中哪个组件来进行消费。那么如何进行消费呢，这就需要我们看看 `awaitPointerEvent` 返回的手势事件了。通过 `awaintPointerEvent` 的说明，我们可以看到返回的手势事件是一个 `PointerEvent` 实例。
+能够自定义事件分发顺序之后，我们就可以决定手势事件由事件分发流程中哪个组件进行消费。那么如何进行消费呢，这就需要我们看看 `awaitPointerEvent` 返回的手势事件了。通过 `awaintPointerEvent` 声明，我们可以看到返回的手势事件是个 `PointerEvent` 实例。
 
-翻阅 `PointerEvent` 类声明，我们可以看到两个成员属性 changes 与 motionEvent。
+通过 `PointerEvent` 类声明，我们可以看到两个成员属性 changes 与 motionEvent。
 
-motionEvent 我们再熟悉不过了，就是传统 View 系统中的手势事件，然而却被声明了 internal 关键字，看来是官方不希望我们使用。
+motionEvent 我们再熟悉不过了，就是传统 View 系统中的手势事件，然而却被声明了 internal 关键字，看来是不希望我们使用。
 
-changes 是一个 List，其中包含了每次发生手势事件时，目前屏幕上所有手指的状态信息。
+changes 是一个 List，其中包含了每次发生手势事件时，屏幕上所有手指的状态信息。
 
-当只有一根手指时，这个 List 的大小为一。通过获取其他手指的状态信息，我们就可以轻松实现多指交互了。
+当只有一根手指时，这个 List 的大小为 1。在多指操作时，我们通过这个 List 获取其他手指的状态信息就可以轻松定制多指自定义触摸反馈了。
 
 ```kotlin
 actual data class PointerEvent internal constructor(
@@ -450,7 +452,7 @@ class PointerInputChange(
 | consumeAllChanges             | 消费按下与移动手势                            |
 | isOutOfBounds                 | 当前手势是否在固定范围内                      |
 
-这些 API 会在我们自定义触摸反馈时会被用到。可以发现的是，Compose 通过 `PointerEventPass` 来设置事件分发流程，在事件分发流程中即使前一个组件先获取了手势信息并进行了消费，后面的组件仍然可以通过带有 `IgnoreConsumed` 的 API 来获取到手势信息。这也极大增加了手势操作的可定制性。就好像父组件先把事件消费，希望子组件不要处理这个手势了，但子组件完全可以不用听从父组件的话。
+这些 API 会在我们自定义触摸反馈时会被用到。可以发现的是，Compose 通过 `PointerEventPass` 来定制事件分发流程，在事件分发流程中即使前一个组件先获取了手势信息并进行了消费，后面的组件仍然可以通过带有 `IgnoreConsumed` 系列 API 来获取到手势信息。这也极大增加了手势操作的可定制性。就好像父组件先把事件消费，希望子组件不要处理这个手势了，但子组件完全可以不用听从父组件的话。
 
 我们通过一个实例来看看该如何进行手势消费，处于方便我们的示例不涉及移动，只消费按下手势事件来进行举例。和之前的样式一样，我们将手势消费放在了第三层 Box，根据事件分发规则我们知道第三层Box是第2个处理手势事件的，所以输出结果如下。
 
@@ -615,7 +617,7 @@ suspend fun AwaitPointerEventScope.drag(
 
 翻阅源码可以发现，其实 drag 内部实现最终使用的仍然还是 `awaitPointerEvent` 。这里就不具体展开看了，感兴趣的可以自己去跟源码。
 
-#### 举例
+#### 举例说明
 
 通过结合 `awaitFirstDown` 与 `drag` 这些基础 API 我们已经可以自己实现 UI 拖动手势流程了。我们仍然以我们的绿色方块作为实例，为其添加拖动手势。
 
@@ -720,3 +722,41 @@ suspend fun AwaitPointerEventScope.awaitTouchSlopOrCancellation(
     }
 }
 ```
+
+我们前面所提到的 `detectDragGestures` 其内部不仅使用了 `drag` 还使用了 `awaitTouchSlopOrCancellation` 来判断手势拖动操作。仅当监测为一次有效的拖动时，才会执行 onDragStart 回调。接下来就是使用 `drag` 来监听拖动手势，仅当 `drag` 返回 false (即在拖动过程中事件分发流程前面的组件达成定制条件消费了这次的拖动手势事件) 会执行 onDragCancel 回调，否则如果所有手指抬起正常结束则会执行 onDragEnd 回调。
+
+```kotlin
+suspend fun PointerInputScope.detectDragGestures(
+    onDragStart: (Offset) -> Unit = { },
+    onDragEnd: () -> Unit = { },
+    onDragCancel: () -> Unit = { },
+    onDrag: (change: PointerInputChange, dragAmount: Offset) -> Unit
+) {
+    forEachGesture {
+        awaitPointerEventScope {
+            ....
+            do {
+                drag = awaitTouchSlopOrCancellation(down.id) { change, over ->
+                    change.consumePositionChange()
+                    overSlop = over
+                }
+            } while (drag != null && !drag.positionChangeConsumed())
+            if (drag != null) {
+                onDragStart.invoke(drag.position) // 拖动开始
+                onDrag(drag, overSlop)
+                if (
+                    !drag(drag.id) {
+                        onDrag(it, it.positionChange())
+                        it.consumePositionChange()
+                    }
+                ) {
+                    onDragCancel() // 拖动取消
+                } else {
+                    onDragEnd()
+                }
+            }
+        }
+    }
+}
+```
+
