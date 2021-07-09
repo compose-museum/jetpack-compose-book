@@ -812,6 +812,19 @@
     2. CompositionLocal介绍
   </a>
   
+    <nav class="md-nav" aria-label="2. CompositionLocal介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compositionlocalof-staticcompositionlocalof" class="md-nav__link">
+    compositionLocalOf 与 staticCompositionLocalOf 区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1448,6 +1461,19 @@
     2. CompositionLocal介绍
   </a>
   
+    <nav class="md-nav" aria-label="2. CompositionLocal介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compositionlocalof-staticcompositionlocalof" class="md-nav__link">
+    compositionLocalOf 与 staticCompositionLocalOf 区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1536,6 +1562,79 @@
 </code></pre></div>
 <p>实际效果可以看到，虽然所有 composable 均依赖的是同一个 CompositionLocal，而其获得到的实际的值却是不一样的。</p>
 <p><img alt="demo1" src="../../../assets/design/theme/understanding_material_theme/demo1.png" /></p>
+<h3 id="compositionlocalof-staticcompositionlocalof">compositionLocalOf 与 staticCompositionLocalOf 区别</h3>
+<p>当我们创建  CompositionLocal 时，通常需要使用 <code>compositionLocalOf</code> 或 <code>staticCompositionLocalOf</code> 方法。然而这两者的区别是什么呢？其实<code>staticCompositionLocalOf</code> 方法声明处的注释文档中说明了一切。</p>
+<blockquote>
+<p>Unlike compositionLocalOf, reads of a staticCompositionLocalOf are not tracked by the composer and changing the value provided in the CompositionLocalProvider call will cause the entirety of the content to be recomposed instead of just the places where in the composition the local value is used.</p>
+</blockquote>
+<p>简单概括就是，当我们选择使用 <code>staticCompositionLocalOf</code> 时，实际上创建了个<code>StaticProvidableCompositionLocal</code> 实例，当其所提供的值改变时，会导致  CompositionLocalProvide 内部所有 composable 触发重组(recompose)。</p>
+<p>如果我们选择使用 <code>compositionLocalOf</code>，实际上创建了个 <code>DynamicProvidableCompositionLocal</code> 实例，当其所提供的值改变时，仅会导致  CompositionLocalProvide 内部依赖当前 CompositionLocal 的 composable 触发重组(recompose)。</p>
+<p>Talk is cheap，Show me the code~. 接下来我们进行对照示例印证。</p>
+<p>既然要对照，我们就分别使用 <code>staticCompositionLocalOf</code> 与 <code>compositionLocalOf</code> 创建 CompositionLocal。我们使用三层嵌套的 Box 进行举例，我们将 CompositionLocalProvide 包裹在最外层，若某层 Box 触发了重组(recompose) 便会更新该层的文本信息。我们的示例中处于中层 的 Box 依赖了 CompositionLocal。</p>
+<p>当我们修改了 CompositionLocal 所提供的值时，可以发现 <code>staticCompositionLocalOf</code> 场景下，所有 Box 均发生了重组，而 <code>DynamicCompositionLocal</code> 场景下，仅中层依赖了 CompositionLocal 的 Box 触发了重组。文章结尾处提供了实例代码。</p>
+<p><img src="../../assets/design/theme/understanding_material_theme/static.gif" width="40%" height = "40%"> <img src="../../assets/design/theme/understanding_material_theme/dynamic.gif" width="40%" height = "40%"></p>
+<p><strong>示例代码</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">isStatic</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">var</span> <span class="nv">compositionLocalName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="kd">val</span> <span class="nv">currentLocalColor</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">isStatic</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">compositionLocalName</span> <span class="o">=</span> <span class="s">&quot;StaticCompositionLocal 场景&quot;</span>
+    <span class="n">staticCompositionLocalOf</span> <span class="p">{</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span> <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">compositionLocalName</span> <span class="o">=</span> <span class="s">&quot;DynamicCompositionLocal 场景&quot;</span>
+    <span class="n">compositionLocalOf</span> <span class="p">{</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nv">recomposeFlag</span> <span class="o">=</span> <span class="s">&quot;Init&quot;</span>
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">CompositionLocalDemo</span><span class="p">(</span><span class="n">isStatic</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">color</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+        <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Column</span><span class="p">(</span><span class="n">horizontalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span><span class="p">){</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">${</span><span class="n">compositionLocalName</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+            <span class="n">Spacer</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">20.</span><span class="n">dp</span><span class="p">))</span>
+            <span class="n">CompositionLocalProvider</span><span class="p">(</span>
+                <span class="n">currentLocalColor</span> <span class="n">provides</span> <span class="n">color</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">TaggedBox</span><span class="p">(</span><span class="s">&quot;Wrapper: </span><span class="si">${</span><span class="n">recomposeFlag</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="m">400.</span><span class="n">dp</span><span class="p">,</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">TaggedBox</span><span class="p">(</span><span class="s">&quot;Middle: </span><span class="si">${</span><span class="n">recomposeFlag</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="m">300.</span><span class="n">dp</span><span class="p">,</span> <span class="n">currentLocalColor</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">TaggedBox</span><span class="p">(</span><span class="s">&quot;Inner: </span><span class="si">${</span><span class="n">recomposeFlag</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="m">200.</span><span class="n">dp</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">)</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">Spacer</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">20.</span><span class="n">dp</span><span class="p">))</span>
+            <span class="n">Button</span><span class="p">(</span>
+                <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Blue</span>
+                <span class="p">}</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Change Theme&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">recomposeFlag</span> <span class="o">=</span> <span class="s">&quot;Recompose&quot;</span>
+<span class="p">}</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TaggedBox</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="n">background</span><span class="p">:</span> <span class="n">Color</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">background</span><span class="p">),</span>
+        <span class="n">horizontalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">tag</span><span class="p">)</span>
+        <span class="n">Box</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+            <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+        <span class="p">)</span> <span class="p">{</span>
+            <span class="n">content</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
                 
                   
                     
@@ -1544,7 +1643,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 28, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 9, 2021</span>
       
     
   </small>
