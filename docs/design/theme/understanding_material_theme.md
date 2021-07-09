@@ -106,7 +106,7 @@ Talk is cheap，Show me the code~. 接下来我们进行对照示例印证。
 
 当我们修改了 CompositionLocal 所提供的值时，可以发现 `staticCompositionLocalOf` 场景下，所有 Box 均发生了重组，而 `DynamicCompositionLocal` 场景下，仅中层依赖了 CompositionLocal 的 Box 触发了重组。文章结尾处提供了实例代码。
 
-<img src="../../assets/design/theme/understanding_material_theme/static.gif" width="40%" height = "40%"> <img src="../../assets/design/theme/understanding_material_theme/dynamic.gif" width="40%" height = "40%">
+<img src="../../../assets/design/theme/understanding_material_theme/static.gif" width="40%" height = "40%"> <img src="../../../assets/design/theme/understanding_material_theme/dynamic.gif" width="40%" height = "40%">
 
 **示例代码**
 
