@@ -1,14 +1,14 @@
 ## 概述
 
- Jetpack Compose 为我们提供了许多手势处理 Modifier，对于常见业务需求来说已足够我们使用了，然而在一些对手势有定制需求场景，就需要我们具备自定义触摸反馈的能力了。通过使用官方所提供的基础 API 来完成各类手势交互需求，触摸反馈基础 API 类似传统 View 系统的 `onTouchEvent()`。 当然 Compose 中也支持类似传统 ViewGroup 中的 `onInterceptTouchEvent()` 的定制手势事件分发流程。通过对自定义触摸反馈的学习将允许开发者能够完成绝大多数场景下的手势处理需求。
+Jetpack Compose 为我们提供了许多手势处理 Modifier，对于常见业务需求来说已足够我们使用了，然而如果说我们对手势有定制需求，就需要具备自定义手势处理的能力了。通过使用官方所提供的基础 API 来完成各类手势交互需求，触摸反馈基础 API 类似传统 View 系统的 `onTouchEvent()`。 当然 Compose 中也支持类似传统 ViewGroup 通过 `onInterceptTouchEvent()`定制手势事件分发流程。通过对自定义手势处理的学习将帮助大家掌握处理绝大多数场景下手势需求的能力。
 
 ## 使用 PointerInput Modifier
 
 对于所有手势操作的处理都需要封装在这个 Modifier 中，我们知道 Modifier 是用来修饰 UI 组件的，所以将手势操作的处理封装在 Modifier 符合开发者设计直觉，这同时也做到了手势处理逻辑与 UI 视图的解耦，从而提高复用性。
 
-通过翻阅 `Swipeable Modifier` 、`Draggable Modifier ` 以及 `Transformer Modifier`，我们都能看到 `PointerInput Modifier` 的身影。因为这类上层的手势处理 Modifier 其实都是基于这个基础 Modifier 实现的。所以既然要自定义触摸反馈流程，自定义逻辑也必然要在这个 Modifier 中进行实现。
+通过翻阅 `Swipeable Modifier` 、`Draggable Modifier ` 以及 `Transformer Modifier`，我们都能看到 `PointerInput Modifier` 的身影。因为这类上层的手势处理 Modifier 其实都是基于这个基础 Modifier 实现的。所以既然要自定义手势处理流程，自定义逻辑也必然要在这个 Modifier 中进行实现。
 
-通过 `PointerInput Modifier` 实现我们可以看出，我们所定义的自定义触摸反馈流程均发生在 `PointerInputScope` 中，suspend 关键字也告知我们自定义手势处理流程是发生在协程中。这其实是无可厚非的，在探索重组工作原理的过程中我们也经常能够看到协程的身影。伴随着越来越多的主流开发技术拥抱协程，这也就意味着协程成了 Android 开发者未来必须掌握的技能。推广协程同时其实也是在推广 Kotlin，即使官方一直强调不会放弃 Java，然而谁又会在 Java 中使用 Kotlin 协程呢？ 
+通过 `PointerInput Modifier` 实现我们可以看出，我们所定义的自定义手势处理流程均发生在 `PointerInputScope` 中，suspend 关键字也告知我们自定义手势处理流程是发生在协程中。这其实是无可厚非的，在探索重组工作原理的过程中我们也经常能够看到协程的身影。伴随着越来越多的主流开发技术拥抱协程，这也就意味着协程成了 Android 开发者未来必须掌握的技能。推广协程同时其实也是在推广 Kotlin，即使官方一直强调不会放弃 Java，然而谁又会在 Java 中使用 Kotlin 协程呢？ 
 
 ```kotlin
 fun Modifier.pointerInput(
@@ -85,7 +85,7 @@ suspend fun PointerInputScope.detectDragGestures(
 
 > 💡 **Tips **
 >
-> 有些同学可能困惑 `onDragCancel` 的触发时机。在一些场景中，当组件拖动时达到了父组件所设置的条件，导致手势事件被父组件先拿到后先消费掉了，从而会导致 `onDragCancel` 的回调。父组件如何预先拿到事件并消费后续会进行讲解。
+> 有些同学可能困惑 `onDragCancel` 触发时机。在一些场景中，当组件拖动时会根据事件分发顺序进行事件分发，当前面先处理事件的组件满足了设置的消费条件，导致手势事件被消费，导致本组件拿到的是被消费的手势事件，从而会执行 `onDragCancel` 回调。如何定制事件分发顺序并消费事件后续会进行详细的描述。
 
 示例如下所示
 
@@ -234,7 +234,7 @@ suspend fun PointerInputScope.detectTransformGestures(
 >
 >1. 若offset发生在rotate之前时，rotate会对offset造成影响。具体表现为当出现拖动手势时，组件会以当前角度为坐标轴进行偏移。
 >
->2. 若offset发生在scale之前是，scale也会对offset造成影响。具体表现为UI组件在拖动时不跟手
+>2. 若offset发生在scale之前时，scale也会对offset造成影响。具体表现为UI组件在拖动时不跟手
 
 ```kotlin
 @Preview
@@ -274,7 +274,7 @@ fun TransformGestureDemo() {
 
 ### forEachGesture
 
-在传统 View 系统中，一次手指按下、移动到抬起过程中的所有手势事件可以共同构成一个手势事件序列。我们可以通过自定义触摸反馈来对于每一个手势事件序列进行定制处理。Compose 提供了 `forEachGesture` 以允许用户可以对每一个手势事件序列进行相同的定制处理。如果我们忘记使用 `forEachGesture` ，那么只会处理第一次手势事件序列。有些同学可能会问，为什么我不能在手势处理逻辑最外层套一层 `while(true) ` 呢，通过 `forEachGesture` 的实现我们可以看到 `forEachGesture` 其实内部也是由`while ` 实现的，除此之外他保证了协程只有存活时才能监听手势事件，同时也保证了每次交互结束时所有手指都是离开屏幕的。有些同学看到 `while` 可能新生疑问，难道这样不会阻塞主线程嘛？其实我们在介绍 `PointerInput Modifier` 时就提到过，我们的手势操作处理均发生在协程中。其实前面我们所提到的绝大多数 API 其内部实现均使用了 `forEachGesture` 。有些特殊场景下我们仅使用前面所提出的 API 可能仍然无法满足我们的需求，当然如果可以满足的话我们直接使用其分别对应的 `Modifier` 即可，前面所提出的 API 存在的意义是为了方便开发者为其进行功能拓展。既然要掌握自定义触摸反馈，我们就要从更底层角度来看这些上层 API 是如何实现的，了解原理我们就可以轻松自定义了。
+在传统 View 系统中，一次手指按下、移动到抬起过程中的所有手势事件可以共同构成一个手势事件序列。我们可以通过自定义手势处理来对于每一个手势事件序列进行定制处理。Compose 提供了 `forEachGesture` 以允许用户可以对每一个手势事件序列进行相同的定制处理。如果我们忘记使用 `forEachGesture` ，那么只会处理第一次手势事件序列。有些同学可能会问，为什么我不能在手势处理逻辑最外层套一层 `while(true) ` 呢，通过 `forEachGesture` 的实现我们可以看到 `forEachGesture` 其实内部也是由`while ` 实现的，除此之外他保证了协程只有存活时才能监听手势事件，同时也保证了每次交互结束时所有手指都是离开屏幕的。有些同学看到 `while` 可能新生疑问，难道这样不会阻塞主线程嘛？其实我们在介绍 `PointerInput Modifier` 时就提到过，我们的手势操作处理均发生在协程中。其实前面我们所提到的绝大多数 API 其内部实现均使用了 `forEachGesture` 。有些特殊场景下我们仅使用前面所提出的 API 可能仍然无法满足我们的需求，当然如果可以满足的话我们直接使用其分别对应的 `Modifier` 即可，前面所提出的 API 存在的意义是为了方便开发者为其进行功能拓展。既然要掌握自定义手势处理，我们就要从更底层角度来看这些上层 API 是如何实现的，了解原理我们就可以轻松自定义了。
 
 ```kotlin
 suspend fun PointerInputScope.forEachGesture(block: suspend PointerInputScope.() -> Unit) {
@@ -295,11 +295,11 @@ suspend fun PointerInputScope.forEachGesture(block: suspend PointerInputScope.()
 
 在 `PointerInputScope` 中我们可以找到一个名为 `awaitPointerEventScope` 的 API 方法。
 
-通过翻阅方法声明可以发现这是个挂起方法，其尾部 lambda 在 `AwaitPointerEventScope` 作用域中。 通过这个 `AwaitPointerEventScope` 作用域我们可以获取到更加底层的 API 手势事件，这也为自定义触摸反馈提供了可能。
+通过翻阅方法声明可以发现这是个挂起方法，其尾部 lambda 在 `AwaitPointerEventScope` 作用域中。 通过这个 `AwaitPointerEventScope` 作用域我们可以获取到更加底层的 API 手势事件，这也为自定义手势处理提供了可能。
 
 ```kotlin
 suspend fun <R> awaitPointerEventScope(
-		block: suspend AwaitPointerEventScope.() -> R
+    block: suspend AwaitPointerEventScope.() -> R
 ): R
 ```
 
@@ -400,6 +400,11 @@ fun NestedBoxDemo() {
         }
     }
 }
+
+// Output:
+// first layer
+// third layer
+// second layer
 ```
 
 能够自定义事件分发顺序之后，我们就可以决定手势事件由事件分发流程中哪个组件进行消费。那么如何进行消费呢，这就需要我们看看 `awaitPointerEvent` 返回的手势事件了。通过 `awaintPointerEvent` 声明，我们可以看到返回的手势事件是个 `PointerEvent` 实例。
@@ -410,7 +415,7 @@ motionEvent 我们再熟悉不过了，就是传统 View 系统中的手势事�
 
 changes 是一个 List，其中包含了每次发生手势事件时，屏幕上所有手指的状态信息。
 
-当只有一根手指时，这个 List 的大小为 1。在多指操作时，我们通过这个 List 获取其他手指的状态信息就可以轻松定制多指自定义触摸反馈了。
+当只有一根手指时，这个 List 的大小为 1。在多指操作时，我们通过这个 List 获取其他手指的状态信息就可以轻松定制多指自定义手势处理了。
 
 ```kotlin
 actual data class PointerEvent internal constructor(
@@ -452,13 +457,9 @@ class PointerInputChange(
 | consumeAllChanges             | 消费按下与移动手势                            |
 | isOutOfBounds                 | 当前手势是否在固定范围内                      |
 
-这些 API 会在我们自定义触摸反馈时会被用到。可以发现的是，Compose 通过 `PointerEventPass` 来定制事件分发流程，在事件分发流程中即使前一个组件先获取了手势信息并进行了消费，后面的组件仍然可以通过带有 `IgnoreConsumed` 系列 API 来获取到手势信息。这也极大增加了手势操作的可定制性。就好像父组件先把事件消费，希望子组件不要处理这个手势了，但子组件完全可以不用听从父组件的话。
+这些 API 会在我们自定义手势处理时会被用到。可以发现的是，Compose 通过 `PointerEventPass` 来定制事件分发流程，在事件分发流程中即使前一个组件先获取了手势信息并进行了消费，后面的组件仍然可以通过带有 `IgnoreConsumed` 系列 API 来获取到手势信息。这也极大增加了手势操作的可定制性。就好像父组件先把事件消费，希望子组件不要处理这个手势了，但子组件完全可以不用听从父组件的话。
 
 我们通过一个实例来看看该如何进行手势消费，处于方便我们的示例不涉及移动，只消费按下手势事件来进行举例。和之前的样式一样，我们将手势消费放在了第三层 Box，根据事件分发规则我们知道第三层Box是第2个处理手势事件的，所以输出结果如下。
-
-first layer, downChange: false
-third layer, downChange: true
-second layer, downChange: true
 
 ```kotlin
 @Preview
@@ -502,6 +503,11 @@ fun Demo() {
         }
     }
 }
+
+// Output:
+// first layer, downChange: false
+// third layer, downChange: true
+// second layer, downChange: true
 ```
 
 
@@ -524,16 +530,7 @@ var event = awaitPointerEventScope {
 event.changes[0].consumeDownChange()
 ```
 
- 他们的区别在于 `awaitPointerEventScope` 会在其内部所有手势在事件分发流程结束后返回，当所有组件都已经完成手势处理再进行消费已经没有什么意义了。我们仍然用刚才的例子来直观说明这个问题。我们在每一层Box `awaitPointerEventScope` 后面添加了日志信息。
-
-输出结果：
-
-first layer, downChange: false
-third layer, downChange: true
-second layer, downChange: true
-first layer Outside
-third layer Outside
-second layer Outside
+他们的区别在于 `awaitPointerEventScope` 会在其内部所有手势在事件分发流程结束后返回，当所有组件都已经完成手势处理再进行消费已经没有什么意义了。我们仍然用刚才的例子来直观说明这个问题。我们在每一层Box `awaitPointerEventScope` 后面添加了日志信息。
 
 通过输出结果可以发现，这三层执行的相对顺序没有发生变化，然而却是在事件分发流程结束后才进行输出的。
 
@@ -582,6 +579,14 @@ fun Demo() {
         }
     }
 }
+
+// Output:
+// first layer, downChange: false
+// third layer, downChange: true
+// second layer, downChange: true
+// first layer Outside
+// third layer Outside
+// second layer Outside
 ```
 
 ### awaitFirstDown
