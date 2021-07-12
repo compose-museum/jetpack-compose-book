@@ -7,7 +7,7 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 下面这个图表可以帮助你决定使用什么 API 来实现你的动画。
 
-<img src = "../../../assets/design/animation/overview/demo.svg">
+<img src = "{{config.assets}}/design/animation/overview/demo.svg">
 
 
 | API | 功能|
@@ -54,7 +54,7 @@ Column(
 
 ```
 
-![](../../../assets/design/animation/animatedVisibility/demo.gif)
+![]({{config.assets}}/design/animation/animatedVisibility/demo.gif)
 
 默认情况下，内容通过淡入和扩展出现，通过淡出和缩减消失。可以通过指定 `EnterTransition` 和 `ExitTransition` 来定制过渡
 
@@ -114,11 +114,11 @@ Box(
 }
 ```
 
-![](../../../assets/design/animation/overview/demo.gif)
+![]({{config.assets}}/design/animation/overview/demo.gif)
 
 再来看看没有加 `animateContentSize()` 的效果吧
 
-![](../../../assets/design/animation/overview/demo2.gif)
+![]({{config.assets}}/design/animation/overview/demo2.gif)
 
 
 ### Crossfade
@@ -177,7 +177,7 @@ fun Screen2(){
 
 ```
 
-![](../../../assets/design/animation/overview/demo3.gif)
+![]({{config.assets}}/design/animation/overview/demo3.gif)
 
 
 ## 3. 低级动画 API
@@ -188,7 +188,7 @@ fun Screen2(){
 
 所有这些 `API` 都是基于更基本的 `Animation API`。尽管大多数应用程序不会直接与 `Animation` 交互，但 `Animation` 的一些定制功能可以通过更高级别的 `API` 获得。关于 `AnimationVector` 和`AnimationSpec` 的更多信息，请参阅[自定义动画]()。
 
-![](../../../assets/design/animation/overview/animation-low-level.svg)
+![]({{config.assets}}/design/animation/overview/animation-low-level.svg)
 
 ### animate*AsState
 
@@ -236,7 +236,7 @@ LaunchedEffect(flag) {
 
 ```
 
-![](../../../assets/design/animation/overview/demo4.gif)
+![]({{config.assets}}/design/animation/overview/demo4.gif)
 
 在上面的例子中，我们创建并记住了一个 `Animatable` 的实例，其初始值为 `Color.Gray`。根据 `flag` 的值，颜色会动画地变成 `Color.Green` 或 `Color.Red`。任何对 `flag` 的后续改变都会启动动画到另一种颜色。如果在改变值的时候有一个正在进行的动画，那么这个动画会被取消，新的动画会从当前的快照值和当前的速度开始。
 
@@ -285,7 +285,7 @@ Box(
                     
 ```
 
-![](../../../assets/design/animation/overview/demo5.gif)
+![]({{config.assets}}/design/animation/overview/demo5.gif)
 
 
 你可以选择传递一个 `transitionSpec` 参数，为每个过渡状态变化的组合指定一个不同的 `AnimationSpec`。参见 [AnimationSpec](https://developer.android.com/jetpack/compose/animation#animationspec) 以了解更多信息。
@@ -309,7 +309,7 @@ val rect by transition.animateDp(
 }
 ```
 
-![](../../../assets/design/animation/overview/demo6.gif)
+![]({{config.assets}}/design/animation/overview/demo6.gif)
 
 
 一旦一个 `transition` 到达目标状态，`Transition.currentState` 将与 `Transition.targetState` 相同。这可以作为过渡是否完成的一个信号。
@@ -394,7 +394,7 @@ val color by infiniteTransition.animateColor(
 Box(Modifier.fillMaxSize().background(color))
 ```
 
-![](../../../assets/design/animation/overview/demo7.gif)
+![]({{config.assets}}/design/animation/overview/demo7.gif)
 
 ### TargetBasedAnimation
 
@@ -446,7 +446,7 @@ val alpha: Float by animateFloatAsState(
 
 `dampingRatio` 定义了弹簧的反弹程度。默认值是 `Spring.DampingRatioNoBouncy`。
 
-![](../../../assets/design/animation/overview/animation-spring.gif)
+![]({{config.assets}}/design/animation/overview/animation-spring.gif)
 
 `stiffness` 定义了弹簧向最终值移动的速度。默认值是 `Spring.StiffnessMedium`。
 
@@ -631,7 +631,7 @@ fun Gesture() {
 private fun Offset.toIntOffset() = IntOffset(x.roundToInt(), y.roundToInt())
 ```
 
-![](../../../assets/design/animation/overview/demo8.gif)
+![]({{config.assets}}/design/animation/overview/demo8.gif)
 
 另一个常见的模式是我们需要将动画值与来自触摸事件的值同步，例如拖动。在下面的例子中，我们看到 "轻扫解散" 作为一个修改器来实现（而不是使用 `SwipeToDismiss` 的组合）。该元素的水平偏移被表示为一个`Animatable`。这个 `API` 有一个在手势动画中有用的特性。它的值可以被触摸事件以及动画所改变。当我们收到一个触摸事件时，我们通过 `stop` 方法停止 `Animatable`，这样任何正在进行的动画就被拦截了。
 
@@ -695,7 +695,7 @@ fun Modifier.swipeToDismiss(
 }
 ```
 
-![](../../../assets/design/animation/overview/demo9.gif)
+![]({{config.assets}}/design/animation/overview/demo9.gif)
 
 
 ## 6. 测试

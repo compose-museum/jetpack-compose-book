@@ -1,6 +1,7 @@
 site_name: Jetpack Compose
 site_url: https://docs.compose.net.cn/
 
+assets: ../../../assets/
 
 repo_name: 'Jetpack Compose 博物馆'
 repo_url: 'https://github.com/Compose-Museum/Compose-Tutorial'
@@ -111,5 +112,6 @@ markdown_extensions:
 
 plugins:
   - search
+  - macros
   - git-revision-date-localized:
       type: date
