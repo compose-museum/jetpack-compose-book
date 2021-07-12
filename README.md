@@ -69,6 +69,8 @@
     图片添加需要在 **/assets/** 下，和文档同等路径名字添加，
     例如如果我修改了 **Text** 的文档，并且添加了一张例图
     那么就是放在 **/assets/elements/text/xxx.png**
+    
+    调用的时候使用宏定义,详情可以参考其他文档中调用 `img` 标签或者 `markdown` 调用图片语句中的 `config.assets`
 
 * 最后
 

@@ -142,5 +142,5 @@ fun LightPreview() {
 
 我们同时创建了两种主题的预览，通过 Android Studio 的 Preview 窗口就可以预览到所有主题下的效果了。
 
-![image-20210511195241657](../../assets/design/theme/meet_material_theme/demo1.png) 
+![image-20210511195241657]({{config.assets}}/design/theme/meet_material_theme/demo1.png) 
 

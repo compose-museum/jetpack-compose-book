@@ -127,7 +127,7 @@ fun DragGestureDemo() {
 ```
 
 <div align = "center">
-  <img src = "../../../assets/design/gesture/custom_gesture/drag.gif" width = "50%" height = "50%">
+  <img src = "{{config.assets}}/design/gesture/custom_gesture/drag.gif" width = "50%" height = "50%">
 </div>
 
 ### 点击类型基础 API
@@ -269,7 +269,7 @@ fun TransformGestureDemo() {
 ```
 
 <div align = "center">
-  <img src = "../../../assets/design/gesture/custom_gesture/transform.gif" width = "50%" height = "50%">
+  <img src = "{{config.assets}}/design/gesture/custom_gesture/transform.gif" width = "50%" height = "50%">
 </div>
 
 ### forEachGesture
@@ -351,7 +351,7 @@ suspend fun awaitPointerEvent(
 
 接下来，我将通过一个嵌套了三层 Box 的示例来直观表现事件分发过程。我们为这嵌套的三层Box 中的每一层都进行手势获取。
 
-<img src = "../../../assets/design/gesture/custom_gesture/box_nest.jpg" width = "50%" height = "50%">
+<img src = "{{config.assets}}/design/gesture/custom_gesture/box_nest.jpg" width = "50%" height = "50%">
 
 如果我们点击中间的绿色方块时，便会触发手势事件。
 
@@ -657,7 +657,7 @@ fun BaseDragGestureDemo() {
 ```
 
 <div align = "center">
-  <img src = "../../../assets/design/gesture/custom_gesture/drag.gif" width = "50%" height = "50%">
+  <img src = "{{config.assets}}/design/gesture/custom_gesture/drag.gif" width = "50%" height = "50%">
 </div>
 
 ### awaitDragOrCancellation

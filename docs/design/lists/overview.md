@@ -97,7 +97,7 @@ fun MessageList() {
 
 请注意，这个 `padding` 是应用在 `LazyColumn` 里面的内容上的，而不是应用在 `LazyColumn` 本身。在上面的例子中，第一个项目将在它的顶部添加 `8.dp` 的 `padding`，最后一个项目将在它的底部添加 `8.dp`，所有项目将在左边和右边有 `16.dp` 的 `padding`。
 
-![](../../../assets/design/lists/overview/demo.png)
+![]({{config.assets}}/design/lists/overview/demo.png)
 
 
 ## 4. 内容间距
@@ -121,7 +121,7 @@ fun MessageList() {
 }
 ```
 
-![](../../../assets/design/lists/overview/demo2.png)
+![]({{config.assets}}/design/lists/overview/demo2.png)
 
 同样地，对于 `LazyRow` 也是如此。
 
@@ -136,7 +136,7 @@ fun MessageList() {
 
 当显示分组数据的列表时，`sticky header` 模式很有帮助。下面你可以看到一个简单的例子，按指定的标题分组。
 
-<img src = "../../../../assets/design/lists/overview/demo.gif" style = "display: block; margin: 0 auto;">
+<img src = "{{config.assets}}/design/lists/overview/demo.gif" style = "display: block; margin: 0 auto;">
 
 为了用 `LazyColumn` 实现 `Sticky header`，你可以使用实验性的 `stickyHeader()` 函数，提供标题内容。
 
@@ -180,7 +180,7 @@ fun ListWithHeader() {
 
 `LazyVerticalGrid` 可以实现类似于网格的效果
 
-<img src = "../../../../assets/design/lists/overview/demo3.png" width = "300">
+<img src = "../{{config.assets}}/design/lists/overview/demo3.png" width = "300">
 
 
 `cells` 参数负责控制单元格如何形成列。下面的例子显示了网格中的项目，使用 `GridCells.Adaptive` 将每一列设置为至少 `128.dp`宽。
@@ -225,7 +225,7 @@ fun MessageList(messages: List<Message>) {
 
 我们使用一个例子，即根据用户是否滚动过第一个项目来显示和隐藏一个按钮。
 
-<img src = "../../../../assets/design/lists/overview/demo2.gif" style = "display: block; margin: 0 auto;">
+<img src = "{{config.assets}}/design/lists/overview/demo2.gif" style = "display: block; margin: 0 auto;">
 
 ``` kotlin
 @OptIn(ExperimentalAnimationApi::class) // AnimatedVisibility
@@ -296,8 +296,29 @@ LaunchedEffect(listState) {
 
 
 !!! note "注意"
-    `scrollToItem()` 和 `animateScrollToItem()` 都是 `suspend` 函数，这意味着我们需要在一个协程中调用它们。关于如何在 `Compose` 中这样做的更多信息，请参阅我们的[协程文档](https://developer.android.com/jetpack/compose/kotlin#coroutines)
+    `scrollToItem()` 和 `animateScrollToItem()` 都是 `suspend` 函数，这意味着我们需要在一个协程中调用它们。关于如何在 `Compose` 中这样做的更多信息，请参阅[协程文档](https://developer.android.com/jetpack/compose/kotlin#coroutines)
 
+```kotlin
+@Composable
+fun MessageList(messages: List<Message>) {
+    val listState = rememberLazyListState()
+    // 记住一个协程作用域，以便能够启动
+    val coroutineScope = rememberCoroutineScope()
+
+    LazyColumn(state = listState) {
+        // ...
+    }
+
+    ScrollToTopButton(
+        onClick = {
+            coroutineScope.launch {
+                // 滚动到第一个项目的动画
+                listState.animateScrollToItem(index = 0)
+            }
+        }
+    )
+}
+```
 
 ## 10. 大型数据集（paging）
 
