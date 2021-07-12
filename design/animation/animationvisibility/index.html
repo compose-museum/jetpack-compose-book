@@ -1495,7 +1495,7 @@
                 
                   <h1>AnimationVisibility</h1>
                 
-                <p><img src = "../../../assets//design/animation/animatedVisibility/carbon.png" width = "90%" height = "50%"></p>
+                <p><img src = "../../../assets/design/animation/animatedVisibility/carbon.png" width = "90%" height = "50%"></p>
 <h2 id="1">1. 基础用法</h2>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">state</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)}</span>
 
@@ -1518,7 +1518,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets//design/animation/animatedVisibility/demo.gif" /></p>
+<p><img alt="" src="../../../assets/design/animation/animatedVisibility/demo.gif" /></p>
 <h2 id="2">2. 进场动画</h2>
 <p>让我们来试试 <code>AnimatedVisibility</code> 中的 <code>Enter</code> 参数的简单使用吧！</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">state</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)}</span>
@@ -1536,7 +1536,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets//design/animation/animatedVisibility/demo2.gif" /></p>
+<p><img alt="" src="../../../assets/design/animation/animatedVisibility/demo2.gif" /></p>
 <div class="highlight"><pre><span></span><code><span class="n">enter</span><span class="p">:</span><span class="n">EnterTransition</span> <span class="o">=</span> <span class="n">fadeIn</span><span class="p">()</span> <span class="o">+</span> <span class="n">expandVertically</span><span class="p">()</span>
 
 <span class="kd">sealed</span> <span class="kd">class</span> <span class="nc">EnterTransition</span>
@@ -1566,7 +1566,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets//design/animation/animatedVisibility/demo3.gif" /></p>
+<p><img alt="" src="../../../assets/design/animation/animatedVisibility/demo3.gif" /></p>
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p><code>fadeIn</code> 和 <code>slideIn</code> 不影响 <code>AnimatedVisibility</code> <strong>Composable</strong>。相比之下，<code>expandIn</code> 将扩大剪辑范围以显示整个内容。这将自动地将其他的布局动画化，非常像 <code>Modifier.animateContentSize</code></p>

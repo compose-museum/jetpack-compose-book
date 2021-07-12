@@ -1710,7 +1710,7 @@
 <p>实验性 <code>API</code> 在未来可能会发生变化，也可能被完全删除。</p>
 </div>
 <p>当显示分组数据的列表时，<code>sticky header</code> 模式很有帮助。下面你可以看到一个简单的例子，按指定的标题分组。</p>
-<p><img src = "../../../../assets/design/lists/overview/demo.gif" style = "display: block; margin: 0 auto;"></p>
+<p><img src = "../../../assets/design/lists/overview/demo.gif" style = "display: block; margin: 0 auto;"></p>
 <p>为了用 <code>LazyColumn</code> 实现 <code>Sticky header</code>，你可以使用实验性的 <code>stickyHeader()</code> 函数，提供标题内容。</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@ExperimentalFoundationApi</span>
 <span class="nd">@Composable</span>
@@ -1780,7 +1780,7 @@
 </code></pre></div>
 <p>对于简单的使用情况，应用程序通常只需要知道第一个可见的 <code>item</code> 的信息。为此，<code>LazyListState</code> 提供了 <code>firstVisibleItemIndex</code> 和 <code>firstVisibleItemScrollOffset</code> 属性。</p>
 <p>我们使用一个例子，即根据用户是否滚动过第一个项目来显示和隐藏一个按钮。</p>
-<p><img src = "../../../../assets/design/lists/overview/demo2.gif" style = "display: block; margin: 0 auto;"></p>
+<p><img src = "../../../assets/design/lists/overview/demo2.gif" style = "display: block; margin: 0 auto;"></p>
 <div class="highlight"><pre><span></span><code><span class="nd">@OptIn</span><span class="p">(</span><span class="n">ExperimentalAnimationApi</span><span class="o">::</span><span class="n">class</span><span class="p">)</span> <span class="c1">// AnimatedVisibility</span>
 <span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">MessageList</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
@@ -1842,8 +1842,28 @@
 <p>除了对滚动位置做出反应外，应用程序能够控制滚动位置也很有用。<code>LazyListState</code> 通过 <code>scrollToItem()</code> 函数和 <code>animateScrollToItem()</code> 函数支持这一点，前者 "立即 "锁定滚动位置，后者则使用动画进行滚动（也被称为平滑滚动）。</p>
 <div class="admonition note">
 <p class="admonition-title">注意</p>
-<p><code>scrollToItem()</code> 和 <code>animateScrollToItem()</code> 都是 <code>suspend</code> 函数，这意味着我们需要在一个协程中调用它们。关于如何在 <code>Compose</code> 中这样做的更多信息，请参阅我们的<a href="https://developer.android.com/jetpack/compose/kotlin#coroutines">协程文档</a></p>
+<p><code>scrollToItem()</code> 和 <code>animateScrollToItem()</code> 都是 <code>suspend</code> 函数，这意味着我们需要在一个协程中调用它们。关于如何在 <code>Compose</code> 中这样做的更多信息，请参阅<a href="https://developer.android.com/jetpack/compose/kotlin#coroutines">协程文档</a></p>
 </div>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MessageList</span><span class="p">(</span><span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">listState</span> <span class="o">=</span> <span class="n">rememberLazyListState</span><span class="p">()</span>
+    <span class="c1">// 记住一个协程作用域，以便能够启动</span>
+    <span class="kd">val</span> <span class="nv">coroutineScope</span> <span class="o">=</span> <span class="n">rememberCoroutineScope</span><span class="p">()</span>
+
+    <span class="n">LazyColumn</span><span class="p">(</span><span class="n">state</span> <span class="o">=</span> <span class="n">listState</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// ...</span>
+    <span class="p">}</span>
+
+    <span class="n">ScrollToTopButton</span><span class="p">(</span>
+        <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span> <span class="p">{</span>
+                <span class="c1">// 滚动到第一个项目的动画</span>
+                <span class="n">listState</span><span class="p">.</span><span class="na">animateScrollToItem</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 <h2 id="10-paging">10. 大型数据集（paging）</h2>
 <p><code>Paging</code> 库可以让应用程序能够支持大型项目列表，在必要时加载和显示列表的一小块。<code>Paging3.0</code>及以后的版本通过 <code>androidx.paging:paging-compose</code> 库提供 <code>Compose</code> 支持。</p>
 <div class="admonition note">
@@ -1906,7 +1926,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 11, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2021</span>
       
     
   </small>

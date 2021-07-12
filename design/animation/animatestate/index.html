@@ -1495,7 +1495,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets//design/animation/animatestate/demo.gif" /></p>
+<p><img alt="" src="../../../assets/design/animation/animatestate/demo.gif" /></p>
 <p>再来看看另一个简单的使用吧</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">text</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">}</span>
 <span class="kd">var</span> <span class="nv">focusState</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)}</span>
@@ -1520,7 +1520,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets//design/animation/animatestate/demo2.gif" /></p>
+<p><img alt="" src="../../../assets/design/animation/animatestate/demo2.gif" /></p>
 <p>注意，你不需要创建任何动画类的实例，也不需要处理中断。在背后，一个动画对象（即一个 <code>Animatable</code> 实例）将被创建，并被记住在调用地点，以第一个目标值作为其初始值。从那以后，任何时候你给这个 <code>Composable</code> 对象提供一个不同的目标值，一个动画就会自动开始向那个值发展。如果已经有一个动画在运行，这个动画就会从它的当前值（和速度）开始，然后向目标值动画。在动画过程中，这个 <code>Composable</code> 东西被重新组合，每一帧都返回一个更新的动画值。</p>
 <p>开箱即用，<code>Compose</code> 为 <code>Float</code>、<code>Color</code>、<code>Dp</code>、<code>Size</code>、<code>Bounds</code>、<code>Offset</code>、<code>Rect</code>、<code>Int</code>、<code>IntOffset</code> 和 <code>IntSize</code> 提供 <code>animate*AsState</code> 函数。通过为带有通用类型的 <code>animateValueAsState</code> 提供 <code>TwoWayConverter</code>，可以轻松添加对其他数据类型的支持。</p>
 <p>你可以通过提供一个 <code>AnimationSpec</code> 来定制动画规格。请参阅 <a href="">AnimationSpec</a> 以了解更多信息</p>
