@@ -5,27 +5,26 @@
 
 ## 介绍 💨
 
-### Jetpack Compose 教程 (Jetpack Compose Tutorial) （开发中 ing... 咕咕咕） 
+### Jetpack Compose 基础教程 (Jetpack Compose Tutorial) （开发中 ing... 咕咕咕） 
 
 此项目致力于帮助大家更好的理解和快速上手 Jetpack Compose 框架，从而提高开发效率
-
-项目会包含很多关于 Jetpack Compose 的 教程/ 基本使用方法 / 经历的坑
-
-基本上都有很好的配图来演示效果
-
-未来可能会添加一些样例 app（开发）
 
 有问题欢迎提交 [issue](https://github.com/compose-museum/jetpack-compose-tutorial/issues/new) 来提问
 
 —————————————————————
 
-有 Codelabs 用于学习一些有意思的东西
+有 Codelabs 用于学习一些有意思的东西（作者太菜于是没做了...）
 
 欢迎来学习！ 
 
-基础文档： <https://docs.compose.net.cn> 或 <https://compose.net.cn/>
+基础文档： 
 
-代码实验室： <https://codelabs.compose.net.cn>
+1. <https://docs.compose.net.cn>
+2. <https://compose.net.cn/>
+
+代码实验室： 
+
+<https://codelabs.compose.net.cn>
 
 ### 文档网站：
 
