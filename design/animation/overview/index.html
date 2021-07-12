@@ -1731,7 +1731,7 @@
 <h2 id="1">1. 概述</h2>
 <p>为了实现流畅和可理解的用户体验，动画在现代移动应用中是必不可少的。许多 Jetpack Compose 动画 API 就像布局和其他 UI 元素一样，可以作为 <strong><em>Composable</em></strong> 函数，它们由用 Kotlin coroutine suspend 函数构建的低级API 支持。本指南从在许多实际场景中很有用的高级 API 开始，接着解释给你进一步控制和定制的低级 API。</p>
 <p>下面这个图表可以帮助你决定使用什么 API 来实现你的动画。</p>
-<p><img src = "../../../assets/design/animation/overview/demo.svg"></p>
+<p><img src = "../../../assets//design/animation/overview/demo.svg"></p>
 <table>
 <thead>
 <tr>
@@ -1794,7 +1794,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/animatedVisibility/demo.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/animatedVisibility/demo.gif" /></p>
 <p>默认情况下，内容通过淡入和扩展出现，通过淡出和缩减消失。可以通过指定 <code>EnterTransition</code> 和 <code>ExitTransition</code> 来定制过渡</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">visible</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">}</span>
 <span class="n">AnimatedVisibility</span><span class="p">(</span>
@@ -1852,9 +1852,9 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo.gif" /></p>
 <p>再来看看没有加 <code>animateContentSize()</code> 的效果吧</p>
-<p><img alt="" src="../../../assets/design/animation/overview/demo2.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo2.gif" /></p>
 <h3 id="crossfade">Crossfade</h3>
 <p><code>Crossfade</code> 在两个布局之间用交叉淡入淡出的动画。通过切换传递给当前参数的值，内容以交叉渐变动画的方式切换</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
@@ -1902,12 +1902,12 @@
     <span class="p">){}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo3.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo3.gif" /></p>
 <h2 id="3-api">3. 低级动画 API</h2>
 <p>上一节提到的所有高级动画 <code>API</code> 都是建立在低级动画 <code>API</code> 的基础之上的。</p>
 <p><code>animate*AsState</code> 函数是最简单的 <code>API</code>，它将一个即时的值变化渲染成一个动画值。它由 <code>Animatable</code> 支持，<code>Animatable</code> 是一个基于协程的 <code>API</code>，用于给单个值制作动画。<code>updateTransition</code> 创建了一个过渡对象，可以管理多个动画值，并根据状态变化运行它们。<code>rememberInfiniteTransition</code> 类似，但它创建了一个无限的过渡，可以管理多个动画，无限地持续运行。除了 <code>Animatable</code> 之外，所有这些<code>API</code> 都是可组合的，这意味着可以在合成之外创建这些动画。</p>
 <p>所有这些 <code>API</code> 都是基于更基本的 <code>Animation API</code>。尽管大多数应用程序不会直接与 <code>Animation</code> 交互，但 <code>Animation</code> 的一些定制功能可以通过更高级别的 <code>API</code> 获得。关于 <code>AnimationVector</code> 和<code>AnimationSpec</code> 的更多信息，请参阅<a href="">自定义动画</a>。</p>
-<p><img alt="" src="../../../assets/design/animation/overview/animation-low-level.svg" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/animation-low-level.svg" /></p>
 <h3 id="animateasstate">animate*AsState</h3>
 <p><code>animate*AsState</code> 函数是 <code>Compose</code> 中最简单的动画 <code>API</code>，用于为单个值制作动画。你只需提供结束值（或目标值），<code>API</code> 就会从当前值到指定值开始动画。</p>
 <p>下面是一个使用这个 <code>API</code> 制作 <code>alpha</code> 动画的例子。通过简单地将目标值包裹在 <code>animateFloatAsState</code> 中，<code>alpha</code> 值现在是一个介于所提供的值（本例中是 <code>1f</code> 或 <code>0.5f</code>）之间的动画值。</p>
@@ -1940,7 +1940,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo4.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo4.gif" /></p>
 <p>在上面的例子中，我们创建并记住了一个 <code>Animatable</code> 的实例，其初始值为 <code>Color.Gray</code>。根据 <code>flag</code> 的值，颜色会动画地变成 <code>Color.Green</code> 或 <code>Color.Red</code>。任何对 <code>flag</code> 的后续改变都会启动动画到另一种颜色。如果在改变值的时候有一个正在进行的动画，那么这个动画会被取消，新的动画会从当前的快照值和当前的速度开始。</p>
 <p>这是支持上一节中提到的 <code>animate*AsState</code> <code>API</code> 的动画实现。与 <code>animate*AsState</code> 相比，直接使用 <code>Animatable</code> 在几个方面给了我们更精细的控制。首先，<code>Animatable</code> 可以有一个不同于其第一个目标值的初始值。例如，上面的代码例子一开始显示的是一个灰色的盒子，当运行程序的时候立即开始动画地变成为绿色或红色。第二，<code>Animatable</code> 对内容值提供了更多的操作，即 <code>snapTo</code> 和 <code>animateDecay</code>。 <code>snapTo</code> 将当前值立即设置为目标值。当动画本身不是唯一的数据源，并且必须与其他状态同步时，例如触摸事件，这是非常有用的。 <code>animateDecay</code> 启动一个从给定速度开始放缓的动画。这对于实现甩动行为很有用。更多信息见手势和动画。</p>
 <p><code>Animatable</code> 支持 <code>Float</code> 和 <code>Color</code>，但任何数据类型都可以通过提供一个 <code>TwoWayConverter</code> 来使用。参见 <a href="">AnimationVector</a>获取更多信息。</p>
@@ -1972,7 +1972,7 @@
         <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFF0079D3</span><span class="p">)),</span>
 <span class="p">){}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo5.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo5.gif" /></p>
 <p>你可以选择传递一个 <code>transitionSpec</code> 参数，为每个过渡状态变化的组合指定一个不同的 <code>AnimationSpec</code>。参见 <a href="https://developer.android.com/jetpack/compose/animation#animationspec">AnimationSpec</a> 以了解更多信息。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">rect</span> <span class="k">by</span> <span class="n">transition</span><span class="p">.</span><span class="na">animateDp</span><span class="p">(</span>
     <span class="n">transitionSpec</span> <span class="o">=</span> <span class="p">{</span>
@@ -1990,7 +1990,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo6.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo6.gif" /></p>
 <p>一旦一个 <code>transition</code> 到达目标状态，<code>Transition.currentState</code> 将与 <code>Transition.targetState</code> 相同。这可以作为过渡是否完成的一个信号。</p>
 <p>我们有时希望有一个与第一个目标状态不同的初始状态。我们可以使用 <code>updateTransition</code> 与 <code>MutableTransitionState</code> 来实现这一点。例如，它允许我们在代码进入合成时立即开始动画。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">currentState</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableTransitionState</span><span class="p">(</span><span class="n">BoxState</span><span class="p">.</span><span class="na">Collapsed</span><span class="p">)</span> <span class="p">}</span>
@@ -2060,7 +2060,7 @@
 
 <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">().</span><span class="na">background</span><span class="p">(</span><span class="n">color</span><span class="p">))</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo7.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo7.gif" /></p>
 <h3 id="targetbasedanimation">TargetBasedAnimation</h3>
 <p><code>TargetBasedAnimation</code> 是我们到目前为止看到的最低级别的动画 <code>API</code>。其他 <code>API</code> 涵盖了大多数的使用情况，但直接使用 <code>TargetBasedAnimation</code> 可以让你自己控制动画的播放时间。在下面的例子中，<code>TargetAnimation</code> 的播放时间是根据 <code>withFrameMillis</code> 提供的帧时间手动控制的。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">anim</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span>
@@ -2096,7 +2096,7 @@
 <p><strong>spring</strong></p>
 <p><code>spring</code> 在起始值和结束值之间创建一个基于物理学的动画。它需要 <code>2</code> 个参数：阻尼率和刚度。</p>
 <p><code>dampingRatio</code> 定义了弹簧的反弹程度。默认值是 <code>Spring.DampingRatioNoBouncy</code>。</p>
-<p><img alt="" src="../../../assets/design/animation/overview/animation-spring.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/animation-spring.gif" /></p>
 <p><code>stiffness</code> 定义了弹簧向最终值移动的速度。默认值是 <code>Spring.StiffnessMedium</code>。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">value</span> <span class="k">by</span> <span class="n">animateFloatAsState</span><span class="p">(</span>
     <span class="n">targetValue</span> <span class="o">=</span> <span class="m">1f</span><span class="p">,</span>
@@ -2240,7 +2240,7 @@
 
 <span class="kd">private</span> <span class="kd">fun</span> <span class="n">Offset</span><span class="p">.</span><span class="nf">toIntOffset</span><span class="p">()</span> <span class="o">=</span> <span class="n">IntOffset</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">(),</span> <span class="n">y</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">())</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo8.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo8.gif" /></p>
 <p>另一个常见的模式是我们需要将动画值与来自触摸事件的值同步，例如拖动。在下面的例子中，我们看到 "轻扫解散" 作为一个修改器来实现（而不是使用 <code>SwipeToDismiss</code> 的组合）。该元素的水平偏移被表示为一个<code>Animatable</code>。这个 <code>API</code> 有一个在手势动画中有用的特性。它的值可以被触摸事件以及动画所改变。当我们收到一个触摸事件时，我们通过 <code>stop</code> 方法停止 <code>Animatable</code>，这样任何正在进行的动画就被拦截了。</p>
 <p>在一个拖动事件中，我们用 <code>snapTo</code> 来更新 <code>Animatable</code> 的值，即从触摸事件中计算出来的值。对于拖动，<code>compose</code> 提供了 <code>VelocityTracker</code> 来记录拖动事件并计算出速度。速度可以直接反馈给<code>animateDecay</code>，用于制作翻转动画。当我们想把偏移值滑回到原始位置时，我们用 <code>animateTo</code> 方法指定目标偏移值为 <code>0f</code>。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">swipeToDismiss</span><span class="p">(</span>
@@ -2299,7 +2299,7 @@
         <span class="p">.</span><span class="na">offset</span> <span class="p">{</span> <span class="n">IntOffset</span><span class="p">(</span><span class="n">offsetX</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">(),</span> <span class="m">0</span><span class="p">)</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/animation/overview/demo9.gif" /></p>
+<p><img alt="" src="../../../assets//design/animation/overview/demo9.gif" /></p>
 <h2 id="6">6. 测试</h2>
 <p><code>Compose</code> 提供了 <code>ComposeTestRule</code>，允许你以确定的方式为动画编写测试，并对测试时钟进行完全控制。这使你可以验证中间的动画值。此外，一个测试可以比动画的实际持续时间更快运行。</p>
 <p><code>ComposeTestRule</code> 将其测试时钟公开为 <code>mainClock</code>。你可以将 <code>autoAdvance</code> 属性设置为 <code>false</code> 来控制你测试代码中的时钟。在启动你要测试的动画后，时钟可以用 <code>advanceTimeBy</code> 向前移动。</p>
@@ -2338,7 +2338,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 13, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2021</span>
       
     
   </small>
