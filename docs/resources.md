@@ -6,10 +6,10 @@
 
 |依赖名|版本|
 |------|-----|
-|[GradlePluginVersion](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)|7.0.0-beta04|
-|[kotlinVersion](https://github.com/JetBrains/kotlin/releases)|1.5.10|
-|[composeVersion](https://developer.android.com/jetpack/androidx/releases/compose)|1.0.0-beta09|
-|[navigationComposeVersion](https://developer.android.com/jetpack/androidx/releases/navigation)|2.4.0-alpha03|
+|GradlePluginVersion|[7.0.0-beta04](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)|
+|kotlinVersion|[1.5.10](https://github.com/JetBrains/kotlin/releases)|
+|composeVersion|[1.0.0-beta09](https://developer.android.com/jetpack/androidx/releases/compose)|
+|navigationComposeVersion|[2.4.0-alpha03](https://developer.android.com/jetpack/androidx/releases/navigation)|
 
 
 ## 库

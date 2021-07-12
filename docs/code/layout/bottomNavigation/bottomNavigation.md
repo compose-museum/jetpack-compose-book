@@ -25,14 +25,14 @@ import androidx.compose.ui.unit.dp
 
 @ExperimentalAnimationApi
 @Composable
-fun MyBottomNavigation(){
+fun MyBottomNavigation() {
 
-    var selectedItem by remember{mutableStateOf(0)}
+    var selectedItem by remember{ mutableStateOf(0) }
 
     BottomNavigation(
         backgroundColor = Color.White
     ) {
-        for(index in 0..2 ){
+        for(index in 0..2 ) {
             Column(
                 modifier = Modifier
                     .fillMaxHeight()
@@ -50,7 +50,7 @@ fun MyBottomNavigation(){
                 NavigationIcon(index, selectedItem)
                 Spacer(Modifier.padding(top = 2.dp))
                 AnimatedVisibility(visible = index == selectedItem) {
-                    Surface(shape = CircleShape, modifier = Modifier.size(5.dp),color = Color(0xFF252527)) {}
+                    Surface(shape = CircleShape, modifier = Modifier.size(5.dp),color = Color(0xFF252527)) { }
                 }
             }
         }
@@ -62,7 +62,7 @@ fun NavigationIcon(
     index:Int,
     selectedItem:Int
 ){
-    val alpha = if(selectedItem != index ) 0.5f else 1f
+    val alpha = if (selectedItem != index ) 0.5f else 1f
 
     CompositionLocalProvider(LocalContentAlpha provides alpha) {
         when(index){

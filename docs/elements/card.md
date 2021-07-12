@@ -22,7 +22,7 @@ fun CardDemo() {
             .padding(15.dp) // 外边距
             .clickable{ },  
 
-            // 设置点击波纹效果，注意如果 CardDemo() 函数不在 ExamplesTheme() {} 下调用
+            // 设置点击波纹效果，注意如果 CardDemo() 函数不在 MaterialTheme 下调用
             // 将无法显示波纹效果
 
         elevation = 10.dp // 设置阴影

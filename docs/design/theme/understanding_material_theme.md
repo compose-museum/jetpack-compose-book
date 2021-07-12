@@ -90,3 +90,86 @@ setContent {
 
 ![demo1](../../assets/design/theme/understanding_material_theme/demo1.png)
 
+### compositionLocalOf 与 staticCompositionLocalOf 区别
+
+当我们创建  CompositionLocal 时，通常需要使用 `compositionLocalOf` 或 `staticCompositionLocalOf` 方法。然而这两者的区别是什么呢？其实`staticCompositionLocalOf` 方法声明处的注释文档中说明了一切。
+
+> Unlike compositionLocalOf, reads of a staticCompositionLocalOf are not tracked by the composer and changing the value provided in the CompositionLocalProvider call will cause the entirety of the content to be recomposed instead of just the places where in the composition the local value is used.
+
+简单概括就是，当我们选择使用 `staticCompositionLocalOf` 时，实际上创建了个`StaticProvidableCompositionLocal` 实例，当其所提供的值改变时，会导致  CompositionLocalProvide 内部所有 composable 触发重组(recompose)。
+
+如果我们选择使用 `compositionLocalOf`，实际上创建了个 `DynamicProvidableCompositionLocal` 实例，当其所提供的值改变时，仅会导致  CompositionLocalProvide 内部依赖当前 CompositionLocal 的 composable 触发重组(recompose)。
+
+Talk is cheap，Show me the code~. 接下来我们进行对照示例印证。
+
+既然要对照，我们就分别使用 `staticCompositionLocalOf` 与 `compositionLocalOf` 创建 CompositionLocal。我们使用三层嵌套的 Box 进行举例，我们将 CompositionLocalProvide 包裹在最外层，若某层 Box 触发了重组(recompose) 便会更新该层的文本信息。我们的示例中处于中层 的 Box 依赖了 CompositionLocal。
+
+当我们修改了 CompositionLocal 所提供的值时，可以发现 `staticCompositionLocalOf` 场景下，所有 Box 均发生了重组，而 `DynamicCompositionLocal` 场景下，仅中层依赖了 CompositionLocal 的 Box 触发了重组。文章结尾处提供了实例代码。
+
+<img src="../../../assets/design/theme/understanding_material_theme/static.gif" width="40%" height = "40%"> <img src="../../../assets/design/theme/understanding_material_theme/dynamic.gif" width="40%" height = "40%">
+
+**示例代码**
+
+```kotlin
+var isStatic = false
+var compositionLocalName = ""
+val currentLocalColor = if (isStatic) {
+    compositionLocalName = "StaticCompositionLocal 场景"
+    staticCompositionLocalOf { Color.Black }
+} else {
+    compositionLocalName = "DynamicCompositionLocal 场景"
+    compositionLocalOf { Color.Black }
+}
+
+var recomposeFlag = "Init"
+@Preview
+@Composable
+fun CompositionLocalDemo(isStatic: Boolean = false) {
+    var color by remember{ mutableStateOf(Color.Green) }
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(horizontalAlignment = Alignment.CenterHorizontally){
+            Text(text = "${compositionLocalName}")
+            Spacer (Modifier.height(20.dp))
+            CompositionLocalProvider(
+                currentLocalColor provides color
+            ) {
+                TaggedBox("Wrapper: ${recomposeFlag}", 400.dp,Color.Red) {
+                    TaggedBox("Middle: ${recomposeFlag}", 300.dp, currentLocalColor.current) {
+                        TaggedBox("Inner: ${recomposeFlag}", 200.dp, Color.Yellow)
+                    }
+                }
+            }
+            Spacer (Modifier.height(20.dp))
+            Button(
+                onClick = {
+                    color = Color.Blue
+                }
+            ) {
+                Text(text = "Change Theme")
+            }
+        }
+    }
+    recomposeFlag = "Recompose"
+}
+
+@Composable
+fun TaggedBox(tag:String, size: Dp, background: Color, content: @Composable () -> Unit = {}) {
+    Column(
+        modifier = Modifier
+            .size(size)
+            .background(background),
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        Text(text = tag)
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            content()
+        }
+    }
+}
+```
+
