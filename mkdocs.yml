@@ -63,8 +63,9 @@ nav:
         - '自定义触摸反馈': design/gesture/custom_gesture.md
       - '列表':
         - '概述': design/lists/overview.md
-    - '参数':
-      - 'Modifier': parameters/modifier.md
+    - '关于 Modifier':
+      - '概述': modifier/overview.md
+      - '方法介绍': modifier/introduction.md
     - '技术原理':
       - '了解Compose的重组作用域': principle/recomposition_scope.md
       - '透过Snapshot看重组': principle/snapshot.md
