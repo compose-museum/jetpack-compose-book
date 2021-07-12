@@ -32,7 +32,7 @@ fun Demo(){
 }
 ```
 
-![](../../../assets/design/animation/animatestate/demo.gif)
+![]({{config.assets}}/design/animation/animatestate/demo.gif)
 
 再来看看另一个简单的使用吧
 
@@ -61,7 +61,7 @@ Column(
 }
 ```
 
-![](../../../assets/design/animation/animatestate/demo2.gif)
+![]({{config.assets}}/design/animation/animatestate/demo2.gif)
 
 
 

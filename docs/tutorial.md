@@ -12,7 +12,7 @@
 
 `Jetpack Compose `是围绕着 `Composable` 函数建立的。这些函数让你通过描述它的形状和数据依赖性，以编程方式定义你的应用程序的用户界面，而不是专注于用户界面的构建过程。要创建一个 `Composable` 函数，只需在函数名称中添加 `@Composable` 注解。
 
-<img src = "../assets/tutorial/demo.gif" width = "600" height = "600" >
+<img src = "{{config.assets}}/tutorial/demo.gif" width = "600" height = "600" >
 
 ### 添加一个 text 元素</h3>
 
@@ -30,7 +30,7 @@ class MainActivity : ComponentActivity() {
     }
 }
 ```
-![](assets/tutorial/demo.png)
+![]({{config.assets}}/tutorial/demo.png)
 
 
 ### 定义一个 composable 函数
@@ -81,7 +81,7 @@ fun PreviewGreeting() {
 
 `UI` 元素是分层次的，元素包含在其他元素中。在 `Compose` 中，你通过从其他 `Composable` 函数中调用 `Composable` 函数来建立一个 `UI` 层次结构。
 
-<img src = "../assets/tutorial/demo4.gif" width = "600" height = "600" >
+<img src = "{{config.assets}}/tutorial/demo4.gif" width = "600" height = "600" >
 
 ### 让我们从一些文本开始
 
