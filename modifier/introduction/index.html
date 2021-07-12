@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://docs.compose.net.cn/parameters/modifier/">
+        <link rel="canonical" href="https://docs.compose.net.cn/modifier/introduction/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
     
     
       
-        <title>Modifier - Jetpack Compose</title>
+        <title>方法介绍 - Jetpack Compose</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#modifier" class="md-skip">
+        <a href="#1-modifierfillmaxsize" class="md-skip">
           跳转至
         </a>
       
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Modifier
+              方法介绍
             
           </span>
         </div>
@@ -938,15 +938,27 @@
         <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" checked>
       
       <label class="md-nav__link" for="__nav_1_7">
-        参数
+        关于 Modifier
         <span class="md-nav__icon md-icon"></span>
       </label>
-      <nav class="md-nav" aria-label="参数" data-md-level="2">
+      <nav class="md-nav" aria-label="关于 Modifier" data-md-level="2">
         <label class="md-nav__title" for="__nav_1_7">
           <span class="md-nav__icon md-icon"></span>
-          参数
+          关于 Modifier
         </label>
         <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
           
             
   
@@ -959,24 +971,20 @@
       <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
       
       
-        
-      
       
         <label class="md-nav__link md-nav__link--active" for="__toc">
-          Modifier
+          方法介绍
           <span class="md-nav__icon md-icon"></span>
         </label>
       
       <a href="./" class="md-nav__link md-nav__link--active">
-        Modifier
+        方法介绍
       </a>
       
         
 <nav class="md-nav md-nav--secondary" aria-label="目录">
   
   
-  
-    
   
   
     <label class="md-nav__title" for="__toc">
@@ -986,22 +994,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    基础用法
+  <a href="#1-modifierfillmaxsize" class="md-nav__link">
+    1. Modifier.fillMaxSize()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    修饰优先级
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    用法示范
+  <a href="#2-modifiersize" class="md-nav__link">
+    2. Modifier.size()
   </a>
   
 </li>
@@ -1438,8 +1439,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1448,22 +1447,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    基础用法
+  <a href="#1-modifierfillmaxsize" class="md-nav__link">
+    1. Modifier.fillMaxSize()
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    修饰优先级
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    用法示范
+  <a href="#2-modifiersize" class="md-nav__link">
+    2. Modifier.size()
   </a>
   
 </li>
@@ -1480,133 +1472,55 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/parameters/modifier.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/modifier/introduction.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="modifier">Modifier</h1>
-<p><code>Modifier</code>, 顾名思义就是一个修饰器，用于修改组件的样式。每个 <strong>Compose</strong> 组件都会提供一个<code>Modifier</code> 参数用于修改样式。</p>
-<h2 id="_1">基础用法</h2>
-<p><code>Modifier</code> 本身只实现了几个函数用于连接多个修饰器，大多数修饰方法都是通过 <strong>Kotlin 扩展函数</strong> 实现的。
-例如<code>size()</code>这个修饰函数，其实来自 <code>androidx.compose.foundation.layout</code> 包下的 <code>Size.kt</code>。同样，你也可以使用扩展函数来向 <code>Modifier</code> 添加你自己的修饰方法。</p>
-<p>以下为常用的修饰方法:<br />
-<div class="highlight"><pre><span></span><code>  <span class="c1">// 修改控件大小，第一个参数为宽度，第二个参数为高度</span>
-  <span class="n">size</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span>
-
-  <span class="c1">// 单独修改控件宽度</span>
-  <span class="n">width</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span>
-
-  <span class="c1">// 单独修改控件高度</span>
-  <span class="n">height</span><span class="p">(</span><span class="n">height</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span>
-
-  <span class="c1">// 限制控件的宽度在一定范围内</span>
-  <span class="n">widthIn</span><span class="p">(</span><span class="n">min</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="n">max</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span>
-
-  <span class="c1">// 限制控件高度在一定范围内</span>
-  <span class="n">heightIn</span><span class="p">(</span><span class="n">min</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span><span class="n">max</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span>
-
-  <span class="c1">// 使得控件的宽度适应父布局大小</span>
-  <span class="n">fillMaxWidth</span><span class="p">()</span>
-
-  <span class="c1">// 使得控件的高度适应父布局大小</span>
-  <span class="n">fillMaxHeight</span><span class="p">()</span>
-
-  <span class="c1">// 使得控件根据内部的组件自适应内容大小</span>
-  <span class="n">wrapContentSize</span><span class="p">()</span>
+                  <h1>方法介绍</h1>
+                
+                <p>关于 <code>Modifier</code> 的方法有很多，这里打算将大部分的方法介绍出来方便查阅大家查阅</p>
+<h2 id="1-modifierfillmaxsize">1. <code>Modifier.fillMaxSize()</code></h2>
+<p>默认将当前的 <code>@Composable</code> 填满整个父布局
+当调用 <code>Modifier.fillMaxSize(0.5f)</code> 时则填满一半</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Stable</span>
+<span class="nd">@Suppress</span><span class="p">(</span><span class="s">&quot;ModifierInspectorInfo&quot;</span><span class="p">)</span>
+<span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">fillMaxSize</span><span class="p">(</span><span class="cm">/*@FloatRange(from = 0.0, to = 1.0)*/</span> <span class="n">fraction</span><span class="p">:</span> <span class="kt">Float</span> <span class="o">=</span> <span class="m">1f</span><span class="p">)</span> <span class="o">=</span>
+    <span class="k">this</span><span class="p">.</span><span class="na">then</span><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">fraction</span> <span class="o">==</span> <span class="m">1f</span><span class="p">)</span> <span class="n">FillWholeMaxSize</span> <span class="k">else</span> <span class="n">createFillSizeModifier</span><span class="p">(</span><span class="n">fraction</span><span class="p">))</span>
 </code></pre></div>
-修饰方法还有很多，这里就不一一列举了。
-可以使用 Android Studio 自动补全或者查看官方文档来查找更多修饰函数。</p>
-<h2 id="_2">修饰优先级</h2>
-<p>修饰方法直接是存在先后顺序的，不同的调用顺序会导致不一样的效果。我们先来看一个例子：</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">UI</span><span class="p">(){</span>
-    <span class="n">Card</span><span class="p">(</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-            <span class="p">.</span><span class="na">clickable</span> <span class="p">{</span> <span class="p">}</span>
-            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">20.</span><span class="n">dp</span><span class="p">)){</span>
-            <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;我已经怒不可遏了&quot;</span><span class="p">)</span>
+<h2 id="2-modifiersize">2. <code>Modifier.size()</code></h2>
+<p>设置当前 <code>@Composable</code> 的大小</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Stable</span>
+<span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">size</span><span class="p">(</span><span class="n">size</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+    <span class="n">SizeModifier</span><span class="p">(</span>
+        <span class="n">minWidth</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span>
+        <span class="n">maxWidth</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span>
+        <span class="n">minHeight</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span>
+        <span class="n">maxHeight</span> <span class="o">=</span> <span class="n">size</span><span class="p">,</span>
+        <span class="n">enforceIncoming</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="n">inspectorInfo</span> <span class="o">=</span> <span class="n">debugInspectorInfo</span> <span class="p">{</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;size&quot;</span>
+            <span class="n">value</span> <span class="o">=</span> <span class="n">size</span>
         <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>在这个例子中，<code>clickable{}</code> 在 <code>padding()</code> <strong>之前</strong> 调用，因此 <code>Card</code> 外间距的部分也是可以被点击到的。 <br />
-<img alt="" src="../../assets/parameters/modifier1.gif" /> <br />
-反转一下，如果 <code>clickable{}</code> 在 <code>padding()</code> <strong>之后</strong> 被调用，那么 <code>Card</code> 的外间距部分就不能点击了，只能点击 <code>Card</code> 本身。 <br />
-<img alt="" src="../../assets/parameters/modifier2.gif" /></p>
-<p><strong>为什么呢? (挖源码时间~)</strong> <br />
-直接查看这些 修饰方法 的源代码，可以看见他们是这样实现的:
-<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">padding</span><span class="p">(</span><span class="n">all</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span> <span class="o">=</span>
-    <span class="k">this</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
-        <span class="n">PaddingModifier</span><span class="p">(</span>
-            <span class="n">start</span> <span class="o">=</span> <span class="n">all</span><span class="p">,</span>
-            <span class="n">top</span> <span class="o">=</span> <span class="n">all</span><span class="p">,</span>
-            <span class="n">end</span> <span class="o">=</span> <span class="n">all</span><span class="p">,</span>
-            <span class="n">bottom</span> <span class="o">=</span> <span class="n">all</span><span class="p">,</span>
-            <span class="n">rtlAware</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
-            <span class="n">inspectorInfo</span> <span class="o">=</span> <span class="n">debugInspectorInfo</span> <span class="p">{</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;padding&quot;</span>
-                <span class="n">value</span> <span class="o">=</span> <span class="n">all</span>
-            <span class="p">}</span>
-        <span class="p">)</span>
     <span class="p">)</span>
+<span class="p">)</span>
 </code></pre></div>
-显而易见，这是一个Modifier的扩展函数。<br />
-它调用了 <code>Modifier</code>的 <code>then()</code> 函数，而这个 <code>then()</code> 需要接收一个Modifier对象，而这个PaddingModifier的最终父类，就是 <code>Modifier</code>。
-那 <code>then()</code> 函数干了什么呢? 继续看源码: <br />
-<div class="highlight"><pre><span></span><code> <span class="kd">infix</span> <span class="kd">fun</span> <span class="nf">then</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">):</span> <span class="n">Modifier</span> <span class="o">=</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">other</span> <span class="o">===</span> <span class="n">Modifier</span><span class="p">)</span> <span class="k">this</span> <span class="k">else</span> <span class="n">CombinedModifier</span><span class="p">(</span><span class="k">this</span><span class="p">,</span> <span class="n">other</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><span class="nd">@Stable</span>
+<span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">size</span><span class="p">(</span><span class="n">width</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="n">height</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="na">then</span><span class="p">(</span>
+    <span class="n">SizeModifier</span><span class="p">(</span>
+        <span class="n">minWidth</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span>
+        <span class="n">maxWidth</span> <span class="o">=</span> <span class="n">width</span><span class="p">,</span>
+        <span class="n">minHeight</span> <span class="o">=</span> <span class="n">height</span><span class="p">,</span>
+        <span class="n">maxHeight</span> <span class="o">=</span> <span class="n">height</span><span class="p">,</span>
+        <span class="n">enforceIncoming</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+        <span class="n">inspectorInfo</span> <span class="o">=</span> <span class="n">debugInspectorInfo</span> <span class="p">{</span>
+            <span class="n">name</span> <span class="o">=</span> <span class="s">&quot;size&quot;</span>
+            <span class="n">properties</span><span class="o">[</span><span class="s">&quot;width&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">width</span>
+            <span class="n">properties</span><span class="o">[</span><span class="s">&quot;height&quot;</span><span class="o">]</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 </code></pre></div>
-很显然，它创建了一个 <code>CombinedModifier</code> 对象，而 <code>CombinedModifier</code> 也是继承自 <code>Modifier</code> 类的: <br />
-<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">CombinedModifier</span><span class="p">(</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">outer</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">,</span>
-    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">inner</span><span class="p">:</span> <span class="n">Modifier</span>
-<span class="p">)</span> <span class="p">:</span> <span class="n">Modifier</span> <span class="p">{</span>
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">foldIn</span><span class="p">(</span><span class="n">initial</span><span class="p">:</span> <span class="n">R</span><span class="p">,</span> <span class="n">operation</span><span class="p">:</span> <span class="p">(</span><span class="n">R</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">R</span><span class="p">):</span> <span class="n">R</span> <span class="o">=</span>
-        <span class="n">inner</span><span class="p">.</span><span class="na">foldIn</span><span class="p">(</span><span class="n">outer</span><span class="p">.</span><span class="na">foldIn</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="n">operation</span><span class="p">),</span> <span class="n">operation</span><span class="p">)</span>
-
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">R</span><span class="o">&gt;</span> <span class="nf">foldOut</span><span class="p">(</span><span class="n">initial</span><span class="p">:</span> <span class="n">R</span><span class="p">,</span> <span class="n">operation</span><span class="p">:</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">Element</span><span class="p">,</span> <span class="n">R</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">R</span><span class="p">):</span> <span class="n">R</span> <span class="o">=</span>
-        <span class="n">outer</span><span class="p">.</span><span class="na">foldOut</span><span class="p">(</span><span class="n">inner</span><span class="p">.</span><span class="na">foldOut</span><span class="p">(</span><span class="n">initial</span><span class="p">,</span> <span class="n">operation</span><span class="p">),</span> <span class="n">operation</span><span class="p">)</span>
-
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">any</span><span class="p">(</span><span class="n">predicate</span><span class="p">:</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Boolean</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span>
-        <span class="n">outer</span><span class="p">.</span><span class="na">any</span><span class="p">(</span><span class="n">predicate</span><span class="p">)</span> <span class="o">||</span> <span class="n">inner</span><span class="p">.</span><span class="na">any</span><span class="p">(</span><span class="n">predicate</span><span class="p">)</span>
-
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">all</span><span class="p">(</span><span class="n">predicate</span><span class="p">:</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">Element</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Boolean</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span>
-        <span class="n">outer</span><span class="p">.</span><span class="na">all</span><span class="p">(</span><span class="n">predicate</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">inner</span><span class="p">.</span><span class="na">all</span><span class="p">(</span><span class="n">predicate</span><span class="p">)</span>
-
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">equals</span><span class="p">(</span><span class="n">other</span><span class="p">:</span> <span class="kt">Any?</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span>
-        <span class="n">other</span> <span class="k">is</span> <span class="n">CombinedModifier</span> <span class="o">&amp;&amp;</span> <span class="n">outer</span> <span class="o">==</span> <span class="n">other</span><span class="p">.</span><span class="na">outer</span> <span class="o">&amp;&amp;</span> <span class="n">inner</span> <span class="o">==</span> <span class="n">other</span><span class="p">.</span><span class="na">inner</span>
-
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">hashCode</span><span class="p">():</span> <span class="kt">Int</span> <span class="o">=</span> <span class="n">outer</span><span class="p">.</span><span class="na">hashCode</span><span class="p">()</span> <span class="o">+</span> <span class="m">31</span> <span class="o">*</span> <span class="n">inner</span><span class="p">.</span><span class="na">hashCode</span><span class="p">()</span>
-
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">toString</span><span class="p">()</span> <span class="o">=</span> <span class="s">&quot;[&quot;</span> <span class="o">+</span> <span class="n">foldIn</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">{</span> <span class="n">acc</span><span class="p">,</span> <span class="n">element</span> <span class="o">-&gt;</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">acc</span><span class="p">.</span><span class="na">isEmpty</span><span class="p">())</span> <span class="n">element</span><span class="p">.</span><span class="na">toString</span><span class="p">()</span> <span class="k">else</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">acc</span><span class="s">, </span><span class="si">$</span><span class="n">element</span><span class="s">&quot;</span>
-    <span class="p">}</span> <span class="o">+</span> <span class="s">&quot;]&quot;</span>
-<span class="p">}</span>
-</code></pre></div>
-这个 <code>CombinedModifier</code> 持有了我们新增的修饰器和原有的修饰器，并且将其组合为一个新的 <code>Modifier</code>。 <br />
-可以看到，<code>Modifier</code> 的实现非常类似于一个链表，当我们给一个组件添加一个修饰函数时，它会创建一个 CombinedModifier 将 <strong>旧的和新的Modifier组合在一起</strong>，合成为一个单独的 <code>Modifier</code>。 <br />
-这也解释了为什么调用修饰函数为什么会有顺序问题，修饰函数并不是简单修改了某个组件内部的参数，而是给这个组件 <strong>套上了一层又一层的修饰器</strong>。</p>
-<h2 id="_3">用法示范</h2>
-<p>来写一个可以被点击的卡片吧, 让这个卡片宽度最大，高度100dp, 并且外边距16.dp，阴影深度8.dp吧
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">CardExample</span><span class="p">(){</span>
-    <span class="n">Card</span><span class="p">(</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">clickable</span> <span class="p">{</span> <span class="cm">/* 不做任何事 */</span> <span class="p">},</span>
-        <span class="n">elevation</span> <span class="o">=</span> <span class="m">8.</span><span class="n">dp</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 内部没有组件</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-运行效果: <br />
-<img alt="" src="../../assets/parameters/card.png" /></p>
                 
                   
                     
@@ -1615,7 +1529,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 11, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2021</span>
       
     
   </small>
@@ -1640,7 +1554,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../../design/lists/overview/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 概述" rel="prev">
+        <a href="../overview/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 概述" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
