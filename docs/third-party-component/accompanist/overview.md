@@ -16,7 +16,7 @@ Accompanist 是一组旨在扩充 Jetpack Compose 功能的第三方库集合，
 
 一个简单易用的系统UI控制库，用于更新 Jetpack Compose 的系统UI(状态和导航栏)的颜色。
 
-### 🎨  [AppCompat 主题适配器](../../../third-party-component/accompanist/system_ui_controller/)
+### 🎨  [AppCompat 主题适配器](../../../third-party-component/accompanist/appcompat_theme/)
 
 一个能够在 Jetpack Compose 中复用传统 AppCompat XML 主题的库。
 
@@ -24,7 +24,7 @@ Accompanist 是一组旨在扩充 Jetpack Compose 功能的第三方库集合，
 
 一个为 Jetpack Compose 提供分页布局的库，类似于 Android 的 ViewPager。
 
-### 🌊  [流式布局](../../../third-party-component/accompanist/swipe_refresh/)
+### 🌊  [流式布局](../../../third-party-component/accompanist/flow_layouts/)
 
 一个为 Jetpack Compose 添加类似 "flexbox "布局的库。
 
