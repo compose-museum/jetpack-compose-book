@@ -227,15 +227,20 @@ fun SizedComposable() {
 @Composable
 fun FixedSizeComposable() {
     Box(
-        Modifier
-        .size(90.dp, 150.dp)
-        .background(Color.Green)
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         Box(
             Modifier
-            .requiredSize(100.dp, 100.dp)
-            .background(Color.Red)
-        )
+                .size(90.dp, 150.dp)
+                .background(Color.Green)
+        ) {
+            Box(
+                Modifier
+                    .requiredSize(100.dp, 100.dp)
+                    .background(Color.Red)
+            )
+        }
     }
 }
 ```
