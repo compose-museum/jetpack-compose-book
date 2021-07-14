@@ -1937,15 +1937,20 @@
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">FixedSizeComposable</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Box</span><span class="p">(</span>
-        <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">90.</span><span class="n">dp</span><span class="p">,</span> <span class="m">150.</span><span class="n">dp</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+        <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
     <span class="p">)</span> <span class="p">{</span>
         <span class="n">Box</span><span class="p">(</span>
             <span class="n">Modifier</span>
-            <span class="p">.</span><span class="na">requiredSize</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">,</span> <span class="m">100.</span><span class="n">dp</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">)</span>
-        <span class="p">)</span>
+                <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">90.</span><span class="n">dp</span><span class="p">,</span> <span class="m">150.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span>
+        <span class="p">)</span> <span class="p">{</span>
+            <span class="n">Box</span><span class="p">(</span>
+                <span class="n">Modifier</span>
+                    <span class="p">.</span><span class="na">requiredSize</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">,</span> <span class="m">100.</span><span class="n">dp</span><span class="p">)</span>
+                    <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">)</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
@@ -2335,7 +2340,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 22, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 14, 2021</span>
       
     
   </small>
