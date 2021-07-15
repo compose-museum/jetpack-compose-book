@@ -1,4 +1,4 @@
-<img src = "../../../assets/third-party-component/accompanist/overview/head.png">
+<img src = "{{config.assets}}/third-party-component/accompanist/overview/head.png">
 
 ##  Accompanist 是什么？
 

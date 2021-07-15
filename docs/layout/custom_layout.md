@@ -40,7 +40,7 @@ constraints: 子元素的测量约束，包括宽度与高度的最大值与最�
 
 有时你想在屏幕上展示一段文本信息，通常你会使用到 Compose 内置的 Text 组件。单单显示文本是不够的，你希望指定 Text 顶部到文本基线的高度，让文本看的更自然一些。使用内置的 padding 修饰符是无法满足你的需求的，他只能指定 Text 顶部到文本顶部的高度，此时你就需要使用到 layout 修饰符了。
 
-<img src = "../../assets/layout/custom_layout/demo1.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/custom_layout/demo1.png" width = "50%" height = "50%">
 
 我们首先创建一个  <code>firstBaselineToTop</code> 修饰符
 
@@ -127,7 +127,7 @@ fun TextWithNormalPaddingPreview() {
 
 预览效果
 
-<img src = "../../assets/layout/custom_layout/demo2.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/custom_layout/demo2.png" width = "50%" height = "50%">
 
 ## 使用 Layout Composable
 
@@ -262,5 +262,5 @@ fun BodyContent(modifier: Modifier = Modifier) {
 
 预览效果
 
-<img src = "../../assets/layout/custom_layout/demo3.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/custom_layout/demo3.png" width = "50%" height = "50%">
 

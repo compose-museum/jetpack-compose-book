@@ -2,7 +2,7 @@
 
 在 [自定义Layout](https://docs.compose.net.cn/layout/custom_layout/) 中我们提到 Compose 布局原理，Compose 中的每个 UI 组件是不允许多次进行测量的，多次测量在运行时会抛异常，禁止多次测量的好处是为了提高性能，但在很多场景中多次测量子 UI 组件是有意义的。在 Jetpack Compose 代码实验室中就提供了这样一种场景，我们希望中间分割线高度与两边文案高的一边保持相等。
 
-<img src = "../../assets/layout/intrinsic/demo1.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/intrinsic/demo1.png" width = "50%" height = "50%">
 
 为实现这个需求，官方所提供的设计方案是希望父组件可以预先获取到两边的文案组件高度信息，然后计算两边高度的最大值即可确定当前父组件的高度值，此时仅需将分割线高度值铺满整个父组件即可。
 
@@ -50,7 +50,7 @@ fun TwoTextsPreview() {
 
 通过使用固有特性测量即可完成上面所述场景的需求，展示效果如图所示。
 
-<img src = "../../assets/layout/intrinsic/demo2.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/intrinsic/demo2.png" width = "50%" height = "50%">
 
 值得注意的是此时我们的 Modifier 仅使用 <code>Modifier.height(IntrinsicSize.Min)</code>  为高度设置了固有特性测量，并没有进行宽度的设置。此时所表达的意思是，当宽度不限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。当然你也可以进行宽度的设置，当宽度受限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。
 
@@ -67,7 +67,7 @@ Column(Modifier.fillMaxSize()) {
 }
 ```
 
-<img src = "../../assets/layout/intrinsic/demo3.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/intrinsic/demo3.png" width = "50%" height = "50%">
 
 ⚠️ **注意事项：** 你只能对已经适配固有特性测量能力的组件使用 <code>IntrinsicSize.Min</code> 或 <code>IntrinsicSize.Max</code> ，否则程序会运行时抛出异常而崩溃。对于所有自定义 Layout 的开发者来说如果支持使用者使用固有特性测量，则必须要进行固有特性测量的适配工作。
 
@@ -89,7 +89,7 @@ Column(Modifier.fillMaxSize()) {
 
 对于固有特性测量的适配，我们需要根据需求重写以下四个方法。
 
-<img src = "../../assets/layout/intrinsic/demo4.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/intrinsic/demo4.png" width = "50%" height = "50%">
 
 使用 <code>Modifier.width(IntrinsicSize.Max)</code> ，则会调用 <code>maxIntrinsicWidth</code> 方法
 
@@ -248,7 +248,7 @@ fun IntrinsicRow(modifier: Modifier, content: @Composable () -> Unit){
 
 最终效果如下，这样我们就为我们自定义 Layout 适配了固有特性测量能力。
 
-<img src = "../../assets/layout/intrinsic/demo5.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/intrinsic/demo5.png" width = "50%" height = "50%">
 
 ## 对固有特性测量的思考
 

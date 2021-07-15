@@ -63,7 +63,7 @@ Surface(
 }
 ```
 
-![](../assets/elements/surface/demo.gif)
+![]({{config.assets}}/elements/surface/demo.gif)
 
 
 ## 2. 更多

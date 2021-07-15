@@ -1,6 +1,6 @@
 
 
-![](../assets/architecture/demo.png)
+![]({{config.assets}}/architecture/demo.png)
 
 本次 I/O 大会上曝出了 Compose 1.0 即将发布的消息，虽然 API 层面已趋于稳定，但真正要在项目中落地还少不了一套合理的应用架构。传统 Android 开发中的 MVP、MVVM 等架构在声明式UI这一新物种中是否还依旧可用呢？
 
@@ -10,7 +10,7 @@
 
 > App基本功能：用户输入关键字，在 wanandroid 网站中搜索出相关内容并展示
 
-![](../assets/architecture/demo2.png)
+![]({{config.assets}}/architecture/demo2.png)
 
 
 功能虽然简单，但是集合了数据请求、UI展示等常见业务场景，可用来做UI层与逻辑层的解耦实验。

@@ -107,7 +107,7 @@ LazyColumn(
 
 对于更复杂的场景，可以查阅例子 [EdgeToEdgeLazyColumn](https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/insets/EdgeToEdgeLazyColumn.kt) 
 
-<img src = "../../../assets/third-party-component/accompanist/insets/demo1.jpeg" width="30%" height="30%">
+<img src = "{{config.assets}}/third-party-component/accompanist/insets/demo1.jpeg" width="30%" height="30%">
 
 ## 可感知 Inset 的 Layouts (insets-ui)
 
@@ -200,7 +200,7 @@ OutlinedTextField(
 
 可以查阅例子 [ImeAnimationSample](https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/insets/ImeAnimationSample.kt)
 
-<img src = "../../../assets/third-party-component/accompanist/insets/demo2.gif">
+<img src = "{{config.assets}}/third-party-component/accompanist/insets/demo2.gif">
 
 ### 软键盘动画
 
@@ -238,7 +238,7 @@ ScrollableColumn(
 
 可以查阅例子 [ImeAnimationSample](https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/insets/ImeAnimationSample.kt)
 
-<img src = "../../../assets/third-party-component/accompanist/insets/demo3.gif">
+<img src = "{{config.assets}}/third-party-component/accompanist/insets/demo3.gif">
 
 ## 下载
 

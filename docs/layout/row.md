@@ -29,7 +29,7 @@ fun RowDemo() {
 }
 ```
 
-![](../../assets/layout/row/demo.png)
+![]({{config.assets}}/layout/row/demo.png)
 
 
 ``` kotlin
@@ -44,4 +44,4 @@ Row {
 
 也就是有点像 **xml** 中的 **wrap_content** 属性
 
-![](../../assets/layout/row/demo2.png)
+![]({{config.assets}}/layout/row/demo2.png)

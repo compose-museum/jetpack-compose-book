@@ -87,7 +87,7 @@ ModalBottomSheetLayout(
 
 
 
-<img src = "../../assets/layout/modalbottomsheetlayout/demo.gif" width = "30%" height = "30%">
+<img src = "{{config.assets}}/layout/modalbottomsheetlayout/demo.gif" width = "30%" height = "30%">
 
 !!! 注意
     目前使用 `ModalBottomSheetLayout` 需要标明 `@ExperimentalMaterialApi`

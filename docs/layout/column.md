@@ -39,7 +39,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-![](../../assets/layout/column/column1.png)
+![]({{config.assets}}/layout/column/column1.png)
 
 ### 1.居中文字
 
@@ -66,7 +66,7 @@ fun ColumnDemo() {
 ```
 效果如下：
 
-![](../../assets/layout/column/column2.png)
+![]({{config.assets}}/layout/column/column2.png)
 
 ### 2.特定文字居中
 
@@ -95,4 +95,4 @@ fun ColumnDemo() {
 
 效果如下：
 
-![](../../assets/layout/column/column3.png)
+![]({{config.assets}}/layout/column/column3.png)

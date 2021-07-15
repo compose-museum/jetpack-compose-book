@@ -22,4 +22,4 @@ Row {
 }
 
 ```
-![](../../assets/layout/spacer/demo.png)
+![]({{config.assets}}/layout/spacer/demo.png)

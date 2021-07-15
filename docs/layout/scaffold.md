@@ -31,7 +31,7 @@ fun Scaffold(
 如以下的侧边应用栏、底部导航栏、导航栏等效果
 
 
-<img src = "../../../assets/layout/scaffold/demo.png" width = "30%" height = "30%"/><img src = "../../../assets/layout/scaffold/demo2.png" width = "30%" height = "30%"/>
+<img src = "{{config.assets}}/layout/scaffold/demo.png" width = "30%" height = "30%"/><img src = "{{config.assets}}/layout/scaffold/demo2.png" width = "30%" height = "30%"/>
 
 
 `Scaffold` 中的 `topBar`、`bottomBar` 参数仅仅只是帮助我们定位布局的位置，你可以经常看到它们和 `TopAppBar`、`BottomNavigation`、`BottomAppBar` 来一起搭配使用
