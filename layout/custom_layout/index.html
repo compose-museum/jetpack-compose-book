@@ -1582,7 +1582,7 @@
 <p>constraints: 子元素的测量约束，包括宽度与高度的最大值与最小值。</p>
 <h3 id="layout-modifier_1">Layout Modifier 使用示例</h3>
 <p>有时你想在屏幕上展示一段文本信息，通常你会使用到 Compose 内置的 Text 组件。单单显示文本是不够的，你希望指定 Text 顶部到文本基线的高度，让文本看的更自然一些。使用内置的 padding 修饰符是无法满足你的需求的，他只能指定 Text 顶部到文本顶部的高度，此时你就需要使用到 layout 修饰符了。</p>
-<p><img src = "../../assets/layout/custom_layout/demo1.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/custom_layout/demo1.png" width = "50%" height = "50%"></p>
 <p>我们首先创建一个  <code>firstBaselineToTop</code> 修饰符</p>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">firstBaselineToTop</span><span class="p">(</span>
   <span class="n">firstBaselineToTop</span><span class="p">:</span> <span class="n">Dp</span>
@@ -1646,7 +1646,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>预览效果</p>
-<p><img src = "../../assets/layout/custom_layout/demo2.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/custom_layout/demo2.png" width = "50%" height = "50%"></p>
 <h2 id="layout-composable">使用 Layout Composable</h2>
 <p>Layout Modifier 会将当前元素的所有子元素视作为整体进行统一的测量与布局，多适用于统一处理的场景。然而我们有时是需要精细化测量布局每一个子组件，这需要我们进行完全的自定义 Layout。这类似于传统 View 系统中定制 View 与 ViewGroup 测量布局流程的区别。对于定制 “ViewGroup” 的场景，我们应该使用 Layout Composable 了。首先我们需要创建一个 Layout Composable。</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
@@ -1753,7 +1753,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>预览效果</p>
-<p><img src = "../../assets/layout/custom_layout/demo3.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/custom_layout/demo3.png" width = "50%" height = "50%"></p>
                 
                   
                     
@@ -1762,7 +1762,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 7, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
       
     
   </small>

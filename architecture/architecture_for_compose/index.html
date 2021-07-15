@@ -1709,14 +1709,14 @@
                   </a>
                 
                 
-                <p><img alt="" src="../../assets/architecture/demo.png" /></p>
+                <p><img alt="" src="../../../assets/architecture/demo.png" /></p>
 <p>本次 I/O 大会上曝出了 Compose 1.0 即将发布的消息，虽然 API 层面已趋于稳定，但真正要在项目中落地还少不了一套合理的应用架构。传统 Android 开发中的 MVP、MVVM 等架构在声明式UI这一新物种中是否还依旧可用呢？</p>
 <p>本文以一个简单的业务场景为例，试图找出一种与 Compose 最契合的架构模式</p>
 <h3 id="sample-wanandroid-search">Sample :  Wanandroid Search</h3>
 <blockquote>
 <p>App基本功能：用户输入关键字，在 wanandroid 网站中搜索出相关内容并展示</p>
 </blockquote>
-<p><img alt="" src="../../assets/architecture/demo2.png" /></p>
+<p><img alt="" src="../../../assets/architecture/demo2.png" /></p>
 <p>功能虽然简单，但是集合了数据请求、UI展示等常见业务场景，可用来做UI层与逻辑层的解耦实验。</p>
 <h3 id="model">前期准备：Model层</h3>
 <p>其实无论 MVX 中 X 如何变化， Model 都可以用同一套实现。我们先定义一个 <code>DataRepository</code> ，用于从 wanandroid 获取搜索结果。 后文Sample中的 Model 层都基于此 Repo 实现</p>
@@ -2150,7 +2150,7 @@ https://developer.android.com/jetpack/compose/mental-model</p>
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 30, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
       
     
   </small>

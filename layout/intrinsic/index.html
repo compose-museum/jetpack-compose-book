@@ -1549,7 +1549,7 @@
                 
                 <h2 id="_1">固有特性测量是什么</h2>
 <p>在 <a href="https://docs.compose.net.cn/layout/custom_layout/">自定义Layout</a> 中我们提到 Compose 布局原理，Compose 中的每个 UI 组件是不允许多次进行测量的，多次测量在运行时会抛异常，禁止多次测量的好处是为了提高性能，但在很多场景中多次测量子 UI 组件是有意义的。在 Jetpack Compose 代码实验室中就提供了这样一种场景，我们希望中间分割线高度与两边文案高的一边保持相等。</p>
-<p><img src = "../../assets/layout/intrinsic/demo1.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/intrinsic/demo1.png" width = "50%" height = "50%"></p>
 <p>为实现这个需求，官方所提供的设计方案是希望父组件可以预先获取到两边的文案组件高度信息，然后计算两边高度的最大值即可确定当前父组件的高度值，此时仅需将分割线高度值铺满整个父组件即可。</p>
 <p>为了实现父组件预先获取文案组件高度信息从而确定自身的高度信息，Compose 为开发者们提供了固有特性测量机制，允许开发者在每个子组件正式测量前能获取到每个子组件的宽高等信息。</p>
 <h2 id="_2">在基础组件中使用固有特性测量</h2>
@@ -1588,7 +1588,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>通过使用固有特性测量即可完成上面所述场景的需求，展示效果如图所示。</p>
-<p><img src = "../../assets/layout/intrinsic/demo2.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/intrinsic/demo2.png" width = "50%" height = "50%"></p>
 <p>值得注意的是此时我们的 Modifier 仅使用 <code>Modifier.height(IntrinsicSize.Min)</code>  为高度设置了固有特性测量，并没有进行宽度的设置。此时所表达的意思是，当宽度不限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。当然你也可以进行宽度的设置，当宽度受限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。</p>
 <p>可能你不能理解宽度受限可能影响高度这件事，其实我们常用的 Text 组件当宽度收到不同限制时，其高度就是不一样的。</p>
 <div class="highlight"><pre><span></span><code><span class="n">Column</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">())</span> <span class="p">{</span>
@@ -1600,7 +1600,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img src = "../../assets/layout/intrinsic/demo3.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/intrinsic/demo3.png" width = "50%" height = "50%"></p>
 <p>⚠️ <strong>注意事项：</strong> 你只能对已经适配固有特性测量能力的组件使用 <code>IntrinsicSize.Min</code> 或 <code>IntrinsicSize.Max</code> ，否则程序会运行时抛出异常而崩溃。对于所有自定义 Layout 的开发者来说如果支持使用者使用固有特性测量，则必须要进行固有特性测量的适配工作。</p>
 <h2 id="layout">为自定义 Layout 适配固有特性测量</h2>
 <p>从上面的例子可以发现，我们仅使用  <code>Modifier.height(IntrinsicSize.Min)</code>  即可交给 Row 组件根据子组件的信息进行计算从而确定一个固定的高度。然而之前他时如何操作的，对于开发者而言是完全未知的。所以本文将继续深入下去，通过一个自定义 Layout 适配固有特性测量的过程来摸清固有特性测量的整个流程。</p>
@@ -1613,7 +1613,7 @@
 <span class="p">)</span> 
 </code></pre></div>
 <p>对于固有特性测量的适配，我们需要根据需求重写以下四个方法。</p>
-<p><img src = "../../assets/layout/intrinsic/demo4.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/intrinsic/demo4.png" width = "50%" height = "50%"></p>
 <p>使用 <code>Modifier.width(IntrinsicSize.Max)</code> ，则会调用 <code>maxIntrinsicWidth</code> 方法</p>
 <p>使用 <code>Modifier.width(IntrinsicSize.Min)</code> ，则会调用 <code>minIntrinsicWidth</code> 方法</p>
 <p>使用 <code>Modifier.height(IntrinsicSize.Max)</code> ，则会调用 <code>maxIntrinsicHeight</code> 方法</p>
@@ -1745,7 +1745,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>最终效果如下，这样我们就为我们自定义 Layout 适配了固有特性测量能力。</p>
-<p><img src = "../../assets/layout/intrinsic/demo5.png" width = "50%" height = "50%"></p>
+<p><img src = "../../../assets/layout/intrinsic/demo5.png" width = "50%" height = "50%"></p>
 <h2 id="_3">对固有特性测量的思考</h2>
 <p>固有特性测量的本质就是父组件可在正式测量布局前预先获取到每个子组件宽高信息后通过计算来确定自身的固定宽度或高度，从而间接影响到其中包含的部分子组件布局信息。也就是说子组件可以根据自身宽高信息从而确定父组件的宽度或高度，从而影响其他子组件布局。在我们使用的方案中，我们通过文案子组件的高度确定了父组件的固定高度，从而间接确定了分割线的高度。此时子组件要通过固有特性测量这种方式，通过父组件而对其他子组件产生影响，然而在有些场景下我们不希望父组件参与其中，而希望子组件间通过测量的先后顺序直接相互影响，Compose 为我们提供了 SubcomposeLayout 来处理这类子组件存在依赖关系的场景。由于本文篇幅有限，有关于 SubcomposeLayout 内容后续会继续更新，请持续关注。</p>
                 
@@ -1756,7 +1756,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 2, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
       
     
   </small>

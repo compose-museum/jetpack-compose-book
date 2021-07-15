@@ -1589,7 +1589,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo.gif" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo.gif" /></p>
 <h2 id="1-singleline">1. singleLine 参数</h2>
 <p>使用 <code>singleLine</code> 参数可以将 <code>TextField</code> 设置成只有一行</p>
 <p>设置了 <code>singleLine</code> 再设置 <code>maxLines</code> 将无效</p>
@@ -1630,7 +1630,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo2.gif" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo2.gif" /></p>
 <h2 id="3-leadingicon">3. leadingIcon 参数</h2>
 <p><code>leadingIcon</code> 参数可以在 <code>TextField</code> 前面布置 <code>lambda</code> 表达式所接收到的东西</p>
 <div class="highlight"><pre><span></span><code><span class="n">TextField</span><span class="p">(</span>
@@ -1643,7 +1643,7 @@
     <span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo3.png" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo3.png" /></p>
 <p>虽然名字上叫做 <code>leadingIcon</code>，但是 <code>leadingIcon</code> 接收来自一个 <strong>@Composable</strong> 函数的 <code>lambda</code> 表达式，</p>
 <p>我们也可以在里面填入 <code>Text</code> 函数</p>
 <div class="highlight"><pre><span></span><code><span class="n">TextField</span><span class="p">(</span>
@@ -1656,7 +1656,7 @@
     <span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo4.png" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo4.png" /></p>
 <h2 id="4-trailingicon">4. trailingIcon 参数</h2>
 <p><code>trailingIcon</code> 参数可以在 <code>TextField</code> 尾部布置 <code>lambda</code> 表达式所接收到的东西</p>
 <div class="highlight"><pre><span></span><code><span class="n">TextField</span><span class="p">(</span>
@@ -1669,7 +1669,7 @@
     <span class="p">},</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo6.png" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo6.png" /></p>
 <div class="highlight"><pre><span></span><code><span class="n">trailingIcon</span> <span class="o">=</span> <span class="p">{</span>
     <span class="n">IconButton</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
 
@@ -1678,7 +1678,7 @@
     <span class="p">}</span>
 <span class="p">},</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo7.png" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo7.png" /></p>
 <h2 id="5-color">5. Color 参数</h2>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">textFieldColors</span><span class="p">(</span>
@@ -1761,11 +1761,11 @@
     <span class="p">)</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo3.gif" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo3.gif" /></p>
 <p>在你使用 IDE 智能补全的时候可能遇到这种情况</p>
-<p><img alt="" src="../../assets/elements/textfield/demo5.png" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo5.png" /></p>
 <p>解决方法如下，手动打完函数名</p>
-<p><img alt="" src="../../assets/elements/textfield/demo4.gif" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo4.gif" /></p>
 <h2 id="6-visualtransformation">6. visualTransformation 参数</h2>
 <p><code>visualTransformation</code> 可以帮助我们应用输入框的显示模式</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">text</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)}</span>
@@ -1791,7 +1791,7 @@
     <span class="n">visualTransformation</span> <span class="o">=</span> <span class="k">if</span><span class="p">(</span><span class="n">passwordHidden</span><span class="p">)</span> <span class="n">PasswordVisualTransformation</span><span class="p">()</span> <span class="k">else</span> <span class="n">VisualTransformation</span><span class="p">.</span><span class="na">None</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><img alt="" src="../../assets/elements/textfield/demo5.gif" /></p>
+<p><img alt="" src="../../../assets/elements/textfield/demo5.gif" /></p>
 <h2 id="_1">更多</h2>
 <p><a href="https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#textfield">TextField 参数详情</a></p>
                 
@@ -1802,7 +1802,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 16, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
       
     
   </small>

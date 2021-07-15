@@ -1545,9 +1545,9 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>在这个例子中，<code>clickable{}</code> 在 <code>padding()</code> <strong>之前</strong> 调用，因此 <code>Card</code> 外间距的部分也是可以被点击到的。 <br />
-<img alt="" src="../../assets/modifier/modifier1.gif" /> <br />
+<img alt="" src="../../../assets/modifier/modifier1.gif" /> <br />
 反转一下，如果 <code>clickable{}</code> 在 <code>padding()</code> <strong>之后</strong> 被调用，那么 <code>Card</code> 的外间距部分就不能点击了，只能点击 <code>Card</code> 本身。 <br />
-<img alt="" src="../../assets/modifier/modifier2.gif" /></p>
+<img alt="" src="../../../assets/modifier/modifier2.gif" /></p>
 <p><strong>为什么呢? (挖源码时间~)</strong> <br />
 直接查看这些 修饰方法 的源代码，可以看见他们是这样实现的:
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="n">Modifier</span><span class="p">.</span><span class="nf">padding</span><span class="p">(</span><span class="n">all</span><span class="p">:</span> <span class="n">Dp</span><span class="p">)</span> <span class="o">=</span>
@@ -1618,7 +1618,7 @@
 <span class="p">}</span>
 </code></pre></div>
 运行效果: <br />
-<img alt="" src="../../assets/modifier/card.png" /></p>
+<img alt="" src="../../../assets/modifier/card.png" /></p>
                 
                   
                     
@@ -1627,7 +1627,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
       
     
   </small>
