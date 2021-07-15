@@ -2041,8 +2041,19 @@
 <p><code>Compose</code> 通过 <code>androidx.compose.material:material</code> 依赖关系（在 Android Studio 中创建 <code>Compose</code> 工程时会包含在内）提供了大量基于 <code>Material Design</code>的可组合元素，使 UI 构建变得简单。像   <code>Drawer</code>、<code>FloatingActionButton</code> 和 <code>TopAppBar</code> 这样的元素都被提供。</p>
 <p>Material 组件大量使用插槽 API，这是 <code>Compose</code> 引入的一种模式，在可组合的基础上引入了一层定制。这种方法使组件更加灵活，因为它们接受一个可以自我配置的子元素，而不是必须暴露子元素的每一个配置参数。槽在用户界面中留下了一个空位，供开发者按照自己的意愿来填充。例如，这些是你可以在 <code>TopAppBar</code> 中自定义的位置</p>
 <p><img src = "../../../assets/layout/overview/demo17.png" width = "35%" height = "35%"></p>
-<p><strong><em>Composable</em></strong> 通常采取一个 <code>content</code> 的 <strong><em>Composable</em></strong> ，<code>lambda(content: @Composable () -&gt; Unit)</code>。插槽 API 为特定用途公开了多个内容参数。例如，<code>TopAppBar</code> 允许你为标题、导航图标和行为提供内容。</p>
-<p>例如，<a href="scaffold/overview.md">Scaffold</a> 允许你用基本的 <code>Material Design</code> 布局结构来实现一个 UI。<code>Scaffold</code> 为最常见的顶层 <code>Material</code> 组件提供了插槽，如 <a href="https://material.io/components/app-bars-top#usage">TopAppBar</a>、<a href="https://material.io/components/app-bars-bottom/">BottomAppBar</a>、<a href="https://material.io/components/buttons-floating-action-button/">FloatingActionButton</a> 和 <a href="https://material.io/components/navigation-drawer">Drawer</a> 。通过使用 <code>Scaffold</code>，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。</p>
+<p>Composable 通常会采取一个 content (具有 @composable 函数的 lambda 表达式), <code>content: @Composable () -&gt; Unit</code>. 而在根据特定的用途，可以公开多个 <code>content</code>, 例如 <code>TopAppBar</code> 这个 Composable 可以提供 <code>actions</code> <code>title</code> <code>navigationIcon</code> 等</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TopAppBar</span><span class="p">(</span>
+    <span class="n">title</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">navigationIcon</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">actions</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="n">RowScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">backgroundColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">primarySurface</span><span class="p">,</span>
+    <span class="n">contentColor</span><span class="p">:</span> <span class="n">Color</span> <span class="o">=</span> <span class="n">contentColorFor</span><span class="p">(</span><span class="n">backgroundColor</span><span class="p">),</span>
+    <span class="n">elevation</span><span class="p">:</span> <span class="n">Dp</span> <span class="o">=</span> <span class="n">AppBarDefaults</span><span class="p">.</span><span class="na">TopAppBarElevation</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>例如，<a href="scaffold/overview.md">Scaffold</a> 允许你用基本的 <code>Material Design</code> 布局结构来实现一个 UI。<code>Scaffold</code> 给最常见的顶层 <code>Material</code> 组件提供了插槽，如 <a href="https://material.io/components/app-bars-top#usage">TopAppBar</a>、<a href="https://material.io/components/app-bars-bottom/">BottomAppBar</a>、<a href="https://material.io/components/buttons-floating-action-button/">FloatingActionButton</a> 和 <a href="https://material.io/components/navigation-drawer">Drawer</a> 。通过使用 <code>Scaffold</code>，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。</p>
 <div class="admonition tips">
 <p class="admonition-title">Tips</p>
 <p>要更好的了解 <strong>Scaffold</strong> 可以参考<a href="scaffold/overview.md">这里</a></p>
