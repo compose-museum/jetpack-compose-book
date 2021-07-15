@@ -24,4 +24,4 @@ Row{
 ```
 
 
-![](../assets/elements/icon/demo.png)
+![]({{config.assets}}/elements/icon/demo.png)

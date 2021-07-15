@@ -37,7 +37,7 @@ fun IconButtonDemo() {
 }
 ```
 
-![](../assets/elements/iconbutton/demo.gif)
+![]({{config.assets}}/elements/iconbutton/demo.gif)
 
 ## 1. 取消波纹
 
@@ -98,6 +98,6 @@ fun MyIconButton(
 }
 ```
 
-![](../assets/elements/iconbutton/demo2.gif)
+![]({{config.assets}}/elements/iconbutton/demo2.gif)
 
 关于实现这个按钮的动画效果可以在[这里](../../../design/animation/animatestate/)找到

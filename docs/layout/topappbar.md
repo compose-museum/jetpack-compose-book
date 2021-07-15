@@ -37,7 +37,7 @@ fun ScaffoldDemo(){
 }
 ```
 
-![](../../assets/layout/topappbar/demo.png)
+![]({{config.assets}}/layout/topappbar/demo.png)
 
 还可以设置 `TopAppBar` 中的 `actions` 参数
 
@@ -79,4 +79,4 @@ fun ScaffoldDemo(){
 
 它会将里面的内容以 `Row` 的方式来排列
 
-![](../../assets/layout/topappbar/demo2.png)
+![]({{config.assets}}/layout/topappbar/demo2.png)

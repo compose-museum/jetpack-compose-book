@@ -45,7 +45,7 @@ fun TextFieldDemo() {
 }
 ```
 
-![](../assets/elements/textfield/demo.gif)
+![]({{config.assets}}/elements/textfield/demo.gif)
 
 
 ## 1. singleLine 参数
@@ -97,7 +97,7 @@ fun TextFieldDemo() {
 }
 ```
 
-![](../assets/elements/textfield/demo2.gif)
+![]({{config.assets}}/elements/textfield/demo2.gif)
 
 
 ## 3. leadingIcon 参数
@@ -116,7 +116,7 @@ TextField(
 )
 ```
 
-![](../assets/elements/textfield/demo3.png)
+![]({{config.assets}}/elements/textfield/demo3.png)
 
 虽然名字上叫做 `leadingIcon`，但是 `leadingIcon` 接收来自一个 **@Composable** 函数的 `lambda` 表达式，
 
@@ -134,7 +134,7 @@ TextField(
 )
 ```
 
-![](../assets/elements/textfield/demo4.png)
+![]({{config.assets}}/elements/textfield/demo4.png)
 
 ## 4. trailingIcon 参数
 
@@ -152,7 +152,7 @@ TextField(
 )
 ```
 
-![](../assets/elements/textfield/demo6.png)
+![]({{config.assets}}/elements/textfield/demo6.png)
 
 ``` kotlin
 trailingIcon = {
@@ -164,7 +164,7 @@ trailingIcon = {
 },
 ```
 
-![](../assets/elements/textfield/demo7.png)
+![]({{config.assets}}/elements/textfield/demo7.png)
 
 
 
@@ -256,15 +256,15 @@ TextField(
 )
 ```
 
-![](../assets/elements/textfield/demo3.gif)
+![]({{config.assets}}/elements/textfield/demo3.gif)
 
 在你使用 IDE 智能补全的时候可能遇到这种情况
 
-![](../assets/elements/textfield/demo5.png)
+![]({{config.assets}}/elements/textfield/demo5.png)
 
 解决方法如下，手动打完函数名
 
-![](../assets/elements/textfield/demo4.gif)
+![]({{config.assets}}/elements/textfield/demo4.gif)
 
 ## 6. visualTransformation 参数
 
@@ -295,7 +295,7 @@ TextField(
 )
 ```
 
-![](../assets/elements/textfield/demo5.gif)
+![]({{config.assets}}/elements/textfield/demo5.gif)
 
 
 ## 更多

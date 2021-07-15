@@ -35,7 +35,7 @@ Image(
 
 该库内置支持图像加载过程中的[淡入动画](https://material.io/archive/guidelines/patterns/loading-images.html)。
 
-![](../../assets/third-party-component/accompanist/coil/crossfade.gif)
+![]({{config.assets}}/third-party-component/accompanist/coil/crossfade.gif)
 
 [`rememberGlidePainter`](https://google.github.io/accompanist/api/glide/glide/com.google.accompanist.glide/remember-glide-painter.html) 的函数参数 `fadeIn:Boolean` 默认为 `false`，当 `fadeIn = true` 时，一个默认的淡入动画将出现在图片成功加载过程中。
 

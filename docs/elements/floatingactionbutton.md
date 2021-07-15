@@ -19,7 +19,7 @@ fun FloatingActionButton(
 
 一个 `FloatActionButton`（FAB）代表一个屏幕的主要行为。
 
-![](../../assets/elements/floatingactionbutton/demo.png)
+![]({{config.assets}}/elements/floatingactionbutton/demo.png)
 
 `FAB` 通常和一个 `Icon` 一起使用
 

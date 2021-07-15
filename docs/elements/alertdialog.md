@@ -72,7 +72,7 @@ if (openDialog.value) {
 
 如果一切顺利，运行程序，您将会看到：
 
-![](../assets/elements/alertdialog/demo.png)
+![]({{config.assets}}/elements/alertdialog/demo.png)
 
 `AlertDialog` 将根据可用空间来定位其按钮。默认情况下，它将尝试将它们水平地放在彼此的旁边，如果没有足够的空间，则退回到水平放置。还有另一个版本的 Composable，它有一个按钮槽，可以提供自定义的按钮布局
 
@@ -131,7 +131,7 @@ if (openDialog.value) {
 }
 ```
 
-![](../assets/elements/alertdialog/demo2.png)
+![]({{config.assets}}/elements/alertdialog/demo2.png)
 
 
 ## 2. 更多

@@ -141,9 +141,9 @@ fun NewsStory() {
 
 ![](assets/tutorial/demo8.png)
 
-<img src = "../assets/tutorial/header.jpg" width = "300" height = "300">
+<img src = "{{config.assets}}/tutorial/header.jpg" width = "300" height = "300">
 
-<a href = "../assets/tutorial/header.jpg" download>下载图片</a>
+<a href = "{{config.assets}}/tutorial/header.jpg" download>下载图片</a>
 
 现在修改你的 `NewsStory()` 函数。你将添加一个 `Image()` 函数，并把这张图片放在 `Column` 中。这些 `composables` 在 `foundation` 包中可用，你可能需要添加它。见 [Jetpack Compose 设置说明](https://developer.android.com/jetpack/compose/setup)。图片的比例不会正确，但这没关系，你将在下一步解决这个问题。
 

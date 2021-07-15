@@ -67,7 +67,7 @@ fun TextDemo() {
 }
 ```
 
-![](../assets/elements/text/text.png)
+![]({{config.assets}}/elements/text/text.png)
 
 ### 文字间距
 
@@ -94,7 +94,7 @@ fun TextDemo() {
 
 它将会显示成
 
-![](../assets/elements/text/text2.png)  
+![]({{config.assets}}/elements/text/text2.png)  
 
 ### 字体大小
 
@@ -125,7 +125,7 @@ fun TextDemo() {
 }
 ```
 
-![](../assets/elements/text/text7.png)
+![]({{config.assets}}/elements/text/text7.png)
 
 ### overflow 处理溢出
 
@@ -151,7 +151,7 @@ fun TextDemo() {
 }
 ```
 
-![](../assets/elements/text/text8.png)  
+![]({{config.assets}}/elements/text/text8.png)  
 
 ## 3. textAlign 参数
 
@@ -180,12 +180,12 @@ fun TextDemo() {
 }
 ```
 
-![](../assets/elements/text/text5.png)  
+![]({{config.assets}}/elements/text/text5.png)  
 
 !!! 注意
     需要注意区分的是，`TextAlign` 设置的是文本的对齐方式，而不是位置方向
     
-    ![](../assets/elements/text/text9.png)  
+    ![]({{config.assets}}/elements/text/text9.png)  
     如果需要实现 `TextAlign.Right` 中的方向，请使用 `Modifier.align(Alignment.End)`，详情使用方法在[这里](../../layout/column/#2)
 
 
@@ -206,7 +206,7 @@ Column {
 }
 ```
 
-![](../assets/elements/text/text10.png)
+![]({{config.assets}}/elements/text/text10.png)
 
 
 ## 5. fontFamily 参数
@@ -220,13 +220,13 @@ Column {
 }
 ```
 
-![](../assets/elements/text/text13.png)
+![]({{config.assets}}/elements/text/text13.png)
 
 你也可以加载 `res/font` 下的字体。
 
 创建一个 `font` 文件夹可以右键 `res` 文件夹，选择 `Android Resource Directory` -> 选择 `font`
 
-![](../assets/elements/text/text14.png)
+![]({{config.assets}}/elements/text/text14.png)
 
 ``` kotlin
 Text(
@@ -237,7 +237,7 @@ Text(
 )
 ```
 
-![](../assets/elements/text/text15.png)
+![]({{config.assets}}/elements/text/text15.png)
 
 
 ## 6. 可点击的 Text
@@ -288,7 +288,7 @@ fun TextDemo() {
 
 效果如下：
 
-![](../assets/elements/text/text3.png)  
+![]({{config.assets}}/elements/text/text3.png)  
 
 ## 7. 特定的文字显示
 
@@ -331,7 +331,7 @@ fun TextDemo() {
 
 效果如下：
 
-![](../assets/elements/text/text4.png)  
+![]({{config.assets}}/elements/text/text4.png)  
 
 ## 8. 文字超链接？（ClickableText）
 
@@ -365,7 +365,7 @@ ClickableText(
 )
 
 ```
-![](../assets/elements/text/text11.png)![](../assets/elements/text/text12.png)
+![]({{config.assets}}/elements/text/text11.png)![]({{config.assets}}/elements/text/text12.png)
 
 但是...怎么才能检测[用户协议]()这四个字符的点击事件呢？
 
@@ -403,7 +403,7 @@ ClickableText(
     }
 )
 ```
-![](../assets/elements/text/text13.gif)
+![]({{config.assets}}/elements/text/text13.gif)
 
 在上面的代码中
 
@@ -414,7 +414,7 @@ ClickableText(
 
 那么，你已经学会了如何自定义 `Text` 中的样式和点击事件，来尝试做出一个这样的效果？
 
-![](../assets/elements/text/text14.gif)
+![]({{config.assets}}/elements/text/text14.gif)
 
 实现的代码可以通过以下的方式来查看
 
@@ -451,7 +451,7 @@ fun TextDemo() {
     
 }
 ```
-![](../assets/elements/text/text6.png)  
+![]({{config.assets}}/elements/text/text6.png)  
 
 ## 10. 文字强调效果
 
@@ -479,11 +479,11 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 
 这是运行效果:
 
-![](../assets/elements/text/content_alpha.png)
+![]({{config.assets}}/elements/text/content_alpha.png)
 
 这张图可以很好的说明这个效果
 
-![](../assets/elements/text/demo.png)
+![]({{config.assets}}/elements/text/demo.png)
 
 
 ## 11. 更多

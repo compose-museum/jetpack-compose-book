@@ -27,7 +27,7 @@ fun ImageDemo() {
 
 }
 ```
-![](../assets/elements/image/image.png)
+![]({{config.assets}}/elements/image/image.png)
 
 ## 1. 图片大小
 
@@ -46,7 +46,7 @@ fun ImageDemo() {
 }
 ```
 
-![](../assets/elements/image/image2.png)
+![]({{config.assets}}/elements/image/image2.png)
 
 ## 2. 图片形状
 
@@ -69,7 +69,7 @@ fun ImageDemo() {
 }
 ```
 
-![](../assets/elements/image/image3.png)
+![]({{config.assets}}/elements/image/image3.png)
 
 是不是有一点小问题？似乎只有左右两边变成了圆形，而上下并没有。
 
@@ -99,7 +99,7 @@ fun ImageDemo() {
 }
 ```
 
-![](../assets/elements/image/image4.png)
+![]({{config.assets}}/elements/image/image4.png)
 
 ## 3. 图像边框
 
@@ -124,7 +124,7 @@ fun ImageDemo() {
 }
 ```
 
-![](../assets/elements/image/image5.png)
+![]({{config.assets}}/elements/image/image5.png)
 
 ## 4. 更多
 
