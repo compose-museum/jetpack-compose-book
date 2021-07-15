@@ -375,7 +375,7 @@ Material 组件大量使用插槽 API，这是 `Compose` 引入的一种模式�
 例如，[Scaffold](scaffold/overview.md) 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 为最常见的顶层 `Material` 组件提供了插槽，如 [TopAppBar](https://material.io/components/app-bars-top#usage)、[BottomAppBar](https://material.io/components/app-bars-bottom/)、[FloatingActionButton](https://material.io/components/buttons-floating-action-button/) 和 [Drawer](https://material.io/components/navigation-drawer) 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。
 
 !!! Tips
-    要更好的了解 **Scaffold** 可以参考[这里](scaffold/overview.md)
+    要更好的了解 **Scaffold** 可以参考[这里](../scaffold/)
 
 <img src = "../../assets/layout/overview/demo18.png" width = "55%" height = "55%">
 
@@ -670,7 +670,7 @@ fun CallingComposable(modifier: Modifier = Modifier) {
 
 ## 8. 固有特性测量
 
-Compose 有一项规则，即，子项只能测量一次，测量两次就会引发运行时异常。但是，有时需要先收集一些关于子项的信息，然后再测量子项。
+Compose 有一项规则，即子项只能测量一次，测量两次就会引发运行时异常。但是，有时需要先收集一些关于子项的信息，然后再测量子项。
 
 **借助固有特性，您可以先查询子项，然后再进行实际测量。**
 
