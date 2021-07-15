@@ -2056,7 +2056,7 @@
 <p>例如，<a href="scaffold/overview.md">Scaffold</a> 允许你用基本的 <code>Material Design</code> 布局结构来实现一个 UI。<code>Scaffold</code> 给最常见的顶层 <code>Material</code> 组件提供了插槽，如 <a href="https://material.io/components/app-bars-top#usage">TopAppBar</a>、<a href="https://material.io/components/app-bars-bottom/">BottomAppBar</a>、<a href="https://material.io/components/buttons-floating-action-button/">FloatingActionButton</a> 和 <a href="https://material.io/components/navigation-drawer">Drawer</a> 。通过使用 <code>Scaffold</code>，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。</p>
 <div class="admonition tips">
 <p class="admonition-title">Tips</p>
-<p>要更好的了解 <strong>Scaffold</strong> 可以参考<a href="scaffold/overview.md">这里</a></p>
+<p>要更好的了解 <strong>Scaffold</strong> 可以参考<a href="../scaffold/">这里</a></p>
 </div>
 <p><img src = "../../../assets/layout/overview/demo18.png" width = "55%" height = "55%"></p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
@@ -2290,7 +2290,7 @@
 <p>如果您要将可组合项手动放置在屏幕上，则 <code>LayoutDirection</code> 是 <code>layout</code> 修饰符或 <code>Layout</code> 可组合项的 <code>LayoutScope</code> 的一部分。</p>
 <p>使用 <code>layoutDirection</code> 时，应使用 <code>place</code> 放置可组合项。与 <code>place</code> 方法不同，<code>place</code> 不会根据阅读方向（从左到右与从右到左）发生变化。</p>
 <h2 id="8">8. 固有特性测量</h2>
-<p>Compose 有一项规则，即，子项只能测量一次，测量两次就会引发运行时异常。但是，有时需要先收集一些关于子项的信息，然后再测量子项。</p>
+<p>Compose 有一项规则，即子项只能测量一次，测量两次就会引发运行时异常。但是，有时需要先收集一些关于子项的信息，然后再测量子项。</p>
 <p><strong>借助固有特性，您可以先查询子项，然后再进行实际测量。</strong></p>
 <p>对于可组合项，您可以查询其 <code>intrinsicWidth</code> 或 <code>intrinsicHeight</code>：</p>
 <ul>
