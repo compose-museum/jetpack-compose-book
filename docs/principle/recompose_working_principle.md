@@ -71,7 +71,7 @@ internal open class SnapshotMutableStateImpl<T>(
 
  ⚠️ Tips：GlobalSnapshot 实际上是 MutableSnapShot 的子类
 
-![image-20210618231652055](../../assets/principle/recompose_working_principle/demo1.png) 
+![image-20210618231652055]({{config.assets}}/principle/recompose_working_principle/demo1.png) 
 
 ```kotlin
 // androidx.compose.runtime.snapshots.Snapshot
@@ -216,7 +216,7 @@ private fun <T> advanceGlobalSnapshot(block: (invalid: SnapshotIdSet) -> T): T {
 
 #### applyObservers之recompositionRunne
 
-![image-20210618233734029](../../assets/principle/recompose_working_principle/demo2.png) 
+![image-20210618233734029]({{config.assets}}/principle/recompose_working_principle/demo2.png) 
 
 据我调查此时 `applyObservers` 中包含的观察者仅有两个，一个是 `SnapshotStateObserver.applyObserver` 用来更新快照状态信息，另一个就是 `recompositionRunner` 用来处理 recompose流程 的。由于我们是在研究recompose 流程的所以就不分开去讨论了。我们来看看处理 recompose 的 observer 都做了什么，首先他将所有改变的 `mutableState` 添加到了 `snapshotInvalidations`，这个后续会用到。后面可以看到有一个resume，说明lambda的最后调用的 `deriveStateLocked` 返回了一个协程 Continuation 实例。使得挂起点位置恢复执行，所以我们进入`deriveStateLocked ` 看看这个协程 Continuation 实例到底是谁。
 
@@ -413,7 +413,7 @@ private inline fun <T> composing(
 
 #### takeMutableSnapshot 读观察者与写观察者 
 
-![image-20210618231607564](../../assets/principle/recompose_working_principle/demo3.png) 
+![image-20210618231607564]({{config.assets}}/principle/recompose_working_principle/demo3.png) 
 
 值得注意的是此时调用的 `takeMutableSnapshot` 方法同时传入了一个读观察者和写观察者，而这两个观察者在什么时机回调呢？当我们每次 recompose 时都会拍摄一次快照，然后我们的重新执行过程在这次快照中执行，在重新执行过程中如果出现了 mutableState 的读取或写入操作都会相应的回调这里的读观察者和写观察者。也就说明每次recompose都会进行重新一次绑定。 读观察者回调时机比较好理解，写观察者在什么时机回调呢？ 还记得我们刚开始说的 `GlobalSnapshot` 和 `MutableSnapshot` 嘛？
 

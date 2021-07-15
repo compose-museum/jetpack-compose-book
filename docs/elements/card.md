@@ -52,7 +52,7 @@ fun CardDemo() {
 }
 ```
 
-![](../assets/elements/card/card1.png)
+![]({{config.assets}}/elements/card/card1.png)
 
 ## 更多
 

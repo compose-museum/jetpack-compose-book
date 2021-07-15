@@ -33,7 +33,7 @@ fun ButtonDemo() {
 
 效果如图所示：
 
-![](../assets/elements/button/button1.png)
+![]({{config.assets}}/elements/button/button1.png)
 
 也许您想添加图标在文字的旁边，也只需：
 
@@ -54,7 +54,7 @@ fun ButtonDemo() {
 }
 ```
 
-![](../assets/elements/button/button2.png)
+![]({{config.assets}}/elements/button/button2.png)
 
 
 ## 更多

@@ -39,7 +39,7 @@ Slider(
 )
 ```
 
-![](../assets/elements/slider/demo.gif)
+![]({{config.assets}}/elements/slider/demo.gif)
 
 
 ``` kotlin

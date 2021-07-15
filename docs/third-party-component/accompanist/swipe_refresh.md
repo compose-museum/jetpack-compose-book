@@ -5,7 +5,7 @@
 这个库提供了较为常用的滑动刷新组件，类似于传统View系统中的 [SwipeRefreshLayout](https://developer.android.google.cn/reference/androidx/swiperefreshlayout/widget/SwipeRefreshLayout)。
 
 <div align="center">
-<iframe  width="380" height="492" src="../../../assets/third-party-component/accompanist/swipe_refresh/demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe  width="380" height="492" src="{{config.assets}}/third-party-component/accompanist/swipe_refresh/demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 
 

@@ -53,9 +53,9 @@ fun UI(){
 ```
 
 在这个例子中，`clickable{}` 在 `padding()` **之前** 调用，因此 `Card` 外间距的部分也是可以被点击到的。   
-![](../assets/modifier/modifier1.gif)   
+![]({{config.assets}}/modifier/modifier1.gif)   
 反转一下，如果 `clickable{}` 在 `padding()` **之后** 被调用，那么 `Card` 的外间距部分就不能点击了，只能点击 `Card` 本身。   
-![](../assets/modifier/modifier2.gif)
+![]({{config.assets}}/modifier/modifier2.gif)
 
 **为什么呢? (挖源码时间~)**   
 直接查看这些 修饰方法 的源代码，可以看见他们是这样实现的:
@@ -132,4 +132,4 @@ fun CardExample(){
 }
 ```
 运行效果:   
-![](../assets/modifier/card.png)
+![]({{config.assets}}/modifier/card.png)

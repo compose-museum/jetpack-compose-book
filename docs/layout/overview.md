@@ -26,7 +26,7 @@ fun ArtistCard() {
 
 在你没有排列它们的情况下， `Compose` 会将 `Text` 元素堆叠在一起，变得无法阅读。
 
-<img src = "../../assets/layout/overview/demo.png" width = "40%" height = "40%">
+<img src = "{{config.assets}}/layout/overview/demo.png" width = "40%" height = "40%">
 
 
 `Compose` 提供了一个现成的布局集合，以帮助你安排你的 `UI` 元素，并使你更容易定义你自己的、更专业的布局。
@@ -45,7 +45,7 @@ fun ArtistCard() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo2.png" width = "25%" height = "25%">
+<img src = "{{config.assets}}/layout/overview/demo2.png" width = "25%" height = "25%">
 
 同样地，你也可以使用 `Row`, 它会将里面的组件以列的形式呈现。
 
@@ -64,7 +64,7 @@ fun ArtistCard(artist: Artist) {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo3.png" width = "25%" height = "25%">
+<img src = "{{config.assets}}/layout/overview/demo3.png" width = "25%" height = "25%">
 
 !!! 注意
     图中的圆形图像的效果可以在 **基本组件/Image** 中实现。
@@ -99,7 +99,7 @@ fun AlignInRow() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo4.png" width = "25%" height = "25%">
+<img src = "{{config.assets}}/layout/overview/demo4.png" width = "25%" height = "25%">
 
 ## 2. Modifier
 
@@ -131,7 +131,7 @@ fun ArtistCard(
 }
 ```
 
-<img src = "../../assets/layout/overview/demo5.png" width = "50%" height = "50%">
+<img src = "{{config.assets}}/layout/overview/demo5.png" width = "50%" height = "50%">
 
 在上面的代码中，你会注意到不同的 `modifier` 函数一起使用。
 
@@ -161,7 +161,7 @@ fun ArtistCard(/*...*/) {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo6.gif" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo6.gif" width = "35%" height = "35%">
 
 在上面的代码中，整个区域都是可点击的，包括周围的填充物，因为 `padding modifier` 被应用在 `clickable` 之后。如果 `modifier` 的顺序颠倒了，那么由 `padding` 增加的空间就不会对用户的输入做出反应。
 
@@ -180,7 +180,7 @@ fun ArtistCard(/*...*/) {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo7.gif" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo7.gif" width = "35%" height = "35%">
 
 !!! 注意
 
@@ -207,7 +207,7 @@ fun PaddedComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo8.png" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo8.png" width = "35%" height = "35%">
 
 默认情况下，Compose 中提供的布局是包裹其子项的。
 
@@ -227,20 +227,25 @@ fun SizedComposable() {
 @Composable
 fun FixedSizeComposable() {
     Box(
-        Modifier
-        .size(90.dp, 150.dp)
-        .background(Color.Green)
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         Box(
             Modifier
-            .requiredSize(100.dp, 100.dp)
-            .background(Color.Red)
-        )
+                .size(90.dp, 150.dp)
+                .background(Color.Green)
+        ) {
+            Box(
+                Modifier
+                    .requiredSize(100.dp, 100.dp)
+                    .background(Color.Red)
+            )
+        }
     }
 }
 ```
 
-<img src = "../../assets/layout/overview/demo9.png" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo9.png" width = "35%" height = "35%">
 
 在这个例子中，即使父本的宽度被设置为 `90.dp`，内盒的宽度也将是 `100.dp`
 
@@ -264,7 +269,7 @@ fun FillSizeComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo10.png" width = "15%" height = "15%">
+<img src = "{{config.assets}}/layout/overview/demo10.png" width = "15%" height = "15%">
 
 如果你想让一个子布局的尺寸与父 `Box` 的尺寸相同而不影响 `Box` 的尺寸，请使用 `matchParentSize `
 
@@ -282,11 +287,11 @@ fun MatchParentSizeComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo11.png" width = "15%" height = "15%">
+<img src = "{{config.assets}}/layout/overview/demo11.png" width = "15%" height = "15%">
 
 如果使用 `fillMaxSize` 而不是` matchParentSize`，那么 `Spacer` 将占用允许给父代的所有可用空间，反过来导致父代扩展并填充所有可用空间
 
-<img src = "../../assets/layout/overview/demo12.png" width = "55%" height = "55%">
+<img src = "{{config.assets}}/layout/overview/demo12.png" width = "55%" height = "55%">
 
 如果你想在文本基线上方添加 `padding` 使你达到从布局顶部到基线的特定距离
 
@@ -301,7 +306,7 @@ fun TextWithPaddingFromBaseline() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo13.png" width = "5%" height = "5%">
+<img src = "{{config.assets}}/layout/overview/demo13.png" width = "5%" height = "5%">
 
 #### 2. offset
 
@@ -321,7 +326,7 @@ fun OffsetComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo14.png" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo14.png" width = "35%" height = "35%">
 
 `padding` modifier 根据布局方向在水平方向上应用。在从左到右的情况下，正的偏移值会将元素向右移动，而在从右到左的情况下，它会将元素向左移动。如果你需要在不考虑布局方向的情况下设置一个偏移量，请参见`absoluteOffset` 修改器，其中一个正的偏移值总是将元素向右移动
 
@@ -345,7 +350,7 @@ fun FlexibleComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo15.png" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo15.png" width = "35%" height = "35%">
 
 ## 4. 约束条件
 
@@ -360,7 +365,7 @@ fun WithConstraintsComposable() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo16.png" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo16.png" width = "35%" height = "35%">
 
 #### 基于插槽的布局
 
@@ -368,16 +373,29 @@ fun WithConstraintsComposable() {
 
 Material 组件大量使用插槽 API，这是 `Compose` 引入的一种模式，在可组合的基础上引入了一层定制。这种方法使组件更加灵活，因为它们接受一个可以自我配置的子元素，而不是必须暴露子元素的每一个配置参数。槽在用户界面中留下了一个空位，供开发者按照自己的意愿来填充。例如，这些是你可以在 `TopAppBar` 中自定义的位置
 
-<img src = "../../assets/layout/overview/demo17.png" width = "35%" height = "35%">
+<img src = "{{config.assets}}/layout/overview/demo17.png" width = "35%" height = "35%">
 
-***Composable*** 通常采取一个 `content` 的 ***Composable*** ，`lambda(content: @Composable () -> Unit)`。插槽 API 为特定用途公开了多个内容参数。例如，`TopAppBar` 允许你为标题、导航图标和行为提供内容。
+Composable 通常会采取一个 content (具有 @composable 函数的 lambda 表达式), `content: @Composable () -> Unit`. 而在根据特定的用途，可以公开多个 `content`, 例如 `TopAppBar` 这个 Composable 可以提供 `actions` `title` `navigationIcon` 等
 
-例如，[Scaffold](scaffold/overview.md) 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 为最常见的顶层 `Material` 组件提供了插槽，如 [TopAppBar](https://material.io/components/app-bars-top#usage)、[BottomAppBar](https://material.io/components/app-bars-bottom/)、[FloatingActionButton](https://material.io/components/buttons-floating-action-button/) 和 [Drawer](https://material.io/components/navigation-drawer) 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。
+``` kotlin
+@Composable
+fun TopAppBar(
+    title: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    navigationIcon: @Composable (() -> Unit)? = null,
+    actions: @Composable RowScope.() -> Unit = {},
+    backgroundColor: Color = MaterialTheme.colors.primarySurface,
+    contentColor: Color = contentColorFor(backgroundColor),
+    elevation: Dp = AppBarDefaults.TopAppBarElevation
+)
+```
+
+例如，[Scaffold](scaffold/overview.md) 允许你用基本的 `Material Design` 布局结构来实现一个 UI。`Scaffold` 给最常见的顶层 `Material` 组件提供了插槽，如 [TopAppBar](https://material.io/components/app-bars-top#usage)、[BottomAppBar](https://material.io/components/app-bars-bottom/)、[FloatingActionButton](https://material.io/components/buttons-floating-action-button/) 和 [Drawer](https://material.io/components/navigation-drawer) 。通过使用 `Scaffold`，我们可以很容易地确保这些组件被正确地定位并正确地协同工作。
 
 !!! Tips
     要更好的了解 **Scaffold** 可以参考[这里](../scaffold/)
 
-<img src = "../../assets/layout/overview/demo18.png" width = "55%" height = "55%">
+<img src = "{{config.assets}}/layout/overview/demo18.png" width = "55%" height = "55%">
 
 ``` kotlin
 @Composable
@@ -399,7 +417,7 @@ fun HomeScreen(/*...*/) {
 要在 `Compose` 中使用 `ConstraintLayout`，你需要在 `build.gradle` 中添加这个依赖项
 
 ```
-implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
+implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08"
 ```
 
 !!! 注意
@@ -447,7 +465,7 @@ fun ConstraintLayoutContent() {
 这段代码将 `Button` 的顶部约束到父级，边距为 `16.dp` ，将 `Text` 约束到 `Button` 的底部，边距也为 `16.dp`
 
 
-<img src = "../../assets/layout/overview/demo19.png" width = "5%" height = "5%">
+<img src = "{{config.assets}}/layout/overview/demo19.png" width = "5%" height = "5%">
 
 关于如何使用 `ConstraintLayout` 的更多例子，请参阅 [layout codelab](https://developer.android.com/codelabs/jetpack-compose-layouts#0)
 
@@ -526,7 +544,7 @@ fun Modifier.customLayoutModifier(...) =
 
 下面是期望的行为，文本顶部的 `padding` 被设置为 `24.dp`
 
-<img src = "../../assets/layout/overview/demo20.png" width = "45%" height = "45%">
+<img src = "{{config.assets}}/layout/overview/demo20.png" width = "45%" height = "45%">
 
 
 下面是产生这种间距的代码：
@@ -580,7 +598,7 @@ fun TextWithNormalPaddingPreview() {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo21.png" width = "25%" height = "25%">
+<img src = "{{config.assets}}/layout/overview/demo21.png" width = "25%" height = "25%">
 
 ### 创建自定义布局
 `layout` 修饰符仅更改调用可组合项。如需测量和布置多个可组合项，请改用 `Layout` 可组合项。此可组合项允许您手动测量和布置子项。`Column` 和 `Row` 等所有较高级别的布局都使用 `Layout` 可组合项构建而成。
@@ -658,7 +676,7 @@ fun CallingComposable(modifier: Modifier = Modifier) {
 }
 ```
 
-<img src = "../../assets/layout/overview/demo22.png" width = "25%" height = "25%">
+<img src = "{{config.assets}}/layout/overview/demo22.png" width = "25%" height = "25%">
 
 ## 7. 布局方向
 
@@ -684,7 +702,7 @@ Compose 有一项规则，即子项只能测量一次，测量两次就会引发
 
 假设我们需要创建一个可组合项，该可组合项在屏幕上显示两个用分隔线隔开的文本，如下所示：
 
-<img src = "../../assets/layout/overview/demo23.png" width = "55%" height = "55%">
+<img src = "{{config.assets}}/layout/overview/demo23.png" width = "55%" height = "55%">
 
 我们该怎么做？我们可以将两个 Text 放在同一 Row，并在其中最大程度地扩展，另外在中间放置一个 Divider。我们需要将分隔线的高度设置为与最高的 Text 相同，粗细设置为 width = 1.dp。
 
@@ -727,7 +745,7 @@ fun TwoTextsPreview() {
 预览时，我们发现分隔线扩展到整个屏幕，这并不是我们想要的效果：
 
 
-<img src = "../../assets/layout/overview/demo24.png" width = "55%" height = "55%">
+<img src = "{{config.assets}}/layout/overview/demo24.png" width = "55%" height = "55%">
 
 之所以出现这种情况，是因为 `Row` 会逐个测量每个子项，并且 `Text` 的高度不能用于限制 `Divider`。我们希望 `Divider` 以一个给定的高度来填充可用空间。为此，我们可以使用 `height(IntrinsicSize.Min)` 修饰符。
 
@@ -735,7 +753,7 @@ fun TwoTextsPreview() {
 
 将其应用到代码中，就能达到预期的效果：
 
-<img src = "../../assets/layout/overview/demo25.png" width = "55%" height = "55%">
+<img src = "{{config.assets}}/layout/overview/demo25.png" width = "55%" height = "55%">
 
 
 `Row` 可组合项的 `minIntrinsicHeight` 将作为其子项的最大 `minIntrinsicHeight`。`Divider` 元素的 `minIntrinsicHeight` 为 `0`，因为如果没有给出约束条件，它不会占用任何空间；如果给出特定 `width`，`Text` `minIntrinsicHeight` 将为文本的高度。因此，`Row` 元素的 `height` 约束条件将为 `Text` 的最大 m`inIntrinsicHeight`。而 `Divider` 会将其 `height` 扩展为 `Row` 给定的 `height` 约束条件。

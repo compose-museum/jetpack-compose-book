@@ -17,7 +17,7 @@
 最简单用法如下所示：
 
 <div align="center">
-<iframe  width="360" height="492" src="../../../assets/third-party-component/accompanist/pager_layouts/horiz_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe  width="360" height="492" src="{{config.assets}}/third-party-component/accompanist/pager_layouts/horiz_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 
 ```kotlin
@@ -42,7 +42,7 @@ HorizontalPager(state = pagerState) { page ->
 `VerticalPager` 与 `HorizontalPager` 非常相似，他将所有子项摆放在一条垂直列上，允许用户在子项之间垂直滑动。
 
 <div align="center">
-<iframe  width="340" height="492" src="../../../assets/third-party-component/accompanist/pager_layouts/vert_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe  width="340" height="492" src="{{config.assets}}/third-party-component/accompanist/pager_layouts/vert_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 
 ```kotlin
@@ -88,7 +88,7 @@ HorizontalPager(state = pagerState) { page ->
 [HorizontalPagerTransitionSample ](https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/pager/HorizontalPagerTransitionSample.kt) 示例中演示如何做到这一点。
 
 <div align="center">
-<iframe  width="380" height="380" src="../../../assets/third-party-component/accompanist/pager_layouts/transition_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe  width="380" height="380" src="{{config.assets}}/third-party-component/accompanist/pager_layouts/transition_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 
 在 pager 组件的 content scope 中允许开发者很轻松地拿到 `currentPage` 与 `currentPageOffset` 引用。可以使用这些值来计算效果。我们提供了 `calculateCurrentOffsetForPage()` 扩展函数去计算某一个特定页面的偏移量。
@@ -151,7 +151,7 @@ LaunchedEffect(pagerState) {
 [HorizontalPagerWithIndicatorSample](https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/pager/HorizontalPagerWithIndicatorSample.kt) 与 [VerticalPagerWithIndicatorSample ](https://github.com/google/accompanist/blob/snapshot/sample/src/main/java/com/google/accompanist/sample/pager/VerticalPagerWithIndicatorSample.kt) 将向你展示如何去使用这些指示器。
 
 <div align="center">
-<iframe  width="358" height="492" src="../../../assets/third-party-component/accompanist/pager_layouts/indicators_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe  width="358" height="492" src="{{config.assets}}/third-party-component/accompanist/pager_layouts/indicators_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 
 ### 集成Tab
@@ -159,7 +159,7 @@ LaunchedEffect(pagerState) {
 对于 `HorizontalPager` 来说一个常见的用例是被用来与 `TabRow` 或 `ScrollableTabRow` 结合使用。
 
 <div align="center">
-<iframe  width="310" height="492" src="../../../assets/third-party-component/accompanist/pager_layouts/tabs_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
+<iframe  width="310" height="492" src="{{config.assets}}/third-party-component/accompanist/pager_layouts/tabs_demo.mp4" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true"> </iframe>
 </div>
 
 在 `pager-indicators`库中提供了一个Modifier修饰符，可以像这样用在 tab 指示器上。
