@@ -404,7 +404,7 @@ fun HomeScreen(/*...*/) {
 要在 `Compose` 中使用 `ConstraintLayout`，你需要在 `build.gradle` 中添加这个依赖项
 
 ```
-implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha05"
+implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08"
 ```
 
 !!! 注意
