@@ -31,7 +31,10 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 ``` kotlin
 
-var state by remember{ mutableStateOf(true)}
+// 如果你在这里有 getValue 的报错，这是 bug，你需要手动导入
+// import androidx.compose.runtime.getValue
+
+var state by remember{ mutableStateOf(true) }
 
 Column(
     modifier = Modifier
