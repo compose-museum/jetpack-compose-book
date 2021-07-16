@@ -41,7 +41,7 @@ fun ScaffoldDemo(){
                 }
             )
         },
-        bottomnavigation = {
+        bottomBar = {
             BottomNavigation {
                 items.forEachIndexed { index, item ->
                     BottomNavigationItem(
