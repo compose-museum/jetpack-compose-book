@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://docs.compose.net.cn/elements/textfield/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.1, mkdocs-material-7.1.10">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.1.11">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.1fe995fd.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3754935a.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.f1a3b89f.min.css">
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-singleline" class="md-skip">
+        <a href="#textfield" class="md-skip">
           跳转至
         </a>
       
@@ -505,44 +505,84 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#textfield" class="md-nav__link">
+    TextField
+  </a>
+  
+    <nav class="md-nav" aria-label="TextField">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-singleline" class="md-nav__link">
     1. singleLine 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#2-label" class="md-nav__link">
     2. label 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#3-leadingicon" class="md-nav__link">
     3. leadingIcon 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#4-trailingicon" class="md-nav__link">
     4. trailingIcon 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#5-color" class="md-nav__link">
     5. Color 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#6-visualtransformation" class="md-nav__link">
     6. visualTransformation 参数
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basictextfield" class="md-nav__link">
+    BasicTextField
+  </a>
+  
+    <nav class="md-nav" aria-label="BasicTextField">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 简单使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 其他效果
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1482,44 +1522,84 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#textfield" class="md-nav__link">
+    TextField
+  </a>
+  
+    <nav class="md-nav" aria-label="TextField">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#1-singleline" class="md-nav__link">
     1. singleLine 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#2-label" class="md-nav__link">
     2. label 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#3-leadingicon" class="md-nav__link">
     3. leadingIcon 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#4-trailingicon" class="md-nav__link">
     4. trailingIcon 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#5-color" class="md-nav__link">
     5. Color 参数
   </a>
   
 </li>
-      
-        <li class="md-nav__item">
+        
+          <li class="md-nav__item">
   <a href="#6-visualtransformation" class="md-nav__link">
     6. visualTransformation 参数
   </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basictextfield" class="md-nav__link">
+    BasicTextField
+  </a>
+  
+    <nav class="md-nav" aria-label="BasicTextField">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 简单使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 其他效果
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1549,7 +1629,8 @@
                 
                   <h1>TextField</h1>
                 
-                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+                <h2 id="textfield">TextField</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextField</span><span class="p">(</span>
     <span class="n">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
     <span class="n">onValueChange</span><span class="p">:</span> <span class="p">(</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
@@ -1573,8 +1654,23 @@
     <span class="n">colors</span><span class="p">:</span> <span class="n">TextFieldColors</span> <span class="o">=</span> <span class="n">TextFieldDefaults</span><span class="p">.</span><span class="na">textFieldColors</span><span class="p">()</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><code>textfield</code> 可以创建一个输入框。</p>
-<p>一个简单使用的例子是这样的：</p>
+<p><a href="https://material.io/components/text-fields#filled-text-field">Material Design filled text field</a></p>
+<p><code>Filled TextField</code> 比 <code>Outlined TextField</code> 有更多的视觉效果，可以让它们在被其他内容和组件包围时显得更加突出。</p>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p><code>Filled TextField</code> 和 <code>Outlined TextField</code> 都是按照 <code>Material Design</code> 来设计的，所以里面的一些间距是固定的，当你使用 <code>Modifier.size()</code> 等之类的方法尝试去修改它很可能会有以下的效果</p>
+</div>
+<div class="highlight"><pre><span></span><code><span class="n">TextField</span><span class="p">(</span>
+    <span class="n">value</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span>
+    <span class="n">onValueChange</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="nb">it</span>
+    <span class="p">},</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">20.</span><span class="n">dp</span><span class="p">)</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/elements/textfield/demo8.png" /></p>
+<p>如果你想自定义一个 <code>TextField</code> 的高度，以及其他的自定义效果，你应该使用 <a href="#basictextfield">BasicTextField</a></p>
+<p>一个简单的 <code>TextField</code> 使用的例子是这样的：</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.runtime.*</span>
 
 <span class="nd">@Composable</span>
@@ -1590,7 +1686,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/textfield/demo.gif" /></p>
-<h2 id="1-singleline">1. singleLine 参数</h2>
+<h3 id="1-singleline">1. singleLine 参数</h3>
 <p>使用 <code>singleLine</code> 参数可以将 <code>TextField</code> 设置成只有一行</p>
 <p>设置了 <code>singleLine</code> 再设置 <code>maxLines</code> 将无效</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
@@ -1606,7 +1702,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="2-label">2. label 参数</h2>
+<h3 id="2-label">2. label 参数</h3>
 <p>label 标签可以运用在 <code>TextField</code> 中，当聚焦的时候会改变字体大小</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextFieldDemo</span><span class="p">()</span> <span class="p">{</span>
@@ -1631,7 +1727,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/textfield/demo2.gif" /></p>
-<h2 id="3-leadingicon">3. leadingIcon 参数</h2>
+<h3 id="3-leadingicon">3. leadingIcon 参数</h3>
 <p><code>leadingIcon</code> 参数可以在 <code>TextField</code> 前面布置 <code>lambda</code> 表达式所接收到的东西</p>
 <div class="highlight"><pre><span></span><code><span class="n">TextField</span><span class="p">(</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span>
@@ -1657,7 +1753,7 @@
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/textfield/demo4.png" /></p>
-<h2 id="4-trailingicon">4. trailingIcon 参数</h2>
+<h3 id="4-trailingicon">4. trailingIcon 参数</h3>
 <p><code>trailingIcon</code> 参数可以在 <code>TextField</code> 尾部布置 <code>lambda</code> 表达式所接收到的东西</p>
 <div class="highlight"><pre><span></span><code><span class="n">TextField</span><span class="p">(</span>
     <span class="n">value</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span>
@@ -1679,7 +1775,7 @@
 <span class="p">},</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/textfield/demo7.png" /></p>
-<h2 id="5-color">5. Color 参数</h2>
+<h3 id="5-color">5. Color 参数</h3>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">textFieldColors</span><span class="p">(</span>
     <span class="c1">// 输入的文字颜色</span>
@@ -1766,7 +1862,7 @@
 <p><img alt="" src="../../../assets/elements/textfield/demo5.png" /></p>
 <p>解决方法如下，手动打完函数名</p>
 <p><img alt="" src="../../../assets/elements/textfield/demo4.gif" /></p>
-<h2 id="6-visualtransformation">6. visualTransformation 参数</h2>
+<h3 id="6-visualtransformation">6. visualTransformation 参数</h3>
 <p><code>visualTransformation</code> 可以帮助我们应用输入框的显示模式</p>
 <div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">text</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span><span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)}</span>
 <span class="kd">var</span> <span class="nv">passwordHidden</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)}</span>
@@ -1792,8 +1888,88 @@
 <span class="p">)</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/textfield/demo5.gif" /></p>
+<h2 id="basictextfield">BasicTextField</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">BasicTextField</span><span class="p">(</span>
+    <span class="n">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+    <span class="n">onValueChange</span><span class="p">:</span> <span class="p">(</span><span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">readOnly</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">textStyle</span><span class="p">:</span> <span class="n">TextStyle</span> <span class="o">=</span> <span class="n">TextStyle</span><span class="p">.</span><span class="na">Default</span><span class="p">,</span>
+    <span class="n">keyboardOptions</span><span class="p">:</span> <span class="n">KeyboardOptions</span> <span class="o">=</span> <span class="n">KeyboardOptions</span><span class="p">.</span><span class="na">Default</span><span class="p">,</span>
+    <span class="n">keyboardActions</span><span class="p">:</span> <span class="n">KeyboardActions</span> <span class="o">=</span> <span class="n">KeyboardActions</span><span class="p">.</span><span class="na">Default</span><span class="p">,</span>
+    <span class="n">singleLine</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+    <span class="n">maxLines</span><span class="p">:</span> <span class="kt">Int</span> <span class="o">=</span> <span class="kt">Int</span><span class="p">.</span><span class="na">MAX_VALUE</span><span class="p">,</span>
+    <span class="n">visualTransformation</span><span class="p">:</span> <span class="n">VisualTransformation</span> <span class="o">=</span> <span class="n">VisualTransformation</span><span class="p">.</span><span class="na">None</span><span class="p">,</span>
+    <span class="n">onTextLayout</span><span class="p">:</span> <span class="p">(</span><span class="n">TextLayoutResult</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">cursorBrush</span><span class="p">:</span> <span class="n">Brush</span> <span class="o">=</span> <span class="n">SolidColor</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">),</span>
+    <span class="n">decorationBox</span><span class="p">:</span> <span class="p">(</span><span class="n">innerTextField</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="nd">@Composable</span> <span class="p">{</span> <span class="n">innerTextField</span> <span class="o">-&gt;</span> <span class="n">innerTextField</span><span class="p">()</span> <span class="p">}</span>
+<span class="p">):</span> <span class="nd">@Composable</span> <span class="kt">Unit</span>
+</code></pre></div>
+<p>使用 <code>BasicTextField</code> 可以让你拥有更高的自定义效果</p>
+<h3 id="1">1. 简单使用</h3>
+<p>一个简单的使用例子如下：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">text</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="n">Box</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">fillMaxSize</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFFD3D3D3</span><span class="p">)),</span>
+    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">BasicTextField</span><span class="p">(</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span>
+        <span class="n">onValueChange</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="nb">it</span>
+        <span class="p">},</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">,</span> <span class="n">CircleShape</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">35.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+        <span class="n">decorationBox</span> <span class="o">=</span> <span class="p">{</span> <span class="n">innerTextField</span> <span class="o">-&gt;</span>
+            <span class="n">Row</span><span class="p">(</span>
+                <span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span><span class="p">,</span>
+                <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">horizontal</span> <span class="o">=</span> <span class="m">10.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">IconButton</span><span class="p">(</span>
+                    <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
+                <span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Icon</span><span class="p">(</span><span class="n">painterResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">mood</span><span class="p">),</span> <span class="kc">null</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="n">Box</span><span class="p">(</span>
+                    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">),</span>
+                    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
+                <span class="p">)</span> <span class="p">{</span>
+                    <span class="n">innerTextField</span><span class="p">()</span>
+                <span class="p">}</span>
+                <span class="n">IconButton</span><span class="p">(</span>
+                    <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="p">},</span>
+                <span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Icon</span><span class="p">(</span><span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">Send</span><span class="p">,</span> <span class="kc">null</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/elements/textfield/demo6.gif" /></p>
+<p>在 <code>BasicTextField</code> 中的 <code>decorationBox</code> 参数是一个允许在 <code>TextField</code> 周围添加修饰的 <code>@Composable lambda</code></p>
+<p>你可以实现：</p>
+<ol>
+<li>图标，占位符，帮助消息，或者其他类似的东西。</li>
+<li>可以让你相对于你修饰的位置来控制内部的 <code>TextField</code>。</li>
+</ol>
+<p>为了可以让你相对于你修饰的位置来控制内部的 <code>TextField</code>，<code>TextField</code> 的实现将传入一个由框架控制的 @Composable 参数 <code>innerTextField</code> 传递给您提供的 <code>decorationBox lambda</code>，你需要准确地调用一次它</p>
+<h3 id="2">2. 其他效果</h3>
+<p><img alt="" src="../../../assets/elements/textfield/demo9.png" /></p>
+<p>代码查看：</p>
+<p><a href="../../../code/elements/textfield/BasicTextField">Mkdocs</a></p>
+<p><a href="https://github.com/Compose-Museum/Compose-Tutorial//blob/main/docs/code/elements/textfield/BasicTextField.kt">Github</a></p>
 <h2 id="_1">更多</h2>
-<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#textfield">TextField 参数详情</a></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#textfield">TextField 参数详情</a>
+<a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/package-summary#BasicTextField(kotlin.String,kotlin.Function1,androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.Boolean,androidx.compose.ui.text.TextStyle,androidx.compose.foundation.text.KeyboardOptions,androidx.compose.foundation.text.KeyboardActions,kotlin.Boolean,kotlin.Int,androidx.compose.ui.text.input.VisualTransformation,kotlin.Function1,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.ui.graphics.Brush,kotlin.Function1)">BasicTextField 参数详情</a></p>
                 
                   
                     
@@ -1802,7 +1978,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 20, 2021</span>
       
     
   </small>
