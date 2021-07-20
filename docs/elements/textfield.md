@@ -1,3 +1,6 @@
+
+## TextField
+
 ```kotlin
 @Composable
 fun TextField(
@@ -24,10 +27,28 @@ fun TextField(
 )
 ```
 
+[Material Design filled text field](https://material.io/components/text-fields#filled-text-field)
 
-`textfield` 可以创建一个输入框。
+`Filled TextField` 比 `Outlined TextField` 有更多的视觉效果，可以让它们在被其他内容和组件包围时显得更加突出。
 
-一个简单使用的例子是这样的：
+!!! note "注意"
+    `Filled TextField` 和 `Outlined TextField` 都是按照 `Material Design` 来设计的，所以里面的一些间距是固定的，当你使用 `Modifier.size()` 等之类的方法尝试去修改它很可能会有以下的效果
+
+``` kotlin
+TextField(
+    value = text,
+    onValueChange = {
+        text = it
+    },
+    modifier = Modifier.height(20.dp)
+)
+```
+
+![]({{config.assets}}/elements/textfield/demo8.png)
+
+如果你想自定义一个 `TextField` 的高度，以及其他的自定义效果，你应该使用 [BasicTextField](#basictextfield)
+
+一个简单的 `TextField` 使用的例子是这样的：
 
 ``` kotlin
 import androidx.compose.runtime.*
@@ -48,7 +69,7 @@ fun TextFieldDemo() {
 ![]({{config.assets}}/elements/textfield/demo.gif)
 
 
-## 1. singleLine 参数
+### 1. singleLine 参数
 
 使用 `singleLine` 参数可以将 `TextField` 设置成只有一行
 
@@ -69,7 +90,7 @@ fun TextFieldDemo() {
 }
 ```
 
-## 2. label 参数
+### 2. label 参数
 
 label 标签可以运用在 `TextField` 中，当聚焦的时候会改变字体大小
 
@@ -100,7 +121,7 @@ fun TextFieldDemo() {
 ![]({{config.assets}}/elements/textfield/demo2.gif)
 
 
-## 3. leadingIcon 参数
+### 3. leadingIcon 参数
 
 `leadingIcon` 参数可以在 `TextField` 前面布置 `lambda` 表达式所接收到的东西
 
@@ -136,7 +157,7 @@ TextField(
 
 ![]({{config.assets}}/elements/textfield/demo4.png)
 
-## 4. trailingIcon 参数
+### 4. trailingIcon 参数
 
 `trailingIcon` 参数可以在 `TextField` 尾部布置 `lambda` 表达式所接收到的东西
 
@@ -168,7 +189,7 @@ trailingIcon = {
 
 
 
-## 5. Color 参数
+### 5. Color 参数
 
 ``` kotlin
 @Composable
@@ -266,7 +287,7 @@ TextField(
 
 ![]({{config.assets}}/elements/textfield/demo4.gif)
 
-## 6. visualTransformation 参数
+### 6. visualTransformation 参数
 
 `visualTransformation` 可以帮助我们应用输入框的显示模式
 
@@ -298,6 +319,102 @@ TextField(
 ![]({{config.assets}}/elements/textfield/demo5.gif)
 
 
+## BasicTextField
+
+``` kotlin
+@Composable
+fun BasicTextField(
+    value: String,
+    onValueChange: (String) -> Unit,
+    modifier: Modifier = Modifier,
+    enabled: Boolean = true,
+    readOnly: Boolean = false,
+    textStyle: TextStyle = TextStyle.Default,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    singleLine: Boolean = false,
+    maxLines: Int = Int.MAX_VALUE,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    onTextLayout: (TextLayoutResult) -> Unit = {},
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    cursorBrush: Brush = SolidColor(Color.Black),
+    decorationBox: (innerTextField: () -> Unit) -> Unit = @Composable { innerTextField -> innerTextField() }
+): @Composable Unit
+```
+
+使用 `BasicTextField` 可以让你拥有更高的自定义效果
+
+### 1. 简单使用
+
+一个简单的使用例子如下：
+
+``` kotlin
+var text by remember { mutableStateOf("") }
+
+Box(
+    modifier = Modifier
+        .fillMaxSize()
+        .background(Color(0xFFD3D3D3)),
+    contentAlignment = Alignment.Center
+) {
+    BasicTextField(
+        value = text,
+        onValueChange = {
+            text = it
+        },
+        modifier = Modifier
+            .background(Color.White, CircleShape)
+            .height(35.dp)
+            .fillMaxWidth(),
+        decorationBox = { innerTextField ->
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.padding(horizontal = 10.dp)
+            ) {
+                IconButton(
+                    onClick = { }
+                ) {
+                    Icon(painterResource(id = R.drawable.mood), null)
+                }
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    innerTextField()
+                }
+                IconButton(
+                    onClick = { },
+                ) {
+                    Icon(Icons.Filled.Send, null)
+                }
+            }
+        }
+    )
+}
+```
+
+![]({{config.assets}}/elements/textfield/demo6.gif)
+
+在 `BasicTextField` 中的 `decorationBox` 参数是一个允许在 `TextField` 周围添加修饰的 `@Composable lambda`
+
+你可以实现：
+
+1. 图标，占位符，帮助消息，或者其他类似的东西。
+2. 可以让你相对于你修饰的位置来控制内部的 `TextField`。
+
+为了可以让你相对于你修饰的位置来控制内部的 `TextField`，`TextField` 的实现将传入一个由框架控制的 @Composable 参数 `innerTextField` 传递给您提供的 `decorationBox lambda`，你需要准确地调用一次它
+
+### 2. 其他效果
+
+![]({{config.assets}}/elements/textfield/demo9.png)
+
+代码查看：
+
+[Mkdocs]({{config.code}}/elements/textfield/BasicTextField)
+
+[Github]({{config.repo_url}}/blob/main/docs/code/elements/textfield/BasicTextField.kt)
+
 ## 更多
 
 [TextField 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#textfield)
+[BasicTextField 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/foundation/text/package-summary#BasicTextField(kotlin.String,kotlin.Function1,androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.Boolean,androidx.compose.ui.text.TextStyle,androidx.compose.foundation.text.KeyboardOptions,androidx.compose.foundation.text.KeyboardActions,kotlin.Boolean,kotlin.Int,androidx.compose.ui.text.input.VisualTransformation,kotlin.Function1,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.ui.graphics.Brush,kotlin.Function1))
