@@ -1,4 +1,4 @@
-想必许多人在使用 Jetpack Compose 开发时都会使用 Modifier 来修饰 UI 组件，有一定 Compose 开发经验的小伙伴在开发中都发现 UI 组件最终所呈现效果会与 Modifier 间调用顺序息息相关，并且 Modifier 方法也可以重复调用。这是由于 Modifier 会根据调用顺序的不同而生成不同的Modifier链，Jetpack Compose 会根据 Modifier 链上顺序从头到位执行一遍，从而导致Modifier 间调用顺序不同时，UI 组件最终所呈现效果也会不同。那么 Modifier 链在底层如何表现的呢？本文将带着大家来一起扒一扒 Modifier 实现原理，结合图片来解释 Modifier 链数据结构。
+想必许多小伙伴在使用 Jetpack Compose 开发时都使用过 Modifier 来修饰 UI 组件，做过一段时间 Compose 开发的小伙伴都会发现 UI 组件最终所呈现效果与 Modifier 调用顺序是息息相关的。这是因为 Modifier 会由于调用顺序的不同而产生不同的 Modifier 链，Jetpack Compose 会按照 Modifier 链上的顺序进行执行，从而导致 Modifier 调用顺序不同时，UI 组件最终呈现的效果也会不同。那么 Modifier 链在底层如何存储的呢？本文将带着大家来一起扒一扒 Modifier 实现原理，结合图片来解释 Modifier 链的底层数据结构。
 
 <div align = "center">
   <img src = "{{config.assets}}/principle/modifier_structure/demo1.png" width = "50%" height = "50%">
@@ -28,7 +28,7 @@ interface Modifier {
 }
 ```
 
-既然是接口肯定有其对应的实现类。Modifier 接口有三个直接实现：伴生对象 Modifier、内部子接口Modifier.Element、CombinedModifier。
+既然是接口肯定有其对应的实现。Modifier 接口有三个直接实现类或接口：伴生对象 Modifier、内部子接口Modifier.Element、CombinedModifier。
 
 **伴生对象 Modifier：**最常用的 Modifier， 当我们在代码中使用 Modifier.xxx()，实际使用的就是这个伴生对象。
 
@@ -48,7 +48,7 @@ fun Modifier.size(size: Dp) = this.then(
   <img src = "{{config.assets}}/principle/modifier_structure/demo3.png" width = "50%" height = "50%">
 </div>
 
-可以明确的说，当我们通过 Modifier.xxx() 所创建的各类 Modifier 追踪溯源实际上最终都是 Modifier.Element 的子类。当我们使用 `Modifier.size()` 实际上使用的是 Modifier 接口的直接子接口 `LayoutModifier`，像这类直接子接口或子类还有哪些呢，在这里我整理了一下。如图所示，这些接口基本涵盖了 Modifier 所能提供的所有能力。
+可以说，当我们使用 Modifier.xxx() 所创建的各类 Modifier 追踪溯源，最后发现其实都是 Modifier.Element 子类。当我们使用 `Modifier.size()` 所创建的 SizeModifier 实际上是 Modifier 接口的直接子接口 `LayoutModifier` 的子类，像这类直接子接口或子类还有哪些呢，在这里我整理了一下。如图所示，这些接口基本涵盖了 Modifier 所提供的所有能力。
 
 <div align = "center">
   <img src = "{{config.assets}}/principle/modifier_structure/demo4.png" width = "50%" height = "50%">
@@ -62,7 +62,7 @@ fun Modifier.size(size: Dp) = this.then(
 
 ### then()
 
-一般我们会在代码中通过伴生对象 Modifier 作为初始值来创建 Modifier 链。前文提到过，当我们使用 `Modifier.size()` 时会创建一个 SizeModifier 实例。我们打开 `size()` 的实现会发现 SizeModifier实例 会当作参数传入了 `then() `方法中。这个 `then()` 方法就是 Modifier 间相互连接的关键方法。
+一般我们会在代码中通过伴生对象 Modifier 来创建 Modifier 链。前文提到过，当我们使用 `Modifier.size()` 时会创建一个 SizeModifier 实例。我们进入 `size()` 实现会发现 SizeModifier实例被当作参数传入 `then() `方法中。而这个 `then()` 方法就是 Modifier 间相互连接的关键方法。
 
 ```kotlin
 Modifier
@@ -75,7 +75,7 @@ fun Modifier.size(size: Dp) = this.then( // 关键方法
 )
 ```
 
-此时 `this` 指针仍指向的是我们的伴生对象 Modifier，所以我们看看伴生对象 Modifier 是如何实现 `then()` 方法的。 可以看到伴生对象 Modifier 的 `then()`方法实现的十分干脆，直接返回待链接的 SizeModifier。
+此时 `this` 指针仍指向的是我们的伴生对象 Modifier，所以我们看看伴生对象 Modifier 是如何实现 `then()` 方法的。 可以看到伴生对象 Modifier 的 `then() `方法实现的十分干脆，直接返回待连接的 SizeModifier。
 
 ```kotlin
 companion object : Modifier {
@@ -109,7 +109,7 @@ fun Modifier.background(
 )
 ```
 
-我们向上查找 SizeModifier 的 `then` 方法实现，最终在 `Modifier` 接口中找到了。可以看出此时，我们原有 SizeModifier 与 待连接的 Background 被通过一个 CombinedModifier 进行了连接。
+我们向上查找 SizeModifier 的 `then` 方法实现，最终在 `Modifier` 接口中找到了。此时，我们原有 SizeModifier 会通过一个 CombinedModifier 连接 Background
 
 ```kotlin
 interface Modifier {
@@ -159,7 +159,7 @@ fun Modifier.padding(all: Dp) =
 
 ### composed()
 
-接下来我们想要添加一些手势监听，我们通常会使用 `Modifier.pointerInput()` 来定制手势处理。从源码中我们可以发现此时并没有使用 `then()` 方法连接 Modifier，而使用的是 `composed()` 方法。从 `composed()` 实现中我们可以看到最终仍然使用的是 `then()` 方法，此时连接的是个 `ComposedModifier` 实例。但我们真正要连接的实际上应该的手势处理相关的Modifier，通过  `composed()` 方法参数我们可以得知，此时实际上 `ComposedModifier`内部持有了一个工厂 lambda 用于未来生产 Modifier 的，而真正要被连接的 Modifier 实际上就是工厂 lambda 的返回值 SuspendingPointerInputFilter。SuspendingPointerInputFilter 实际上是 PointerInputModifier 的实现类。而 ComposedModifier 实际上就是做了一个装箱过程。然而什么时候拆箱呢？这个我们后续会讲到的。
+接下来我们想要添加一些手势监听，我们通常会使用 `Modifier.pointerInput()` 来定制手势处理。从源码中我们可以发现此时并没有使用 `then()` 方法连接 Modifier，而使用的是 `composed()` 方法。从 `composed()` 实现中我们可以看到最终仍然使用的是 `then()` 方法，此时待连接的是个 `ComposedModifier` 实例。然而我们知道其实我们真正要连接的实际上应该是手势处理相关Modifier，通过  `composed()` 方法参数我们可以得知，此时实际上 `ComposedModifier `内部持有了一个工厂 lambda 用于生产 Modifier 的，而真正要被连接的 Modifier 实际上就是工厂 lambda 的返回值 SuspendingPointerInputFilter。SuspendingPointerInputFilter 实际上是 PointerInputModifier 的实现类。而 ComposedModifier 实际上就是做了一个装箱过程。然而什么时候拆箱呢？这个我们后续会讲到的。
 
 ```kotlin
 Modifier
@@ -255,11 +255,11 @@ val result = modifier.foldIn<Int>(0) { currentIndex, element ->
 
 foldOut 方法的方法也是类似，大家都简单理解为反向遍历 Modifier 链即可。
 
-到这里大家可能心生疑问，我们前面所讲的 Modifier 链中不仅仅只有 Modifier.Element，其中还夹杂着许多 CombinedModifier。为什么我们遍历 Modifier 链时这些 CombinedModifier 没有出现呢？原因在于，CombinedModifier 实际上是 Compose 内部维护的数据结构，如此设计是希望对开发者无感知。这两个方法使用方法就说这么多，如果你对其内部实现原理感兴趣就请继续阅读下去～
+到这里大家可能心生疑问，我们前面所讲的 Modifier 链中不仅仅只有 Modifier.Element，其中还夹杂着许多 CombinedModifier。为什么我们遍历 Modifier 链时这些 CombinedModifier 没有出现呢？原因在于CombinedModifier 实际上是 Compose 内部维护的数据结构，官方如此设计是希望对上层开发者无感知。这两个方法的使用就说这么多，如果你对其内部实现原理感兴趣就请继续阅读下去～
 
 ### foldIn() 与 foldOut() 实现原理
 
-为探索原理，老规矩我们就需要进入源码一探究竟。我们上来要做的就是找到 **foldIn()** 方法的实现。通过前面的例子我们可以得知，当 Modifier 链的长度大于等于 2 时，返回的 Modifier 实际上是一个 CombinedModifier 实例。那么我们就看看 ConbinedModifier 里面是怎么重写的 **foldIn()** 方法。
+为探索原理，老规矩我们就需要进入源码一探究竟了。我们上来要做的就是找到 **foldIn()** 方法的实现。通过前面的例子我们可以得知，当 Modifier 链的长度大于等于 2 时，返回的 Modifier 实际上是一个 CombinedModifier 实例。那么我们就看看 ConbinedModifier 里面是怎么重写的 **foldIn()** 方法。
 
 ```kotlin
 class CombinedModifier(
@@ -307,15 +307,15 @@ class CombinedModifier(
   <img src = "{{config.assets}}/principle/modifier_structure/demo11.png" width = "50%" height = "50%">
 </div>
 
-整个流程就非常明显了，直到最后一个 inner Modifier 被遍历后将 lambda 结果返回给开发者。通过流程的解读，我们可知之所以我们的便利过程没有 CombindedModifier，是因为 CombinedModifier 虽重写了 **foldIn()方法**，但并没有调用我们传入的lambda。而只有所有 Modifier.Element 才会调用我们传入的 lambda。
+整个流程就非常清晰了，直到最后一个 inner Modifier 被遍历后便会将 lambda 结果返回给开发者。通过流程的解读，我们可知之所以我们的便利过程没有 CombindedModifier，是因为 CombinedModifier 虽重写了 **foldIn()方法**，但并没有调用我们传入的lambda。而只有所有 Modifier.Element 才会调用我们传入的 lambda。
 
 理解了 **foldIn() 方法** 的实现原理，**foldOut() 方法** 的实现原理是完全相同的，只是遍历顺序是完全相反的，这里就不多加赘述了。
 
 ### foldIn() 与 foldOut() 的应用
 
-弄懂了实现原理后，我们就来看看该怎么用。通过 Compose 实现源码我们来看看 **foldIn() 方法** 的一次最佳实践。
+弄懂了实现原理后，我们就来看看该怎么用。Compose 源码中将我们所创建的 Modifier 传入 Layout 的过程就是对 **foldIn() 方法** 与 **foldOut() 方法**  的一次最佳实践。
 
-我们知道 Compose 组件基于 Layout 这个基础组件根据自定义测量布局与绘制而实现的，所以我们来看看我们传入的 Modifier 都在里面发生了什么。可以发现我们的 modifier 传入了一个名为 `materializerOf` 方法
+我们知道 Compose 组件都是基于 Layout 这个基础组件实现的，所以我们来看看我们创建的  Modifier 在其中是如何进行传递的。可以发现我们的 modifier 传入了一个名为 `materializerOf` 方法
 
 ```kotlin
 @Composable inline fun Layout(
@@ -335,9 +335,9 @@ class CombinedModifier(
 }
 ```
 
-继续跟进，我们会走进 Composer.materialize()。可以发现源码中使用了 **fouldIn() 方法**。 还记得 `composed()` 返回的 ComposedModifier 嘛。根据前文我们可知，我们正常得到的 Modifier 链是包含 ComposedModifier的，而这里想做的是将原始 Modifier 链中的所有 ComposedModifier 摊平，让其 factory 产生的 Modifier 加入到 Modifier 链中。
+继续跟进，我们会走进 Composer.materialize()。可以发现源码中使用了 **fouldIn() 方法**。 在其中我们看到了对于 ComposedModifier 的特殊判断。还记得 `composed()` 返回的 ComposedModifier 嘛。根据前文我们可知，我们正常得到的 Modifier 链其中是可能包含 ComposedModifier的，而这里想做的是将 Modifier 链中的所有 ComposedModifier 摊平，让其 factory 内部产生的 Modifier 也能加入到 Modifier 链中。
 
-这里首先是一个正向遍历，传入的初始值为 Modifier。当遍历到 ComposedModifier 时，则使用其内部的 factory 来生产 Modifier，值得注意的是此时生成的 Modifier 可能也是一条 Modifier 链或一个 Modifier 结点。并且其中也可能会包含 ComposedModifier，所以这里就进行了递归处理。最终我们得到的是不包含ComposedModifier 结点的，是完全摊开的 Modifier 链。
+这里使用了 **fouldIn() 方法** 进行了正向遍历，传入的初始值为 Modifier。当遍历到 ComposedModifier 时，则使用其内部的 factory 来生产 Modifier，值得注意的是此时生成的 Modifier 可能也是 Modifier 链或单个 Modifier。生成的 Modifier 其中也可能会包含 ComposedModifier，所以这里就进行了递归处理。最终目标就是所得到的 Modifier 链中是不包含 ComposedModifier 结点的，即完全摊开的 Modifier 链。
 
 ```kotlin
 fun Composer.materialize(modifier: Modifier): Modifier {
