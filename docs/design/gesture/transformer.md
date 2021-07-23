@@ -79,5 +79,5 @@ fun TransformerDemo() {
 
 效果展示
 
-<img src = "{{config.assets}}/assets/design/gesture/transformer/demo1.gif" width = "50%" height = "50%">
+<img src = "{{config.assets}}/design/gesture/transformer/demo1.gif" width = "50%" height = "50%">
 
