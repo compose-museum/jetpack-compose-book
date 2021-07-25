@@ -20,13 +20,13 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.1-bin.zip
 
 ```kotlin
 buildscript {
-    val compose_version by extra("1.0.0-rc01") // Compose 版本
+    val compose_version by extra("1.0.0-rc02") // Compose 版本
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.1.0-alpha04")
+        classpath("com.android.tools.build:gradle:7.1.0-alpha03")
 
         // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
@@ -42,14 +42,14 @@ buildscript {
 ```kotlin
 buildscript {
     ext {
-        compose_version = '1.0.0-rc01'
+        compose_version = '1.0.0-rc02'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha04'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha03'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
 
         // NOTE: Do not place your application dependencies here; they belong
