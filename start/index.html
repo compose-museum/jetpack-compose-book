@@ -1561,13 +1561,13 @@
 </code></pre></div>
 <p><code>build.gralde.kts (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.0-rc01&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
+    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.0-rc02&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
         <span class="n">mavenCentral</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="n">dependencies</span> <span class="p">{</span>
-        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;com.android.tools.build:gradle:7.1.0-alpha04&quot;</span><span class="p">)</span>
+        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;com.android.tools.build:gradle:7.1.0-alpha03&quot;</span><span class="p">)</span>
 
         <span class="c1">// Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新</span>
         <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10&quot;</span><span class="p">)</span>
@@ -1580,14 +1580,14 @@
 <p><code>build.gradle (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
     <span class="n">ext</span> <span class="p">{</span>
-        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">rc01</span><span class="err">&#39;</span>
+        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">rc02</span><span class="err">&#39;</span>
     <span class="p">}</span>
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
         <span class="n">mavenCentral</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="n">dependencies</span> <span class="p">{</span>
-        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">tools</span><span class="p">.</span><span class="na">build</span><span class="p">:</span><span class="n">gradle</span><span class="p">:</span><span class="m">7.1</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">alpha04</span><span class="err">&#39;</span>
+        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">tools</span><span class="p">.</span><span class="na">build</span><span class="p">:</span><span class="n">gradle</span><span class="p">:</span><span class="m">7.1</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">alpha03</span><span class="err">&#39;</span>
         <span class="n">classpath</span> <span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10&quot;</span>
 
         <span class="c1">// NOTE: Do not place your application dependencies here; they belong</span>
