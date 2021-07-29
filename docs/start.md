@@ -13,14 +13,16 @@
 可手动在 `gradle-wrapper.properties` 中更新
 
 ```
-distributionUrl=https\://services.gradle.org/distributions/gradle-7.0.2-bin.zip
+distributionUrl=https\://services.gradle.org/distributions/gradle-7.1-bin.zip
 ```
 
 `build.gralde.kts (Project)`
 
 ```kotlin
 buildscript {
+
     val compose_version by extra("1.0.0") // Compose 版本
+
     repositories {
         google()
         mavenCentral()

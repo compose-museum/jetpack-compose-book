@@ -6,11 +6,11 @@
 
 |依赖名|版本|
 |------|-----|
-|GradlePluginVersion|[7.0.0-beta04](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)|
+|GradlePluginVersion|[7.1.0-alpha04](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)|
 |kotlinVersion|[1.5.10](https://github.com/JetBrains/kotlin/releases)|
-|composeVersion|[1.0.0-beta09](https://developer.android.com/jetpack/androidx/releases/compose)|
+|composeVersion|[1.0.0-rc02](https://developer.android.com/jetpack/androidx/releases/compose)|
 |navigationComposeVersion|[2.4.0-alpha03](https://developer.android.com/jetpack/androidx/releases/navigation)|
-
+|hilt|[2.38](https://mvnrepository.com/artifact/com.google.dagger/hilt-android)|
 
 ## 库
 

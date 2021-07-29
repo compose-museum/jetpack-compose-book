@@ -192,7 +192,7 @@ HorizontalPager(state = pagerState) { page ->
 }
 ```
 
-## 用法
+## 下载
 
 ```groovy
 repositories {
@@ -204,22 +204,6 @@ dependencies {
 
     // If using indicators, also depend on 
     implementation "com.google.accompanist:accompanist-pager-indicators:<version>"
-}
-```
-
-
-
-## 下载
-
-[![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-systemuicontroller)](https://search.maven.org/search?q=g:com.google.accompanist)
-
-```groovy
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-    implementation "com.google.accompanist:accompanist-swiperefresh:<version>"
 }
 ```
 
