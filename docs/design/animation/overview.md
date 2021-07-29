@@ -22,7 +22,7 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 ## 2. 高级动画 API
 
-`Compose` 为许多应用程序中使用的几种常见动画模式提供了高级动画 `API`。 这些 `API` 是为适应 [Material Design Motion](https://material.io/design/motion/) 的最佳实践而量身定制的。
+`Compose` 为许多应用程序中使用的几种常见动画模式提供了高级动画 `API`。 这些 `API` 是为适应 [Material Design Motion](https://material.io/design/motion/) 而量身定制的。
 
 ### AnimatedVisibiliy (实验性)
 
@@ -57,44 +57,108 @@ Column(
 
 ```
 
+默认情况下
+
+内容通过 `fadeIn()` 和 `expandVertically()` 出现
+
+通过 `fadeOut()` 和 `shrinkVertically()` 消失。你可以通过指定 `EnterTransition` 和 `ExitTransition` 来自定义过渡效果。
+
 ![]({{config.assets}}/design/animation/animatedVisibility/demo.gif)
 
-默认情况下，内容通过淡入和扩展出现，通过淡出和缩减消失。可以通过指定 `EnterTransition` 和 `ExitTransition` 来定制过渡
-
 ``` kotlin
-var visible by remember { mutableStateOf(true) }
-AnimatedVisibility(
-    visible = visible,
-    enter = slideInVertically(
-        initialOffsetY = { -40 }
-    ) + expandVertically(
-        expandFrom = Alignment.Top
-    ) + fadeIn(initialAlpha = 0.3f),
-    exit = slideOutVertically() + shrinkVertically() + fadeOut()
-) {
-    Text("Hello", Modifier.fillMaxWidth().height(200.dp))
+var state by remember{ mutableStateOf(true) }
+
+Column(
+    modifier = Modifier
+        .fillMaxSize(),
+    horizontalAlignment = Alignment.CenterHorizontally,
+    verticalArrangement = Arrangement.Center
+){
+    AnimatedVisibility(
+        visible = state,
+        enter = slideInVertically(
+            initialOffsetY = { -40 }
+        ) + expandVertically(
+            expandFrom = Alignment.Top
+        ) + fadeIn(initialAlpha = 0.3f),
+        exit = shrinkHorizontally() + fadeOut()
+    ) {
+        Text(
+            text = "这是一个普通的正文",
+            fontWeight = FontWeight.W900,
+            style = MaterialTheme.typography.h5
+        )
+    }
+    Spacer(Modifier.padding(vertical = 50.dp))
+    Button(onClick = { state = !state }) {
+        Text(if (state) "隐藏" else "显示")
+    }
 }
 ```
 
-如上例所示，您可以将多个 `EnterTransition` 或 `ExitTransition` 对象与一个 `+` 运算符组合在一起，并且每个对象都接受可选参数以自定义其行为。
+![]({{config.assets}}/design/animation/overview/demo10.gif)
 
-* `EnterTransition`
-    * [`fadeIn`]()
-    * [`slideIn`]()
-    * [`expandIn`]()
-    * [`expandHorizontally`]()
-    * [`expandVertically`]()
-    * [`slideInHorizontally`]()
-    * [`slideInVertically`]()
+如上例所示，你可以将多个 `EnterTransition` 或 `ExitTransition` 对象与一个 `+` 运算符组合在一起，并且每个对象都接受可选参数以自定义其行为。
 
-* `ExitTransition`
-    * [`fadeOut`]()
-    * [`slideOut`]()
-    * [`expandOut`]()
-    * [`expandHorizontally`]()
-    * [`expandVertically`]()
-    * [`slideOutHorizontally`]()
-    * [`slideOutVertically`]()
+`EnterTransition` 的一些方法
+
+[`fadeIn`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#fadeIn(kotlin.Float,androidx.compose.animation.core.FiniteAnimationSpec))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-fadein.gif" width = "100" height = "100">
+
+[`slideIn`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideIn(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-slidein.gif" width = "100" height = "100">
+
+[`expandIn`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#expandIn(androidx.compose.ui.Alignment,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-expandin.gif" width = 100 height = 100>
+
+[`expandHorizontally`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#expandHorizontally(androidx.compose.ui.Alignment.Horizontal,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-expandhorizontally.gif" width = 100 height = 100>
+
+[`expandVertically`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#expandVertically(androidx.compose.ui.Alignment.Vertical,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-expandvertically.gif" width = 100 height = 100>
+
+[`slideInHorizontally`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideInHorizontally(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-slideinhorizontally.gif" width = 100 height = 100>
+
+[`slideInVertically`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideInVertically(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-slideinvertically.gif" width = 100 height = 100>
+
+`ExitTransition` 的一些方法
+
+[`fadeOut`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#fadeOut(kotlin.Float,androidx.compose.animation.core.FiniteAnimationSpec))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-fadeout.gif" width = 100 height = 100>
+
+[`slideOut`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideOut(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-slideout.gif" width = 100 height = 100>
+
+[`shrinkOut`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkOut(androidx.compose.ui.Alignment,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkout.gif" width = 100 height = 100>
+
+[`shrinkHorizontally`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkHorizontally(androidx.compose.ui.Alignment.Horizontal,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean))
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkhorizontally.gif" width = 100 height = 100>
+
+[`shrinkVertically`]()
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkvertically.gif" width = 100 height = 100>
+
+[`slideOutHorizontally`]()
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-slideouthorizontally.gif" width = 100 height = 100>
+
+[`slideOutVertically`]()
+
+<img src = "https://developer.android.com/images/jetpack/compose/animation-slideoutvertically.gif" width = 100 height = 100>
 
 ### animateContentSize
 
