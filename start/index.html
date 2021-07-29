@@ -349,8 +349,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-canary-android-studio" class="md-nav__link">
-    2. 安装 最新 Canary 版的 Android Studio 预览版
+  <a href="#2-android-studio" class="md-nav__link">
+    2. 安装或更新到 最新版的 Android Studio
   </a>
   
 </li>
@@ -1496,8 +1496,8 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2-canary-android-studio" class="md-nav__link">
-    2. 安装 最新 Canary 版的 Android Studio 预览版
+  <a href="#2-android-studio" class="md-nav__link">
+    2. 安装或更新到 最新版的 Android Studio
   </a>
   
 </li>
@@ -1551,17 +1551,19 @@
                 
                 <p>在开始用 Jetpack Compose 来编写软件时，我们需要</p>
 <h3 id="1">1. 一台可以 <strong>联网</strong> 的电脑</h3>
-<h3 id="2-canary-android-studio">2. <strong>安装</strong> <a href="https://developer.android.com/studio/preview">最新 Canary 版的 Android Studio 预览版</a></h3>
-<h3 id="3-empty-compose-activity">3. 选择创建 <strong>Empty Compose Activity</strong> <a href="https://z3.ax1x.com/2021/04/07/c3JfgA.png"><img alt="c3JfgA.md.png" src="https://z3.ax1x.com/2021/04/07/c3JfgA.png" /></a></h3>
+<h3 id="2-android-studio">2. <strong>安装或更新到</strong> <a href="https://developer.android.com/studio">最新版的 Android Studio</a></h3>
+<h3 id="3-empty-compose-activity">3. 选择创建 <strong>Empty Compose Activity</strong> <img alt="" src="../assets/create.png" /></h3>
 <h3 id="4">4. 保持版本更新</h3>
 <p>尝试使用最新的 <code>Compose</code> 版本和 <code>Kotlin</code> 版本</p>
-<p><code>Gradle 版本</code>: 7.1</p>
+<p><code>Gradle 版本</code>: <a href="https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google">7.0.2</a></p>
 <p>可手动在 <code>gradle-wrapper.properties</code> 中更新</p>
 <div class="highlight"><pre><span></span><code>distributionUrl=https\://services.gradle.org/distributions/gradle-7.1-bin.zip
 </code></pre></div>
 <p><code>build.gralde.kts (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.0-rc02&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
+
+    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.0&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
+
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
         <span class="n">mavenCentral</span><span class="p">()</span>
@@ -1580,7 +1582,7 @@
 <p><code>build.gradle (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
     <span class="n">ext</span> <span class="p">{</span>
-        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">rc02</span><span class="err">&#39;</span>
+        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">0</span><span class="err">&#39;</span>
     <span class="p">}</span>
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
@@ -1683,7 +1685,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 25, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 29, 2021</span>
       
     
   </small>
