@@ -1795,7 +1795,7 @@
 </tbody>
 </table>
 <h2 id="2-api">2. 高级动画 API</h2>
-<p><code>Compose</code> 为许多应用程序中使用的几种常见动画模式提供了高级动画 <code>API</code>。 这些 <code>API</code> 是为适应 <a href="https://material.io/design/motion/">Material Design Motion</a> 的最佳实践而量身定制的。</p>
+<p><code>Compose</code> 为许多应用程序中使用的几种常见动画模式提供了高级动画 <code>API</code>。 这些 <code>API</code> 是为适应 <a href="https://material.io/design/motion/">Material Design Motion</a> 而量身定制的。</p>
 <h3 id="animatedvisibiliy">AnimatedVisibiliy (实验性)</h3>
 <div class="admonition warning">
 <p class="admonition-title">注意</p>
@@ -1825,48 +1825,71 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
+<p>默认情况下</p>
+<p>内容通过 <code>fadeIn()</code> 和 <code>expandVertically()</code> 出现</p>
+<p>通过 <code>fadeOut()</code> 和 <code>shrinkVertically()</code> 消失。你可以通过指定 <code>EnterTransition</code> 和 <code>ExitTransition</code> 来自定义过渡效果。</p>
 <p><img alt="" src="../../../assets/design/animation/animatedVisibility/demo.gif" /></p>
-<p>默认情况下，内容通过淡入和扩展出现，通过淡出和缩减消失。可以通过指定 <code>EnterTransition</code> 和 <code>ExitTransition</code> 来定制过渡</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">visible</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">}</span>
-<span class="n">AnimatedVisibility</span><span class="p">(</span>
-    <span class="n">visible</span> <span class="o">=</span> <span class="n">visible</span><span class="p">,</span>
-    <span class="n">enter</span> <span class="o">=</span> <span class="n">slideInVertically</span><span class="p">(</span>
-        <span class="n">initialOffsetY</span> <span class="o">=</span> <span class="p">{</span> <span class="o">-</span><span class="m">40</span> <span class="p">}</span>
-    <span class="p">)</span> <span class="o">+</span> <span class="n">expandVertically</span><span class="p">(</span>
-        <span class="n">expandFrom</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Top</span>
-    <span class="p">)</span> <span class="o">+</span> <span class="n">fadeIn</span><span class="p">(</span><span class="n">initialAlpha</span> <span class="o">=</span> <span class="m">0.3f</span><span class="p">),</span>
-    <span class="n">exit</span> <span class="o">=</span> <span class="n">slideOutVertically</span><span class="p">()</span> <span class="o">+</span> <span class="n">shrinkVertically</span><span class="p">()</span> <span class="o">+</span> <span class="n">fadeOut</span><span class="p">()</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">().</span><span class="na">height</span><span class="p">(</span><span class="m">200.</span><span class="n">dp</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">state</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="n">Column</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+    <span class="n">horizontalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span><span class="p">,</span>
+    <span class="n">verticalArrangement</span> <span class="o">=</span> <span class="n">Arrangement</span><span class="p">.</span><span class="na">Center</span>
+<span class="p">){</span>
+    <span class="n">AnimatedVisibility</span><span class="p">(</span>
+        <span class="n">visible</span> <span class="o">=</span> <span class="n">state</span><span class="p">,</span>
+        <span class="n">enter</span> <span class="o">=</span> <span class="n">slideInVertically</span><span class="p">(</span>
+            <span class="n">initialOffsetY</span> <span class="o">=</span> <span class="p">{</span> <span class="o">-</span><span class="m">40</span> <span class="p">}</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="n">expandVertically</span><span class="p">(</span>
+            <span class="n">expandFrom</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Top</span>
+        <span class="p">)</span> <span class="o">+</span> <span class="n">fadeIn</span><span class="p">(</span><span class="n">initialAlpha</span> <span class="o">=</span> <span class="m">0.3f</span><span class="p">),</span>
+        <span class="n">exit</span> <span class="o">=</span> <span class="n">shrinkHorizontally</span><span class="p">()</span> <span class="o">+</span> <span class="n">fadeOut</span><span class="p">()</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;这是一个普通的正文&quot;</span><span class="p">,</span>
+            <span class="n">fontWeight</span> <span class="o">=</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">W900</span><span class="p">,</span>
+            <span class="n">style</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">h5</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">vertical</span> <span class="o">=</span> <span class="m">50.</span><span class="n">dp</span><span class="p">))</span>
+    <span class="n">Button</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">state</span> <span class="o">=</span> <span class="o">!</span><span class="n">state</span> <span class="p">})</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">state</span><span class="p">)</span> <span class="s">&quot;隐藏&quot;</span> <span class="k">else</span> <span class="s">&quot;显示&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>如上例所示，您可以将多个 <code>EnterTransition</code> 或 <code>ExitTransition</code> 对象与一个 <code>+</code> 运算符组合在一起，并且每个对象都接受可选参数以自定义其行为。</p>
-<ul>
-<li>
-<p><code>EnterTransition</code></p>
-<ul>
-<li><a href=""><code>fadeIn</code></a></li>
-<li><a href=""><code>slideIn</code></a></li>
-<li><a href=""><code>expandIn</code></a></li>
-<li><a href=""><code>expandHorizontally</code></a></li>
-<li><a href=""><code>expandVertically</code></a></li>
-<li><a href=""><code>slideInHorizontally</code></a></li>
-<li><a href=""><code>slideInVertically</code></a></li>
-</ul>
-</li>
-<li>
-<p><code>ExitTransition</code></p>
-<ul>
-<li><a href=""><code>fadeOut</code></a></li>
-<li><a href=""><code>slideOut</code></a></li>
-<li><a href=""><code>expandOut</code></a></li>
-<li><a href=""><code>expandHorizontally</code></a></li>
-<li><a href=""><code>expandVertically</code></a></li>
-<li><a href=""><code>slideOutHorizontally</code></a></li>
-<li><a href=""><code>slideOutVertically</code></a></li>
-</ul>
-</li>
-</ul>
+<p><img alt="" src="../../../assets/design/animation/overview/demo10.gif" /></p>
+<p>如上例所示，你可以将多个 <code>EnterTransition</code> 或 <code>ExitTransition</code> 对象与一个 <code>+</code> 运算符组合在一起，并且每个对象都接受可选参数以自定义其行为。</p>
+<p><code>EnterTransition</code> 的一些方法</p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#fadeIn(kotlin.Float,androidx.compose.animation.core.FiniteAnimationSpec)"><code>fadeIn</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-fadein.gif" width = "100" height = "100"></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideIn(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec)"><code>slideIn</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-slidein.gif" width = "100" height = "100"></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#expandIn(androidx.compose.ui.Alignment,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>expandIn</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-expandin.gif" width = 100 height = 100></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#expandHorizontally(androidx.compose.ui.Alignment.Horizontal,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>expandHorizontally</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-expandhorizontally.gif" width = 100 height = 100></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#expandVertically(androidx.compose.ui.Alignment.Vertical,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>expandVertically</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-expandvertically.gif" width = 100 height = 100></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideInHorizontally(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec)"><code>slideInHorizontally</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-slideinhorizontally.gif" width = 100 height = 100></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideInVertically(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec)"><code>slideInVertically</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-slideinvertically.gif" width = 100 height = 100></p>
+<p><code>ExitTransition</code> 的一些方法</p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#fadeOut(kotlin.Float,androidx.compose.animation.core.FiniteAnimationSpec)"><code>fadeOut</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-fadeout.gif" width = 100 height = 100></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideOut(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec)"><code>slideOut</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-slideout.gif" width = 100 height = 100></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkOut(androidx.compose.ui.Alignment,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>shrinkOut</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkout.gif" width = 100 height = 100></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkHorizontally(androidx.compose.ui.Alignment.Horizontal,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>shrinkHorizontally</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkhorizontally.gif" width = 100 height = 100></p>
+<p><a href=""><code>shrinkVertically</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkvertically.gif" width = 100 height = 100></p>
+<p><a href=""><code>slideOutHorizontally</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-slideouthorizontally.gif" width = 100 height = 100></p>
+<p><a href=""><code>slideOutVertically</code></a></p>
+<p><img src = "https://developer.android.com/images/jetpack/compose/animation-slideoutvertically.gif" width = 100 height = 100></p>
 <h3 id="animatecontentsize">animateContentSize</h3>
 <p><code>animateContentSize</code> 可以对尺寸更改进行动画处理</p>
 <p>以下是一个简单的例子：</p>
@@ -2369,7 +2392,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 16, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 29, 2021</span>
       
     
   </small>
