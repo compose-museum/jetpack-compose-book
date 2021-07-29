@@ -1,14 +1,14 @@
 在开始用 Jetpack Compose 来编写软件时，我们需要
 
 ### 1. 一台可以 **联网** 的电脑
-### 2. **安装** [最新 Canary 版的 Android Studio 预览版](https://developer.android.com/studio/preview)
-### 3. 选择创建 **Empty Compose Activity** [![c3JfgA.md.png](https://z3.ax1x.com/2021/04/07/c3JfgA.png)](https://z3.ax1x.com/2021/04/07/c3JfgA.png)
+### 2. **安装或更新到** [最新版的 Android Studio](https://developer.android.com/studio)
+### 3. 选择创建 **Empty Compose Activity** ![](assets/create.png)
 
 ### 4. 保持版本更新
 
 尝试使用最新的 `Compose` 版本和 `Kotlin` 版本
 
-`Gradle 版本`: 7.0.2
+`Gradle 版本`: [7.0.2](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
 
 可手动在 `gradle-wrapper.properties` 中更新
 
@@ -20,13 +20,13 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.0.2-bin.zip
 
 ```kotlin
 buildscript {
-    val compose_version by extra("1.0.0-beta09") // Compose 版本
+    val compose_version by extra("1.0.0") // Compose 版本
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.0.0-beta04")
+        classpath("com.android.tools.build:gradle:7.1.0-alpha03")
 
         // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
@@ -42,14 +42,14 @@ buildscript {
 ```kotlin
 buildscript {
     ext {
-        compose_version = '1.0.0-beta09'
+        compose_version = '1.0.0'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.0.0-beta04'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha03'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
 
         // NOTE: Do not place your application dependencies here; they belong

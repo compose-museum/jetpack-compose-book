@@ -6,7 +6,7 @@
 在本教程中，你将用声明式函数构建一个简单的 `UI` 组件。你将不会编辑任何 `XML` 布局或直接创建 `UI` 部件。相反，你将调用 `Jetpack Compose` 函数来说明你想要的元素，剩下的就由 `Compose` 编译器来完成。
 
 !!! note "注意"
-    `Jetpack Compose` 目前还处于 `beta` 阶段，请参阅 `Jetpack` [发布](https://developer.android.com/jetpack/androidx/versions/all-channel) 说明，了解最新的更新。
+    请参阅 `Jetpack` [发布](https://developer.android.com/jetpack/androidx/versions/all-channel) 说明，了解最新的更新。
 
 ## 1. 第一步：Composable 函数
 
