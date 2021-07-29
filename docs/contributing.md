@@ -13,11 +13,9 @@
 * 安装插件
 
 ```
-
     pip install mkdocs-material
-
     pip install mkdocs-git-revision-date-localized-plugin
-
+    pip install mkdocs-macros-plugin
 ```
 
 * 在本地运行和测试
