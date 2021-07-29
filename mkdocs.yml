@@ -79,6 +79,7 @@ nav:
       - '在 Compose 中使用 Jetpack 组件库': architecture/use_jetpack_in_compose.md
     - '代码实验室': codelabs.md
     - '资源': resources.md
+    - '版本更新迭代一览': version.md
     - '关于贡献': contributing.md
   - '第三方组件':
     - 'Accompanist':
