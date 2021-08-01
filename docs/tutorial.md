@@ -186,7 +186,7 @@ Jetpack Compose 提供了 Material Design 的实现，我们将使用 Material D
 
 Material Design 是围绕三个元素建立的。颜色（Color）、排版（Typography）、形状（Shape）。让我们一个一个地添加它们。
 
-``` kotlin
+``` kotlin hl_lines="4 13"
 override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContent {
