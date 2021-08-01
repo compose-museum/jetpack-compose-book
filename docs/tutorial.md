@@ -251,7 +251,7 @@ Column {
     Text(
         text = msg.author,
         color = MaterialTheme.colors.secondaryVariant,
-        style = MaterialTheme.typography.subtitle2
+        style = MaterialTheme.typography.subtitle2 // 添加 style
     )
     Spacer(Modifier.padding(vertical = 4.dp))
     Text(
