@@ -170,7 +170,7 @@ fun MessageCard(msg: Message) {
 ![](assets/tutorial/demo10.png)
 
 
-## 第三步：Material design
+## 3. 第三步：Material design
 
 `Compose` 是为支持 `Material design` 原则而建立的。它的许多 `UI` 元素都是开箱即用的 `Material design`。在这一步中，你将用 `Material` 小部件来设计你的应用程序。
 
