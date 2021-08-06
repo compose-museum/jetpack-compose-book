@@ -1867,6 +1867,22 @@
 <h3 id="_2">添加多个文本</h3>
 <p>到目前为止，我们已经建立了我们的第一个 Composable 的函数和预览! 为了发现更多的 Jetpack Compose 功能，我们将构建一个简单的消息屏幕，其中包含可以通过一些动画展开的消息列表。</p>
 <p>让我们首先通过显示作者的名字和信息内容，使我们的 <code>MessageCard</code> 函数更丰富。我们首先需要改变我们的函数参数，接受一个消息对象而不是一个字符串，并在 <code>MessageCard</code> 函数中添加另一个 Text 函数。确保也要更新预览。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">Message</span><span class="p">(</span><span class="kd">val</span> <span class="nv">author</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">body</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MessageCard</span><span class="p">(</span><span class="n">msg</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="na">author</span><span class="p">)</span>
+    <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">msg</span><span class="p">.</span><span class="na">body</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">PreviewMessageCard</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">MessageCard</span><span class="p">(</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="n">Message</span><span class="p">(</span><span class="s">&quot;Jetpack Compose 博物馆&quot;</span><span class="p">,</span> <span class="s">&quot;我们开始更新啦&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
 <p><img alt="" src="../assets/tutorial/demo5.png" /></p>
 <p>这段代码在 app 内创建了两个 Text 元素。然而，由于我们并没有安排如何排列它们，这两个 Text 元素重叠在了一块，使得我们无法阅读。</p>
 <h3 id="column">使用 Column</h3>
@@ -2209,7 +2225,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 1, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 6, 2021</span>
       
     
   </small>
