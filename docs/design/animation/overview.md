@@ -1,13 +1,40 @@
 Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程序的用户界面上实现各种动画变得容易。本文描述了如何使用这些 API，以及根据你的动画场景使用哪个 API。
 
-
 ## 1. 概述
 
-为了实现流畅和可理解的用户体验，动画在现代移动应用中是必不可少的。许多 Jetpack Compose 动画 API 就像布局和其他 UI 元素一样，可以作为 ***Composable*** 函数，它们由用 Kotlin coroutine suspend 函数构建的低级API 支持。本指南从在许多实际场景中很有用的高级 API 开始，接着解释给你进一步控制和定制的低级 API。
+动画在现代移动应用中至关重要，其目的是实现自然流畅、易于理解的用户体验。许多 Jetpack Compose 动画 API 可以提供可组合函数，就像布局和其他界面元素一样；它们由使用 Kotlin 协程挂起函数构建的较低级别 API 提供支持。本指南将首先介绍可用于许多实际场景的高级别 API，接着介绍可为您提供进一步控制和自定义功能的低级别 API。
 
-下面这个图表可以帮助你决定使用什么 API 来实现你的动画。
+下面的图表可以帮助您确定要使用哪种 API 来实现您的动画效果。
 
 <img src = "{{config.assets}}/design/animation/overview/demo.svg">
+
+下面的图表可以帮助您确定要使用哪种 API 来实现您的动画效果。
+
+* 如果您要为布局中的内容变化添加动画效果：
+
+    * 如果您要为进入/退出过渡添加动画效果：
+        * 使用 `AnimationVisibility`。
+
+    * 如果您要为内容大小变化添加动画效果：
+        * 使用 `Modifier.animateContentSize`。
+
+    * 否则使用 `Crossfade`。
+
+* 如果动画效果基于状态：
+    * 如果在组合期间呈现动画效果：
+        * 如果动画效果无限循环：
+            * 使用 `rememberInfiniteTransition`。
+
+* 如果您要同时为多个值添加动画效果：
+    * 使用 `updateTransition`。
+    * 否则使用 `animate*AsState`。
+
+* 如果您要对动画播放时间进行精细控制：
+    * 使用 `Animation`。
+
+* 如果动画是唯一可信来源：
+    * 使用 `Animatable`。
+    * 否则，请使用 `AnimationState` 或 `animate`。
 
 
 | API | 功能|
@@ -31,7 +58,8 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 ``` kotlin
 
-// 如果你在这里有 getValue 的报错，这是 bug，你需要手动导入
+// 如果你在这里有 getValue 的报错，或者无法自动导入，这是一些旧版 Android Studio 还没有完全适配 Compose 的 bug。
+// 你需要手动导入，或者更新到最新的 AS
 // import androidx.compose.runtime.getValue
 
 var state by remember{ mutableStateOf(true) }
@@ -148,15 +176,15 @@ Column(
 
 <img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkhorizontally.gif" width = 100 height = 100>
 
-[`shrinkVertically`]()
+[`shrinkVertically`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkVertically(androidx.compose.ui.Alignment.Vertical,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean))
 
 <img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkvertically.gif" width = 100 height = 100>
 
-[`slideOutHorizontally`]()
+[`slideOutHorizontally`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkHorizontally(androidx.compose.ui.Alignment.Horizontal,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean))
 
 <img src = "https://developer.android.com/images/jetpack/compose/animation-slideouthorizontally.gif" width = 100 height = 100>
 
-[`slideOutVertically`]()
+[`slideOutVertically`](https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideOutVertically(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec))
 
 <img src = "https://developer.android.com/images/jetpack/compose/animation-slideoutvertically.gif" width = 100 height = 100>
 
