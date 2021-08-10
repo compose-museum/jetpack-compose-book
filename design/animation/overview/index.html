@@ -1757,9 +1757,64 @@
                 
                 <p>Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程序的用户界面上实现各种动画变得容易。本文描述了如何使用这些 API，以及根据你的动画场景使用哪个 API。</p>
 <h2 id="1">1. 概述</h2>
-<p>为了实现流畅和可理解的用户体验，动画在现代移动应用中是必不可少的。许多 Jetpack Compose 动画 API 就像布局和其他 UI 元素一样，可以作为 <strong><em>Composable</em></strong> 函数，它们由用 Kotlin coroutine suspend 函数构建的低级API 支持。本指南从在许多实际场景中很有用的高级 API 开始，接着解释给你进一步控制和定制的低级 API。</p>
-<p>下面这个图表可以帮助你决定使用什么 API 来实现你的动画。</p>
+<p>动画在现代移动应用中至关重要，其目的是实现自然流畅、易于理解的用户体验。许多 Jetpack Compose 动画 API 可以提供可组合函数，就像布局和其他界面元素一样；它们由使用 Kotlin 协程挂起函数构建的较低级别 API 提供支持。本指南将首先介绍可用于许多实际场景的高级别 API，接着介绍可为您提供进一步控制和自定义功能的低级别 API。</p>
+<p>下面的图表可以帮助您确定要使用哪种 API 来实现您的动画效果。</p>
 <p><img src = "../../../assets/design/animation/overview/demo.svg"></p>
+<p>下面的图表可以帮助您确定要使用哪种 API 来实现您的动画效果。</p>
+<ul>
+<li>
+<p>如果您要为布局中的内容变化添加动画效果：</p>
+<ul>
+<li>
+<p>如果您要为进入/退出过渡添加动画效果：</p>
+<ul>
+<li>使用 <code>AnimationVisibility</code>。</li>
+</ul>
+</li>
+<li>
+<p>如果您要为内容大小变化添加动画效果：</p>
+<ul>
+<li>使用 <code>Modifier.animateContentSize</code>。</li>
+</ul>
+</li>
+<li>
+<p>否则使用 <code>Crossfade</code>。</p>
+</li>
+</ul>
+</li>
+<li>
+<p>如果动画效果基于状态：</p>
+<ul>
+<li>如果在组合期间呈现动画效果：<ul>
+<li>如果动画效果无限循环：<ul>
+<li>使用 <code>rememberInfiniteTransition</code>。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>如果您要同时为多个值添加动画效果：</p>
+<ul>
+<li>使用 <code>updateTransition</code>。</li>
+<li>否则使用 <code>animate*AsState</code>。</li>
+</ul>
+</li>
+<li>
+<p>如果您要对动画播放时间进行精细控制：</p>
+<ul>
+<li>使用 <code>Animation</code>。</li>
+</ul>
+</li>
+<li>
+<p>如果动画是唯一可信来源：</p>
+<ul>
+<li>使用 <code>Animatable</code>。</li>
+<li>否则，请使用 <code>AnimationState</code> 或 <code>animate</code>。</li>
+</ul>
+</li>
+</ul>
 <table>
 <thead>
 <tr>
@@ -1801,7 +1856,8 @@
 <p class="admonition-title">注意</p>
 <p>实验性API将来可能会更改，或者可能会完全删除。</p>
 </div>
-<div class="highlight"><pre><span></span><code><span class="c1">// 如果你在这里有 getValue 的报错，这是 bug，你需要手动导入</span>
+<div class="highlight"><pre><span></span><code><span class="c1">// 如果你在这里有 getValue 的报错，或者无法自动导入，这是一些旧版 Android Studio 还没有完全适配 Compose 的 bug。</span>
+<span class="c1">// 你需要手动导入，或者更新到最新的 AS</span>
 <span class="c1">// import androidx.compose.runtime.getValue</span>
 
 <span class="kd">var</span> <span class="nv">state</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">}</span>
@@ -1884,11 +1940,11 @@
 <p><img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkout.gif" width = 100 height = 100></p>
 <p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkHorizontally(androidx.compose.ui.Alignment.Horizontal,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>shrinkHorizontally</code></a></p>
 <p><img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkhorizontally.gif" width = 100 height = 100></p>
-<p><a href=""><code>shrinkVertically</code></a></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkVertically(androidx.compose.ui.Alignment.Vertical,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>shrinkVertically</code></a></p>
 <p><img src = "https://developer.android.com/images/jetpack/compose/animation-shrinkvertically.gif" width = 100 height = 100></p>
-<p><a href=""><code>slideOutHorizontally</code></a></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#shrinkHorizontally(androidx.compose.ui.Alignment.Horizontal,kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec,kotlin.Boolean)"><code>slideOutHorizontally</code></a></p>
 <p><img src = "https://developer.android.com/images/jetpack/compose/animation-slideouthorizontally.gif" width = 100 height = 100></p>
-<p><a href=""><code>slideOutVertically</code></a></p>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/animation/package-summary#slideOutVertically(kotlin.Function1,androidx.compose.animation.core.FiniteAnimationSpec)"><code>slideOutVertically</code></a></p>
 <p><img src = "https://developer.android.com/images/jetpack/compose/animation-slideoutvertically.gif" width = 100 height = 100></p>
 <h3 id="animatecontentsize">animateContentSize</h3>
 <p><code>animateContentSize</code> 可以对尺寸更改进行动画处理</p>
@@ -2392,7 +2448,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 29, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 10, 2021</span>
       
     
   </small>
