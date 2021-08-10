@@ -8,7 +8,7 @@
 
 尝试使用最新的 `Compose` 版本和 `Kotlin` 版本
 
-`Gradle 版本`: [7.0.2](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
+`Gradle 版本`: [7.1.0](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
 
 可手动在 `gradle-wrapper.properties` 中更新
 
@@ -21,17 +21,18 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.1-bin.zip
 ```kotlin
 buildscript {
 
-    val compose_version by extra("1.0.0") // Compose 版本
+    val compose_version by extra("1.0.1") // Compose 版本
 
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:7.1.0-alpha03")
+        // 7.1.0-alpha07 要求 Android Studio 2021.1.1 版本及以上
+        classpath("com.android.tools.build:gradle:7.1.0-alpha07")
 
         // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
@@ -44,15 +45,15 @@ buildscript {
 ```kotlin
 buildscript {
     ext {
-        compose_version = '1.0.0'
+        compose_version = '1.0.1'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha03'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha07'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
