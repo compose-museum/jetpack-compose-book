@@ -92,6 +92,24 @@ fun PreviewMessageCard() {
 
 让我们首先通过显示作者的名字和信息内容，使我们的 `MessageCard` 函数更丰富。我们首先需要改变我们的函数参数，接受一个消息对象而不是一个字符串，并在 `MessageCard` 函数中添加另一个 Text 函数。确保也要更新预览。
 
+``` kotlin
+data class Message(val author: String, val body: String)
+
+@Composable
+fun MessageCard(msg: Message) {
+    Text(text = msg.author)
+    Text(text = msg.body)
+}
+
+@Preview
+@Composable
+fun PreviewMessageCard() {
+    MessageCard(
+        msg = Message("Jetpack Compose 博物馆", "我们开始更新啦")
+    )
+}
+```
+
 ![](assets/tutorial/demo5.png)
 
 这段代码在 app 内创建了两个 Text 元素。然而，由于我们并没有安排如何排列它们，这两个 Text 元素重叠在了一块，使得我们无法阅读。
@@ -170,7 +188,7 @@ fun MessageCard(msg: Message) {
 ![](assets/tutorial/demo10.png)
 
 
-## 第三步：Material design
+## 3. 第三步：Material design
 
 `Compose` 是为支持 `Material design` 原则而建立的。它的许多 `UI` 元素都是开箱即用的 `Material design`。在这一步中，你将用 `Material` 小部件来设计你的应用程序。
 
@@ -251,7 +269,7 @@ Column {
     Text(
         text = msg.author,
         color = MaterialTheme.colors.secondaryVariant,
-        style = MaterialTheme.typography.subtitle2
+        style = MaterialTheme.typography.subtitle2 // 添加 style
     )
     Spacer(Modifier.padding(vertical = 4.dp))
     Text(

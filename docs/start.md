@@ -8,7 +8,7 @@
 
 尝试使用最新的 `Compose` 版本和 `Kotlin` 版本
 
-`Gradle 版本`: [7.1.0](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
+`Gradle 版本`: [7.1](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
 
 可手动在 `gradle-wrapper.properties` 中更新
 
