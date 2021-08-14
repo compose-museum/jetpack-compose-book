@@ -4,95 +4,63 @@
 </div>
 
 
-`Column` 是 Jetpack Compose 中一个很基本的布局种类，它会将里面的**每个**组件以行的形式呈现
+## 1. 概述
+
+一种界面的 Composable ，它可以让里面的子项按垂直顺序排列。对于一个以水平顺序来安排里面子项的 Composable，可以查看 [Row](../../layout/row/)，注意，默认情况下，`Column` 里面的子项是不会滚动的。
+参见 `Modifier.verticalScroll` 来实现这个行为。
+
+对于仅组合和布置当前可见项目的垂直可滚动列表，可以参见 `LazyColumn`。
+
+`Column` 能够根据使用 `ColumnScope.weight` 修改器提供的权重来分配子项的高度。如果其中的一个子项没有被提供权重，那么它将会被要求提供一个首选的高度，然后再根据剩余的可用空间按比例计算有权重的子项的尺寸。
+
+当它的子项都没有权重时，一个 `Column` 将尽可能小，以适配它的子项一个一个地叠加。为了改变 `Column` 的高度，可以使用 `Modifier.requiredHeight` 修改器。
+
+例如，想让它填满所有可用的高度，可以使用 `Modifier.fillMaxHeight`。如果一个 `Column` 的至少一个子项有一个权重，`Column` 将填满可用的高度，所以不需要 `Modifier.fillMaxHeight`。如果 `Column` 的大小应该被限制，那么应该使用 `Modifier.requiredHeight` 或 `Modifier.requiredSize`。
+
+当 `Column` 的尺寸大于它的子项的总和时，可以指定一个垂直的 `Arrangement` 来定义 `Column` 内子项的定位。可用的定位行为参见 [Arrangement](https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/Arrangement)；也可以使用 `Arrangement` 的构造函数来定义一个自定义的排列。
+
+使用示例：
 
 ``` kotlin
-@Composable inline fun Column(
-    modifier: Modifier = Modifier, 
-    verticalArrangement: Arrangement.Vertical = Arrangement.Top, 
-    horizontalAlignment: Alignment.Horizontal = Alignment.Start, 
-    content: ColumnScope.() -> Unit
-): Unit
+Column {
+    
+    // 没有权重的子项将会有指定的尺寸
+
+    Box(Modifier.size(40.dp, 80.dp).background(Color.Magenta))
+
+    // 有权重，这个子项将会占用剩余高度的一半
+
+    Box(Modifier.width(40.dp).weight(1f).background(Color.Yellow))
+
+    // 有权重，但是 fill 参数是 false，这个子项将会最多占用剩余高度的一半
+    // 因此，如果指定的高度较大，它将会占用 80 dp（它的首选高度）
+
+    Box(
+        Modifier.size(40.dp, 80.dp)
+            .weight(1f, fill = false)
+            .background(Color.Green)
+    )
+}
 ```
 
-## 1. Text 在 Column 里面的使用
+![]({{config.assets}}/layout/column/demo.png)
+
+再来看看第三个子项的 `fill` 参数为 true （默认）时候的情况吧，
 
 ``` kotlin
-class MainActivity : ComponentActivity() {
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            ColumnDemo()
-        }
-    }
-}
-
-@Composable
-fun ColumnDemo() {
-    Column{
-        Text("你好呀")
-        Text("我正在使用 Android Studio")
-        Text("现在是晚上")
-    }
-}
-```
-效果如下：
-
-![]({{config.assets}}/layout/column/column1.png)
-
-### 1.居中文字
-
-如果我们需要将 Column 里面的文字居中该怎么办呢？
-
-很简单，我们只需要添加 `modifier` 和 `horizontalAlignment` 参数
-
-代码如下:
-
-```kotlin
-@Composable
-fun ColumnDemo() {
-    Column(
-        modifier = Modifier.fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Text("你好呀")
-        Text("我正在使用 Android Studio")
-        Text("现在是晚上")
-    }
-}
-// 我们要注意的是，如果不添加 Modifier.fillMaxWidth()
-// Column 的宽度将取决于里面最宽控件的长度
-```
-效果如下：
-
-![]({{config.assets}}/layout/column/column2.png)
-
-### 2.特定文字居中
-
-如果我们想让 `Column` 里面的某些文字居中而不是全部居中怎么办
-
-我们只需要在需要居中的文字的地方添加 `Modifier.align` 参数，并且将 `Column` 的 `modifier` 参数设置为 `fillMaxWidth()` 即可实现效果
-
-代码如下：
-``` kotlin
-@Composable
-fun ColumnDemo() {
-    Column(
-        modifier = Modifier.fillMaxWidth()
-    ){
-
-        Text(
-            text = "夜色",
-            modifier = Modifier.align(Alignment.CenterHorizontally),
-            style = MaterialTheme.typography.h6,
-            fontWeight = FontWeight.W900)
-
-        Text("今晚的夜色很不错，我和朋友走在河边的小路上，看到了很多美丽的风景")
-    }
+Column {
+    
+    Box(Modifier.size(40.dp, 80.dp).background(Color.Magenta))
+    
+    Box(Modifier.width(40.dp).weight(1f).background(Color.Yellow))
+    
+    Box(
+        Modifier.size(40.dp, 80.dp)
+            .weight(1f)
+            .background(Color.Green)
+    )
 }
 ```
 
-效果如下：
+![]({{config.assets}}/layout/column/demo1.png)
 
-![]({{config.assets}}/layout/column/column3.png)

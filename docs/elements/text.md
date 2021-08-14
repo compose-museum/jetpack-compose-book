@@ -421,7 +421,7 @@ ClickableText(
 1. [Mkdocs](../code/elements/text/用户协议.md)
 2. [Github](https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/elements/text/用户协议.kt)
 
-## 9. 复制文字
+## 9. 文字复制
 
 默认情况下 `Text` 并不能进行复制等操作，我们需要设置 `SelectionContainer` 来包装 `Text`
 
@@ -485,8 +485,29 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 
 ![]({{config.assets}}/elements/text/demo.png)
 
+## 11. 文字水平居中
 
-## 11. 更多
+一般情况下，Text 不会水平居中，如果你在 `Row`, `Column`, `Box` 这些 Composable 里面想要实现居中的效果，目前的做法是在 Text 外围写一个 `Box`, `Row`, `Column` 等
+
+像这样：
+
+``` kotlin
+Column {
+    Text("123")
+    Text("456")
+    Box(
+        modifier = Modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text("789")
+    }
+}
+```
+
+![]({{config.assets}}/elements/text/text16.png)
+
+
+## 12. 更多
 
 [Text 参数详情](../api/elements/text.md)
 
