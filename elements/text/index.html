@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://docs.compose.net.cn/elements/text/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.3">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -613,7 +613,7 @@
       
         <li class="md-nav__item">
   <a href="#9" class="md-nav__link">
-    9. 复制文字
+    9. 文字复制
   </a>
   
 </li>
@@ -627,7 +627,14 @@
       
         <li class="md-nav__item">
   <a href="#11" class="md-nav__link">
-    11. 更多
+    11. 文字水平居中
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    12. 更多
   </a>
   
 </li>
@@ -1713,7 +1720,7 @@
       
         <li class="md-nav__item">
   <a href="#9" class="md-nav__link">
-    9. 复制文字
+    9. 文字复制
   </a>
   
 </li>
@@ -1727,7 +1734,14 @@
       
         <li class="md-nav__item">
   <a href="#11" class="md-nav__link">
-    11. 更多
+    11. 文字水平居中
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#12" class="md-nav__link">
+    12. 更多
   </a>
   
 </li>
@@ -2080,7 +2094,7 @@
 <li><a href="../../code/elements/text/%E7%94%A8%E6%88%B7%E5%8D%8F%E8%AE%AE/">Mkdocs</a></li>
 <li><a href="https://github.com/compose-museum/compose-tutorial/blob/main/docs/code/elements/text/用户协议.kt">Github</a></li>
 </ol>
-<h2 id="9">9. 复制文字</h2>
+<h2 id="9">9. 文字复制</h2>
 <p>默认情况下 <code>Text</code> 并不能进行复制等操作，我们需要设置 <code>SelectionContainer</code> 来包装 <code>Text</code></p>
 <p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextDemo</span><span class="p">()</span> <span class="p">{</span>
@@ -2130,7 +2144,22 @@
 <p><img alt="" src="../../../assets/elements/text/content_alpha.png" /></p>
 <p>这张图可以很好的说明这个效果</p>
 <p><img alt="" src="../../../assets/elements/text/demo.png" /></p>
-<h2 id="11">11. 更多</h2>
+<h2 id="11">11. 文字水平居中</h2>
+<p>一般情况下，Text 不会水平居中，如果你在 <code>Row</code>, <code>Column</code>, <code>Box</code> 这些 Composable 里面想要实现居中的效果，目前的做法是在 Text 外围写一个 <code>Box</code>, <code>Row</code>, <code>Column</code> 等</p>
+<p>像这样：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Column</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span><span class="s">&quot;123&quot;</span><span class="p">)</span>
+    <span class="n">Text</span><span class="p">(</span><span class="s">&quot;456&quot;</span><span class="p">)</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+        <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;789&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/elements/text/text16.png" /></p>
+<h2 id="12">12. 更多</h2>
 <p><a href="../../api/elements/text/">Text 参数详情</a></p>
 <p><a href="https://developer.android.com/jetpack/compose/text">Text 一些用法</a></p>
                 
@@ -2141,7 +2170,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 14, 2021</span>
       
     
   </small>
@@ -2233,7 +2262,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.29db7785.min.js"></script>
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>

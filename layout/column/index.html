@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://docs.compose.net.cn/layout/column/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.3">
+      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.4">
     
     
       
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1-text-column" class="md-skip">
+        <a href="#1" class="md-skip">
           跳转至
         </a>
       
@@ -572,29 +572,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-text-column" class="md-nav__link">
-    1. Text 在 Column 里面的使用
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Text 在 Column 里面的使用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
-    1.居中文字
+    1. 概述
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2.特定文字居中
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1488,29 +1468,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1-text-column" class="md-nav__link">
-    1. Text 在 Column 里面的使用
-  </a>
-  
-    <nav class="md-nav" aria-label="1. Text 在 Column 里面的使用">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
   <a href="#1" class="md-nav__link">
-    1.居中文字
+    1. 概述
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2.特定文字居中
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1537,78 +1497,51 @@
 <img src = "https://developer.android.com/images/jetpack/compose/layout-column-row-box.png" width = "50%" height = "50%" align = center/>
 </div>
 
-<p><code>Column</code> 是 Jetpack Compose 中一个很基本的布局种类，它会将里面的<strong>每个</strong>组件以行的形式呈现</p>
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span> <span class="kd">inline</span> <span class="kd">fun</span> <span class="nf">Column</span><span class="p">(</span>
-    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span> 
-    <span class="n">verticalArrangement</span><span class="p">:</span> <span class="n">Arrangement</span><span class="p">.</span><span class="na">Vertical</span> <span class="o">=</span> <span class="n">Arrangement</span><span class="p">.</span><span class="na">Top</span><span class="p">,</span> 
-    <span class="n">horizontalAlignment</span><span class="p">:</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Horizontal</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Start</span><span class="p">,</span> 
-    <span class="n">content</span><span class="p">:</span> <span class="n">ColumnScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
-<span class="p">):</span> <span class="kt">Unit</span>
+<h2 id="1">1. 概述</h2>
+<p>一种界面的 Composable ，它可以让里面的子项按垂直顺序排列。对于一个以水平顺序来安排里面子项的 Composable，可以查看 <a href="../../layout/row/">Row</a>，注意，默认情况下，<code>Column</code> 里面的子项是不会滚动的。
+参见 <code>Modifier.verticalScroll</code> 来实现这个行为。</p>
+<p>对于仅组合和布置当前可见项目的垂直可滚动列表，可以参见 <code>LazyColumn</code>。</p>
+<p><code>Column</code> 能够根据使用 <code>ColumnScope.weight</code> 修改器提供的权重来分配子项的高度。如果其中的一个子项没有被提供权重，那么它将会被要求提供一个首选的高度，然后再根据剩余的可用空间按比例计算有权重的子项的尺寸。</p>
+<p>当它的子项都没有权重时，一个 <code>Column</code> 将尽可能小，以适配它的子项一个一个地叠加。为了改变 <code>Column</code> 的高度，可以使用 <code>Modifier.requiredHeight</code> 修改器。</p>
+<p>例如，想让它填满所有可用的高度，可以使用 <code>Modifier.fillMaxHeight</code>。如果一个 <code>Column</code> 的至少一个子项有一个权重，<code>Column</code> 将填满可用的高度，所以不需要 <code>Modifier.fillMaxHeight</code>。如果 <code>Column</code> 的大小应该被限制，那么应该使用 <code>Modifier.requiredHeight</code> 或 <code>Modifier.requiredSize</code>。</p>
+<p>当 <code>Column</code> 的尺寸大于它的子项的总和时，可以指定一个垂直的 <code>Arrangement</code> 来定义 <code>Column</code> 内子项的定位。可用的定位行为参见 <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/Arrangement">Arrangement</a>；也可以使用 <code>Arrangement</code> 的构造函数来定义一个自定义的排列。</p>
+<p>使用示例：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Column</span> <span class="p">{</span>
+
+    <span class="c1">// 没有权重的子项将会有指定的尺寸</span>
+
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">,</span> <span class="m">80.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Magenta</span><span class="p">))</span>
+
+    <span class="c1">// 有权重，这个子项将会占用剩余高度的一半</span>
+
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">).</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">))</span>
+
+    <span class="c1">// 有权重，但是 fill 参数是 false，这个子项将会最多占用剩余高度的一半</span>
+    <span class="c1">// 因此，如果指定的高度较大，它将会占用 80 dp（它的首选高度）</span>
+
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">,</span> <span class="m">80.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">,</span> <span class="n">fill</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">}</span>
 </code></pre></div>
-<h2 id="1-text-column">1. Text 在 Column 里面的使用</h2>
-<p><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+<p><img alt="" src="../../../assets/layout/column/demo.png" /></p>
+<p>再来看看第三个子项的 <code>fill</code> 参数为 true （默认）时候的情况吧，</p>
+<div class="highlight"><pre><span></span><code><span class="n">Column</span> <span class="p">{</span>
 
-    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
-        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
-        <span class="n">setContent</span> <span class="p">{</span>
-            <span class="n">ColumnDemo</span><span class="p">()</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">,</span> <span class="m">80.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Magenta</span><span class="p">))</span>
 
-<span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">ColumnDemo</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">Column</span><span class="p">{</span>
-        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;你好呀&quot;</span><span class="p">)</span>
-        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;我正在使用 Android Studio&quot;</span><span class="p">)</span>
-        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;现在是晚上&quot;</span><span class="p">)</span>
-    <span class="p">}</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">).</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">))</span>
+
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">40.</span><span class="n">dp</span><span class="p">,</span> <span class="m">80.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-效果如下：</p>
-<p><img alt="" src="../../../assets/layout/column/column1.png" /></p>
-<h3 id="1">1.居中文字</h3>
-<p>如果我们需要将 Column 里面的文字居中该怎么办呢？</p>
-<p>很简单，我们只需要添加 <code>modifier</code> 和 <code>horizontalAlignment</code> 参数</p>
-<p>代码如下:</p>
-<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">ColumnDemo</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">Column</span><span class="p">(</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
-        <span class="n">horizontalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;你好呀&quot;</span><span class="p">)</span>
-        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;我正在使用 Android Studio&quot;</span><span class="p">)</span>
-        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;现在是晚上&quot;</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-<span class="c1">// 我们要注意的是，如果不添加 Modifier.fillMaxWidth()</span>
-<span class="c1">// Column 的宽度将取决于里面最宽控件的长度</span>
-</code></pre></div>
-效果如下：</p>
-<p><img alt="" src="../../../assets/layout/column/column2.png" /></p>
-<h3 id="2">2.特定文字居中</h3>
-<p>如果我们想让 <code>Column</code> 里面的某些文字居中而不是全部居中怎么办</p>
-<p>我们只需要在需要居中的文字的地方添加 <code>Modifier.align</code> 参数，并且将 <code>Column</code> 的 <code>modifier</code> 参数设置为 <code>fillMaxWidth()</code> 即可实现效果</p>
-<p>代码如下：
-<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">ColumnDemo</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">Column</span><span class="p">(</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-    <span class="p">){</span>
-
-        <span class="n">Text</span><span class="p">(</span>
-            <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;夜色&quot;</span><span class="p">,</span>
-            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span><span class="p">),</span>
-            <span class="n">style</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">typography</span><span class="p">.</span><span class="na">h6</span><span class="p">,</span>
-            <span class="n">fontWeight</span> <span class="o">=</span> <span class="n">FontWeight</span><span class="p">.</span><span class="na">W900</span><span class="p">)</span>
-
-        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;今晚的夜色很不错，我和朋友走在河边的小路上，看到了很多美丽的风景&quot;</span><span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div></p>
-<p>效果如下：</p>
-<p><img alt="" src="../../../assets/layout/column/column3.png" /></p>
+<p><img alt="" src="../../../assets/layout/column/demo1.png" /></p>
                 
                   
                     
@@ -1617,7 +1550,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 14, 2021</span>
       
     
   </small>
@@ -1709,7 +1642,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.709b4209.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.29db7785.min.js"></script>
+      <script src="../../assets/javascripts/bundle.febc23d1.min.js"></script>
       
     
   </body>
