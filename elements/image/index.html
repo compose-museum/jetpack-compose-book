@@ -470,8 +470,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    4. 更多
+  <a href="#4-coil" class="md-nav__link">
+    4. 使用 Coil 来动态加载图片
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 使用 Coil 来动态加载图片">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svg" class="md-nav__link">
+    加载 Svg 图像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svg_1" class="md-nav__link">
+    放大缩小 Svg 图像文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 更多
   </a>
   
 </li>
@@ -1510,8 +1537,35 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#4" class="md-nav__link">
-    4. 更多
+  <a href="#4-coil" class="md-nav__link">
+    4. 使用 Coil 来动态加载图片
+  </a>
+  
+    <nav class="md-nav" aria-label="4. 使用 Coil 来动态加载图片">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#svg" class="md-nav__link">
+    加载 Svg 图像
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#svg_1" class="md-nav__link">
+    放大缩小 Svg 图像文件
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#5" class="md-nav__link">
+    5. 更多
   </a>
   
 </li>
@@ -1636,10 +1690,102 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/image/image5.png" /></p>
-<h2 id="4">4. 更多</h2>
+<h2 id="4-coil">4. 使用 Coil 来动态加载图片</h2>
+<p>Compose 自带的 <code>Image</code> 只能加载资源管理器中的图片文件，如果想加载网络图片或者是其他本地路径下的文件，则需要考虑其他的库，比如 <a href="https://coil-kt.github.io/coil/compose/">Coil</a></p>
+<p>简单使用 Coil 加载网络图片:</p>
+<p>记得打开网络权限测试</p>
+<div class="highlight"><pre><span></span><code>&lt;uses-permission android:name=&quot;android.permission.INTERNET&quot; /&gt;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">Image</span><span class="p">(</span>
+    <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberImagePainter</span><span class="p">(</span><span class="n">data</span> <span class="o">=</span> <span class="s">&quot;https://picsum.photos/300/300&quot;</span><span class="p">),</span>
+    <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="svg">加载 Svg 图像</h3>
+<p><code>Coil</code> 可以加载 Svg 图像</p>
+<p>添加依赖 </p>
+<div class="highlight"><pre><span></span><code>implementation &quot;io.coil-kt:coil-svg:1.3.2&quot; // Gradle
+implementation(&quot;io.coil-kt:coil-svg:1.3.2&quot;) // KTS
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">context</span> <span class="o">=</span> <span class="n">LocalContext</span><span class="p">.</span><span class="na">current</span>
+<span class="kd">val</span> <span class="nv">imageLoader</span> <span class="o">=</span> <span class="n">ImageLoader</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">componentRegistry</span> <span class="p">{</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">SvgDecoder</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">()</span>
+
+<span class="n">Image</span><span class="p">(</span>
+    <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberImagePainter</span><span class="p">(</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="s">&quot;https://coil-kt.github.io/coil/images/coil_logo_black.svg&quot;</span><span class="p">,</span>
+        <span class="n">imageLoader</span> <span class="o">=</span> <span class="n">imageLoader</span>
+    <span class="p">),</span>
+    <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span>
+<span class="p">)</span>
+</code></pre></div>
+<h3 id="svg_1">放大缩小 Svg 图像文件</h3>
+<p>虽然 Coil 可以显示 Svg 图像，但是如果在我们的 app 中，需要动态的放大 Svg 图像，那么你大概率会得到强行拉升 Svg 像素后的图像，而不是无损放大</p>
+<p>导致的原因可能是 Coil 中的 ImageLoader 会把 Svg 转换成位图，而不是安卓的矢量图 vector drawable, 而位图则不能无损放大</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">context</span> <span class="o">=</span> <span class="n">LocalContext</span><span class="p">.</span><span class="na">current</span>
+<span class="kd">val</span> <span class="nv">imageLoader</span> <span class="o">=</span> <span class="n">ImageLoader</span><span class="p">.</span><span class="na">Builder</span><span class="p">(</span><span class="n">context</span><span class="p">)</span>
+    <span class="p">.</span><span class="na">componentRegistry</span> <span class="p">{</span>
+        <span class="n">add</span><span class="p">(</span><span class="n">SvgDecoder</span><span class="p">(</span><span class="n">context</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="p">.</span><span class="na">build</span><span class="p">()</span>
+
+<span class="kd">var</span> <span class="nv">flag</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">}</span>
+<span class="kd">val</span> <span class="nv">size</span> <span class="k">by</span> <span class="n">animateDpAsState</span><span class="p">(</span><span class="n">targetValue</span> <span class="o">=</span> <span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="m">450.</span><span class="n">dp</span> <span class="k">else</span> <span class="m">50.</span><span class="n">dp</span><span class="p">)</span>
+
+<span class="n">Box</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Column</span> <span class="p">{</span>
+        <span class="n">Image</span><span class="p">(</span>
+            <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberImagePainter</span><span class="p">(</span>
+                <span class="n">data</span> <span class="o">=</span> <span class="s">&quot;https://coil-kt.github.io/coil/images/coil_logo_black.svg&quot;</span><span class="p">,</span>
+                <span class="n">imageLoader</span> <span class="o">=</span> <span class="n">imageLoader</span>
+            <span class="p">),</span>
+            <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">clickable</span><span class="p">(</span>
+                    <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
+                        <span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span>
+                    <span class="p">},</span>
+                    <span class="n">indication</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+                    <span class="n">interactionSource</span> <span class="o">=</span> <span class="n">MutableInteractionSource</span><span class="p">()</span>
+                <span class="p">)</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/elements/image/demo.gif" /></p>
+<p>那么要解决这个问题，就是尝试实现 svg 转换为 vector drawable, 在 github 上可以搜索到这个库 <a href="https://github.com/DevSrSouza/svg-to-compose">Svg to Compose</a>，但是它并不能支持动态加载图像，例如从网络上加载，或者是从 app 的内部存储或者外部存储加载。</p>
+<p>但是在我搜寻中，发现了 <a href="https://github.com/skydoves/Landscapist">Landscapist</a></p>
+<p>依赖：</p>
+<div class="highlight"><pre><span></span><code>implementation &quot;com.github.skydoves:landscapist-coil:1.3.2&quot;
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="n">CoilImage</span><span class="p">(</span>
+    <span class="n">imageModel</span> <span class="o">=</span> <span class="s">&quot;https://coil-kt.github.io/coil/images/coil_logo_black.svg&quot;</span><span class="p">,</span>
+    <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">clickable</span><span class="p">(</span>
+            <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span>
+            <span class="p">},</span>
+            <span class="n">indication</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="n">interactionSource</span> <span class="o">=</span> <span class="n">MutableInteractionSource</span><span class="p">()</span>
+        <span class="p">),</span>
+    <span class="n">imageLoader</span> <span class="o">=</span> <span class="n">imageLoader</span>
+<span class="p">)</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/elements/image/demo2.gif" /></p>
+<h2 id="5">5. 更多</h2>
 <p><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary#image">Image 参数详情</a></p>
 <p><a href="https://github.com/Yalantis/uCrop">Ucrop 一个图片裁剪库</a></p>
 <p><a href="../surface/">Surface 详情</a></p>
+<p><a href="https://coil-kt.github.io/coil/">Coil</a></p>
                 
                   
                     
@@ -1648,7 +1794,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 15, 2021</span>
       
     
   </small>
