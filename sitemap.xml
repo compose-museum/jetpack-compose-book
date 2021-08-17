@@ -71,6 +71,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.compose.net.cn/design/animation/animatable/</loc>
+         <lastmod>2021-08-17</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.compose.net.cn/design/animation/animatestate/</loc>
          <lastmod>2021-08-17</lastmod>
          <changefreq>daily</changefreq>
