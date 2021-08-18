@@ -8,8 +8,6 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 <img src = "{{config.assets}}/design/animation/overview/demo.svg">
 
-下面的图表可以帮助您确定要使用哪种 API 来实现您的动画效果。
-
 * 如果您要为布局中的内容变化添加动画效果：
 
     * 如果您要为进入/退出过渡添加动画效果：
