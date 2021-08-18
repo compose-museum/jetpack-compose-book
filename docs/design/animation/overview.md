@@ -232,40 +232,41 @@ fun <T> Crossfade(
 
 ``` kotlin
 
-var flag by remember{ mutableStateOf(false)}
+var flag by remember{ mutableStateOf(false) }
 Column{
-    Crossfade(targetState = flag, animationSpec = tween(1000)) {
+    Crossfade(
+         targetState = flag, animationSpec = tween(1000)
+    ) {
         when(it){
             false -> Screen1()
             true -> Screen2()
         }
     }
-    Button(onClick = {
-            flag = !flag
-        }
+    Button(
+         onClick = { flag = !flag }
     ) {
         Text("切换")
     }
 }
 
 @Composable
-fun Screen1(){
+fun Screen1() {
     Box(
         modifier = Modifier
             .background(Color.Red)
             .size(200.dp),
         contentAlignment = Alignment.Center
-    ){}
+    ) { }
 }
 
 @Composable
-fun Screen2(){
+fun Screen2() {
     Box(
         modifier = Modifier
             .background(Color.Blue)
             .size(200.dp),
         contentAlignment = Alignment.Center
-    ){}
+    ) { }
 }
 
 ```
@@ -309,14 +310,14 @@ Box(
 
 ``` kotlin
 
-var flag by remember{ mutableStateOf(false)}
+var flag by remember{ mutableStateOf(false) }
 val color = remember { Animatable(Color.Gray) }
 
 Column{
     Box(Modifier.size(300.dp).background(color.value))
-    Button(onClick = {
-        flag = !flag
-    }) {
+    Button(
+         onClick = { flag = !flag }
+    ) {
         Text("切换")
     }
 }
@@ -374,7 +375,7 @@ Box(
     modifier = Modifier
         .size(rect)
         .background(Color(0xFF0079D3)),
-){}
+) { }
                     
 ```
 
