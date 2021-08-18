@@ -1987,40 +1987,41 @@
 <span class="p">)</span>
 </code></pre></div>
 <p>来看看一个简单的使用</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">flag</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">flag</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">}</span>
 <span class="n">Column</span><span class="p">{</span>
-    <span class="n">Crossfade</span><span class="p">(</span><span class="n">targetState</span> <span class="o">=</span> <span class="n">flag</span><span class="p">,</span> <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span><span class="m">1000</span><span class="p">))</span> <span class="p">{</span>
+    <span class="n">Crossfade</span><span class="p">(</span>
+         <span class="n">targetState</span> <span class="o">=</span> <span class="n">flag</span><span class="p">,</span> <span class="n">animationSpec</span> <span class="o">=</span> <span class="n">tween</span><span class="p">(</span><span class="m">1000</span><span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
         <span class="k">when</span><span class="p">(</span><span class="nb">it</span><span class="p">){</span>
             <span class="kc">false</span> <span class="o">-&gt;</span> <span class="n">Screen1</span><span class="p">()</span>
             <span class="kc">true</span> <span class="o">-&gt;</span> <span class="n">Screen2</span><span class="p">()</span>
         <span class="p">}</span>
     <span class="p">}</span>
-    <span class="n">Button</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
-            <span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span>
-        <span class="p">}</span>
+    <span class="n">Button</span><span class="p">(</span>
+         <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span> <span class="p">}</span>
     <span class="p">)</span> <span class="p">{</span>
         <span class="n">Text</span><span class="p">(</span><span class="s">&quot;切换&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">Screen1</span><span class="p">(){</span>
+<span class="kd">fun</span> <span class="nf">Screen1</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Box</span><span class="p">(</span>
         <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
             <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">)</span>
             <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">200.</span><span class="n">dp</span><span class="p">),</span>
         <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
-    <span class="p">){}</span>
+    <span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 <span class="p">}</span>
 
 <span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">Screen2</span><span class="p">(){</span>
+<span class="kd">fun</span> <span class="nf">Screen2</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Box</span><span class="p">(</span>
         <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
             <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Blue</span><span class="p">)</span>
             <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">200.</span><span class="n">dp</span><span class="p">),</span>
         <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
-    <span class="p">){}</span>
+    <span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/design/animation/overview/demo3.gif" /></p>
@@ -2043,14 +2044,14 @@
 <h3 id="animatable">Animatable</h3>
 <p><code>Animatable</code> 会在内部储存一个值，当值通过 <code>animateTo</code> 被改变时，它可以产生动画。这就是支持 <code>animate*AsState</code> 实现的 <code>API</code>。它确保了一致的延续性和互斥性，这意味着值的变化总是连续的，任何正在进行的动画都会被取消。</p>
 <p><code>Animatable</code> 的许多功能，包括 <code>animateTo</code>，都是作为 <code>suspend</code> 函数提供的。这意味着它们需要被包裹在一个适当的协程作用域内内。例如，你可以使用 <code>LaunchedEffect</code> 这个 <strong>Composable</strong> 来创建一个只针对指定键值的持续时间的作用域。</p>
-<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">flag</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)}</span>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">flag</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">}</span>
 <span class="kd">val</span> <span class="nv">color</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">Animatable</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Gray</span><span class="p">)</span> <span class="p">}</span>
 
 <span class="n">Column</span><span class="p">{</span>
     <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">300.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">color</span><span class="p">.</span><span class="na">value</span><span class="p">))</span>
-    <span class="n">Button</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span>
-    <span class="p">})</span> <span class="p">{</span>
+    <span class="n">Button</span><span class="p">(</span>
+         <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">flag</span> <span class="o">=</span> <span class="o">!</span><span class="n">flag</span> <span class="p">}</span>
+    <span class="p">)</span> <span class="p">{</span>
         <span class="n">Text</span><span class="p">(</span><span class="s">&quot;切换&quot;</span><span class="p">)</span>
     <span class="p">}</span>
 <span class="p">}</span>
@@ -2091,7 +2092,7 @@
     <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
         <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">rect</span><span class="p">)</span>
         <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">(</span><span class="m">0</span><span class="n">xFF0079D3</span><span class="p">)),</span>
-<span class="p">){}</span>
+<span class="p">)</span> <span class="p">{</span> <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/design/animation/overview/demo5.gif" /></p>
 <p>你可以选择传递一个 <code>transitionSpec</code> 参数，为每个过渡状态变化的组合指定一个不同的 <code>AnimationSpec</code>。参见 <a href="https://developer.android.com/jetpack/compose/animation#animationspec">AnimationSpec</a> 以了解更多信息。</p>
