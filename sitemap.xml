@@ -91,6 +91,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://docs.compose.net.cn/design/draw/custom_draw/</loc>
+         <lastmod>2021-08-24</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://docs.compose.net.cn/design/gesture/custom_gesture/</loc>
          <lastmod>2021-08-24</lastmod>
          <changefreq>daily</changefreq>
