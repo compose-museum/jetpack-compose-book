@@ -66,6 +66,7 @@ nav:
         - '自定义触摸反馈': design/gesture/custom_gesture.md
       - '列表':
         - '概述': design/lists/overview.md
+      - '绘制': design/draw/custom_draw.md
     - '关于 Modifier':
       - '概述': modifier/overview.md
       - '方法介绍': modifier/introduction.md
