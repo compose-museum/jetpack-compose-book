@@ -428,7 +428,7 @@ implementation "androidx.constraintlayout:constraintlayout-compose:1.0.0-alpha08
 引用是用 `createRefs()` 或 `createRefFor()` 创建的，`ConstraintLayout` 中的每一个 ***Composable*** 都需要有一个与之相关的引用。
 约束条件使用 `constrainAs()` modifier 提供，它将引用作为一个参数，让你在主体 `lambda` 中指定其约束。
 约束条件使用 `linkTo()` 或其他有用的方法来指定。
-`paren` t是一个现有的引用，可以用来指定对 `ConstraintLayout composable` 本身的约束
+`parent` 是一个现有的引用，可以用来指定对 `ConstraintLayout composable` 本身的约束
 
 下面是一个使用 `ConstraintLayout` 的 ***Composable*** 例子：
 
