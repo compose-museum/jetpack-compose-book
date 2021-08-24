@@ -1694,9 +1694,9 @@
                   <h1>绘制</h1>
                 
                 <h2 id="_1">概述</h2>
-<p>Jetpack Compose 作为一款 UI 框架，自定义绘制部分是必不可少的。通过官方所提供的基础 API， 将允许开发者实现各种场景下的绘制定制需求。如果你对 Android 原生 Canvas 已经了如指掌且运用自如的话，那么迁移至  Jetpack Compose 基本没有任何成本。即使你不曾了解过 Android 原生 Canvas 也不要担心，阅读这篇文章你同样也可以掌握如何在 Jetpack Compose 进行自定义绘制。</p>
+<p>Jetpack Compose 作为一款 UI 框架，自定义绘制部分是必不可少的。通过官方所提供的基础 API， 允许开发者实现各种场景下的绘制定制需求。如果你对 Android 原生 Canvas 已经了如指掌的话，那么迁移至 Jetpack Compose 基本没有任何成本。即使你不曾了解 Android 原生 Canvas 也不要担心，阅读这篇文章你同样也可以掌握如何在 Jetpack Compose 完成自定义绘制。</p>
 <h2 id="canvas-composable">从 Canvas Composable 开始</h2>
-<p><code>Canvas Composable</code> 是官方提供的一个专门用来自定义绘制的独立组件，这个组件不包含任何子元素，类似于传统View系统中的一个独立View（不是ViewGroup，不包含子View）。作为一个”独立View“，我们同样也可以通过 <code>Layout Modifier</code> 来定制测量布局过程，有关于测量布局的定制可以拓展阅读 <a href="">自定义Layout</a> 。</p>
+<p><code>Canvas Composable</code> 是官方提供的一个专门用来自定义绘制的独立组件，这个组件不包含任何子元素，类似于传统View系统中的一个独立View（不是ViewGroup，不包含子View）。作为一个”独立View“，我们同样也可以通过 <code>Layout Modifier</code> 来定制测量布局过程，有关于测量布局的定制可以拓展阅读 <a href="../../../layout/custom_layout/">自定义Layout</a> 。</p>
 <p>Canvas参数有两个参数, 类型分别是 <code>Modifier</code> 与 <code>DrawScope.() -&gt; Unit</code>。Modifier 作为该组件的修饰符不难理解， <code>DrawScope.() -&gt; Unit</code> 是一个 reciever 为 <code>DrawScope</code> 类型的 lambda。那么我们就可以在 lambda 中任意使用 <code>DrawScope</code> 为我们所提供的 API 了。</p>
 <div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Canvas</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">,</span> <span class="n">onDraw</span><span class="p">:</span> <span class="n">DrawScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span>
 </code></pre></div>
@@ -1770,7 +1770,10 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img src="../../../assets/design/draw/custom_draw/demo1.png" width="50%" height="50%"></img></p>
+<div align="center">
+    <img src="../../../assets/design/draw/custom_draw/demo1.png" width="50%" height="50%"/>
+</div>
+
 <p>Jetpack Compose 作为一款跨平台 UI 框架，所使用 Canvas 只是一个更高层次的封装，最终还是落实到具体平台的Canvas实现的。所以在 Android 平台即使我们使用的是 <code>DrawScope</code> 为我们所提供的 API ，最终仍然还是会使用到Android原生的Canvas的。如果你曾经在传统View系统中做过自定义绘制，在绘制处可能比较奇怪，感觉 Compose 好像少了一个重要的东西 ——  <code>Paint</code> 画笔 ，难不成每次绘制时都会根据 API 如此参数不同重新创建一个新的 <code>Painter</code> ?其实我们的 <code>DrawScope</code> 会对不同类型的画笔进行缓存的，所以性能是没有问题的。</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// CanvasDrawScope</span>
 <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">obtainFillPaint</span><span class="p">():</span> <span class="n">Paint</span> <span class="o">=</span>
@@ -1891,7 +1894,10 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img src="../../../assets/design/draw/custom_draw/demo2.png"> </img></p>
+<div align="center">
+    <img src="../../../assets/design/draw/custom_draw/demo2.png" />
+</div>
+
 <p>使用 <code>drawBehind</code> 默认将红点提醒添加到头像后面。如果我们使用 <code>drawWithContent</code> 即可控制绘制的层级关系了，一般情况下我们都希望将红点提醒绘制最顶层。所以此时应该先 <code>drawContent</code>，后 <code>drawCircle</code> 。</p>
 <h3 id="drawwithcache">drawWithCache</h3>
 <p>有些时候我们绘制一些比较复杂的UI效果时，不希望当 Recompose 发生时所有绘画所用的所有实例都重新构建一次（类似Path），这可能会产生内存抖动。在 Compose 中我们一般能够想到使用 <code>remember</code> 进行缓存，然而我们所绘制的作用域是 <code>DrawScope</code> 并不是 <code>Composable</code>，所以无法使用 <code>remember</code>，那我们该怎么办呢？<code>drawWithCache</code> 提供了这个能力。</p>
@@ -1959,13 +1965,16 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/design/draw/custom_draw/demo3.gif" /></p>
+<div align="center">
+<img src="../../../assets/design/draw/custom_draw/demo3.gif"width="50%" height="50%"/>
+</div>
+
 <h2 id="_3">与原生兼容</h2>
 <p>前面我们说过 <code>DrawScope</code> 中所提供的 API 仅是一个高层次的封装，底层仍然是用的是原生平台的 Canvas 进行绘制。作为一个高层次封装，为了保证平台通用性，必然会导致具体平台 API 提供的一些 API 的丢失。例如，我们在 Android 原生 Canvas 可以绘制文字 <code>drawText</code>，但这在 <code>DrawScope</code> 是没有被提供的，那我们该怎么做呢。</p>
 <p>在 <code>DrawScope</code> 中，我们可以访问到 <code>drawContext</code> 成员，<code>drawContext</code> 存储了以下信息。</p>
-<p><strong>size: </strong> 绘制尺寸</p>
-<p><strong>canvas：</strong> Compose 封装的高层次 Canvas</p>
-<p><strong>transform：</strong> transform控制器，用以旋转、缩放与移动</p>
+<p><strong>size：</strong>   绘制尺寸</p>
+<p><strong>canvas：</strong>  Compose 封装的高层次 Canvas</p>
+<p><strong>transform：</strong>  transform控制器，用以旋转、缩放与移动</p>
 <p>我们可以通过 <code>canvas.nativeCanvas</code> 获取具体平台 <code>Canvas</code> 实例，在 Android 平台就对应<code>AndroidCanvas</code>，通过这个 <code>nativeCanvas</code> 就可以调用到原生平台 <code>Canvas</code> 方法了。所以如果你不喜欢使用 <code>DrawScope</code> 提供的平台通用 API或是需求需要，可以直接使用原生平台 <code>Canvas</code> ，但这样做的代价就是会丢失平台通用性，对于不同平台需要给予不同的实现，不能作为一个通用模块进行提供，如果你只针对 Android 平台进行开发就不需要考虑这么多了，Android 平台 Canvas 还是很香的。</p>
 <h3 id="_4">自定义绘制能力的进阶</h3>
 <p>如果你不满足于简单的UI样式绘制，目前国内已经有许多优秀技术文章可以供你参考与学习了，以下推荐的是 <a href="https://juejin.cn/user/4019470242152616">路很长OoO</a> 大佬在掘金社区分享的有关Compose 自定义绘制系列技术文章。</p>
