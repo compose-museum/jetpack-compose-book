@@ -1,10 +1,10 @@
 ## 概述
 
-Jetpack Compose 作为一款 UI 框架，自定义绘制部分是必不可少的。通过官方所提供的基础 API， 将允许开发者实现各种场景下的绘制定制需求。如果你对 Android 原生 Canvas 已经了如指掌且运用自如的话，那么迁移至  Jetpack Compose 基本没有任何成本。即使你不曾了解过 Android 原生 Canvas 也不要担心，阅读这篇文章你同样也可以掌握如何在 Jetpack Compose 进行自定义绘制。
+Jetpack Compose 作为一款 UI 框架，自定义绘制部分是必不可少的。通过官方所提供的基础 API， 允许开发者实现各种场景下的绘制定制需求。如果你对 Android 原生 Canvas 已经了如指掌的话，那么迁移至 Jetpack Compose 基本没有任何成本。即使你不曾了解 Android 原生 Canvas 也不要担心，阅读这篇文章你同样也可以掌握如何在 Jetpack Compose 完成自定义绘制。
 
 ## 从 Canvas Composable 开始
 
-`Canvas Composable` 是官方提供的一个专门用来自定义绘制的独立组件，这个组件不包含任何子元素，类似于传统View系统中的一个独立View（不是ViewGroup，不包含子View）。作为一个”独立View“，我们同样也可以通过 `Layout Modifier` 来定制测量布局过程，有关于测量布局的定制可以拓展阅读 [自定义Layout]() 。
+`Canvas Composable` 是官方提供的一个专门用来自定义绘制的独立组件，这个组件不包含任何子元素，类似于传统View系统中的一个独立View（不是ViewGroup，不包含子View）。作为一个”独立View“，我们同样也可以通过 `Layout Modifier` 来定制测量布局过程，有关于测量布局的定制可以拓展阅读 [自定义Layout](../../../layout/custom_layout/) 。
 
 Canvas参数有两个参数, 类型分别是 `Modifier` 与 `DrawScope.() -> Unit`。Modifier 作为该组件的修饰符不难理解， `DrawScope.() -> Unit` 是一个 reciever 为 `DrawScope` 类型的 lambda。那么我们就可以在 lambda 中任意使用 `DrawScope` 为我们所提供的 API 了。
 
@@ -52,8 +52,9 @@ fun DrawColorRing() {
     }
 }
 ```
-
-<img src="{{config.assets}}/design/draw/custom_draw/demo1.png" width="50%" height="50%"></img>
+<div align="center">
+    <img src="{{config.assets}}/design/draw/custom_draw/demo1.png" width="50%" height="50%"/>
+</div>
 
 Jetpack Compose 作为一款跨平台 UI 框架，所使用 Canvas 只是一个更高层次的封装，最终还是落实到具体平台的Canvas实现的。所以在 Android 平台即使我们使用的是 `DrawScope` 为我们所提供的 API ，最终仍然还是会使用到Android原生的Canvas的。如果你曾经在传统View系统中做过自定义绘制，在绘制处可能比较奇怪，感觉 Compose 好像少了一个重要的东西 ——  `Paint` 画笔 ，难不成每次绘制时都会根据 API 如此参数不同重新创建一个新的 `Painter` ?其实我们的 `DrawScope` 会对不同类型的画笔进行缓存的，所以性能是没有问题的。
 
@@ -197,8 +198,9 @@ fun DrawBehind() {
     }
 }
 ```
-
-<img src="{{config.assets}}/design/draw/custom_draw/demo2.png"> </img>
+<div align="center">
+    <img src="{{config.assets}}/design/draw/custom_draw/demo2.png" />
+</div>
 
 使用 `drawBehind` 默认将红点提醒添加到头像后面。如果我们使用 `drawWithContent` 即可控制绘制的层级关系了，一般情况下我们都希望将红点提醒绘制最顶层。所以此时应该先 `drawContent`，后 `drawCircle` 。
 
@@ -277,8 +279,9 @@ fun DrawBorder() {
     }
 }
 ```
-
-![]({{config.assets}}/design/draw/custom_draw/demo3.gif)
+<div align="center">
+<img src="{{config.assets}}/design/draw/custom_draw/demo3.gif"width="50%" height="50%"/>
+</div>
 
 ## 与原生兼容
 
@@ -286,11 +289,11 @@ fun DrawBorder() {
 
 在 `DrawScope` 中，我们可以访问到 `drawContext` 成员，`drawContext` 存储了以下信息。
 
-**size: ** 绘制尺寸
+**size：**   绘制尺寸
 
-**canvas：** Compose 封装的高层次 Canvas
+**canvas：**  Compose 封装的高层次 Canvas
 
-**transform：** transform控制器，用以旋转、缩放与移动
+**transform：**  transform控制器，用以旋转、缩放与移动
 
 我们可以通过 `canvas.nativeCanvas` 获取具体平台 `Canvas` 实例，在 Android 平台就对应`AndroidCanvas`，通过这个 `nativeCanvas` 就可以调用到原生平台 `Canvas` 方法了。所以如果你不喜欢使用 `DrawScope` 提供的平台通用 API或是需求需要，可以直接使用原生平台 `Canvas` ，但这样做的代价就是会丢失平台通用性，对于不同平台需要给予不同的实现，不能作为一个通用模块进行提供，如果你只针对 Android 平台进行开发就不需要考虑这么多了，Android 平台 Canvas 还是很香的。
 
@@ -308,4 +311,5 @@ https://juejin.cn/post/6947700226858123271)
 
 [Jetpack—Compose UI终结篇](
 https://juejin.cn/post/6943590136424693767)
+
 
