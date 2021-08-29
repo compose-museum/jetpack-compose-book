@@ -18,7 +18,7 @@
 | -------|------|
 |[Ucrop](https://github.com/Yalantis/uCrop) | 可以完成图片的裁剪，对用户的图片上传功能有帮助(已知 Bilibili 在用)
 |[Material Design](https://material.io/design) | 安卓应用的设计标准，内涵丰富的图标按钮资源
-|[CMaterialColors](https://github.com/FunnySaltyFish/CMaterialColors) | 包含所有MaterialDesignColor，在Jetpack Compose中轻松使用
+|[CMaterialColors](https://github.com/FunnySaltyFish/CMaterialColors) | 包含所有 MaterialDesignColor，在 Jetpack Compose 中轻松使用
 |[Intent](https://developer.android.com/training/sharing/send?hl=zh-cn#kotlin) | 安卓应用的分享功能
 |[Material Dialog](https://github.com/afollestad/material-dialogs) | 含有颜色、时间选择对话框等等
 |[Accompanist](https://github.com/google/accompanist) | Compose 一些开发中必备但是还无法使用的库，
