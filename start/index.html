@@ -1590,15 +1590,15 @@
 <h3 id="2-android-studio">2. <strong>安装或更新到</strong> <a href="https://developer.android.com/studio">最新版的 Android Studio</a></h3>
 <h3 id="3-empty-compose-activity">3. 选择创建 <strong>Empty Compose Activity</strong> <img alt="" src="../assets/create.png" /></h3>
 <h3 id="4">4. 保持版本更新</h3>
-<p>尝试使用最新的 <code>Compose</code> 版本和 <code>Kotlin</code> 版本</p>
-<p><code>Gradle 版本</code>: <a href="https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google">7.1</a></p>
+<p>尝试使用最新的 <a href="https://developer.android.com/jetpack/androidx/releases/compose">Compose 版本</a>和 Compose 要求的 Kotlin 版本 (1.5.21)</p>
+<p><code>Gradle 版本</code>: <a href="https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google">7.2</a></p>
 <p>可手动在 <code>gradle-wrapper.properties</code> 中更新</p>
-<div class="highlight"><pre><span></span><code>distributionUrl=https\://services.gradle.org/distributions/gradle-7.1-bin.zip
+<div class="highlight"><pre><span></span><code>distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
 </code></pre></div>
 <p><code>build.gralde.kts (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
 
-    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.1&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
+    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.2&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
 
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
@@ -1606,7 +1606,7 @@
     <span class="p">}</span>
     <span class="n">dependencies</span> <span class="p">{</span>
         <span class="c1">// 7.1.0-alpha07 要求 Android Studio 2021.1.1 版本及以上</span>
-        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;com.android.tools.build:gradle:7.1.0-alpha07&quot;</span><span class="p">)</span>
+        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;com.android.tools.build:gradle:7.1.0-alpha11&quot;</span><span class="p">)</span>
 
         <span class="c1">// Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新</span>
         <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21&quot;</span><span class="p">)</span>
@@ -1619,14 +1619,14 @@
 <p><code>build.gradle (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
     <span class="n">ext</span> <span class="p">{</span>
-        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">1</span><span class="err">&#39;</span>
+        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">2</span><span class="err">&#39;</span>
     <span class="p">}</span>
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
         <span class="n">mavenCentral</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="n">dependencies</span> <span class="p">{</span>
-        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">tools</span><span class="p">.</span><span class="na">build</span><span class="p">:</span><span class="n">gradle</span><span class="p">:</span><span class="m">7.1</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">alpha07</span><span class="err">&#39;</span>
+        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">tools</span><span class="p">.</span><span class="na">build</span><span class="p">:</span><span class="n">gradle</span><span class="p">:</span><span class="m">7.1</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">alpha11</span><span class="err">&#39;</span>
         <span class="n">classpath</span> <span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21&quot;</span>
 
         <span class="c1">// NOTE: Do not place your application dependencies here; they belong</span>
@@ -1637,42 +1637,66 @@
 <h3 id="5-gradle">5. 配置 Gradle（可忽略）</h3>
 <p>您需要将应用的最低 API 级别设置为 21 或更高级别，并在应用的 build.gradle 文件中启用 Jetpack Compose，如下所示。另外还要设置 Kotlin 编译器插件的版本。</p>
 <p><code>build.gradle</code></p>
-<div class="highlight"><pre><span></span><code>android {
-    compileSdk 30
-    buildToolsVersion &quot;30.0.3&quot;
+<div class="highlight"><pre><span></span><code><span class="n">plugins</span> <span class="p">{</span>
+    <span class="n">id</span> <span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">application</span><span class="err">&#39;</span>
+    <span class="n">id</span> <span class="err">&#39;</span><span class="n">org</span><span class="p">.</span><span class="na">jetbrains</span><span class="p">.</span><span class="na">kotlin</span><span class="p">.</span><span class="na">android</span><span class="err">&#39;</span>
+<span class="p">}</span>
 
-    defaultConfig {
-        applicationId &quot;your id&quot;
-        minSdk 23
-        targetSdk 30
-        versionCode 1
-        versionName &quot;1.0&quot;
+<span class="n">android</span> <span class="p">{</span>
+    <span class="n">compileSdk</span> <span class="m">31</span>
 
-        testInstrumentationRunner &quot;androidx.test.runner.AndroidJUnitRunner&quot;
-    }
+    <span class="n">defaultConfig</span> <span class="p">{</span>
+        <span class="n">applicationId</span> <span class="s">&quot;yourAppId&quot;</span>
+        <span class="n">minSdk</span> <span class="m">21</span>
+        <span class="n">targetSdk</span> <span class="m">31</span>
+        <span class="n">versionCode</span> <span class="m">1</span>
+        <span class="n">versionName</span> <span class="s">&quot;1.0&quot;</span>
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile(&#39;proguard-android-optimize.txt&#39;), &#39;proguard-rules.pro&#39;
-        }
-    }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
-    kotlinOptions {
-        jvmTarget = &#39;1.8&#39;
-        useIR = true
-    }
-    buildFeatures {
-        compose true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion &#39;1.5.10&#39;
-    }
-}
+        <span class="n">testInstrumentationRunner</span> <span class="s">&quot;androidx.test.runner.AndroidJUnitRunner&quot;</span>
+        <span class="n">vectorDrawables</span> <span class="p">{</span>
+            <span class="n">useSupportLibrary</span> <span class="kc">true</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="n">buildTypes</span> <span class="p">{</span>
+        <span class="n">release</span> <span class="p">{</span>
+            <span class="n">minifyEnabled</span> <span class="kc">false</span>
+            <span class="n">proguardFiles</span> <span class="n">getDefaultProguardFile</span><span class="p">(</span><span class="err">&#39;</span><span class="n">proguard</span><span class="o">-</span><span class="n">android</span><span class="o">-</span><span class="n">optimize</span><span class="p">.</span><span class="na">txt</span><span class="err">&#39;</span><span class="p">),</span> <span class="err">&#39;</span><span class="n">proguard</span><span class="o">-</span><span class="n">rules</span><span class="p">.</span><span class="na">pro</span><span class="err">&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">compileOptions</span> <span class="p">{</span>
+        <span class="n">sourceCompatibility</span> <span class="n">JavaVersion</span><span class="p">.</span><span class="na">VERSION_1_8</span>
+        <span class="n">targetCompatibility</span> <span class="n">JavaVersion</span><span class="p">.</span><span class="na">VERSION_1_8</span>
+    <span class="p">}</span>
+    <span class="n">kotlinOptions</span> <span class="p">{</span>
+        <span class="n">jvmTarget</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.8</span><span class="err">&#39;</span>
+    <span class="p">}</span>
+    <span class="n">buildFeatures</span> <span class="p">{</span>
+        <span class="n">compose</span> <span class="kc">true</span>
+    <span class="p">}</span>
+    <span class="n">composeOptions</span> <span class="p">{</span>
+        <span class="n">kotlinCompilerExtensionVersion</span> <span class="n">compose_version</span>
+    <span class="p">}</span>
+    <span class="n">packagingOptions</span> <span class="p">{</span>
+        <span class="n">resources</span> <span class="p">{</span>
+            <span class="n">excludes</span> <span class="o">+=</span> <span class="err">&#39;</span><span class="o">/</span><span class="n">META</span><span class="o">-</span><span class="n">INF</span><span class="o">/</span><span class="p">{</span><span class="n">AL2</span><span class="p">.</span><span class="m">0</span><span class="p">,</span><span class="n">LGPL2</span><span class="p">.</span><span class="m">1</span><span class="p">}</span><span class="err">&#39;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="n">dependencies</span> <span class="p">{</span>
+    <span class="n">implementation</span> <span class="err">&#39;</span><span class="n">androidx</span><span class="p">.</span><span class="na">core</span><span class="p">:</span><span class="n">core</span><span class="o">-</span><span class="n">ktx</span><span class="p">:</span><span class="m">1.6</span><span class="p">.</span><span class="m">0</span><span class="err">&#39;</span>
+    <span class="n">implementation</span> <span class="s">&quot;androidx.compose.ui:ui:</span><span class="si">$</span><span class="n">compose_version</span><span class="s">&quot;</span>
+    <span class="n">implementation</span> <span class="s">&quot;androidx.compose.material:material:</span><span class="si">$</span><span class="n">compose_version</span><span class="s">&quot;</span>
+    <span class="n">implementation</span> <span class="s">&quot;androidx.compose.ui:ui-tooling-preview:</span><span class="si">$</span><span class="n">compose_version</span><span class="s">&quot;</span>
+    <span class="n">implementation</span> <span class="err">&#39;</span><span class="n">androidx</span><span class="p">.</span><span class="na">lifecycle</span><span class="p">:</span><span class="n">lifecycle</span><span class="o">-</span><span class="n">runtime</span><span class="o">-</span><span class="n">ktx</span><span class="p">:</span><span class="m">2.3</span><span class="p">.</span><span class="m">1</span><span class="err">&#39;</span>
+    <span class="n">implementation</span> <span class="err">&#39;</span><span class="n">androidx</span><span class="p">.</span><span class="na">activity</span><span class="p">:</span><span class="n">activity</span><span class="o">-</span><span class="n">compose</span><span class="p">:</span><span class="m">1.3</span><span class="p">.</span><span class="m">1</span><span class="err">&#39;</span>
+    <span class="n">testImplementation</span> <span class="err">&#39;</span><span class="n">junit</span><span class="p">:</span><span class="n">junit</span><span class="p">:</span><span class="m">4.13</span><span class="p">.</span><span class="m">2</span><span class="err">&#39;</span>
+    <span class="n">androidTestImplementation</span> <span class="err">&#39;</span><span class="n">androidx</span><span class="p">.</span><span class="na">test</span><span class="p">.</span><span class="na">ext</span><span class="p">:</span><span class="n">junit</span><span class="p">:</span><span class="m">1.1</span><span class="p">.</span><span class="m">3</span><span class="err">&#39;</span>
+    <span class="n">androidTestImplementation</span> <span class="err">&#39;</span><span class="n">androidx</span><span class="p">.</span><span class="na">test</span><span class="p">.</span><span class="na">espresso</span><span class="p">:</span><span class="n">espresso</span><span class="o">-</span><span class="n">core</span><span class="p">:</span><span class="m">3.4</span><span class="p">.</span><span class="m">0</span><span class="err">&#39;</span>
+    <span class="n">androidTestImplementation</span> <span class="s">&quot;androidx.compose.ui:ui-test-junit4:</span><span class="si">$</span><span class="n">compose_version</span><span class="s">&quot;</span>
+    <span class="n">debugImplementation</span> <span class="s">&quot;androidx.compose.ui:ui-tooling:</span><span class="si">$</span><span class="n">compose_version</span><span class="s">&quot;</span>
+<span class="p">}</span>
 </code></pre></div>
 <h3 id="6-compose">6. 编写第一个 <strong>Compose</strong> 程序</h3>
 <p>现在，如果一切都正常，我们可以看到，<strong>MainActivity.kt</strong> 上显示以下代码</p>
@@ -1722,7 +1746,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 10, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 3, 2021</span>
       
     
   </small>

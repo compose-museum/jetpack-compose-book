@@ -396,8 +396,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2. 更多
+  <a href="#2-dialog" class="md-nav__link">
+    2. Dialog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 更多
   </a>
   
 </li>
@@ -1506,8 +1513,15 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#2" class="md-nav__link">
-    2. 更多
+  <a href="#2-dialog" class="md-nav__link">
+    2. Dialog
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 更多
   </a>
   
 </li>
@@ -1651,7 +1665,37 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/alertdialog/demo2.png" /></p>
-<h2 id="2">2. 更多</h2>
+<h2 id="2-dialog">2. Dialog</h2>
+<p><code>AlertDialog</code> 在一些情况下有可能还是无法满足我们的业务要求，这时候我们就可以使用更底层的一个 @Composable 函数 —— Dialog</p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">flag</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">}</span>
+<span class="n">Box</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Button</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">true</span> <span class="p">})</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;弹窗&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="k">if</span><span class="p">(</span><span class="n">flag</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Dialog</span><span class="p">(</span>
+        <span class="n">onDismissRequest</span> <span class="o">=</span> <span class="p">{</span> <span class="n">flag</span> <span class="o">=</span> <span class="kc">false</span> <span class="p">}</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Box</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">300.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">),</span>
+            <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+        <span class="p">)</span> <span class="p">{</span>
+            <span class="n">Column</span> <span class="p">{</span>
+                <span class="n">LinearProgressIndicator</span><span class="p">()</span>
+                <span class="n">Text</span><span class="p">(</span><span class="s">&quot;加载中 ing...&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="" src="../../../assets/elements/alertdialog/demo.gif" /></p>
+<h2 id="3">3. 更多</h2>
 <p><a href="https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#AlertDialog(kotlin.Function0,kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Function0,kotlin.Function0,kotlin.Function0,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.window.DialogProperties)">AlertDialog 参数详情</a></p>
                 
                   
@@ -1661,7 +1705,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 3, 2021</span>
       
     
   </small>
