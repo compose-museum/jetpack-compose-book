@@ -403,7 +403,7 @@ Composable 函数可以通过使用 remember 将本地状态存储在内存中�
 @Composable
 fun MessageCard(msg: Message) {
 
-    var isExpanded by remember { mutableStateOf(false) } // 创建一个能够检测卡片十分被展开的变量
+    var isExpanded by remember { mutableStateOf(false) } // 创建一个能够检测卡片是否被展开的变量
 
     Surface(
         shape = MaterialTheme.shapes.medium,
