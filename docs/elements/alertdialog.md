@@ -133,6 +133,40 @@ if (openDialog.value) {
 
 ![]({{config.assets}}/elements/alertdialog/demo2.png)
 
+## 2. Dialog
 
-## 2. 更多
+`AlertDialog` 在一些情况下有可能还是无法满足我们的业务要求，这时候我们就可以使用更底层的一个 @Composable 函数 —— Dialog
+
+``` kotlin
+var flag by remember{ mutableStateOf(false) }
+Box(
+    modifier = Modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center
+) {
+    Button(onClick = { flag = true }) {
+        Text("弹窗")
+    }
+}
+if(flag) {
+    Dialog(
+        onDismissRequest = { flag = false }
+    ) {
+        Box(
+            modifier = Modifier
+                .size(300.dp)
+                .background(Color.White),
+            contentAlignment = Alignment.Center
+        ) {
+            Column {
+                LinearProgressIndicator()
+                Text("加载中 ing...")
+            }
+        }
+    }
+}
+```
+
+![]({{config.assets}}/elements/alertdialog/demo.gif)
+
+## 3. 更多
 [AlertDialog 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#AlertDialog(kotlin.Function0,kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Function0,kotlin.Function0,kotlin.Function0,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.ui.window.DialogProperties))

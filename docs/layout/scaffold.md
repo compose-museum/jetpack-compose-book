@@ -44,4 +44,4 @@ fun Scaffold(
 |[TopAppBar](topappbar.md)||
 |[BottomNavigation](bottomnavigation.md)||
 
-除此之外，你当然也能自己写一个 `Composable` 函数来传递给 `Scaffold` 中的 `topBar`、`bottomBar` 等
+除此之外，你当然也能自己写一个 `Composable` 函数来传递给 `Scaffold` 中的 `topBar`、`bottomBar` 参数等

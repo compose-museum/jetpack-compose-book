@@ -6,14 +6,14 @@
 
 ### 4. 保持版本更新
 
-尝试使用最新的 `Compose` 版本和 `Kotlin` 版本
+尝试使用最新的 [Compose 版本](https://developer.android.com/jetpack/androidx/releases/compose)和 Compose 要求的 Kotlin 版本 (1.5.21)
 
-`Gradle 版本`: [7.1](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
+`Gradle 版本`: [7.2](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
 
 可手动在 `gradle-wrapper.properties` 中更新
 
 ```
-distributionUrl=https\://services.gradle.org/distributions/gradle-7.1-bin.zip
+distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
 ```
 
 `build.gralde.kts (Project)`
@@ -21,7 +21,7 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.1-bin.zip
 ```kotlin
 buildscript {
 
-    val compose_version by extra("1.0.1") // Compose 版本
+    val compose_version by extra("1.0.2") // Compose 版本
 
     repositories {
         google()
@@ -29,7 +29,7 @@ buildscript {
     }
     dependencies {
         // 7.1.0-alpha07 要求 Android Studio 2021.1.1 版本及以上
-        classpath("com.android.tools.build:gradle:7.1.0-alpha07")
+        classpath("com.android.tools.build:gradle:7.1.0-alpha11")
 
         // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
@@ -45,14 +45,14 @@ buildscript {
 ```kotlin
 buildscript {
     ext {
-        compose_version = '1.0.1'
+        compose_version = '1.0.2'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha07'
+        classpath 'com.android.tools.build:gradle:7.1.0-alpha11'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
 
         // NOTE: Do not place your application dependencies here; they belong
@@ -68,19 +68,26 @@ buildscript {
 
 `build.gradle`
 
-```
+```kotlin
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'
+}
+
 android {
-    compileSdk 30
-    buildToolsVersion "30.0.3"
+    compileSdk 31
 
     defaultConfig {
-        applicationId "your id"
-        minSdk 23
-        targetSdk 30
+        applicationId "yourAppId"
+        minSdk 21
+        targetSdk 31
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables {
+            useSupportLibrary true
+        }
     }
 
     buildTypes {
@@ -95,15 +102,32 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
-        useIR = true
     }
     buildFeatures {
         compose true
     }
     composeOptions {
         kotlinCompilerExtensionVersion compose_version
-        kotlinCompilerVersion '1.5.10'
     }
+    packagingOptions {
+        resources {
+            excludes += '/META-INF/{AL2.0,LGPL2.1}'
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.core:core-ktx:1.6.0'
+    implementation "androidx.compose.ui:ui:$compose_version"
+    implementation "androidx.compose.material:material:$compose_version"
+    implementation "androidx.compose.ui:ui-tooling-preview:$compose_version"
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+    implementation 'androidx.activity:activity-compose:1.3.1'
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+    androidTestImplementation "androidx.compose.ui:ui-test-junit4:$compose_version"
+    debugImplementation "androidx.compose.ui:ui-tooling:$compose_version"
 }
 ```
 
