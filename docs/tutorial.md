@@ -494,6 +494,18 @@ fun MessageCard(msg: Message) {
 
 如果你想深入了解其中的一些步骤，请探索下面的资源。
 
+
+|基础||
+|----|----|
+|[Compose 编程思想](https://developer.android.com/jetpack/compose/mental-model)||
+|[状态管理](https://developer.android.com/jetpack/compose/state)||
+|[生命周期](https://developer.android.com/jetpack/compose/lifecycle)||
+|[负面影响](https://developer.android.com/jetpack/compose/side-effects)||
+|[架构分层](https://developer.android.com/jetpack/compose/layering)||
+|[语义](https://developer.android.com/jetpack/compose/semantics)||
+|[CompositionLocal](https://developer.android.com/jetpack/compose/compositionlocal)||
+
+
 |设计||
 |----|----|
 |[布局概述](../layout/overview/)||

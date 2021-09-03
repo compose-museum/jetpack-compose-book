@@ -23,15 +23,15 @@ fun ScaffoldDemo(){
                     Text("主页")
                 },
                 navigationIcon = {
-                    IconButton(onClick = {
-
-                    }) {
+                    IconButton(
+                        onClick = { } //do something
+                    ) {
                         Icon(Icons.Filled.ArrowBack, null)
                     }
                 }
             )
         },
-    ){
+    ) {
 
     }
 }
@@ -51,27 +51,27 @@ fun ScaffoldDemo(){
                     Text("主页")
                 },
                 navigationIcon = {
-                    IconButton(onClick = {
-
-                    }) {
+                    IconButton(
+                        onClick = { } //do something
+                    ) {
                         Icon(Icons.Filled.ArrowBack, null)
                     }
                 },
                 actions = {
-                    IconButton(onClick = {
-
-                    }) {
+                    IconButton(
+                        onClick = { } //do something
+                    ) {
                         Icon(Icons.Filled.Search, null)
                     }
-                    IconButton(onClick = {
-
-                    }) {
+                    IconButton(
+                        onClick = { } //do something
+                    ) {
                         Icon(Icons.Filled.MoreVert, null)
                     }
                 }
             )
         },
-    ){
+    ) {
 
     }
 }
