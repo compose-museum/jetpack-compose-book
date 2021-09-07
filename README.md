@@ -77,35 +77,6 @@
     恭喜你，当你同步了本项目的最新进度并且添加了你所想的东西，你只需要提交 PR 即可，我们在审核通过会自动同步到网站上
 
 
-### 同步项目最新进度
-
-首先，您需要 `fork` 一份本项目，然后同步项目的最新进度：
-
-#### 第一种方法（推荐！）
-
-在 github 网页中，在你的 fork 仓库里，点击 Fetch upstream
-
-然后在项目根目录执行
-
-```
- git pull origin main
- ... // 写新内容
- git push // push 到自己的分支
- pr // 在网页上提交 PR
-```
-
-#### 第二种方法
-
-```
- git remote add fork git@github.com:compose-museum/compose-tutorial.git (或使用 HTTPS)
- git remote -v
- git fetch fork //同步项目最新进度
- git merge fork/main //合并项目最新进度
- ... // 写新内容
- git push // push 到自己的分支
- pr // 在网页上提交 PR
-```
-
 #### 如果你觉得此项目对你有帮助的话，不妨点个 Star 支持下作者吧~！
 
 ## 贡献者
