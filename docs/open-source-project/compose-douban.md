@@ -1,25 +1,25 @@
 ## 前言
-`Compose`正式发布也有一段时间了，感觉要上手还是得实战一波。     
-所以借着空闲时间，参照豆瓣榜单页面的设计，开发了几个`Compose`版的豆瓣榜单页面       
-`UI`效果还是挺好看的，有兴趣的同学可以点个`Star`:[Compose仿豆瓣榜单客户端](https://github.com/shenzhen2017/ComposeDouban)    
+`Compose` 正式发布也有一段时间了，感觉要上手还是得实战一波。     
+所以借着空闲时间，参照豆瓣榜单页面的设计，开发了几个 `Compose` 版的豆瓣榜单页面       
+`UI` 效果还是挺好看的，有兴趣的同学可以点个`Star`:[Compose 仿豆瓣榜单客户端](https://github.com/shenzhen2017/ComposeDouban)    
 
 ## 效果图
 首先看下最终的效果图    
 ![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/9d56ca7d86b34863b71201d1e9150c75~tplv-k3u1fbpfcp-watermark.awebp)
 ## 特性
-在项目中主要用到了以下几个特性，以美化`UI`及体验    
+在项目中主要用到了以下几个特性，以美化 `UI` 及体验    
 1. 支持设置沉浸式状态栏及状态栏颜色     
-2. 支持水平方向滚动，竖直方向滚动等多种`UI`效果     
-3. 支持给`Image`设置渐变滤镜，以美化显示效果      
+2. 支持水平方向滚动，竖直方向滚动等多种 `UI` 效果     
+3. 支持给 `Image` 设置渐变滤镜，以美化显示效果      
 4. 支持标题与列表页联动      
-5. 通过`Paging`支持了分页加载    
+5. 通过 `Paging` 支持了分页加载    
 
 ## 主要实现
 具体源码可以直接查看，这里主要介绍一些主要功能的实现      
 
 ### 沉浸式状态栏设置
-状态栏主要是通过`accompanist-insets`及`accompanist-systemuicontroller`库设置的     
-[accompanist](https://github.com/google/accompanist)上提供了一系列常用的，如状态栏，权限，`FlowLayout`,`ViewPager`等`Compose`库      
+状态栏主要是通过 `accompanist-insets` 及 `accompanist-systemuicontroller` 库设置的     
+[accompanist](https://github.com/google/accompanist)上提供了一系列常用的，如状态栏，权限，`FlowLayout`,`ViewPager` 等 `Compose` 库      
 如果有时你发现基础库里没有相应的内容，可以去这里查找下     
 
 设置状态栏主要分为以下几步       
@@ -54,9 +54,9 @@ override fun onCreate(savedInstanceState: Bundle?) {
 ```
 通过以上方法，就可以比较简单的实现沉浸状态栏的设置    
 
-### `Image`设置渐变滤镜
-豆瓣榜单页面都给`Image`设置了渐变滤镜，以美化`UI`效果         
-其实实现起来也比较简单，给`Image`前添加一层渐变的蒙层即可       
+### `Image` 设置渐变滤镜
+豆瓣榜单页面都给 `Image` 设置了渐变滤镜，以美化`UI`效果         
+其实实现起来也比较简单，给 `Image` 前添加一层渐变的蒙层即可       
 ```kotlin
 @Composable
 fun TopRankItem(item: HomeTopRank) {
@@ -92,13 +92,13 @@ fun TopRankItem(item: HomeTopRank) {
     }
 }
 ```
-如上所示，使用`Box`布局，给前景设置一个从左下到右上渐变的背景即可       
+如上所示，使用 `Box` 布局，给前景设置一个从左下到右上渐变的背景即可       
 
 ### 标题与列表联动
 具体效果可见上面的动图，即在列表滚动时标题会有一个渐现渐隐效果       
-这个效果其实我们在`Android View`体系中也很常见，主要思路也很简单:       
-1. 监听列表滚动，获取列表滚动`offset`      
-2. 根据列表滚动`offset`设置`Header`效果,如背景或者高度变化等   
+这个效果其实我们在 `Android View` 体系中也很常见，主要思路也很简单:       
+1. 监听列表滚动，获取列表滚动 `offset`      
+2. 根据列表滚动 `offset` 设置 `Header` 效果,如背景或者高度变化等   
 
 ```kotlin
 @Composable
@@ -142,14 +142,14 @@ fun RankHeader(scrollState: LazyListState) {
 如上所示，主要有三步：  
 1. 监听列表     
 2. 根据列表偏移量计算比例    
-3. 根据比例设置`Header`的`alpha`，以实现渐变效果
+3. 根据比例设置 `Header` 的 `alpha`，以实现渐变效果
 
-### 利用`Paging`实现分页
-目前`Pagin3`已经支持了`Compose`，我们可以利用`Paging`轻松实现分页效果      
+### 利用 `Paging` 实现分页
+目前 `Pagin3` 已经支持了 `Compose`，我们可以利用 `Paging` 轻松实现分页效果      
 主要分为以下几步：  
-1. 在`ViewModel`中设置数据源    
-2. 在页面中监听`Paging`数据     
-3. 根据加载状态设置加载更多`footr`状态         
+1. 在 `ViewModel` 中设置数据源    
+2. 在页面中监听 `Paging` 数据     
+3. 根据加载状态设置加载更多 `footr` 状态         
 
 ```kotlin
 //1. 设置数据源
