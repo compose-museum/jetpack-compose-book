@@ -98,6 +98,9 @@ nav:
   - 'API 文档':
     - '组件':
       - 'Text': api/elements/text.md
+  - '开源项目':
+    - 'Compose 仿豆瓣榜单客户端': open-source-project/compose-douban.md 
+    - 'Compose 实现月亮阴晴圆缺动画': open-source-project/compose-moon-animation.md
 
 extra:
   social:
