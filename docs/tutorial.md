@@ -508,7 +508,7 @@ fun MessageCard(msg: Message) {
 
 |设计||
 |----|----|
-|[布局概述](../layout/overview/)||
+|[布局概述](https://developer.android.com/jetpack/compose/layouts/basics)||
 |[动画概述](../design/animation/overview/)||
 |[主题概述](../design/theme/overview/)||
 |[手势概述](../design/gesture/overview/)||

@@ -36,8 +36,7 @@ nav:
       - 'Slider': elements/slider.md
       - 'Text': elements/text.md
       - 'TextField': elements/textfield.md
-    - '布局': 
-      - '概述': layout/overview.md
+    - '布局组件': 
       - 'BottomNavigation': layout/bottomnavigation.md
       - 'Column': layout/column.md
       - 'ModalBottomSheetLayout': layout/modalbottomsheetlayout.md
@@ -45,28 +44,28 @@ nav:
       - 'Spacer': layout/spacer.md
       - 'Scaffold': layout/scaffold.md
       - 'TopAppBar': layout/topappbar.md
-      - '自定义Layout': layout/custom_layout.md
+      - '自定义布局': layout/custom_layout.md
       - '固有特性测量': layout/intrinsic.md
     - '设计':
-      - '动画':
+      - '动画 (Animation)':
         - '概述': design/animation/overview.md
         - 'AnimationVisibility': design/animation/animationvisibility.md
         - 'Animate*State': design/animation/animatestate.md
         - 'Animatable': design/animation/animatable.md
-      - '主题':
+      - '主题 (Theming)':
         - '概述': design/theme/overview.md
         - '初识 MaterialTheme': design/theme/meet_material_theme.md
         - '深入理解 MaterialTheme 与 CompositionLocal': design/theme/understanding_material_theme.md
         - '自定义你的主题方案': design/theme/custom_your_theme.md
-      - '手势':
+      - '手势 (Gestures)':
         - '概述': design/gesture/overview.md
         - 'Draggable拖动': design/gesture/draggable.md
         - 'Swipeable滑动': design/gesture/swipeable.md
         - 'Transformer双指拖动、缩放与旋转': design/gesture/transformer.md
         - '自定义触摸反馈': design/gesture/custom_gesture.md
-      - '列表':
+      - '列表 (Lists)':
         - '概述': design/lists/overview.md
-      - '绘制': design/draw/custom_draw.md
+      - '绘制 (Graphics)': design/draw/custom_draw.md
     - '关于 Modifier':
       - '概述': modifier/overview.md
       - '方法介绍': modifier/introduction.md
