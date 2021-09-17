@@ -30,7 +30,7 @@ Image(
 )
 ```
 
-`ImagePainter` 管理异步图像请求并处理绘制占位符/成功/错误的 drawables。
+`ImagePainter` 管理异步图像请求，并处理绘制 占位符/成功/错误的 `drawables`。
 
 ## Transitions
 
@@ -72,7 +72,7 @@ Image(
 
 ## LocalImageLoader
 
-`Coil` 库还添加了一个伪 `CompositionLocal` 来获取本地的 `ImageLoader`。
+`Coil` 库还添加了一个伪 `CompositionLocal`（意即类似于），可以从本地中获得 `ImageLoader`。
 
 在大多数情况下，本地的 `ImageLoader` 将是 `ImageLoader` 单例，但是如果有必要，可以使用 `CompositionLocalProvider` 覆盖本地的 `ImageLoader`。
 
@@ -87,7 +87,8 @@ CompositionLocalProvider(LocalImageLoader provides ImageLoader(context)) {
 }
 ```
 
-还有一个 `coil-compose-base`，它是 `coil-compose` 的一个子集。它不包括 `LocalImageLoader` 和 `ImageLoader` 单例。
+!!! note "注意"
+    还有一个 `coil-compose-base`，它是 `coil-compose` 的一个子集。它不包括 `LocalImageLoader` 和 `ImageLoader` 单例。
 
 ## 从 Accompanist 迁移
 
@@ -99,7 +100,7 @@ CompositionLocalProvider(LocalImageLoader provides ImageLoader(context)) {
     * `fadeIn` 和 `fadeInDurationMs` 被移除。迁移到 `ImageRequest.Builder.crossfade`（见[Transitions](#transitions)）。
     * `previewPlaceholder` 被移除。如果启用 `inspection` 模式，`ImageRequest.placeholder` 现在会自动使用。
 * `LoadPainter` 重命名为 `ImagePainter`。
-    * 如果 `onDraw` 没有被调用，`ImagePainter` 不再退回到以根视图的尺寸执行图像请求。如果你在 `LazyColumn` 中使用`ImagePainter`，并且图像的大小不受限制，你可能会注意到。
+    * 如果 `onDraw` 没有被调用，`ImagePainter` 不再退回到以根视图的尺寸执行图像请求。如果你在 `Image` 大小不受限制的 `LazyColumn` 中使用 `ImagePainter `，你应该会感受到这个变化。
 * `Loader` 和 `rememberLoadPainter` 被移除。
 * `LocalImageLoader.current` 是非 null 的，并且默认返回 `ImageLoader` 单例。
 * `DrawablePainter` 和 `rememberDrawablePainter` 现在为 `private`。
