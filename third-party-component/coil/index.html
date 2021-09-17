@@ -1675,9 +1675,9 @@
     <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">128.</span><span class="n">dp</span><span class="p">)</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><code>ImagePainter</code> 管理异步图像请求并处理绘制占位符/成功/错误的 drawables。</p>
+<p><code>ImagePainter</code> 管理图像请求，并根据请求结果的不同分别处理占位、成功和错误等情况的图像绘制。</p>
 <h2 id="transitions">Transitions</h2>
-<p>您可以使用 <code>ImageRequest.Builder.crossfade</code> 然后启用内置的淡入淡出过渡：</p>
+<p>通过使用 <code>ImageRequest.Builder.crossfade</code>，我们可以启用内置的淡入淡出过渡动画效果。</p>
 <div class="highlight"><pre><span></span><code><span class="n">Image</span><span class="p">(</span>
     <span class="n">painter</span> <span class="o">=</span> <span class="n">rememberImagePainter</span><span class="p">(</span>
         <span class="n">data</span> <span class="o">=</span> <span class="s">&quot;https://www.example.com/image.jpg&quot;</span><span class="p">,</span>
@@ -1689,8 +1689,8 @@
     <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">128.</span><span class="n">dp</span><span class="p">)</span>
 <span class="p">)</span>
 </code></pre></div>
-<p>自定义过渡不适用于 <code>rememberImagePainter</code>，因为它们需要 <code>View</code> 引用。 <code>CrossfadeTransition</code> 由于特殊的内部支持而起作用。</p>
-<p>也就是说，可以通过观察 <code>ImagePainter</code> 的状态然后在 <code>Compose</code> 中创建自定义转换：</p>
+<p>自定义的<a href="https://github.com/coil-kt/coil/blob/main/coil-compose-singleton/transitions.md">过渡动画</a>在 <code>rememberImagePainter</code> 下无法使用，因为它们需要 <code>View</code> 引用。<code>CrossfadeTransition</code> 淡入淡出效果可以正常使用是因为特殊的内部支持。</p>
+<p>也就是说，我们只能通过观察 <code>ImagePainter</code> 的状态才能在 Compose 中创建自定义过渡动画：</p>
 <div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">painter</span> <span class="o">=</span> <span class="n">rememberImagePainter</span><span class="p">(</span><span class="s">&quot;https://www.example.com/image.jpg&quot;</span><span class="p">)</span>
 
 <span class="kd">val</span> <span class="nv">state</span> <span class="o">=</span> <span class="n">painter</span><span class="p">.</span><span class="na">state</span>
@@ -1706,7 +1706,7 @@
 </code></pre></div>
 <p>在上面的例子中，当 <code>ImagePainter</code> 的状态发生变化时，<code>composable</code> 会重新组合。如果图像请求成功并且没有从内存缓存中获得，它将在 <code>if</code> 语句中执行动画。</p>
 <h2 id="localimageloader">LocalImageLoader</h2>
-<p><code>Coil</code> 库还添加了一个伪 <code>CompositionLocal</code> 来获取本地的 <code>ImageLoader</code>。</p>
+<p><code>Coil</code> 库还添加了一个伪 <code>CompositionLocal</code>（意即类似于），可以从本地中获得 <code>ImageLoader</code>。</p>
 <p>在大多数情况下，本地的 <code>ImageLoader</code> 将是 <code>ImageLoader</code> 单例，但是如果有必要，可以使用 <code>CompositionLocalProvider</code> 覆盖本地的 <code>ImageLoader</code>。</p>
 <div class="highlight"><pre><span></span><code><span class="c1">// 获取</span>
 <span class="kd">val</span> <span class="nv">imageLoader</span> <span class="o">=</span> <span class="n">LocalImageLoader</span><span class="p">.</span><span class="na">current</span>
@@ -1716,7 +1716,10 @@
     <span class="c1">// UI 的其余部分</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>还有一个 <code>coil-compose-base</code>，它是 <code>coil-compose</code> 的一个子集。它不包括 <code>LocalImageLoader</code> 和 <code>ImageLoader</code> 单例。</p>
+<div class="admonition note">
+<p class="admonition-title">注意</p>
+<p>还有一个 <code>coil-compose-base</code>，它是 <code>coil-compose</code> 的一个子集。它不包含 <code>LocalImageLoader</code> 和 <code>ImageLoader</code> 单例。</p>
+</div>
 <h2 id="accompanist">从 Accompanist 迁移</h2>
 <p><code>Coil</code> 的 <code>Jetpack Compose</code> 集成是基于 <code>Accompanist</code> 的 <code>Coil</code> 集成，但有以下变化：</p>
 <ul>
@@ -1728,7 +1731,7 @@
 </ul>
 </li>
 <li><code>LoadPainter</code> 重命名为 <code>ImagePainter</code>。<ul>
-<li>如果 <code>onDraw</code> 没有被调用，<code>ImagePainter</code> 不再退回到以根视图的尺寸执行图像请求。如果你在 <code>LazyColumn</code> 中使用<code>ImagePainter</code>，并且图像的大小不受限制，你可能会注意到。</li>
+<li>如果 <code>onDraw</code> 没有被调用，<code>ImagePainter</code> 不再退回到以根视图的尺寸执行图像请求。如果你在 <code>Image</code> 大小不受限制的 <code>LazyColumn</code> 中使用 <code>ImagePainter</code>，你应该会感受到这个变化。</li>
 </ul>
 </li>
 <li><code>Loader</code> 和 <code>rememberLoadPainter</code> 被移除。</li>
