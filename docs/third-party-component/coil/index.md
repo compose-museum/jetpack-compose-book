@@ -30,11 +30,11 @@ Image(
 )
 ```
 
-`ImagePainter` 管理异步图像请求，并处理绘制 占位符/成功/错误的 `drawables`。
+`ImagePainter` 管理图像请求，并根据请求结果的不同分别处理占位、成功和错误等情况的图像绘制。
 
 ## Transitions
 
-您可以使用 `ImageRequest.Builder.crossfade` 然后启用内置的淡入淡出过渡：
+通过使用 `ImageRequest.Builder.crossfade`，我们可以启用内置的淡入淡出过渡动画效果。
 
 ``` kotlin
 Image(
@@ -49,9 +49,9 @@ Image(
 )
 ```
 
-自定义过渡不适用于 `rememberImagePainter`，因为它们需要 `View` 引用。 `CrossfadeTransition` 由于特殊的内部支持而起作用。
+自定义的[过渡动画](https://github.com/coil-kt/coil/blob/main/coil-compose-singleton/transitions.md)在 `rememberImagePainter` 下无法使用，因为它们需要 `View` 引用。`CrossfadeTransition` 淡入淡出效果可以正常使用是因为特殊的内部支持。
 
-也就是说，可以通过观察 `ImagePainter` 的状态然后在 `Compose` 中创建自定义转换：
+也就是说，我们只能通过观察 `ImagePainter` 的状态才能在 Compose 中创建自定义过渡动画：
 
 ``` kotlin
 val painter = rememberImagePainter("https://www.example.com/image.jpg")
@@ -88,7 +88,7 @@ CompositionLocalProvider(LocalImageLoader provides ImageLoader(context)) {
 ```
 
 !!! note "注意"
-    还有一个 `coil-compose-base`，它是 `coil-compose` 的一个子集。它不包括 `LocalImageLoader` 和 `ImageLoader` 单例。
+    还有一个 `coil-compose-base`，它是 `coil-compose` 的一个子集。它不包含 `LocalImageLoader` 和 `ImageLoader` 单例。
 
 ## 从 Accompanist 迁移
 
