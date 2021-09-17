@@ -30,11 +30,11 @@ Image(
 )
 ```
 
-`ImagePainter` 管理异步图像请求并处理绘制占位符/成功/错误的 drawables。
+`ImagePainter` 管理图像请求，并根据请求结果的不同分别处理占位、成功和错误等情况的图像绘制。
 
 ## Transitions
 
-您可以使用 `ImageRequest.Builder.crossfade` 然后启用内置的淡入淡出过渡：
+通过使用 `ImageRequest.Builder.crossfade`，我们可以启用内置的淡入淡出过渡动画效果。
 
 ``` kotlin
 Image(
@@ -49,9 +49,9 @@ Image(
 )
 ```
 
-自定义过渡不适用于 `rememberImagePainter`，因为它们需要 `View` 引用。 `CrossfadeTransition` 由于特殊的内部支持而起作用。
+自定义的[过渡动画](https://github.com/coil-kt/coil/blob/main/coil-compose-singleton/transitions.md)在 `rememberImagePainter` 下无法使用，因为它们需要 `View` 引用。`CrossfadeTransition` 淡入淡出效果可以正常使用是因为特殊的内部支持。
 
-也就是说，可以通过观察 `ImagePainter` 的状态然后在 `Compose` 中创建自定义转换：
+也就是说，我们只能通过观察 `ImagePainter` 的状态才能在 Compose 中创建自定义过渡动画：
 
 ``` kotlin
 val painter = rememberImagePainter("https://www.example.com/image.jpg")
@@ -72,7 +72,7 @@ Image(
 
 ## LocalImageLoader
 
-`Coil` 库还添加了一个伪 `CompositionLocal` 来获取本地的 `ImageLoader`。
+`Coil` 库还添加了一个伪 `CompositionLocal`（意即类似于），可以从本地中获得 `ImageLoader`。
 
 在大多数情况下，本地的 `ImageLoader` 将是 `ImageLoader` 单例，但是如果有必要，可以使用 `CompositionLocalProvider` 覆盖本地的 `ImageLoader`。
 
@@ -87,7 +87,8 @@ CompositionLocalProvider(LocalImageLoader provides ImageLoader(context)) {
 }
 ```
 
-还有一个 `coil-compose-base`，它是 `coil-compose` 的一个子集。它不包括 `LocalImageLoader` 和 `ImageLoader` 单例。
+!!! note "注意"
+    还有一个 `coil-compose-base`，它是 `coil-compose` 的一个子集。它不包含 `LocalImageLoader` 和 `ImageLoader` 单例。
 
 ## 从 Accompanist 迁移
 
@@ -99,7 +100,7 @@ CompositionLocalProvider(LocalImageLoader provides ImageLoader(context)) {
     * `fadeIn` 和 `fadeInDurationMs` 被移除。迁移到 `ImageRequest.Builder.crossfade`（见[Transitions](#transitions)）。
     * `previewPlaceholder` 被移除。如果启用 `inspection` 模式，`ImageRequest.placeholder` 现在会自动使用。
 * `LoadPainter` 重命名为 `ImagePainter`。
-    * 如果 `onDraw` 没有被调用，`ImagePainter` 不再退回到以根视图的尺寸执行图像请求。如果你在 `LazyColumn` 中使用`ImagePainter`，并且图像的大小不受限制，你可能会注意到。
+    * 如果 `onDraw` 没有被调用，`ImagePainter` 不再退回到以根视图的尺寸执行图像请求。如果你在 `Image` 大小不受限制的 `LazyColumn` 中使用 `ImagePainter `，你应该会感受到这个变化。
 * `Loader` 和 `rememberLoadPainter` 被移除。
 * `LocalImageLoader.current` 是非 null 的，并且默认返回 `ImageLoader` 单例。
 * `DrawablePainter` 和 `rememberDrawablePainter` 现在为 `private`。
