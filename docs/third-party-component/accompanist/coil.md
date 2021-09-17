@@ -3,7 +3,10 @@
 详情请看：
 
 [Coil 官网](https://coil-kt.github.io/coil/compose/) 
+
 [本手册](https://docs.compose.net.cn/third-party-component/coil)
+
+————————————————————————————————————————————————
 
 ## Coil for Jetpack Compose
 
