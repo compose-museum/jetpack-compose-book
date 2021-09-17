@@ -95,6 +95,7 @@ nav:
       - 'Swipe Refresh': third-party-component/accompanist/swipe_refresh.md
       - 'Flow layouts': third-party-component/accompanist/flow_layouts.md
     - 'Compose版骨架屏': third-party-component/shimmer/compose_shimmer.md
+    - 'Coil': third-party-component/coil/index.md
   - 'API 文档':
     - '组件':
       - 'Text': api/elements/text.md

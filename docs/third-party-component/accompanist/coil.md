@@ -1,4 +1,11 @@
-# Coil for Jetpack Compose
+# 注意，此库已被迁移至 Coil 官网库中，这里不再维护
+
+详情请看：
+
+[Coil 官网](https://coil-kt.github.io/coil/compose/) 
+[本手册](https://docs.compose.net.cn/third-party-component/coil)
+
+## Coil for Jetpack Compose
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-coil)](https://search.maven.org/search?q=g:com.google.accompanist)
 
