@@ -95,6 +95,7 @@ nav:
       - 'Flow layouts': third-party-component/accompanist/flow_layouts.md
     - 'Compose版骨架屏': third-party-component/shimmer/compose_shimmer.md
     - 'Coil': third-party-component/coil/index.md
+    - 'Compose版StateLayout': third-party-component/statelayout/compose_statelayout.md
   - 'API 文档':
     - '组件':
       - 'Text': api/elements/text.md
