@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://docs.compose.net.cn/third-party-component/accompanist/insets/">
+        <link rel="canonical" href="https://docs.compose.net.cn/third-party-component/statelayout/compose_statelayout/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.2.8">
     
     
       
-        <title>Insets - Jetpack Compose</title>
+        <title>Compose版StateLayout - Jetpack Compose</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#insets-for-jetpack-compose" class="md-skip">
+        <a href="#_1" class="md-skip">
           跳转至
         </a>
       
@@ -94,7 +94,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Insets
+              Compose版StateLayout
             
           </span>
         </div>
@@ -195,7 +195,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../overview/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../accompanist/overview/" class="md-tabs__link md-tabs__link--active">
         第三方组件
       </a>
     </li>
@@ -1227,14 +1227,12 @@
             
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
       
       <label class="md-nav__link" for="__nav_2_1">
         Accompanist
@@ -1252,7 +1250,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../overview/" class="md-nav__link">
+      <a href="../../accompanist/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1264,7 +1262,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../coil/" class="md-nav__link">
+      <a href="../../accompanist/coil/" class="md-nav__link">
         Coil
       </a>
     </li>
@@ -1276,7 +1274,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../glide/" class="md-nav__link">
+      <a href="../../accompanist/glide/" class="md-nav__link">
         Glide
       </a>
     </li>
@@ -1286,179 +1284,11 @@
             
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Insets
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../accompanist/insets/" class="md-nav__link">
         Insets
       </a>
-      
-        
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    用法
-  </a>
-  
-    <nav class="md-nav" aria-label="用法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modifiers" class="md-nav__link">
-    Modifiers
-  </a>
-  
-    <nav class="md-nav" aria-label="Modifiers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#padding-modifier" class="md-nav__link">
-    Padding Modifier
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#size-modifier" class="md-nav__link">
-    Size Modifier
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#paddingvalues" class="md-nav__link">
-    PaddingValues
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inset-layouts-insets-ui" class="md-nav__link">
-    可感知 Inset 的 Layouts (insets-ui)
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    🚧试验性功能
-  </a>
-  
-    <nav class="md-nav" aria-label="🚧试验性功能">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#insets" class="md-nav__link">
-    Insets动画支持
-  </a>
-  
-    <nav class="md-nav" aria-label="Insets动画支持">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    功能介绍
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    使用方法
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    软键盘动画
-  </a>
-  
-    <nav class="md-nav" aria-label="软键盘动画">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    功能介绍
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    使用方法
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    下载
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    可能出现的问题
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -1468,7 +1298,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../system_ui_controller/" class="md-nav__link">
+      <a href="../../accompanist/system_ui_controller/" class="md-nav__link">
         System UI Controller
       </a>
     </li>
@@ -1480,7 +1310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../appcompat_theme/" class="md-nav__link">
+      <a href="../../accompanist/appcompat_theme/" class="md-nav__link">
         AppCompat Theme
       </a>
     </li>
@@ -1492,7 +1322,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../pager_layouts/" class="md-nav__link">
+      <a href="../../accompanist/pager_layouts/" class="md-nav__link">
         Pager layouts
       </a>
     </li>
@@ -1504,7 +1334,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../swipe_refresh/" class="md-nav__link">
+      <a href="../../accompanist/swipe_refresh/" class="md-nav__link">
         Swipe Refresh
       </a>
     </li>
@@ -1516,7 +1346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../flow_layouts/" class="md-nav__link">
+      <a href="../../accompanist/flow_layouts/" class="md-nav__link">
         Flow layouts
       </a>
     </li>
@@ -1556,11 +1386,149 @@
             
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../statelayout/compose_statelayout/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Compose版StateLayout
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Compose版StateLayout
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    前言
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    效果图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    特性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    使用
+  </a>
+  
+    <nav class="md-nav" aria-label="使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    接入
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    简单使用
+  </a>
+  
+    <nav class="md-nav" aria-label="简单使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    定义全局样式
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    直接使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    自定义文案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    自定义布局
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    主要原理
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_12" class="md-nav__link">
+    总结
+  </a>
+  
+    <nav class="md-nav" aria-label="总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    项目地址
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1710,8 +1678,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -1721,136 +1687,110 @@
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
-    用法
-  </a>
-  
-    <nav class="md-nav" aria-label="用法">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#modifiers" class="md-nav__link">
-    Modifiers
-  </a>
-  
-    <nav class="md-nav" aria-label="Modifiers">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#padding-modifier" class="md-nav__link">
-    Padding Modifier
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#size-modifier" class="md-nav__link">
-    Size Modifier
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#paddingvalues" class="md-nav__link">
-    PaddingValues
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#inset-layouts-insets-ui" class="md-nav__link">
-    可感知 Inset 的 Layouts (insets-ui)
+    前言
   </a>
   
 </li>
       
         <li class="md-nav__item">
   <a href="#_2" class="md-nav__link">
-    🚧试验性功能
+    效果图
   </a>
   
-    <nav class="md-nav" aria-label="🚧试验性功能">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#insets" class="md-nav__link">
-    Insets动画支持
-  </a>
-  
-    <nav class="md-nav" aria-label="Insets动画支持">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_3" class="md-nav__link">
-    功能介绍
+    特性
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#_4" class="md-nav__link">
-    使用方法
+    使用
   </a>
   
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
+    <nav class="md-nav" aria-label="使用">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#_5" class="md-nav__link">
-    软键盘动画
+    接入
   </a>
   
-    <nav class="md-nav" aria-label="软键盘动画">
-      <ul class="md-nav__list">
+</li>
         
           <li class="md-nav__item">
   <a href="#_6" class="md-nav__link">
-    功能介绍
+    简单使用
+  </a>
+  
+    <nav class="md-nav" aria-label="简单使用">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    定义全局样式
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    使用方法
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#_8" class="md-nav__link">
-    下载
+    直接使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_9" class="md-nav__link">
+    自定义文案
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_10" class="md-nav__link">
+    自定义布局
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_11" class="md-nav__link">
+    主要原理
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_9" class="md-nav__link">
-    可能出现的问题
+  <a href="#_12" class="md-nav__link">
+    总结
   </a>
+  
+    <nav class="md-nav" aria-label="总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_13" class="md-nav__link">
+    项目地址
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -1866,204 +1806,179 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/third-party-component/accompanist/insets.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/third-party-component/statelayout/compose_statelayout.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="insets-for-jetpack-compose">Insets for Jetpack Compose</h1>
-<p><a href="https://search.maven.org/search?q=g:com.google.accompanist"><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-insets" /></a></p>
-<p>Jetpack Compose 的 Insets 采用了 View 系统中 Insetter 组件库的设计理念，使其可以在 composables 中被使用。</p>
-<h2 id="_1">用法</h2>
-<p>为了能在你的 composables 中使用 Insets , 你需要使用 <code>ProvideWindowInsets</code> 方法并将你的视图内容声明在尾部lambda中。这步操作通常要在你的composable层级的顶部附近进行。</p>
-<div class="highlight"><pre><span></span><code><span class="n">setContent</span> <span class="p">{</span>
-  <span class="n">MaterialTheme</span> <span class="p">{</span>
-    <span class="n">ProvideWindowInsets</span> <span class="p">{</span>
-      <span class="c1">// your content</span>
-    <span class="p">}</span>
-  <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<blockquote>
-<p>⚠️ 为了使你的 view 层级能够获取到 Insets， 你需要确保在你Activity中使用 <code>WindowCompat.setDecorFitsSystemWindows(window, false)</code>。如果你还想为你的系统状态栏设置颜色，可以使用Accompanist组件库提供的<a href="../../../third-party-component/accompanist/system_ui_controller/">系统UI控制器</a>来完成。</p>
-</blockquote>
-<p>通过使用 <code>ProvideWindowInsets</code> 将允许本组件在 content 中设置一个 <a href="https://developer.android.com/reference/kotlin/androidx/core/view/OnApplyWindowInsetsListener">OnApplyWindowInsetsListener</a>，这个Listener将会被用来更新 <code>LocalWindowInsets</code> 这个 CompositionLocal。</p>
-<p><code>LocalWindowInsets</code>  持有了一个 <code>WindowInsets</code> 实例，其中包含了各种 <a href="https://developer.android.com/reference/kotlin/androidx/core/view/WindowInsetsCompat">WindowInsets</a> <a href="https://developer.android.com/reference/kotlin/androidx/core/view/WindowInsetsCompat.Type">types</a> 数值信息，例如状态栏、导航栏、输入法等。你通常可以像这样使用这些数值信息。</p>
-<div class="highlight"><pre><span></span><code><span class="n">Composable</span>
-<span class="kd">fun</span> <span class="nf">ImeAvoidingBox</span><span class="p">()</span> <span class="p">{</span>
-    <span class="kd">val</span> <span class="nv">insets</span> <span class="o">=</span> <span class="n">LocalWindowInsets</span><span class="p">.</span><span class="na">current</span>
-        <span class="c1">// 切记，这些信息都是px单位，使用时要根据需求转换单位</span>
-    <span class="kd">val</span> <span class="nv">imeBottom</span> <span class="o">=</span> <span class="n">with</span><span class="p">(</span><span class="n">LocalDensity</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span> <span class="n">insets</span><span class="p">.</span><span class="na">ime</span><span class="p">.</span><span class="na">bottom</span><span class="p">.</span><span class="na">toDp</span><span class="p">()</span> <span class="p">}</span>
-    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">bottom</span> <span class="o">=</span> <span class="n">imeBottom</span><span class="p">))</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>但是本组件同样也提供了一些易于使用的Modifier。</p>
-<h3 id="modifiers">Modifiers</h3>
-<p>本组件提供了两种 modifier 类型用于轻松适配特定 insets 的 padding 与 size.</p>
-<h4 id="padding-modifier">Padding Modifier</h4>
-<p>使用 Padding Modifier 将允许为你的 composable 施加 padding来适配一些特定的 insets，当前提供了如下几种扩展方法。</p>
-<ul>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/status-bars-padding.html">Modifier.statusBarsPadding()</a></li>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/navigation-bars-padding.html">Modifier.navigationBarsPadding()</a></li>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/system-bars-padding.html">Modifier.systemBarsPadding()</a></li>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/ime-padding.html">Modifier.imePadding()</a></li>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/navigation-bars-with-ime-padding.html">Modifier.navigationBarsWithImePadding()</a></li>
-</ul>
-<p>这些方法通常会被用来将 composable 移出系统状态栏或导航栏等，<a href="https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#floatingactionbutton">FloatingActionButton</a> 就是一个典型的例子，通常我们都希望将这个悬浮按钮移动至系统导航栏上方, 不希望被系统导航栏遮盖。</p>
-<div class="highlight"><pre><span></span><code><span class="n">FloatingActionButton</span><span class="p">(</span>
-    <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* TODO */</span> <span class="p">},</span>
-    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomEnd</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span> <span class="c1">// normal 16dp of padding for FABs</span>
-        <span class="p">.</span><span class="na">navigationBarsPadding</span><span class="p">()</span> <span class="c1">// Move it out from under the nav bar</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="n">Icon</span><span class="p">(</span><span class="n">imageVector</span> <span class="o">=</span> <span class="n">Icons</span><span class="p">.</span><span class="na">Default</span><span class="p">.</span><span class="na">Add</span><span class="p">,</span> <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-<h4 id="size-modifier">Size Modifier</h4>
-<p>通过 Size Modifier 将允许为你的 composable 施加 size 来适配一些特定的 insets，当前提供了如下几种扩展方法。</p>
-<ul>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/status-bars-height.html">Modifier.statusBarsHeight()</a></li>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/navigation-bars-height.html">Modifier.navigationBarsHeight()</a></li>
-<li><a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/navigation-bars-width.html">Modifier.navigationBarsWidth()</a></li>
-</ul>
-<p>我门通常可以让 composable 为系统栏提供背景，类似如下。</p>
-<div class="highlight"><pre><span></span><code><span class="n">Spacer</span><span class="p">(</span>
-    <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="m">0.7f</span><span class="p">))</span>
-        <span class="p">.</span><span class="na">statusBarsHeight</span><span class="p">()</span> <span class="c1">// Match the height of the status bar</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+                  <h1>Compose版StateLayout</h1>
+                
+                <h2 id="_1">前言</h2>
+<p>在页面中常常需要展示网络请求状态，以带来更好的用户体验，具体来说通常有<code>加载中</code>，<code>加载失败</code>，<code>加载为空</code>，<code>加载成功</code>等状态.     <br />
+在<code>XML</code>中我们通常用一个<code>ViewGroup</code>封装各种状态来实现，那么使用<code>Compose</code>该如何实现这种效果呢?   <br />
+本文主要介绍<code>Compose</code>如何封装一个简单易用的<code>StateLayout</code>,有兴趣的同学可以点个<code>Star</code>:<a href="https://github.com/shenzhen2017/ComposeStateLayout">Compose版StateLayout</a>    </p>
+<h2 id="_2">效果图</h2>
+<p>首先看下最终的效果图   <br />
+<img alt="" src="https://raw.githubusercontents.com/shenzhen2017/resource/main/2021/september/p10.gif" />     </p>
+<h2 id="_3">特性</h2>
+<ol>
+<li>支持配置全局默认布局,如默认加载中，默认成功失败等     </li>
+<li>支持自定义默认样式文案，图片等细节     </li>
+<li>支持完全自定义样式，如自定义加载中样式     </li>
+<li>支持自定义处理点击重试事件     </li>
+<li>完全使用数据驱动，使用简单，接入方便    </li>
+</ol>
+<h2 id="_4">使用</h2>
+<h3 id="_5">接入</h3>
+<p>第 1 步:在工程的<code>build.gradle</code>中添加：     <br />
+<div class="highlight"><pre><span></span><code><span class="n">allprojects</span> <span class="o">{</span>
+    <span class="n">repositories</span> <span class="o">{</span>
+        <span class="o">...</span>
+        <span class="n">mavenCentral</span><span class="o">()</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></p>
+<p>第2步：在应用的<code>build.gradle</code>中添加：   <br />
+<div class="highlight"><pre><span></span><code><span class="n">dependencies</span> <span class="o">{</span>
+        <span class="n">implementation</span> <span class="s1">&#39;io.github.shenzhen2017:compose-statelayout:1.0.0&#39;</span>
+<span class="o">}</span>
+</code></pre></div></p>
+<h3 id="_6">简单使用</h3>
+<h4 id="_7">定义全局样式</h4>
+<p>在框架中没有指定任何默认样式，因此你需要自定义自己的默认加载中，加载失败等页面样式      <br />
+同时需要自定义传给自定义样式的数据结构类型，方便数据驱动 <br />
+<div class="highlight"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">StateData</span><span class="p">(</span>
+    <span class="kd">val</span> <span class="nv">tipTex</span><span class="p">:</span> <span class="kt">String?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">tipImg</span><span class="p">:</span> <span class="kt">Int?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="kd">val</span> <span class="nv">btnText</span><span class="p">:</span> <span class="kt">String?</span> <span class="o">=</span> <span class="kc">null</span>
 <span class="p">)</span>
-</code></pre></div>
-<h3 id="paddingvalues">PaddingValues</h3>
-<p>Compose 提供了 <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues">PaddingValues</a> 的理念，该数据类包含着所有要被施加的 padding 信息(类似于一个 Rect)。通常会被用于一些容器类型 composables，例如为 <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/package-summary#lazycolumn">LazyColumn</a> 设置内容 padding。</p>
-<p>你可能需要使用某个具体 Inset 信息作为内容 padding，所以本组件提供了 <a href="https://google.github.io/accompanist//api/insets/insets/com.google.accompanist.insets/remember-insets-padding-values.html">rememberInsetsPaddingValues()</a> 扩展方法用于将 Inset 转化为 PaddingValues，下面的例子中就获取了系统栏Inset信息。</p>
-<div class="highlight"><pre><span></span><code><span class="n">LazyColumn</span><span class="p">(</span>
-    <span class="n">contentPadding</span> <span class="o">=</span> <span class="n">rememberInsetsPaddingValues</span><span class="p">(</span>
-        <span class="n">insets</span> <span class="o">=</span> <span class="n">LocalWindowInsets</span><span class="p">.</span><span class="na">current</span><span class="p">.</span><span class="na">systemBars</span><span class="p">,</span>
-        <span class="n">applyTop</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="n">applyBottom</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="p">)</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// content</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>对于更复杂的场景，可以查阅例子 <a href="https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/insets/EdgeToEdgeLazyColumn.kt">EdgeToEdgeLazyColumn</a> </p>
-<p><img src = "../../../assets/third-party-component/accompanist/insets/demo1.jpeg" width="30%" height="30%"></p>
-<h2 id="inset-layouts-insets-ui">可感知 Inset 的 Layouts (insets-ui)</h2>
-<p>不幸的是，目前大多数 Compose 所提供的 Material 风格的 Layout 还不支持使用内容 padding，这意味着下面的代码可能不会产生与你的预期相同的结果。</p>
-<div class="highlight"><pre><span></span><code>// 😥 This likely doesn&#39;t do what you want
-TopAppBar(
-    // content
-    modifier = Modifier.statusBarsPadding()
-)
-</code></pre></div>
-<p>为了应对这种情况，我们提供了 <code>insets-ui</code> 这个兄弟组件库，其中包含了常用布局，并增加了一个名为  <code>contentPadding</code> 的参数。下面的例子就是为 <a href="https://google.github.io/accompanist/api/insets-ui/insets-ui/com.google.accompanist.insets.ui/-top-app-bar.html">TopAppBar</a> 提供状态栏的Inset信息作为内容的 padding。</p>
-<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">com.google.accompanist.insets.ui.TopAppBar</span>
 
-<span class="n">TopAppBar</span><span class="p">(</span>
-    <span class="n">contentPadding</span> <span class="o">=</span> <span class="n">rememberInsetsPaddingValues</span><span class="p">(</span>
-        <span class="n">insets</span> <span class="o">=</span> <span class="n">LocalWindowInsets</span><span class="p">.</span><span class="na">current</span><span class="p">.</span><span class="na">statusBars</span><span class="p">,</span>
-        <span class="n">applyStart</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="n">applyTop</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
-        <span class="n">applyEnd</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
-    <span class="p">)</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">DefaultStateLayout</span><span class="p">(</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">pageStateData</span><span class="p">:</span> <span class="n">PageStateData</span><span class="p">,</span>
+    <span class="n">onRetry</span><span class="p">:</span> <span class="n">OnRetry</span> <span class="o">=</span> <span class="p">{</span> <span class="p">},</span>
+    <span class="n">loading</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">StateLayoutData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{</span> <span class="n">DefaultLoadingLayout</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+    <span class="n">empty</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">StateLayoutData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{</span> <span class="n">DefaultEmptyLayout</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+    <span class="n">error</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">StateLayoutData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{</span> <span class="n">DefaultErrorLayout</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
 <span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// content</span>
+    <span class="n">ComposeStateLayout</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">,</span>
+        <span class="n">pageStateData</span> <span class="o">=</span> <span class="n">pageStateData</span><span class="p">,</span>
+        <span class="n">onRetry</span> <span class="o">=</span> <span class="n">onRetry</span><span class="p">,</span>
+        <span class="n">loading</span> <span class="o">=</span> <span class="p">{</span> <span class="n">loading</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+        <span class="n">empty</span> <span class="o">=</span> <span class="p">{</span> <span class="n">empty</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+        <span class="n">error</span> <span class="o">=</span> <span class="p">{</span> <span class="n">error</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
+    <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>这个兄弟组件库还提供了 Scaffold 的修改版，通过在 content 中绘制顶部和底部栏，更好地支持边靠边的布局。</p>
-<div class="highlight"><pre><span></span><code><span class="n">Scaffold</span><span class="p">(</span>
-    <span class="n">topBar</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1">// We use TopAppBar from accompanist-insets-ui which allows us to provide</span>
-        <span class="c1">// content padding matching the system bars insets.</span>
-        <span class="n">TopAppBar</span><span class="p">(</span>
-            <span class="n">title</span> <span class="o">=</span> <span class="p">{</span> <span class="n">Text</span><span class="p">(</span><span class="n">stringResource</span><span class="p">(</span><span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">insets_title_list</span><span class="p">))</span> <span class="p">},</span>
-            <span class="n">backgroundColor</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">colors</span><span class="p">.</span><span class="na">surface</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">alpha</span> <span class="o">=</span> <span class="m">0.9f</span><span class="p">),</span>
-            <span class="n">contentPadding</span> <span class="o">=</span> <span class="n">rememberInsetsPaddingValues</span><span class="p">(</span>
-                <span class="n">LocalWindowInsets</span><span class="p">.</span><span class="na">current</span><span class="p">.</span><span class="na">statusBars</span><span class="p">,</span>
-                <span class="n">applyBottom</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
-            <span class="p">),</span>
-        <span class="p">)</span>
-    <span class="p">},</span>
-    <span class="n">bottomBar</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="c1">// We add a spacer as a bottom bar, which is the same height as</span>
-        <span class="c1">// the navigation bar</span>
-        <span class="n">Spacer</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">navigationBarsHeight</span><span class="p">().</span><span class="na">fillMaxWidth</span><span class="p">())</span>
-    <span class="p">},</span>
-<span class="p">)</span> <span class="p">{</span> <span class="n">contentPadding</span> <span class="o">-&gt;</span>
-    <span class="c1">// We apply the contentPadding passed to us from the Scaffold</span>
-    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">contentPadding</span><span class="p">))</span> <span class="p">{</span>
-        <span class="c1">// content</span>
+如上所示,初始化时我们主要需要做以下事  <br />
+1. 自定义默认加载中，加载失败，加载为空等样式  <br />
+2. 自定义<code>StateData</code>，即传给默认样式的数据结构，比如文案，图片等，这样后续需要修改的时候只需修改<code>StateData</code>即可      </p>
+<h4 id="_8">直接使用</h4>
+<p>如果我们直接使用默认样式，直接如下使用即可 <br />
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">StateDemo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">pageStateData</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span>
+        <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">PageState</span><span class="p">.</span><span class="na">CONTENT</span><span class="p">.</span><span class="na">bindData</span><span class="p">())</span>
+    <span class="p">}</span>
+    <span class="n">DefaultStateLayout</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+        <span class="n">pageStateData</span> <span class="o">=</span> <span class="n">pageStateData</span><span class="p">,</span>
+        <span class="n">onRetry</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">pageStateData</span> <span class="o">=</span> <span class="n">PageState</span><span class="p">.</span><span class="na">LOADING</span><span class="p">.</span><span class="na">bindData</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//Content</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>有关库中提供的其他布局的列表，请参见 <a href="https://google.github.io/accompanist/api/insets-ui/insets-ui/com.google.accompanist.insets.ui/">API 文档</a>。</p>
-<h2 id="_2">🚧试验性功能</h2>
-<p>接下来的功能还在试验中，需要开发者选择性使用。</p>
-<h3 id="insets">Insets动画支持</h3>
-<h4 id="_3">功能介绍</h4>
-<p>本组件库当前试验性支持 <a href="https://developer.android.com/reference/android/view/WindowInsetsAnimation">WindowInsetsAnimations</a>， 这将允许你的UI内容可以根据Insets动画发生改变，例如当软键盘弹出或关闭时， <code>imePadding()</code> 或 <code>navigationBarsWithImePadding()</code>  在这种场景下就可以被使用了。 在 API &gt;= 21 的设备上，无论 <a href="https://developer.android.com/reference/androidx/core/view/WindowInsetsAnimationCompat">WindowInsetsAnimationCompat</a> 是否工作，在任意时刻都进行使用。</p>
-<p>为了能够使用Insets动画，你需要一个使用 <code>ProvideWindowInsets</code> 的重载方法，并且设置 <code>windowInsetsAnimationsEnabled = true</code></p>
-<h4 id="_4">使用方法</h4>
-<div class="highlight"><pre><span></span><code><span class="n">ProvideWindowInsets</span><span class="p">(</span><span class="n">windowInsetsAnimationsEnabled</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// content</span>
+如上所示，可以直接使用，如果需要修改状态，修改<code>pageStateData</code>即可      </p>
+<h4 id="_9">自定义文案</h4>
+<p>如果我们需要自定义文案或者图片等细节，可简单直接修改<code>StateData</code>即可  <br />
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">StateDemo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">pageStateData</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span>
+        <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">PageState</span><span class="p">.</span><span class="na">CONTENT</span><span class="p">.</span><span class="na">bindData</span><span class="p">())</span>
+    <span class="p">}</span>
+    <span class="c1">//....</span>
+    <span class="n">pageStateData</span> <span class="o">=</span> <span class="n">PageState</span><span class="p">.</span><span class="na">LOADING</span><span class="p">.</span><span class="na">bindData</span><span class="p">(</span><span class="n">StateData</span><span class="p">(</span><span class="n">tipTex</span> <span class="o">=</span> <span class="s">&quot;自定义加载中文案&quot;</span><span class="p">))</span>
 <span class="p">}</span>
-</code></pre></div>
-<p>你能够像这样使用 <code>navigationBarsWithImePadding()</code> </p>
-<div class="highlight"><pre><span></span><code>OutlinedTextField(
-    // other params,
-    modifier = Modifier.navigationBarsWithImePadding()
-)
-</code></pre></div>
-<p>可以查阅例子 <a href="https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/insets/ImeAnimationSample.kt">ImeAnimationSample</a></p>
-<p><img src = "../../../assets/third-party-component/accompanist/insets/demo2.gif"></p>
-<h3 id="_5">软键盘动画</h3>
-<h4 id="_6">功能介绍</h4>
-<p>如果你希望使用 Insets 动画支持软键盘动画，你需要确保在 AndroidManifest 清单中配置当前 Activity 的 <code>windowSoftInputMode</code> 属性为 <code>adjustResize</code>。</p>
-<div class="highlight"><pre><span></span><code><span class="o">&lt;</span><span class="n">activity</span>
-      <span class="n">android</span><span class="p">:</span><span class="n">name</span><span class="o">=</span><span class="s">&quot;.MyActivity&quot;</span>
-      <span class="n">android</span><span class="p">:</span><span class="n">windowSoftInputMode</span><span class="o">=</span><span class="s">&quot;adjustResize&quot;</span><span class="o">&gt;</span>
-<span class="o">&lt;/</span><span class="n">activity</span><span class="o">&gt;</span>
-</code></pre></div>
-<p><code> windowSoftInputMode</code> 默认值应该也有效，但是Compose当前没有设置必要的标识 (详情看<a href="https://issuetracker.google.com/154101484">这里</a>)</p>
-<p>本组件库已经支持通过手势操作来控制软键盘，这将允许你的可滚动的组件将软键盘拉进或拉出屏幕，对于这种嵌套手势滑动可以使用内置的 <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/gesture/nestedscroll/NestedScrollConnection">NestedScrollConnection</a> 接口进行实现，本组件提供了 <a href="https://google.github.io/accompanist/api/insets/insets/com.google.accompanist.insets/remember-ime-nested-scroll-connection.html">rememberImeNestedScrollConnection()</a> 方法直接获取这种软键盘动画场景的嵌套手势滑动实现类。</p>
-<p>⚠️ 此功能仅在 API &gt;= 30 的设备上才能正常运行。</p>
-<h4 id="_7">使用方法</h4>
-<div class="highlight"><pre><span></span><code><span class="c1">// Here we&#39;re using ScrollableColumn, but it also works with LazyColumn, etc.</span>
-<span class="n">ScrollableColumn</span><span class="p">(</span>
-    <span class="c1">// We use the nestedScroll modifier, passing in the </span>
-    <span class="c1">// the connection from rememberImeNestedScrollConnection()</span>
-    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">nestedScroll</span><span class="p">(</span>
-        <span class="n">connection</span> <span class="o">=</span> <span class="n">rememberImeNestedScrollConnection</span><span class="p">()</span>
-    <span class="p">)</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// list content</span>
+</code></pre></div></p>
+<h4 id="_10">自定义布局</h4>
+<p>有时页面的加载中样式与全局的并不一样，这就需要自定义布局样式了   <br />
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">StateDemo</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">pageStateData</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span>
+        <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">PageState</span><span class="p">.</span><span class="na">CONTENT</span><span class="p">.</span><span class="na">bindData</span><span class="p">())</span>
+    <span class="p">}</span>
+    <span class="n">DefaultStateLayout</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+        <span class="n">pageStateData</span> <span class="o">=</span> <span class="n">pageStateData</span><span class="p">,</span>
+        <span class="n">loading</span> <span class="o">=</span> <span class="p">{</span> <span class="n">CustomLoadingLayout</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span> <span class="p">},</span>
+        <span class="n">onRetry</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">pageStateData</span> <span class="o">=</span> <span class="n">PageState</span><span class="p">.</span><span class="na">LOADING</span><span class="p">.</span><span class="na">bindData</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//Content</span>
+    <span class="p">}</span>
 <span class="p">}</span>
+</code></pre></div></p>
+<h2 id="_11">主要原理</h2>
+<p>其实<code>Compose</code>要实现不同的状态非常简单，传入不同的数据即可，如下所示:  <br />
+<div class="highlight"><pre><span></span><code>    <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">when</span> <span class="p">(</span><span class="n">pageStateData</span><span class="p">.</span><span class="na">status</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">LOADING</span> <span class="o">-&gt;</span> <span class="n">loading</span><span class="p">()</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">EMPTY</span> <span class="o">-&gt;</span> <span class="n">empty</span><span class="p">()</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">ERROR</span> <span class="o">-&gt;</span> <span class="n">error</span><span class="p">()</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">CONTENT</span> <span class="o">-&gt;</span> <span class="n">content</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
 </code></pre></div>
-<p>可以查阅例子 <a href="https://github.com/google/accompanist/blob/main/sample/src/main/java/com/google/accompanist/sample/insets/ImeAnimationSample.kt">ImeAnimationSample</a></p>
-<p><img src = "../../../assets/third-party-component/accompanist/insets/demo3.gif"></p>
-<h2 id="_8">下载</h2>
-<p><img alt="Maven Central" src="https://img.shields.io/maven-central/v/com.google.accompanist/accompanist-insets" /> </p>
-<div class="highlight"><pre><span></span><code><span class="n">repositories</span> <span class="o">{</span>
-    <span class="n">mavenCentral</span><span class="o">()</span>
-<span class="o">}</span>
+其实代码非常简单，但是这段代码是个通用逻辑，如果每个页面都要写这一段代码可能也挺烦的      <br />
+所以这段代码其实是模板代码，我们想到<code>Scaffold</code>脚手架，提供了组合各个组件的<code>API</code>，包括标题栏、底部栏、<code>SnackBar</code>（类似吐司功能）、浮动按钮、抽屉组件、剩余内容布局等，让我们可以快速定义一个基本的页面结构。    </p>
+<p>仿照<code>Scaffold</code>,我们也可以定义一个模板组件，用户可以传入自定义的<code>looading</code>,<code>empty</code>,<code>error</code>,<code>content</code>等组件，再将它们组合起来，这样就形成了<code>ComposeStateLayout</code>      <br />
+<div class="highlight"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">PageStateData</span><span class="p">(</span><span class="kd">val</span> <span class="nv">status</span><span class="p">:</span> <span class="n">PageState</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">tag</span><span class="p">:</span> <span class="kt">Any?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">)</span>
 
-<span class="n">dependencies</span> <span class="o">{</span>
-    <span class="n">implementation</span> <span class="s2">&quot;com.google.accompanist:accompanist-insets:&lt;version&gt;&quot;</span>
-    <span class="c1">// If using insets-ui</span>
-    <span class="n">implementation</span> <span class="s2">&quot;com.google.accompanist:accompanist-insets-ui:&lt;version&gt;&quot;</span>
-<span class="o">}</span>
+<span class="kd">data</span> <span class="kd">class</span> <span class="nc">StateLayoutData</span><span class="p">(</span><span class="kd">val</span> <span class="nv">pageStateData</span><span class="p">:</span> <span class="n">PageStateData</span><span class="p">,</span> <span class="kd">val</span> <span class="nv">retry</span><span class="p">:</span> <span class="n">OnRetry</span> <span class="o">=</span> <span class="p">{})</span>
+
+<span class="k">typealias</span> <span class="n">OnRetry</span> <span class="o">=</span> <span class="p">(</span><span class="n">PageStateData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ComposeStateLayout</span><span class="p">(</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">pageStateData</span><span class="p">:</span> <span class="n">PageStateData</span><span class="p">,</span>
+    <span class="n">onRetry</span><span class="p">:</span> <span class="n">OnRetry</span> <span class="o">=</span> <span class="p">{</span> <span class="p">},</span>
+    <span class="n">loading</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">StateLayoutData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">empty</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">StateLayoutData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">error</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="n">StateLayoutData</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{},</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">stateLayoutData</span> <span class="o">=</span> <span class="n">StateLayoutData</span><span class="p">(</span><span class="n">pageStateData</span><span class="p">,</span> <span class="n">onRetry</span><span class="p">)</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">when</span> <span class="p">(</span><span class="n">pageStateData</span><span class="p">.</span><span class="na">status</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">LOADING</span> <span class="o">-&gt;</span> <span class="n">loading</span><span class="p">(</span><span class="n">stateLayoutData</span><span class="p">)</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">EMPTY</span> <span class="o">-&gt;</span> <span class="n">empty</span><span class="p">(</span><span class="n">stateLayoutData</span><span class="p">)</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">ERROR</span> <span class="o">-&gt;</span> <span class="n">error</span><span class="p">(</span><span class="n">stateLayoutData</span><span class="p">)</span>
+            <span class="n">PageState</span><span class="p">.</span><span class="na">CONTENT</span> <span class="o">-&gt;</span> <span class="n">content</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>每个版本可以在 <a href="https://oss.sonatype.org/content/repositories/snapshots/com/google/accompanist/accompanist-insets/">快照仓库</a> 中被找到，每次提交时都会更新。</p>
-<h2 id="_9">可能出现的问题</h2>
-<p>如果你发现运行时出现了一些问题，这里有一个错误清单可以查阅。</p>
-<ul>
-<li>确保你在Activity中执行了 <a href="https://developer.android.com/reference/androidx/core/view/WindowCompat#setDecorFitsSystemWindows(android.view.Window, boolean)">WindowCompat.setDecorFitsSystemWindows(window, false)</a> 。除非你这么做了，否则 DecorView 将消费这些insets，他们的信息不回被分配到 content 中。</li>
-<li>如果有什么跟软键盘相关的操作，确保 AndroidManifest 清单中当前 Activity 的 <code>windowSoftInputMode</code> 属性被设置为 <code>adjustResize</code>。否则 IME 的可见性变化将不会作为Insets 变化而发送。</li>
-<li>相似的，如果你设置 <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams#FLAG_FULLSCREEN">android:windowFullscreen</a> 属性为 true (或使用了 <code>.Fullscreen</code> 主题) 。当发现 <code>adjustResize</code> 没有正常工作，请 <a href="https://developer.android.com/reference/android/view/WindowManager.LayoutParams#FLAG_FULLSCREEN">查阅文档</a> 以了解替代方案。</li>
-<li>如果你在视图系统的多个层级中(同时在Activity与其中的Fragment中) 使用了 <code>ProvideWindowInsets</code> (或 ViewWindowInsetObserver) ，你需要关闭 Insets 的消费。当执行 <code>ProvideWindowInsets</code> (或 ViewWindowInsetObserver) 时会完全消费所有经过的 Insets。在Activity与其中的Fragment同时使用 <code>ProvideWindowInsets</code>  (或 ViewWindowInsetObserver) 时意味着Activity将获取到 Insets，但是Fragment将不回，为了禁用消费需要设置 <code>ProvideWindowInsets</code> 方法参数 <code>consumeWindowInsets = false</code> 或者使用 <code>ViewWindowInsetObserver.start()</code>。</li>
-</ul>
+如上所示，代码很简单，主要需要注意以下几点： <br />
+1. <code>PageStateData</code>的<code>tag</code>即传递给自定义<code>loading</code>等页面的信息，为<code>Any</code>类型，没有任何限制，用户可灵活处理   <br />
+2. 自定义<code>loading</code>等页面也传入了<code>OnRetry</code>,因此我们也可以处理自定义点击事件   </p>
+<h2 id="_12">总结</h2>
+<p>本文主要实现了一个<code>Compose</code>版的<code>StateLayout</code>，它具有以下特性    <br />
+1. 支持配置全局默认布局,如默认加载中，默认成功失败等   <br />
+2. 支持自定义默认样式文案，图片等细节   <br />
+3. 支持完全自定义样式，如自定义加载中样式   <br />
+4. 支持自定义处理点击重试事件   <br />
+5. 完全使用数据驱动，使用简单，接入方便    </p>
+<h3 id="_13">项目地址</h3>
+<p><a href="https://github.com/shenzhen2017/ComposeStateLayout">简单易用的Compose版StateLayout</a>   <br />
+开源不易，如果项目对你有所帮助，欢迎点赞,Star,收藏~</p>
                 
                   
                     
@@ -2072,7 +1987,7 @@ TopAppBar(
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 22, 2021</span>
       
     
   </small>
@@ -2097,7 +2012,7 @@ TopAppBar(
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../glide/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Glide" rel="prev">
+        <a href="../../coil/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Coil" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -2106,20 +2021,20 @@ TopAppBar(
               <span class="md-footer__direction">
                 上一页
               </span>
-              Glide
+              Coil
             </div>
           </div>
         </a>
       
       
         
-        <a href="../system_ui_controller/" class="md-footer__link md-footer__link--next" aria-label="下一页: System UI Controller" rel="next">
+        <a href="../../../api/elements/text/" class="md-footer__link md-footer__link--next" aria-label="下一页: Text" rel="next">
           <div class="md-footer__title">
             <div class="md-ellipsis">
               <span class="md-footer__direction">
                 下一页
               </span>
-              System UI Controller
+              Text
             </div>
           </div>
           <div class="md-footer__button md-icon">
