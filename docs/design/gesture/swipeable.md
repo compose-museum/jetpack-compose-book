@@ -80,7 +80,8 @@ Modifier.swipeable(
 
 接下来，我们就可以通过 SwipeableState 获取到偏移量信息了，我们希望滑块根据偏移量进行移动，在我们的示例中使用 <code>offset</code> 描述符即达成需求。
 
-**注意：由于Modifer链式执行，此时offset必需在draggable与background前面。**
+!!! note "注意"
+	由于 Modifer 是链式执行，此时 offset 必需在 draggable 与 background 前面。
 
 ```kotlin
 @ExperimentalMaterialApi
