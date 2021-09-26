@@ -62,6 +62,7 @@ nav:
         - 'Draggable拖动': design/gesture/draggable.md
         - 'Swipeable滑动': design/gesture/swipeable.md
         - 'Transformer双指拖动、缩放与旋转': design/gesture/transformer.md
+        - 'NestedScroll嵌套滑动': design/gesture/nested_scroll.md
         - '自定义触摸反馈': design/gesture/custom_gesture.md
       - '列表 (Lists)':
         - '概述': design/lists/overview.md
