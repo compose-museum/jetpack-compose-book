@@ -43,7 +43,7 @@ nav:
       - 'Row': layout/row.md
       - 'Spacer': layout/spacer.md
       - 'Scaffold': layout/scaffold.md
-      - 'TopAppBar': layout/topappbar.md
+      - 'TopAppBar': elements/topappbar.md
       - '自定义布局': layout/custom_layout.md
       - '固有特性测量': layout/intrinsic.md
     - '设计':
