@@ -45,14 +45,14 @@ fun Scaffold(
 
 你可以在这里查看完整的代码：
 
-* 1. [Gist](https://gist.github.com/Nthily/c6c291422b06543d2afa3eb795a2d2a4)
-* 2. [Github]({{config.repo_url}}/blob/main/docs/code/layout/scaffold/scaffold.kt)
+* [Gist](https://gist.github.com/Nthily/c6c291422b06543d2afa3eb795a2d2a4)
+* [Github]({{config.repo_url}}/blob/main/docs/code/layout/scaffold/scaffold.kt)
 
-## 3. 常用的实现
+## 3. 常用搭配的方法
 
-|方法||
+|方法|功能|
 |----|---|
-|[TopAppBar](../../elements/topappbar/)||
-|[BottomNavigation](bottomnavigation.md)||
+|[TopAppBar](../../elements/topappbar/)|顶部导航栏|
+|[BottomNavigation](bottomnavigation.md)|底部导航栏|
 
 除此之外，你当然也能自己写一个 `Composable` 函数来传递给 `Scaffold` 中的 `topBar`、`bottomBar` 参数等
