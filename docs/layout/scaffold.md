@@ -37,7 +37,7 @@ fun Scaffold(
 `Scaffold` 中的 `topBar`、`bottomBar` 参数仅仅只是帮助我们定位布局的位置，你可以经常看到它们和 `TopAppBar`、`BottomNavigation`、`BottomAppBar` 来一起搭配使用
 
 
-## 2. 简单的实例
+## 2. 简单的示例
 
 这里有一个使用 `Scaffold` 来创建简单界面的例子
 
