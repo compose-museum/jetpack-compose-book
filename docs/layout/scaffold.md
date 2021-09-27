@@ -37,11 +37,22 @@ fun Scaffold(
 `Scaffold` 中的 `topBar`、`bottomBar` 参数仅仅只是帮助我们定位布局的位置，你可以经常看到它们和 `TopAppBar`、`BottomNavigation`、`BottomAppBar` 来一起搭配使用
 
 
-## 2. 常用的实现
+## 2. 简单的实例
+
+这里有一个使用 `Scaffold` 来创建简单界面的例子
+
+<img src = "{{config.assets}}/layout/scaffold/demo.gif">
+
+你可以在这里查看完整的代码：
+
+* 1. [Gist](https://gist.github.com/Nthily/c6c291422b06543d2afa3eb795a2d2a4)
+* 2. [Github]({{config.repo_url}}/blob/main/docs/code/layout/scaffold/scaffold.kt)
+
+## 3. 常用的实现
 
 |方法||
 |----|---|
-|[TopAppBar](topappbar.md)||
+|[TopAppBar](../../elements/topappbar/)||
 |[BottomNavigation](bottomnavigation.md)||
 
 除此之外，你当然也能自己写一个 `Composable` 函数来传递给 `Scaffold` 中的 `topBar`、`bottomBar` 参数等
