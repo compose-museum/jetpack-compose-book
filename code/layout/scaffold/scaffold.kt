@@ -1,4 +1,3 @@
-package com.github.nthily.compose_example
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -47,7 +46,6 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.github.nthily.compose_example.ui.theme.ComposeExampleTheme
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -55,7 +53,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            ComposeExampleTheme {
+            ComposeExampleTheme { // 根据你的项目名来设置
                 AppScaffold()
             }
         }
@@ -72,6 +70,7 @@ fun AppScaffold() {
     val items = listOf("主页", "我喜欢的", "设置")
 
     Scaffold(
+        scaffoldState = scaffoldState,
         topBar = {
             TopAppBar(
                 navigationIcon = {
@@ -112,9 +111,26 @@ fun AppScaffold() {
         },
         drawerContent = {
             AppDrawerContent(scaffoldState, scope)
-        },
-        scaffoldState = scaffoldState
+        }
     ) {
+        // 此处需要编写主界面
+
+        // 这里的例子只调用了一个 AppContent
+        // 要和 BottomNavigation 合理搭配，显示不同的界面的话
+        // 考虑使用 Jetpack Compose Navigation 来实现会更加合理一些
+        // 会在文档的后面介绍 Jetpack Compose Navigation
+
+        // 这里的 AppContent 是个伪界面
+        // 如果你要先简单的实现多界面，你可以这样编写
+        /*
+           when(selectedItem) {
+                0 -> { Home() }
+                1 -> { Favorite() }
+                else -> { Settings() }
+           }
+         */
+        // Home(), Favorite(), Settings() 都是单独的 Composable 函数
+
         AppContent(item = items[selectedItem])
     }
 }
@@ -186,6 +202,9 @@ fun AppDrawerContent(
             Text("设置")
         }
     }
+
+    // 编写逻辑
+    // 如果 drawer 已经展开了，那么点击返回键收起而不是直接退出 app
 
     BackHandler(enabled = scaffoldState.drawerState.isOpen) {
         scope.launch {
