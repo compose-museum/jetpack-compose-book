@@ -37,7 +37,7 @@ allprojects {
 }
 ```
 
-第2步：在应用的`build.gradle`中添加：    
+第2步：在应用的 `build.gradle` 中添加：    
 ```groovy
 dependencies {
         implementation 'io.github.shenzhen2017:compose-refreshlayout:1.0.0'
