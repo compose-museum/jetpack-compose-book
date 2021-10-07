@@ -98,6 +98,7 @@ nav:
     - 'Compose版骨架屏': third-party-component/shimmer/compose_shimmer.md
     - 'Coil': third-party-component/coil/index.md
     - 'Compose版StateLayout': third-party-component/statelayout/compose_statelayout.md
+    - 'Compose版SmartRefreshLayout': third-party-component/refreshlayout/compose_refreshlayout.md
   - 'API 文档':
     - '组件':
       - 'Text': api/elements/text.md
