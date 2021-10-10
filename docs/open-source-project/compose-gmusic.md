@@ -2,7 +2,7 @@
 
 ## 前言
 
-在学习了**Jetpack Compose**后，作为新人的第一个实战项目实现了一个简单的本地音乐播放器
+在学习了 **Jetpack Compose** 后，作为新人的第一个实战项目实现了一个简单的本地音乐播放器
 
 ## 项目真机图
 
@@ -12,7 +12,7 @@
 
 ## 主要实现
 
-关于读取本地音乐文件以及控制播放等操作在这里不做过多赘述,可以参考源代码中的**mainVM.kt**内的内容,这里主要讲界面的实现
+关于读取本地音乐文件以及控制播放等操作在这里不做过多赘述,可以参考源代码中的 **mainVM.kt** 内的内容,这里主要讲界面的实现
 
 ### 搜索框的实现
 
@@ -212,7 +212,7 @@ fun MainActRV(
 
 ## 项目地址
 
-[GMusic-Compose-Samples](https://github.com/SakurajimaMaii/GMusic-Compose-Samples)如果项目对你有所帮助,欢迎点赞👍,Star⭐,收藏😍,如果有改进意见还可以提交issue
+[GMusic-Compose-Samples](https://github.com/SakurajimaMaii/GMusic-Compose-Samples) 如果项目对你有所帮助,欢迎点赞👍,Star⭐,收藏😍,如果有改进意见还可以提交 issue
 
 ## 外部依赖
 
