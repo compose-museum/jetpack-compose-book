@@ -186,7 +186,7 @@ override suspend fun onPreFling(available: Velocity): Velocity {
 
 ### 效果图
 
-![](https://user-images.githubusercontent.com/46998172/136773785-2dd2176f-378a-4011-a6f5-881dd0dd7e2f.mp4)
+<img src="{{config.assets}}/design/gesture/nested_scroll/nestedScroll.gif" width="30%" height="30%" />
 
 * 当列表向上移动时，会先带动 `ToolBar` 向上位移，等 `ToolBar` 向上移动到最大位移量时列表向上滑动
 * 当列表向下移动时，会先带动 `ToolBar` 向下位移，等` ToolBar` 向下移动到最大位移量时列表向下滑动
