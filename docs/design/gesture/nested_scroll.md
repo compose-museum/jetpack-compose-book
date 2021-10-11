@@ -6,7 +6,7 @@
 
 使用 `nestedScroll` 参数列表中有一个必选参数 `connection` 和一个可选参数 `dispatcher`
 
-connection:  嵌套滑动手势处理的核心逻辑，内部回调可以在子布局获得滑动事件前预先消费掉部分或全部手势偏移量，也可以获取子布局消费后剩下的手势偏移量。
+connection: 嵌套滑动手势处理的核心逻辑，内部回调可以在子布局获得滑动事件前预先消费掉部分或全部手势偏移量，也可以获取子布局消费后剩下的手势偏移量。
 
 dispatcher：调度器，内部包含用于父布局的 `NestedScrollConnection` , 可以调用 `dispatch*` 方法来通知父布局发生滑动
 
@@ -182,34 +182,34 @@ override suspend fun onPreFling(available: Velocity): Velocity {
 
 本示例的完整源码已经开源在我的 [Github Repo](https://github.com/RugerMcCarthy/SmartSwipeRefresh) 中，欢迎进行阅读并提交任何反馈。
 
-## 示例 伸缩ToolBar
+## 示例 伸缩 ToolBar
 
 ### 效果图
 
 https://user-images.githubusercontent.com/46998172/136773785-2dd2176f-378a-4011-a6f5-881dd0dd7e2f.mp4
 
-* 当列表向上移动时，会先带动ToolBar向上位移，等ToolBar向上移动到最大位移量时列表向上滑动
-* 当列表向下移动时，会先带动ToolBar向下位移，等ToolBar向下移动到最大位移量时列表向下滑动
+* 当列表向上移动时，会先带动 `ToolBar` 向上位移，等 `ToolBar` 向上移动到最大位移量时列表向上滑动
+* 当列表向下移动时，会先带动 `ToolBar` 向下位移，等` ToolBar` 向下移动到最大位移量时列表向下滑动
 
-### NestedScrollConnection实现
+### NestedScrollConnection 实现
 
 #### 位移量定义
 
 ```kotlin
-// 定义ToolBar的高度
+// 定义 ToolBar 的高度
 val toolbarHeight = 200.dp
-// ToolBar最大向上位移量
-// 56.dp 参考自androidx.compose.material AppBar.kt里面定义的private val AppBarHeight = 56.dp
+// ToolBar 最大向上位移量
+// 56.dp 参考自 androidx.compose.material AppBar.kt 里面定义的 private val AppBarHeight = 56.dp
 val maxUpPx = with(LocalDensity.current) { toolbarHeight.roundToPx().toFloat() - 56.dp.roundToPx().toFloat() }
-// ToolBar最小向上位移量
+// ToolBar 最小向上位移量
 val minUpPx = 0f
-// Title偏移量参考值
+// Title 偏移量参考值
 val xOffsetReferenceValue = with(LocalDensity.current) { 50.dp.roundToPx().toFloat() }
-// ToolBar偏移量
+// ToolBar 偏移量
 val toolbarOffsetHeightPx = remember { mutableStateOf(0f) }
 ```
 
-#### onPreScroll实现
+#### onPreScroll 实现
 
 ```kotlin
 val nestedScrollConnection = remember {
@@ -217,7 +217,7 @@ val nestedScrollConnection = remember {
         override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
             val delta = available.y
             val newOffset = toolbarOffsetHeightPx.value + delta
-            // 设置ToolBar的位移范围
+            // 设置 ToolBar 的位移范围
             toolbarOffsetHeightPx.value = newOffset.coerceIn(-maxUpPx, -minUpPx)
             return Offset.Zero
         }
@@ -244,13 +244,13 @@ Box(
         }
     }
 
-    // 模拟ToolBar
+    // 模拟 ToolBar
     Box(
         modifier = Modifier
             .height(toolbarHeight)
             .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) }
     ){
-        // ToolBar背景图
+        // ToolBar 背景图
         Image(
             painter = painterResource(id = R.drawable.top_bar),
             contentDescription = null,modifier = Modifier.fillMaxWidth(),
@@ -268,8 +268,8 @@ Box(
                     .offset {
                         IntOffset(
                             x = 0,
-                            // 和ToolBar相反的位移量
-                            // 保证Icon始终处于原位置
+                            // 和 ToolBar 相反的位移量
+                            // 保证 Icon 始终处于原位置
                             y = -toolbarOffsetHeightPx.value.roundToInt()
                         )
                     },
@@ -283,7 +283,7 @@ Box(
                     .padding(16.dp)
                     .offset {
                         IntOffset(
-                            // 按照ToolBar向上的位移量成比例的向右位移Title
+                            // 按照 ToolBar 向上的位移量成比例的向右位移 Title
                             x = -((toolbarOffsetHeightPx.value / maxUpPx) * xOffsetReferenceValue).roundToInt(), y = 0
                         )
                     },
