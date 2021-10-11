@@ -2093,7 +2093,7 @@
 <hr />
 <p>当点击 button 后，MutableState 发生变化，代码中唯一访问这个 state 的地方是 <code>Text(...)</code> ，为什么重组范围不只是 <code>Text(...)</code> ，而是 <code>Button {...}</code> 的整个花括号？</p>
 <p>首先要理解出现在 <code>Text(...)</code> 参数中的 <code>text</code> 实际上是一个<strong>表达式</strong></p>
-<p>下面两中写法在执行顺序上是等价的</p>
+<p>下面两种写法在执行顺序上是等价的</p>
 <ol>
 <li><div class="highlight"><pre><span></span><code><span class="n">println</span><span class="p">(</span><span class="err">“</span><span class="n">hello</span><span class="err">”</span> <span class="o">+</span> <span class="err">“</span><span class="n">world</span><span class="err">”</span><span class="p">)</span>
 </code></pre></div></li>
@@ -2204,7 +2204,7 @@ D/Compose: Text
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">May 30, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 11, 2021</span>
       
     
   </small>
