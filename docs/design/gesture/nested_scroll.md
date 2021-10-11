@@ -153,7 +153,7 @@ override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset 
 }
 ```
 
-#### 实现 onPreFling 
+#### 实现 onPreFling
 
 接下来，我们需要一个松手时的吸附效果。如果拉过加载动画高度的一般则进行加载，否则就收缩回初始状态。前问我提到了 `onPreFling` 在松手时回调，即符合我们当前这个的场景。
 
@@ -174,7 +174,7 @@ override suspend fun onPreFling(available: Velocity): Velocity {
 }
 ```
 
-#### 实现 onPreFling 
+#### 实现 onPreFling
 
 由于我们的下滑刷新手势处理不涉及 `onPreFling` 回调时机，所以不进行额外的实现。
 
@@ -182,3 +182,112 @@ override suspend fun onPreFling(available: Velocity): Velocity {
 
 本示例的完整源码已经开源在我的 [Github Repo](https://github.com/RugerMcCarthy/SmartSwipeRefresh) 中，欢迎进行阅读并提交任何反馈。
 
+## 示例 伸缩ToolBar
+
+### 效果图
+
+* 当列表向上移动时，会先带动ToolBar向上位移，等ToolBar向上移动到最大位移量时列表向上滑动
+* 当列表向下移动时，会先带动ToolBar向下位移，等ToolBar向下移动到最大位移量时列表向下滑动
+
+### NestedScrollConnection实现
+
+#### 位移量定义
+
+```kotlin
+// 定义ToolBar的高度
+val toolbarHeight = 200.dp
+// ToolBar最大向上位移量
+// 56.dp 参考自androidx.compose.material AppBar.kt里面定义的private val AppBarHeight = 56.dp
+val maxUpPx = with(LocalDensity.current) { toolbarHeight.roundToPx().toFloat() - 56.dp.roundToPx().toFloat() }
+// ToolBar最小向上位移量
+val minUpPx = 0f
+// Title偏移量参考值
+val xOffsetReferenceValue = with(LocalDensity.current) { 50.dp.roundToPx().toFloat() }
+// ToolBar偏移量
+val toolbarOffsetHeightPx = remember { mutableStateOf(0f) }
+```
+
+#### onPreScroll实现
+
+```kotlin
+val nestedScrollConnection = remember {
+    object : NestedScrollConnection {
+        override fun onPreScroll(available: Offset, source: NestedScrollSource): Offset {
+            val delta = available.y
+            val newOffset = toolbarOffsetHeightPx.value + delta
+            // 设置ToolBar的位移范围
+            toolbarOffsetHeightPx.value = newOffset.coerceIn(-maxUpPx, -minUpPx)
+            return Offset.Zero
+        }
+    }
+}
+```
+
+#### 布局实现
+
+```kotlin
+Box(
+    Modifier
+        .fillMaxSize()
+        .nestedScroll(nestedScrollConnection) // 作为父级附加到嵌套滚动系统
+) {
+    // 列表带有内置的嵌套滚动支持，它将通知我们它的滚动
+    LazyColumn(
+        contentPadding = PaddingValues(top = toolbarHeight)
+    ) {
+        items(100) { index ->
+            Text("I'm item $index", modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp))
+        }
+    }
+
+    // 模拟ToolBar
+    Box(
+        modifier = Modifier
+            .height(toolbarHeight)
+            .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) }
+    ){
+        // ToolBar背景图
+        Image(
+            painter = painterResource(id = R.drawable.top_bar),
+            contentDescription = null,modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.FillBounds
+        )
+
+        // 图标和标题
+        Box(modifier = Modifier.fillMaxHeight()
+        ) {
+            Icon(
+                imageVector = Icons.Filled.ArrowBack,
+                contentDescription = null,modifier = Modifier
+                    .size(50.dp)
+                    .padding(horizontal = 10.dp)
+                    .offset {
+                        IntOffset(
+                            x = 0,
+                            // 和ToolBar相反的位移量
+                            // 保证Icon始终处于原位置
+                            y = -toolbarOffsetHeightPx.value.roundToInt()
+                        )
+                    },
+                tint = Color.White
+            )
+
+            Text(
+                text="主页",
+                modifier = Modifier
+                    .align(Alignment.BottomStart).height(IntrinsicSize.Min)
+                    .padding(16.dp)
+                    .offset {
+                        IntOffset(
+                            // 按照ToolBar向上的位移量成比例的向右位移Title
+                            x = -((toolbarOffsetHeightPx.value / maxUpPx) * xOffsetReferenceValue).roundToInt(), y = 0
+                        )
+                    },
+                textAlign = TextAlign.Start, fontSize = 20.sp, color = Color.White
+            )
+        }
+    }
+}
+```
