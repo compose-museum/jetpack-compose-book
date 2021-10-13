@@ -203,9 +203,7 @@ val toolbarHeight = 200.dp
 val maxUpPx = with(LocalDensity.current) { toolbarHeight.roundToPx().toFloat() - 56.dp.roundToPx().toFloat() }
 // ToolBar 最小向上位移量
 val minUpPx = 0f
-// Title 偏移量参考值
-val xOffsetReferenceValue = with(LocalDensity.current) { 50.dp.roundToPx().toFloat() }
-// ToolBar 偏移量
+// 偏移折叠工具栏上移高度
 val toolbarOffsetHeightPx = remember { mutableStateOf(0f) }
 ```
 
@@ -234,62 +232,20 @@ Box(
         .nestedScroll(nestedScrollConnection) // 作为父级附加到嵌套滚动系统
 ) {
     // 列表带有内置的嵌套滚动支持，它将通知我们它的滚动
-    LazyColumn(
-        contentPadding = PaddingValues(top = toolbarHeight)
-    ) {
+    LazyColumn(contentPadding = PaddingValues(top = toolbarHeight)) {
         items(100) { index ->
-            Text("I'm item $index", modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp))
+            Text("I'm item $index", modifier = Modifier.fillMaxWidth().padding(16.dp))
         }
     }
-
-    // 模拟 ToolBar
-    Box(
-        modifier = Modifier
-            .height(toolbarHeight)
-            .offset { IntOffset(x = 0, y = toolbarOffsetHeightPx.value.roundToInt()) }
-    ){
-        // ToolBar 背景图
-        Image(
-            painter = painterResource(id = R.drawable.top_bar),
-            contentDescription = null,modifier = Modifier.fillMaxWidth(),
-            contentScale = ContentScale.FillBounds
-        )
-
-        // 图标和标题
-        Box(modifier = Modifier.fillMaxHeight()
-        ) {
-            Icon(
-                imageVector = Icons.Filled.ArrowBack,
-                contentDescription = null,modifier = Modifier
-                    .size(50.dp)
-                    .padding(horizontal = 10.dp)
-                    .offset {
-                        IntOffset(
-                            x = 0,
-                            // 和 ToolBar 相反的位移量
-                            // 保证 Icon 始终处于原位置
-                            y = -toolbarOffsetHeightPx.value.roundToInt()
-                        )
-                    },
-                tint = Color.White
-            )
-
-            Text(
-                text="主页",
-                modifier = Modifier
-                    .align(Alignment.BottomStart).height(IntrinsicSize.Min)
-                    .padding(16.dp)
-                    .offset {
-                        IntOffset(
-                            // 按照 ToolBar 向上的位移量成比例的向右位移 Title
-                            x = -((toolbarOffsetHeightPx.value / maxUpPx) * xOffsetReferenceValue).roundToInt(), y = 0
-                        )
-                    },
-                textAlign = TextAlign.Start, fontSize = 20.sp, color = Color.White
-            )
-        }
-    }
+    ScrollableAppBar(
+        title = "toolbar offset is ${toolbarOffsetHeightPx.value}",
+        backgroundImageId = R.drawable.top_bar_bk,
+        scrollableAppBarHeight = toolbarHeight,
+        toolbarOffsetHeightPx = toolbarOffsetHeightPx
+    )
 }
 ```
+
+#### ScrollableAppBar 实现
+
+关于 `ScrollableAppBar` 的定义,请参考[ScrollableAppBar](https://github.com/SakurajimaMaii/ComposeWidget/blob/master/app/src/main/java/com/example/composewidget/ScrollableAppBar.kt)，如果想了解 `ScrollableAppBar` 具体实现过程，请参考[Compose 伸缩ToolBar的实现](https://docs.compose.net.cn/open-source-project/compose-scrollable-appbar/)

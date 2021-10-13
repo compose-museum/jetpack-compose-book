@@ -36,7 +36,7 @@ nav:
       - 'Slider': elements/slider.md
       - 'Text': elements/text.md
       - 'TextField': elements/textfield.md
-    - '布局组件': 
+    - '布局组件':
       - 'BottomNavigation': layout/bottomnavigation.md
       - 'Column': layout/column.md
       - 'ModalBottomSheetLayout': layout/modalbottomsheetlayout.md
@@ -103,9 +103,10 @@ nav:
     - '组件':
       - 'Text': api/elements/text.md
   - '开源项目':
-    - 'Compose 仿豆瓣榜单客户端': open-source-project/compose-douban.md 
+    - 'Compose 仿豆瓣榜单客户端': open-source-project/compose-douban.md
     - 'Compose 实现月亮阴晴圆缺动画': open-source-project/compose-moon-animation.md
     - 'Compose 一款简易的音乐播放软件': open-source-project/compose-gmusic.md
+    - 'Compose 伸缩ToolBar的实现': open-source-project/compose-scrollable-appbar.md
 
 extra:
   social:
