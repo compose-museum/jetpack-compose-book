@@ -106,7 +106,7 @@ nav:
     - 'Compose 仿豆瓣榜单客户端': open-source-project/compose-douban.md
     - 'Compose 实现月亮阴晴圆缺动画': open-source-project/compose-moon-animation.md
     - 'Compose 一款简易的音乐播放软件': open-source-project/compose-gmusic.md
-    - 'Compose 伸缩ToolBar的实现': open-source-project/compose-scrollable-appbar.md
+    - 'Compose 伸缩 ToolBar 的实现': open-source-project/compose-scrollable-appbar.md
 
 extra:
   social:
