@@ -12,7 +12,7 @@
         <link rel="canonical" href="https://docs.compose.net.cn/design/gesture/nested_scroll/">
       
       <link rel="icon" href="../../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.2, mkdocs-material-7.3.2">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.3">
     
     
       
@@ -20,7 +20,7 @@
       
     
     
-      <link rel="stylesheet" href="../../../assets/stylesheets/main.24c991ad.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.5143246d.min.css">
       
         
         <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
@@ -1221,6 +1221,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#scrollableappbar" class="md-nav__link">
+    ScrollableAppBar 实现
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2016,6 +2023,20 @@
 
             
           
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+        Compose 伸缩 ToolBar 的实现
+      </a>
+    </li>
+  
+
+            
+          
         </ul>
       </nav>
     </li>
@@ -2219,6 +2240,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#scrollableappbar" class="md-nav__link">
+    ScrollableAppBar 实现
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2402,9 +2430,7 @@
 <span class="kd">val</span> <span class="nv">maxUpPx</span> <span class="o">=</span> <span class="n">with</span><span class="p">(</span><span class="n">LocalDensity</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span> <span class="n">toolbarHeight</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="o">-</span> <span class="m">56.</span><span class="n">dp</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="p">}</span>
 <span class="c1">// ToolBar 最小向上位移量</span>
 <span class="kd">val</span> <span class="nv">minUpPx</span> <span class="o">=</span> <span class="m">0f</span>
-<span class="c1">// Title 偏移量参考值</span>
-<span class="kd">val</span> <span class="nv">xOffsetReferenceValue</span> <span class="o">=</span> <span class="n">with</span><span class="p">(</span><span class="n">LocalDensity</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span> <span class="m">50.</span><span class="n">dp</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="p">}</span>
-<span class="c1">// ToolBar 偏移量</span>
+<span class="c1">// 偏移折叠工具栏上移高度</span>
 <span class="kd">val</span> <span class="nv">toolbarOffsetHeightPx</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0f</span><span class="p">)</span> <span class="p">}</span>
 </code></pre></div>
 <h4 id="onprescroll_2">onPreScroll 实现</h4>
@@ -2427,65 +2453,21 @@
         <span class="p">.</span><span class="na">nestedScroll</span><span class="p">(</span><span class="n">nestedScrollConnection</span><span class="p">)</span> <span class="c1">// 作为父级附加到嵌套滚动系统</span>
 <span class="p">)</span> <span class="p">{</span>
     <span class="c1">// 列表带有内置的嵌套滚动支持，它将通知我们它的滚动</span>
-    <span class="n">LazyColumn</span><span class="p">(</span>
-        <span class="n">contentPadding</span> <span class="o">=</span> <span class="n">PaddingValues</span><span class="p">(</span><span class="n">top</span> <span class="o">=</span> <span class="n">toolbarHeight</span><span class="p">)</span>
-    <span class="p">)</span> <span class="p">{</span>
+    <span class="n">LazyColumn</span><span class="p">(</span><span class="n">contentPadding</span> <span class="o">=</span> <span class="n">PaddingValues</span><span class="p">(</span><span class="n">top</span> <span class="o">=</span> <span class="n">toolbarHeight</span><span class="p">))</span> <span class="p">{</span>
         <span class="n">items</span><span class="p">(</span><span class="m">100</span><span class="p">)</span> <span class="p">{</span> <span class="n">index</span> <span class="o">-&gt;</span>
-            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;I&#39;m item </span><span class="si">$</span><span class="n">index</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-                <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-                <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;I&#39;m item </span><span class="si">$</span><span class="n">index</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">().</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">))</span>
         <span class="p">}</span>
     <span class="p">}</span>
-
-    <span class="c1">// 模拟 ToolBar</span>
-    <span class="n">Box</span><span class="p">(</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolbarHeight</span><span class="p">)</span>
-            <span class="p">.</span><span class="na">offset</span> <span class="p">{</span> <span class="n">IntOffset</span><span class="p">(</span><span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">())</span> <span class="p">}</span>
-    <span class="p">){</span>
-        <span class="c1">// ToolBar 背景图</span>
-        <span class="n">Image</span><span class="p">(</span>
-            <span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">top_bar</span><span class="p">),</span>
-            <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
-            <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">FillBounds</span>
-        <span class="p">)</span>
-
-        <span class="c1">// 图标和标题</span>
-        <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxHeight</span><span class="p">()</span>
-        <span class="p">)</span> <span class="p">{</span>
-            <span class="n">Icon</span><span class="p">(</span>
-                <span class="n">imageVector</span> <span class="o">=</span> <span class="n">Icons</span><span class="p">.</span><span class="na">Filled</span><span class="p">.</span><span class="na">ArrowBack</span><span class="p">,</span>
-                <span class="n">contentDescription</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-                    <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">)</span>
-                    <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">horizontal</span> <span class="o">=</span> <span class="m">10.</span><span class="n">dp</span><span class="p">)</span>
-                    <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
-                        <span class="n">IntOffset</span><span class="p">(</span>
-                            <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-                            <span class="c1">// 和 ToolBar 相反的位移量</span>
-                            <span class="c1">// 保证 Icon 始终处于原位置</span>
-                            <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">()</span>
-                        <span class="p">)</span>
-                    <span class="p">},</span>
-                <span class="n">tint</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">White</span>
-            <span class="p">)</span>
-
-            <span class="n">Text</span><span class="p">(</span>
-                <span class="n">text</span><span class="o">=</span><span class="s">&quot;主页&quot;</span><span class="p">,</span>
-                <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-                    <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">).</span><span class="na">height</span><span class="p">(</span><span class="n">IntrinsicSize</span><span class="p">.</span><span class="na">Min</span><span class="p">)</span>
-                    <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
-                    <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
-                        <span class="n">IntOffset</span><span class="p">(</span>
-                            <span class="c1">// 按照 ToolBar 向上的位移量成比例的向右位移 Title</span>
-                            <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="p">((</span><span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span> <span class="o">/</span> <span class="n">maxUpPx</span><span class="p">)</span> <span class="o">*</span> <span class="n">xOffsetReferenceValue</span><span class="p">).</span><span class="na">roundToInt</span><span class="p">(),</span> <span class="n">y</span> <span class="o">=</span> <span class="m">0</span>
-                        <span class="p">)</span>
-                    <span class="p">},</span>
-                <span class="n">textAlign</span> <span class="o">=</span> <span class="n">TextAlign</span><span class="p">.</span><span class="na">Start</span><span class="p">,</span> <span class="n">fontSize</span> <span class="o">=</span> <span class="m">20.</span><span class="n">sp</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">White</span>
-            <span class="p">)</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
+    <span class="n">ScrollableAppBar</span><span class="p">(</span>
+        <span class="n">title</span> <span class="o">=</span> <span class="s">&quot;toolbar offset is </span><span class="si">${</span><span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span>
+        <span class="n">backgroundImageId</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">drawable</span><span class="p">.</span><span class="na">top_bar_bk</span><span class="p">,</span>
+        <span class="n">scrollableAppBarHeight</span> <span class="o">=</span> <span class="n">toolbarHeight</span><span class="p">,</span>
+        <span class="n">toolbarOffsetHeightPx</span> <span class="o">=</span> <span class="n">toolbarOffsetHeightPx</span>
+    <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
+<h4 id="scrollableappbar">ScrollableAppBar 实现</h4>
+<p>关于 <code>ScrollableAppBar</code> 的定义,请参考<a href="https://github.com/SakurajimaMaii/ComposeWidget/blob/master/app/src/main/java/com/example/composewidget/ScrollableAppBar.kt">ScrollableAppBar</a>，如果想了解 <code>ScrollableAppBar</code> 具体实现过程，请参考<a href="https://docs.compose.net.cn/open-source-project/compose-scrollable-appbar/">Compose 伸缩ToolBar的实现</a></p>
                 
                   
                     
@@ -2494,7 +2476,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 11, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 13, 2021</span>
       
     
   </small>
@@ -2585,10 +2567,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.e99e714c.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
     
     
-      <script src="../../../assets/javascripts/bundle.bc35569b.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.f89c2efe.min.js"></script>
       
     
   </body>
