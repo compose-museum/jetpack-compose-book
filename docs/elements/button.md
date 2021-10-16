@@ -17,7 +17,7 @@ fun Button(
 )
 ```
 
-**Compose** 的 `Button` 是基于 **Material Design** 实现的，和传统的 **XML Button** 截然不同
+**Compose** 的 `Button` 是基于 **Material Design** 理念设计的
 
 ## 2. 使用示例
 
@@ -76,7 +76,7 @@ data class ButtonState(var text: String, var textColor: Color, var buttonColor: 
 // 获取按钮的状态
 val interactionState = remember { MutableInteractionSource() }
 
-// 使用Kotlin的解构方法
+// 使用 Kotlin 的结构方法
 val (text, textColor, buttonColor) = when {
     interactionState.collectIsPressedAsState().value  -> ButtonState("Just Pressed", Color.Red, Color.Black)
     else -> ButtonState( "Just Button", Color.White, Color.Red)
