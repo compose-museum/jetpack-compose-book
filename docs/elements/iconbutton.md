@@ -1,3 +1,5 @@
+## 1. [IconButton](https://docs.compose.net.cn/api/elements/button/#4-iconbutton)属性
+
 ```kotlin
 @Composable
 fun IconButton(
@@ -33,13 +35,13 @@ fun IconButtonDemo() {
             Icon(Icons.Filled.Done, null)
         }
     }
-    
+
 }
 ```
 
 ![]({{config.assets}}/elements/iconbutton/demo.gif)
 
-## 1. 取消波纹
+## 2. 取消波纹
 
 有些时候我们想要取消按钮点击所产生的波纹要怎么办？
 
