@@ -76,7 +76,7 @@ data class ButtonState(var text: String, var textColor: Color, var buttonColor: 
 // 获取按钮的状态
 val interactionState = remember { MutableInteractionSource() }
 
-// 使用 Kotlin 的结构方法
+// 使用 Kotlin 的解构方法
 val (text, textColor, buttonColor) = when {
     interactionState.collectIsPressedAsState().value  -> ButtonState("Just Pressed", Color.Red, Color.Black)
     else -> ButtonState( "Just Button", Color.White, Color.Red)
