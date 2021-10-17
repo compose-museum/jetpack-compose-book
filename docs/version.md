@@ -1,3 +1,45 @@
+## 版本 1.0.4
+
+主要更新：依赖项更新 Kotlin 1.5.31
+
+发布时间 2021 年 10 月 13 日
+
+内容：
+
+### androidx.compose.animation
+
+发布了 `androidx.compose.animation:animation:1.0.4` 和 `androidx.compose.animation:animation-core:1.0.4` [提交内容](https://android.googlesource.com/platform/frameworks/support/+log/4b73eb10b9c34d4659d950c12ff23cf094d4d8c7..74486e447dc2667c6a4cc46b2963f40210ceb348/compose/animation)
+
+依赖项更新：更新 `Kotlin` 版本到 1.5.31
+
+### androidx.compose.compiler
+
+发布了 `androidx.compose.compiler:compiler:1.0.4` [提交内容](https://android.googlesource.com/platform/frameworks/support/+log/4b73eb10b9c34d4659d950c12ff23cf094d4d8c7..74486e447dc2667c6a4cc46b2963f40210ceb348/compose/compiler/compiler-hosted)
+
+依赖项更新：更新 `Kotlin` 版本到 1.5.31
+
+### androidx.compose.foundation
+
+发布了 `androidx.compose.foundation:foundation:1.0.4` 和 `androidx.compose.foundation:foundation-layout:1.0.4` [提交内容](https://android.googlesource.com/platform/frameworks/support/+log/9c1876203334d14761d2c11e47c8191ef9107989..4b73eb10b9c34d4659d950c12ff23cf094d4d8c7/compose/foundation)
+
+依赖项更新：更新 `Kotlin` 版本到 1.5.31
+
+### androidx.compose.material
+
+发布了 `androidx.compose.material:material-*:1.0.4` [提交内容](https://android.googlesource.com/platform/frameworks/support/+log/4b73eb10b9c34d4659d950c12ff23cf094d4d8c7..74486e447dc2667c6a4cc46b2963f40210ceb348/compose/material)
+
+依赖项更新：更新 `Kotlin` 版本到 1.5.31
+
+### androidx.compose.runtime
+
+发布了 `androidx.compose.runtime:runtime-*:1.0.4` [提交内容](https://android.googlesource.com/platform/frameworks/support/+log/4b73eb10b9c34d4659d950c12ff23cf094d4d8c7..74486e447dc2667c6a4cc46b2963f40210ceb348/compose/runtime)
+
+依赖项更新：更新 `Kotlin` 版本到 1.5.31
+
+### androidx.compose.ui
+
+发布了 `androidx.compose.ui:ui-*:1.0.4` [提交内容](https://android.googlesource.com/platform/frameworks/support/+log/4b73eb10b9c34d4659d950c12ff23cf094d4d8c7..74486e447dc2667c6a4cc46b2963f40210ceb348/compose/ui)
+
 ## 版本 1.1.0-alpha01
 
 发布时间：2021 年 8 月 4 日
