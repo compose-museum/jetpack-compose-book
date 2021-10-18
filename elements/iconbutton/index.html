@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#1" class="md-skip">
+        <a href="#1-iconbutton" class="md-skip">
           跳转至
         </a>
       
@@ -510,8 +510,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    1. 取消波纹
+  <a href="#1-iconbutton" class="md-nav__link">
+    1. IconButton属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 取消波纹
   </a>
   
 </li>
@@ -1895,8 +1902,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#1" class="md-nav__link">
-    1. 取消波纹
+  <a href="#1-iconbutton" class="md-nav__link">
+    1. IconButton属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 取消波纹
   </a>
   
 </li>
@@ -1920,7 +1934,8 @@
                 
                   <h1>IconButton</h1>
                 
-                <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+                <h2 id="1-iconbutton">1. <a href="https://docs.compose.net.cn/api/elements/button/#4-iconbutton">IconButton</a>属性</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">IconButton</span><span class="p">(</span>
     <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
     <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
@@ -1951,7 +1966,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/iconbutton/demo.gif" /></p>
-<h2 id="1">1. 取消波纹</h2>
+<h2 id="2">2. 取消波纹</h2>
 <p>有些时候我们想要取消按钮点击所产生的波纹要怎么办？</p>
 <p><code>IconButton</code> 的源码中其实将 <code>Box</code> 里的 <code>modifier.clickable</code> 参数 <code>Indication</code> 设置成波纹了</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
@@ -2011,7 +2026,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 16, 2021</span>
       
     
   </small>

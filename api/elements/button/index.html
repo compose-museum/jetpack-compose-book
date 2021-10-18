@@ -1759,6 +1759,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2-textbutton" class="md-nav__link">
+    2. TextButton
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-outlinedbutton" class="md-nav__link">
+    3. OutlinedButton
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-iconbutton" class="md-nav__link">
+    4. IconButton
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1901,6 +1922,27 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#2-textbutton" class="md-nav__link">
+    2. TextButton
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-outlinedbutton" class="md-nav__link">
+    3. OutlinedButton
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-iconbutton" class="md-nav__link">
+    4. IconButton
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1945,7 +1987,7 @@
 <tbody>
 <tr>
 <td><strong>onClick:() -&gt; Unit</strong></td>
-<td>当用户点击按钮时将被调用，如果不提供该回调，那么按钮将变为禁用状态</td>
+<td>用户点击按钮时将被调用</td>
 </tr>
 <tr>
 <td><strong>modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier</a> = Modifier</strong></td>
@@ -1985,6 +2027,176 @@
 </tr>
 </tbody>
 </table>
+<h2 id="2-textbutton">2. TextButton</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TextButton</span><span class="p">(</span>
+    <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">elevation</span><span class="p">:</span> <span class="n">ButtonElevation? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">shapes</span><span class="p">.</span><span class="na">small</span><span class="p">,</span>
+    <span class="n">border</span><span class="p">:</span> <span class="n">BorderStroke? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">ButtonColors</span> <span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">textButtonColors</span><span class="p">(),</span>
+    <span class="n">contentPadding</span><span class="p">:</span> <span class="n">PaddingValues</span> <span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">TextButtonContentPadding</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="n">RowScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>onClick:() -&gt; Unit</strong></td>
+<td>用户点击按钮时将被调用</td>
+</tr>
+<tr>
+<td><strong>modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier</a> = Modifier</strong></td>
+<td>应用于该布局节点的 <code>Modifier</code></td>
+</tr>
+<tr>
+<td><strong>enabled: <a href="https://developer.android.com/reference/kotlin/java/lang/Boolean">Boolean</a> = true</strong></td>
+<td>控制按钮的启用状态。如果为 <code>false</code> ，则该按钮将不可单击；</td>
+</tr>
+<tr>
+<td><strong>interactionSource: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource">MutableInteractionSource</a> = remember { MutableInteractionSource() }</strong></td>
+<td>表示交互的状态信息，也就是相当于我们之前给按钮设置的各种selector，来实现普通、点击效果等</td>
+</tr>
+<tr>
+<td><strong>elevation: <a href="https://developer.android.com/reference/kotlin/androidx/compose/material/ButtonElevation">ButtonElevation?</a> = null</strong></td>
+<td><code>ButtonElevation</code> 用于解析此按钮在不同状态下的高度。 <code>TextButton</code> 通常没有高度，有关具有高程的按钮，请参阅 <code>Button</code>。</td>
+</tr>
+<tr>
+<td><strong>shape: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Shape">Shape</a> = MaterialTheme.shapes.small</strong></td>
+<td>定义按钮的形状及其阴影</td>
+</tr>
+<tr>
+<td><strong>border: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/BorderStroke">BorderStroke?</a> = null</strong></td>
+<td>在按钮周围绘制边框</td>
+</tr>
+<tr>
+<td><strong>colors: <a href="https://developer.android.com/reference/kotlin/androidx/compose/material/ButtonColors">ButtonColors</a> = ButtonDefaults.textButtonColors()</strong></td>
+<td>颜色 <code>ButtonColors</code> 将用于解析此按钮在不同状态下的背景和内容颜色。参见 <code>ButtonDefaults.textButtonColors</code></td>
+</tr>
+<tr>
+<td><strong>contentPadding: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues">PaddingValues</a> = ButtonDefaults.TextButtonContentPadding</strong></td>
+<td>在容器和内容之间内部应用的间距值</td>
+</tr>
+<tr>
+<td><strong>content: @Composable RowScope.() -&gt; Unit</strong></td>
+<td>按钮的内容，按钮可能包含文本信息，也可能包含图标信息，这个参数就是让你组合你需要的控件的，注意它是横向的。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="3-outlinedbutton">3. OutlinedButton</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">OutlinedButton</span><span class="p">(</span>
+    <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">elevation</span><span class="p">:</span> <span class="n">ButtonElevation? </span><span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="n">Shape</span> <span class="o">=</span> <span class="n">MaterialTheme</span><span class="p">.</span><span class="na">shapes</span><span class="p">.</span><span class="na">small</span><span class="p">,</span>
+    <span class="n">border</span><span class="p">:</span> <span class="n">BorderStroke? </span><span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">outlinedBorder</span><span class="p">,</span>
+    <span class="n">colors</span><span class="p">:</span> <span class="n">ButtonColors</span> <span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">outlinedButtonColors</span><span class="p">(),</span>
+    <span class="n">contentPadding</span><span class="p">:</span> <span class="n">PaddingValues</span> <span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">ContentPadding</span><span class="p">,</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="n">RowScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>onClick:() -&gt; Unit</strong></td>
+<td>当用户点击按钮时将被调用</td>
+</tr>
+<tr>
+<td><strong>modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier</a> = Modifier</strong></td>
+<td>应用于该布局节点的 <code>Modifier</code></td>
+</tr>
+<tr>
+<td><strong>enabled: <a href="https://developer.android.com/reference/kotlin/java/lang/Boolean">Boolean</a> = true</strong></td>
+<td>控制按钮的启用状态。如果为 <code>false</code> ，则该按钮将不可单击；</td>
+</tr>
+<tr>
+<td><strong>interactionSource: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource">MutableInteractionSource</a> = remember { MutableInteractionSource() }</strong></td>
+<td>表示交互的状态信息，也就是相当于我们之前给按钮设置的各种selector，来实现普通、点击效果等</td>
+</tr>
+<tr>
+<td><strong>elevation: <a href="https://developer.android.com/reference/kotlin/androidx/compose/material/ButtonElevation">ButtonElevation?</a> = null</strong></td>
+<td><code>ButtonElevation</code> 用于解析此按钮在不同状态下的高度。 <code>TextButton</code> 通常没有高度，有关具有高程的按钮，请参阅 <code>Button</code>。</td>
+</tr>
+<tr>
+<td><strong>shape: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/graphics/Shape">Shape</a> = MaterialTheme.shapes.small</strong></td>
+<td>定义按钮的形状及其阴影</td>
+</tr>
+<tr>
+<td><strong>border: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/BorderStroke">BorderStroke?</a> = ButtonDefaults.outlinedBorder</strong></td>
+<td>在按钮周围绘制边框</td>
+</tr>
+<tr>
+<td><strong>colors: <a href="https://developer.android.com/reference/kotlin/androidx/compose/material/ButtonColors">ButtonColors</a> = ButtonDefaults.outlinedButtonColors()</strong></td>
+<td>颜色 <code>ButtonColors</code> 将用于解析此按钮在不同状态下的背景和内容颜色。参见 <code>ButtonDefaults.outlinedButtonColors</code></td>
+</tr>
+<tr>
+<td><strong>contentPadding: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/PaddingValues">PaddingValues</a> = ButtonDefaults.ContentPadding</strong></td>
+<td>在容器和内容之间内部应用的间距值</td>
+</tr>
+<tr>
+<td><strong>content: @Composable RowScope.() -&gt; Unit</strong></td>
+<td>按钮的内容，按钮可能包含文本信息，也可能包含图标信息，这个参数就是让你组合你需要的控件的，注意它是横向的。</td>
+</tr>
+</tbody>
+</table>
+<h2 id="4-iconbutton">4. IconButton</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">IconButton</span><span class="p">(</span>
+    <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">enabled</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="n">interactionSource</span><span class="p">:</span> <span class="n">MutableInteractionSource</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">},</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>onClick:() -&gt; Unit</strong></td>
+<td>当用户点击按钮时将被调用</td>
+</tr>
+<tr>
+<td><strong>modifier: <a href="https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier">Modifier</a> = Modifier</strong></td>
+<td>应用于该布局节点的 <code>Modifier</code></td>
+</tr>
+<tr>
+<td><strong>enabled: <a href="https://developer.android.com/reference/kotlin/java/lang/Boolean">Boolean</a> = true</strong></td>
+<td>控制按钮的启用状态。如果为 <code>false</code> ，则该按钮将不可单击；</td>
+</tr>
+<tr>
+<td><strong>interactionSource: <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource">MutableInteractionSource</a> = remember { MutableInteractionSource() }</strong></td>
+<td>表示交互的状态信息，也就是相当于我们之前给按钮设置的各种selector，来实现普通、点击效果等</td>
+</tr>
+<tr>
+<td><strong>content: @Composable () -&gt; Unit</strong></td>
+<td>content 要在 IconButton 内绘制的内容（图标）。这通常是一个 <code>Icon</code>。</td>
+</tr>
+</tbody>
+</table>
                 
                   
                     
@@ -1993,7 +2205,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 18, 2021</span>
       
     
   </small>

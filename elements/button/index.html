@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#_1" class="md-skip">
+        <a href="#1-button" class="md-skip">
           跳转至
         </a>
       
@@ -438,6 +438,40 @@
       目录
     </label>
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-button" class="md-nav__link">
+    1. Button属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 使用示例
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 使用示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 基本使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 不同点击状态下的按钮状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
       
         <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
@@ -1895,6 +1929,40 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#1-button" class="md-nav__link">
+    1. Button属性
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 使用示例
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 使用示例">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#21" class="md-nav__link">
+    2.1 基本使用
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#22" class="md-nav__link">
+    2.2 不同点击状态下的按钮状态
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#_1" class="md-nav__link">
     更多
   </a>
@@ -1920,7 +1988,8 @@
                 
                   <h1>Button</h1>
                 
-                <div class="highlight"><pre><span></span><code><span class="nd">@OptIn</span><span class="p">(</span><span class="n">ExperimentalMaterialApi</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
+                <h2 id="1-button">1. <a href="https://docs.compose.net.cn/api/elements/button/#1-button">Button</a>属性</h2>
+<div class="highlight"><pre><span></span><code><span class="nd">@OptIn</span><span class="p">(</span><span class="n">ExperimentalMaterialApi</span><span class="o">::</span><span class="n">class</span><span class="p">)</span>
 <span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">Button</span><span class="p">(</span>
     <span class="n">onClick</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
@@ -1935,7 +2004,9 @@
     <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="n">RowScope</span><span class="p">.()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
 <span class="p">)</span>
 </code></pre></div>
-<p><strong>Compose</strong> 的 <code>Button</code> 是基于 <strong>Material Design</strong> 实现的，和传统的 <strong>XML Button</strong> 截然不同</p>
+<p><strong>Compose</strong> 的 <code>Button</code> 是基于 <strong>Material Design</strong> 理念设计的</p>
+<h2 id="2">2. 使用示例</h2>
+<h3 id="21">2.1 基本使用</h3>
 <p>以下是简单创建一个默认的 <code>Button</code> 代码：</p>
 <div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.material.Button</span>
 <span class="k">import</span> <span class="nn">androidx.compose.material.Text</span>
@@ -1948,7 +2019,7 @@
 <span class="p">}</span>
 </code></pre></div>
 <p>效果如图所示：</p>
-<p><img alt="" src="../../../assets/elements/button/button1.png" /></p>
+<p><img alt="Button example 1" src="../../../assets/elements/button/button1.png" /></p>
 <p>也许您想添加图标在文字的旁边，也只需：</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">ButtonDemo</span><span class="p">()</span> <span class="p">{</span>
@@ -1965,7 +2036,38 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p><img alt="" src="../../../assets/elements/button/button2.png" /></p>
+<p><img alt="Button example 2" src="../../../assets/elements/button/button2.png" /></p>
+<h3 id="22">2.2 不同点击状态下的按钮状态</h3>
+<p>创建 <code>Data class</code> 来记录不同状态下按钮的样式</p>
+<div class="highlight"><pre><span></span><code><span class="kd">data</span> <span class="kd">class</span> <span class="nc">ButtonState</span><span class="p">(</span><span class="kd">var</span> <span class="nv">text</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="kd">var</span> <span class="nv">textColor</span><span class="p">:</span> <span class="n">Color</span><span class="p">,</span> <span class="kd">var</span> <span class="nv">buttonColor</span><span class="p">:</span> <span class="n">Color</span><span class="p">)</span>
+</code></pre></div>
+<p>使用 <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource"><code>MutableInteractionSource()</code></a> 获取状态，根据不同状态创建样式</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 获取按钮的状态</span>
+<span class="kd">val</span> <span class="nv">interactionState</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">MutableInteractionSource</span><span class="p">()</span> <span class="p">}</span>
+
+<span class="c1">// 使用 Kotlin 的解构方法</span>
+<span class="kd">val</span> <span class="p">(</span><span class="nv">text</span><span class="p">,</span> <span class="nv">textColor</span><span class="p">,</span> <span class="nv">buttonColor</span><span class="p">)</span> <span class="o">=</span> <span class="k">when</span> <span class="p">{</span>
+    <span class="n">interactionState</span><span class="p">.</span><span class="na">collectIsPressedAsState</span><span class="p">().</span><span class="na">value</span>  <span class="o">-&gt;</span> <span class="n">ButtonState</span><span class="p">(</span><span class="s">&quot;Just Pressed&quot;</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">)</span>
+    <span class="k">else</span> <span class="o">-&gt;</span> <span class="n">ButtonState</span><span class="p">(</span> <span class="s">&quot;Just Button&quot;</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>Button</code> 的实现</p>
+<div class="highlight"><pre><span></span><code><span class="n">Button</span><span class="p">(</span>
+    <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/*TODO*/</span> <span class="p">},</span>
+    <span class="n">interactionSource</span> <span class="o">=</span> <span class="n">interactionState</span><span class="p">,</span>
+    <span class="n">elevation</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+    <span class="n">shape</span> <span class="o">=</span> <span class="n">RoundedCornerShape</span><span class="p">(</span><span class="m">50</span><span class="p">),</span>
+    <span class="n">colors</span> <span class="o">=</span> <span class="n">ButtonDefaults</span><span class="p">.</span><span class="na">buttonColors</span><span class="p">(</span>
+        <span class="n">backgroundColor</span> <span class="o">=</span> <span class="n">buttonColor</span><span class="p">,</span>
+    <span class="p">),</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="n">IntrinsicSize</span><span class="p">.</span><span class="na">Min</span><span class="p">).</span><span class="na">height</span><span class="p">(</span><span class="n">IntrinsicSize</span><span class="p">.</span><span class="na">Min</span><span class="p">)</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="n">textColor</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="Button example 3" src="https://img-blog.csdnimg.cn/20201208200319838.gif#pic_center" /></p>
 <h2 id="_1">更多</h2>
 <p><a href="https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#button">Button 参数详情</a></p>
                 
@@ -1976,7 +2078,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 16, 2021</span>
       
     
   </small>
