@@ -18,7 +18,7 @@ fun Button(
 
 | 参数 | |
 | ----| ----- |
-| **onClick:() -> Unit** | 当用户点击按钮时将被调用，如果不提供该回调，那么按钮将变为禁用状态 |
+| **onClick:() -> Unit** | 用户点击按钮时将被调用 |
 | **modifier: [Modifier](https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier) = Modifier** | 应用于该布局节点的 `Modifier` |
 | **enabled: [Boolean](https://developer.android.com/reference/kotlin/java/lang/Boolean) = true** | 控制按钮的启用状态。如果为 `false` ，则该按钮将不可单击； |
 | **interactionSource: [MutableInteractionSource](https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource) = remember { MutableInteractionSource() }** | 表示交互的状态信息，也就是相当于我们之前给按钮设置的各种selector，来实现普通、点击效果等 |
@@ -49,7 +49,7 @@ fun TextButton(
 
 | 参数 | |
 | ----| ----- |
-| **onClick:() -> Unit** | 当用户点击按钮时将被调用，如果不提供该回调，那么按钮将变为禁用状态 |
+| **onClick:() -> Unit** | 用户点击按钮时将被调用 |
 | **modifier: [Modifier](https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier) = Modifier** | 应用于该布局节点的 `Modifier` |
 | **enabled: [Boolean](https://developer.android.com/reference/kotlin/java/lang/Boolean) = true** | 控制按钮的启用状态。如果为 `false` ，则该按钮将不可单击； |
 | **interactionSource: [MutableInteractionSource](https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource) = remember { MutableInteractionSource() }** | 表示交互的状态信息，也就是相当于我们之前给按钮设置的各种selector，来实现普通、点击效果等 |
@@ -80,7 +80,7 @@ fun OutlinedButton(
 
 | 参数 | |
 | ----| ----- |
-| **onClick:() -> Unit** | 当用户点击按钮时将被调用，如果不提供该回调，那么按钮将变为禁用状态 |
+| **onClick:() -> Unit** | 当用户点击按钮时将被调用 |
 | **modifier: [Modifier](https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier) = Modifier** | 应用于该布局节点的 `Modifier` |
 | **enabled: [Boolean](https://developer.android.com/reference/kotlin/java/lang/Boolean) = true** | 控制按钮的启用状态。如果为 `false` ，则该按钮将不可单击； |
 | **interactionSource: [MutableInteractionSource](https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource) = remember { MutableInteractionSource() }** | 表示交互的状态信息，也就是相当于我们之前给按钮设置的各种selector，来实现普通、点击效果等 |
@@ -106,7 +106,7 @@ fun IconButton(
 
 | 参数 | |
 | ----| ----- |
-| **onClick:() -> Unit** | 当用户点击按钮时将被调用，如果不提供该回调，那么按钮将变为禁用状态 |
+| **onClick:() -> Unit** | 当用户点击按钮时将被调用 |
 | **modifier: [Modifier](https://developer.android.com/reference/kotlin/androidx/compose/ui/Modifier) = Modifier** | 应用于该布局节点的 `Modifier` |
 | **enabled: [Boolean](https://developer.android.com/reference/kotlin/java/lang/Boolean) = true** | 控制按钮的启用状态。如果为 `false` ，则该按钮将不可单击； |
 | **interactionSource: [MutableInteractionSource](https://developer.android.com/reference/kotlin/androidx/compose/foundation/interaction/MutableInteractionSource) = remember { MutableInteractionSource() }** | 表示交互的状态信息，也就是相当于我们之前给按钮设置的各种selector，来实现普通、点击效果等 |
