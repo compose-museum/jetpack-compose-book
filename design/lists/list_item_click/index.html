@@ -9,21 +9,21 @@
       
       
       
-        <link rel="canonical" href="https://docs.compose.net.cn/practice/practice1/">
+        <link rel="canonical" href="https://docs.compose.net.cn/design/lists/list_item_click/">
       
-      <link rel="icon" href="../../assets/images/favicon.png">
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.4">
     
     
       
-        <title>Practice1 - Jetpack Compose</title>
+        <title>列表点击事件 - Jetpack Compose</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.db9e7362.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.db9e7362.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.3f5d1f46.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.3f5d1f46.min.css">
         
       
     
@@ -38,7 +38,7 @@
     
     
     
-      <link rel="stylesheet" href="../../stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
     
       
@@ -57,12 +57,17 @@
     <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
   
     
-    <script>function __prefix(e){return new URL("../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
+    <script>function __prefix(e){return new URL("../../..",location).pathname+"."+e}function __get(e,t=localStorage){return JSON.parse(t.getItem(__prefix(e)))}</script>
     
     <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
     <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
+      
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
       
     </div>
     <div data-md-component="announce">
@@ -73,9 +78,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+    <a href="../../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -91,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Practice1
+              列表点击事件
             
           </span>
         </div>
@@ -165,13 +170,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link md-tabs__link--active">
         Jetpack Compose
       </a>
     </li>
@@ -192,7 +199,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../third-party-component/accompanist/overview/" class="md-tabs__link">
+      <a href="../../../third-party-component/accompanist/overview/" class="md-tabs__link">
         第三方组件
       </a>
     </li>
@@ -215,7 +222,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../api/elements/text/" class="md-tabs__link">
+      <a href="../../../api/elements/text/" class="md-tabs__link">
         API 文档
       </a>
     </li>
@@ -233,7 +240,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../open-source-project/compose-douban/" class="md-tabs__link">
+      <a href="../../../open-source-project/compose-douban/" class="md-tabs__link">
         开源项目
       </a>
     </li>
@@ -261,9 +268,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+    <a href="../../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
       
-  <img src="../../assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     Jetpack Compose
@@ -290,12 +297,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
       
       
       
@@ -318,7 +327,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../.." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         概述
       </a>
     </li>
@@ -332,7 +341,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../start/" class="md-nav__link">
+      <a href="../../../start/" class="md-nav__link">
         在开始之前
       </a>
     </li>
@@ -346,7 +355,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../tutorial/" class="md-nav__link">
+      <a href="../../../tutorial/" class="md-nav__link">
         快速入门
       </a>
     </li>
@@ -386,7 +395,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/alertdialog/" class="md-nav__link">
+      <a href="../../../elements/alertdialog/" class="md-nav__link">
         AlertDialog
       </a>
     </li>
@@ -400,7 +409,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/button/" class="md-nav__link">
+      <a href="../../../elements/button/" class="md-nav__link">
         Button
       </a>
     </li>
@@ -414,7 +423,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/card/" class="md-nav__link">
+      <a href="../../../elements/card/" class="md-nav__link">
         Card
       </a>
     </li>
@@ -428,7 +437,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/floatingactionbutton/" class="md-nav__link">
+      <a href="../../../elements/floatingactionbutton/" class="md-nav__link">
         FloatingActionButton
       </a>
     </li>
@@ -442,7 +451,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/icon/" class="md-nav__link">
+      <a href="../../../elements/icon/" class="md-nav__link">
         Icon
       </a>
     </li>
@@ -456,7 +465,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/image/" class="md-nav__link">
+      <a href="../../../elements/image/" class="md-nav__link">
         Image
       </a>
     </li>
@@ -470,7 +479,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/iconbutton/" class="md-nav__link">
+      <a href="../../../elements/iconbutton/" class="md-nav__link">
         IconButton
       </a>
     </li>
@@ -484,7 +493,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/surface/" class="md-nav__link">
+      <a href="../../../elements/surface/" class="md-nav__link">
         Surface
       </a>
     </li>
@@ -498,7 +507,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/slider/" class="md-nav__link">
+      <a href="../../../elements/slider/" class="md-nav__link">
         Slider
       </a>
     </li>
@@ -512,7 +521,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/text/" class="md-nav__link">
+      <a href="../../../elements/text/" class="md-nav__link">
         Text
       </a>
     </li>
@@ -526,7 +535,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../elements/textfield/" class="md-nav__link">
+      <a href="../../../elements/textfield/" class="md-nav__link">
         TextField
       </a>
     </li>
@@ -573,7 +582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/bottomnavigation/" class="md-nav__link">
+      <a href="../../../layout/bottomnavigation/" class="md-nav__link">
         BottomNavigation
       </a>
     </li>
@@ -587,7 +596,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/column/" class="md-nav__link">
+      <a href="../../../layout/column/" class="md-nav__link">
         Column
       </a>
     </li>
@@ -601,7 +610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/modalbottomsheetlayout/" class="md-nav__link">
+      <a href="../../../layout/modalbottomsheetlayout/" class="md-nav__link">
         ModalBottomSheetLayout
       </a>
     </li>
@@ -615,7 +624,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/row/" class="md-nav__link">
+      <a href="../../../layout/row/" class="md-nav__link">
         Row
       </a>
     </li>
@@ -629,7 +638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/spacer/" class="md-nav__link">
+      <a href="../../../layout/spacer/" class="md-nav__link">
         Spacer
       </a>
     </li>
@@ -643,7 +652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/scaffold/" class="md-nav__link">
+      <a href="../../../layout/scaffold/" class="md-nav__link">
         Scaffold
       </a>
     </li>
@@ -657,7 +666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/topappbar/" class="md-nav__link">
+      <a href="../../../layout/topappbar/" class="md-nav__link">
         TopAppBar
       </a>
     </li>
@@ -671,7 +680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/custom_layout/" class="md-nav__link">
+      <a href="../../../layout/custom_layout/" class="md-nav__link">
         自定义布局
       </a>
     </li>
@@ -685,7 +694,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/intrinsic/" class="md-nav__link">
+      <a href="../../../layout/intrinsic/" class="md-nav__link">
         固有特性测量
       </a>
     </li>
@@ -704,12 +713,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" checked>
       
       
       
@@ -758,7 +769,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/animation/overview/" class="md-nav__link">
+      <a href="../../animation/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -772,7 +783,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/animation/animationvisibility/" class="md-nav__link">
+      <a href="../../animation/animationvisibility/" class="md-nav__link">
         AnimationVisibility
       </a>
     </li>
@@ -786,7 +797,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/animation/animatestate/" class="md-nav__link">
+      <a href="../../animation/animatestate/" class="md-nav__link">
         Animate*State
       </a>
     </li>
@@ -800,7 +811,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/animation/animatable/" class="md-nav__link">
+      <a href="../../animation/animatable/" class="md-nav__link">
         Animatable
       </a>
     </li>
@@ -814,7 +825,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/animation/update_transition/" class="md-nav__link">
+      <a href="../../animation/update_transition/" class="md-nav__link">
         UpdateTransition
       </a>
     </li>
@@ -861,7 +872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/theme/overview/" class="md-nav__link">
+      <a href="../../theme/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -875,7 +886,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
+      <a href="../../theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
     </li>
@@ -889,7 +900,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/theme/understanding_material_theme/" class="md-nav__link">
+      <a href="../../theme/understanding_material_theme/" class="md-nav__link">
         深入理解 MaterialTheme 与 CompositionLocal
       </a>
     </li>
@@ -903,7 +914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/theme/custom_your_theme/" class="md-nav__link">
+      <a href="../../theme/custom_your_theme/" class="md-nav__link">
         自定义你的主题方案
       </a>
     </li>
@@ -950,7 +961,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/gesture/overview/" class="md-nav__link">
+      <a href="../../gesture/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -964,7 +975,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/gesture/draggable/" class="md-nav__link">
+      <a href="../../gesture/draggable/" class="md-nav__link">
         Draggable拖动
       </a>
     </li>
@@ -978,7 +989,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/gesture/swipeable/" class="md-nav__link">
+      <a href="../../gesture/swipeable/" class="md-nav__link">
         Swipeable滑动
       </a>
     </li>
@@ -992,7 +1003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/gesture/transformer/" class="md-nav__link">
+      <a href="../../gesture/transformer/" class="md-nav__link">
         Transformer双指拖动、缩放与旋转
       </a>
     </li>
@@ -1006,7 +1017,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/gesture/nested_scroll/" class="md-nav__link">
+      <a href="../../gesture/nested_scroll/" class="md-nav__link">
         NestedScroll嵌套滑动
       </a>
     </li>
@@ -1020,7 +1031,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/gesture/custom_gesture/" class="md-nav__link">
+      <a href="../../gesture/custom_gesture/" class="md-nav__link">
         自定义触摸反馈
       </a>
     </li>
@@ -1039,12 +1050,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" checked>
       
       
       
@@ -1067,7 +1080,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/lists/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1079,11 +1092,61 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../design/lists/list_item_click/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          列表点击事件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         列表点击事件
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 创建数据集
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 创建列表项及点击事件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 创建列表
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1102,7 +1165,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../design/draw/custom_draw/" class="md-nav__link">
+      <a href="../../draw/custom_draw/" class="md-nav__link">
         绘制 (Graphics)
       </a>
     </li>
@@ -1149,7 +1212,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modifier/overview/" class="md-nav__link">
+      <a href="../../../modifier/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1163,7 +1226,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../modifier/introduction/" class="md-nav__link">
+      <a href="../../../modifier/introduction/" class="md-nav__link">
         方法介绍
       </a>
     </li>
@@ -1210,7 +1273,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../principle/recomposition_scope/" class="md-nav__link">
+      <a href="../../../principle/recomposition_scope/" class="md-nav__link">
         了解Compose的重组作用域
       </a>
     </li>
@@ -1224,7 +1287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../principle/snapshot/" class="md-nav__link">
+      <a href="../../../principle/snapshot/" class="md-nav__link">
         透过Snapshot看重组
       </a>
     </li>
@@ -1238,7 +1301,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../principle/gap_buffer/" class="md-nav__link">
+      <a href="../../../principle/gap_buffer/" class="md-nav__link">
         Compose运行原理与GapBuffer
       </a>
     </li>
@@ -1252,7 +1315,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../principle/recompose_working_principle/" class="md-nav__link">
+      <a href="../../../principle/recompose_working_principle/" class="md-nav__link">
         重组的工作流程
       </a>
     </li>
@@ -1266,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../principle/modifier_structure/" class="md-nav__link">
+      <a href="../../../principle/modifier_structure/" class="md-nav__link">
         图解Modifier
       </a>
     </li>
@@ -1313,7 +1376,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/architecture_for_compose/" class="md-nav__link">
+      <a href="../../../architecture/architecture_for_compose/" class="md-nav__link">
         Compose架构如何选？MVP,MVVM,MVI
       </a>
     </li>
@@ -1327,7 +1390,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../architecture/use_jetpack_in_compose/" class="md-nav__link">
+      <a href="../../../architecture/use_jetpack_in_compose/" class="md-nav__link">
         在 Compose 中使用 Jetpack 组件库
       </a>
     </li>
@@ -1348,7 +1411,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../codelabs/" class="md-nav__link">
+      <a href="../../../codelabs/" class="md-nav__link">
         代码实验室
       </a>
     </li>
@@ -1362,7 +1425,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../resources/" class="md-nav__link">
+      <a href="../../../resources/" class="md-nav__link">
         资源
       </a>
     </li>
@@ -1376,7 +1439,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../version/" class="md-nav__link">
+      <a href="../../../version/" class="md-nav__link">
         版本更新迭代内容与介绍
       </a>
     </li>
@@ -1390,7 +1453,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../contributing/" class="md-nav__link">
+      <a href="../../../contributing/" class="md-nav__link">
         关于贡献
       </a>
     </li>
@@ -1464,7 +1527,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/overview/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1478,7 +1541,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/coil/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/coil/" class="md-nav__link">
         Coil
       </a>
     </li>
@@ -1492,7 +1555,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/glide/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/glide/" class="md-nav__link">
         Glide
       </a>
     </li>
@@ -1506,7 +1569,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/insets/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/insets/" class="md-nav__link">
         Insets
       </a>
     </li>
@@ -1520,7 +1583,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
         System UI Controller
       </a>
     </li>
@@ -1534,7 +1597,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
         AppCompat Theme
       </a>
     </li>
@@ -1548,7 +1611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
         Pager layouts
       </a>
     </li>
@@ -1562,7 +1625,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
         Swipe Refresh
       </a>
     </li>
@@ -1576,7 +1639,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
         Flow layouts
       </a>
     </li>
@@ -1597,7 +1660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
+      <a href="../../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
         Compose版骨架屏
       </a>
     </li>
@@ -1611,7 +1674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/coil/" class="md-nav__link">
+      <a href="../../../third-party-component/coil/" class="md-nav__link">
         Coil
       </a>
     </li>
@@ -1625,7 +1688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
+      <a href="../../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
         Compose版StateLayout
       </a>
     </li>
@@ -1639,7 +1702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
+      <a href="../../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
         Compose版SmartRefreshLayout
       </a>
     </li>
@@ -1713,7 +1776,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/elements/text/" class="md-nav__link">
+      <a href="../../../api/elements/text/" class="md-nav__link">
         Text
       </a>
     </li>
@@ -1727,7 +1790,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../api/elements/button/" class="md-nav__link">
+      <a href="../../../api/elements/button/" class="md-nav__link">
         Button
       </a>
     </li>
@@ -1782,7 +1845,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../open-source-project/compose-douban/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-douban/" class="md-nav__link">
         Compose 仿豆瓣榜单客户端
       </a>
     </li>
@@ -1796,7 +1859,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../open-source-project/compose-moon-animation/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-moon-animation/" class="md-nav__link">
         Compose 实现月亮阴晴圆缺动画
       </a>
     </li>
@@ -1810,7 +1873,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../open-source-project/compose-gmusic/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-gmusic/" class="md-nav__link">
         Compose 一款简易的音乐播放软件
       </a>
     </li>
@@ -1824,7 +1887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
         Compose 伸缩 ToolBar 的实现
       </a>
     </li>
@@ -1845,19 +1908,98 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 创建数据集
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 创建列表项及点击事件
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3" class="md-nav__link">
+    3. 创建列表
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/practice/practice1.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/design/lists/list_item_click.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                  <h1>Practice1</h1>
+                  <h1>列表点击事件</h1>
                 
-                <p>asdasd</p>
+                <p>许多时候我们需要给列表项创建点击事件，本文解释了如何在 <code>Jetpack Compose</code> 中为你的列表项创建点击事件</p>
+<h2 id="1">1. 创建数据集</h2>
+<p>首先我们需要创建一个数据集，包含了常用水果名</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// List 数据源</span>
+<span class="kd">val</span> <span class="nv">fruits</span> <span class="o">=</span> <span class="n">arrayOf</span><span class="p">(</span><span class="s">&quot;Apple&quot;</span><span class="p">,</span> <span class="s">&quot;Apricot&quot;</span><span class="p">,</span> <span class="s">&quot;Almond&quot;</span><span class="p">,</span> <span class="s">&quot;Banana&quot;</span><span class="p">,</span> <span class="s">&quot;Betelnut&quot;</span><span class="p">,</span> <span class="s">&quot;Cherry&quot;</span><span class="p">,</span> <span class="s">&quot;Damson&quot;</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="2">2. 创建列表项及点击事件</h2>
+<p>接下来需要我们声明列表项 <code>FruitsRow</code> 和点击事件 <code>fruitClick</code></p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">private</span> <span class="kd">fun</span> <span class="nf">FruitsRow</span><span class="p">(</span><span class="n">item</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="n">clickEvent</span><span class="p">:()</span><span class="o">-&gt;</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">item</span><span class="p">,</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">clickable</span><span class="p">(</span><span class="n">onClick</span> <span class="o">=</span> <span class="n">clickEvent</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">wrapContentWidth</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">))</span>
+<span class="p">}</span>
+
+<span class="kd">val</span> <span class="nv">fruitClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">fruit</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n">Context</span> <span class="o">-&gt;</span>
+    <span class="n">Toast</span><span class="p">.</span><span class="na">makeText</span><span class="p">(</span><span class="n">context</span><span class="p">,</span> <span class="n">fruit</span><span class="p">,</span> <span class="n">Toast</span><span class="p">.</span><span class="na">LENGTH_SHORT</span><span class="p">).</span><span class="na">show</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>FruitsRow</code> 是一个<a href="https://www.kotlincn.net/docs/reference/lambdas.html">高阶函数</a>，它接受两个参数，一个是水果本身，另一个是点击事件函数</p>
+<p><code>fruitClick</code> 是一个<a href="https://www.kotlincn.net/docs/reference/lambdas.html">Lambda 表达式</a>，我们以此作为 <code>FruitsRow</code> 点击事件参数的值</p>
+<h2 id="3">3. 创建列表</h2>
+<p>最后使用 <code>LazyColumn</code> 创建列表即可，这样我们点击 <code>item</code> 的时候便会显示对应的水果名</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">context</span> <span class="o">=</span> <span class="n">LocalContext</span><span class="p">.</span><span class="na">current</span>
+
+<span class="c1">// 展示水果名列表</span>
+<span class="n">LazyColumn</span> <span class="p">{</span>
+    <span class="n">items</span><span class="p">(</span><span class="n">fruits</span><span class="p">){</span> <span class="n">fruit</span><span class="o">-&gt;</span>
+        <span class="n">FruitsRow</span><span class="p">(</span><span class="n">fruit</span><span class="p">)</span> <span class="p">{</span> <span class="n">fruitClick</span><span class="p">(</span><span class="n">fruit</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span> <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
                 
                   
                     
@@ -1866,7 +2008,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">April 28, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 19, 2021</span>
       
     
   </small>
@@ -1887,6 +2029,41 @@
       
         
 <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="Footer">
+      
+        
+        <a href="../overview/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 概述" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              概述
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../../draw/custom_draw/" class="md-footer__link md-footer__link--next" aria-label="下一页: 绘制 (Graphics)" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              绘制 (Graphics)
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1922,10 +2099,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing", "select.version.title": "Select version"}, "search": "../../../assets/javascripts/workers/search.8397ff9e.min.js", "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.1e84347e.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.1e84347e.min.js"></script>
       
     
   </body>
