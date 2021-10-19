@@ -31,11 +31,9 @@ fun MessageList(messages: List<Message>) {
 !!! Example "关键术语"
     ***DSL*** 是指特定领域的语言。有关 `Compose` 如何为某些 `API` 定义 `DSL` 的更多信息，请参阅 [Kotlin for Compose](https://developer.android.com/jetpack/compose/kotlin#dsl) 文档。
 
-
 ## 2. LazyListScope DSL
 
 `LazyListScope` 的 `DSL` 提供了许多函数来描述布局中的项目。最基本的 `item()` 可以添加一个单项，而 `item(Int)` 添加了多个项目。
-
 
 ``` kotlin
 LazyColumn {
@@ -71,7 +69,7 @@ fun MessageList(messages: List<Message>) {
 }
 ```
 
-`items()` 的扩展函数还有一个变体，叫做 `itemsIndexed()`，它提供了索引。更多细节请参见 [LazyListScope](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/LazyListScope)参考。 
+`items()` 的扩展函数还有一个变体，叫做 `itemsIndexed()`，它提供了索引。更多细节请参见 [LazyListScope](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/LazyListScope)参考。
 
 ## 3. 内容填充
 
@@ -98,7 +96,6 @@ fun MessageList() {
 请注意，这个 `padding` 是应用在 `LazyColumn` 里面的内容上的，而不是应用在 `LazyColumn` 本身。在上面的例子中，第一个项目将在它的顶部添加 `8.dp` 的 `padding`，最后一个项目将在它的底部添加 `8.dp`，所有项目将在左边和右边有 `16.dp` 的 `padding`。
 
 ![]({{config.assets}}/design/lists/overview/demo.png)
-
 
 ## 4. 内容间距
 
@@ -182,7 +179,6 @@ fun ListWithHeader() {
 
 <img src = "../{{config.assets}}/design/lists/overview/demo3.png" width = "300">
 
-
 `cells` 参数负责控制单元格如何形成列。下面的例子显示了网格中的项目，使用 `GridCells.Adaptive` 将每一列设置为至少 `128.dp`宽。
 
 ``` kotlin
@@ -200,7 +196,6 @@ fun PhotoGrid(photos: List<Photo>) {
 ```
 
 如果你知道要使用的列的确切数量，你可以转而提供一个包含所需列数量的 [GridCells.Fixed](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/GridCells.Fixed) 实例。
-
 
 ## 8. 对滚动位置做出反应
 
@@ -289,11 +284,9 @@ LaunchedEffect(listState) {
 
 `LazyListState` 还通过 `layoutInfo` 属性提供了关于当前正在显示的所有项目以及它们在屏幕上的界限的信息。更多信息请参见 [`LazyListLayoutInfo`](https://developer.android.com/reference/kotlin/androidx/compose/foundation/lazy/LazyListLayoutInfo) 类。
 
-
 ## 9. 控制滚动位置
 
 除了对滚动位置做出反应外，应用程序能够控制滚动位置也很有用。`LazyListState` 通过 `scrollToItem()` 函数和 `animateScrollToItem()` 函数支持这一点，前者 "立即 "锁定滚动位置，后者则使用动画进行滚动（也被称为平滑滚动）。
-
 
 !!! note "注意"
     `scrollToItem()` 和 `animateScrollToItem()` 都是 `suspend` 函数，这意味着我们需要在一个协程中调用它们。关于如何在 `Compose` 中这样做的更多信息，请参阅[协程文档](https://developer.android.com/jetpack/compose/kotlin#coroutines)
