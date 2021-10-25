@@ -60,9 +60,11 @@ nav:
         - '自定义你的主题方案': design/theme/custom_your_theme.md
       - '手势 (Gestures)':
         - '概述': design/gesture/overview.md
+        - '点按并按下': design/gesture/clickable.md
         - 'Draggable拖动': design/gesture/draggable.md
         - 'Swipeable滑动': design/gesture/swipeable.md
         - 'Transformer双指拖动、缩放与旋转': design/gesture/transformer.md
+        - '滚动': design/gesture/scrollable.md
         - 'NestedScroll嵌套滑动': design/gesture/nested_scroll.md
         - '自定义触摸反馈': design/gesture/custom_gesture.md
       - '列表 (Lists)':
