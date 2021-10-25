@@ -6,7 +6,7 @@
 
 ```kotlin
 // List 数据源
-val fruits = arrayOf("Apple","Apricot","Almond","Banana","Betelnut","Cherry","Damson")
+val fruits = arrayOf("Apple", "Apricot", "Almond", "Banana", "Betelnut", "Cherry", "Damson")
 ```
 
 ## 2. 创建列表项及点击事件
@@ -16,8 +16,14 @@ val fruits = arrayOf("Apple","Apricot","Almond","Banana","Betelnut","Cherry","Da
 ```kotlin
 
 @Composable
-private fun FruitsRow(item:String,clickEvent:()->Unit){
-    Text(text = item,modifier = Modifier.clickable(onClick = clickEvent).fillMaxWidth().wrapContentWidth(Alignment.CenterHorizontally).height(50.dp))
+private fun FruitsRow(item:String, clickEvent:()->Unit) {
+    Text(
+        text = item,
+        modifier = Modifier
+            .clickable(onClick = clickEvent)
+            .fillMaxWidth()
+            .wrapContentWidth(Alignment.CenterHorizontally)
+            .height(50.dp))
 }
 
 val fruitClick = { fruit: String, context: Context ->
