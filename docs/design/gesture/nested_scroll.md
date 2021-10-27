@@ -182,7 +182,7 @@ override suspend fun onPreFling(available: Velocity): Velocity {
 
 本示例的完整源码已经开源在我的 [Github Repo](https://github.com/RugerMcCarthy/SmartSwipeRefresh) 中，欢迎进行阅读并提交任何反馈。
 
-## 示例 伸缩 ToolBar
+## 示例：伸缩 ToolBar
 
 ### 效果图
 
