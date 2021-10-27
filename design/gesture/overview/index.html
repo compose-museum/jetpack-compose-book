@@ -64,6 +64,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -965,9 +970,64 @@
       
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          概述
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         概述
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 点击并按下
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 滚动
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 滚动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    滚动修饰符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    可滚动的修饰符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -1861,6 +1921,63 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1" class="md-nav__link">
+    1. 点击并按下
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2" class="md-nav__link">
+    2. 滚动
+  </a>
+  
+    <nav class="md-nav" aria-label="2. 滚动">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    滚动修饰符
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    可滚动的修饰符
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
@@ -1873,7 +1990,102 @@
                 
                   <h1>概述</h1>
                 
-                
+                <p>Compose 提供了多种 API，可帮助您检测用户互动生成的手势。API 涵盖各种用例：</p>
+<p>其中一些<strong>级别较高</strong>，旨在覆盖最常用的手势。例如，<a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary?hl=zh-cn#clickable(androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.String,androidx.compose.ui.semantics.Role,kotlin.Function0)"><code>clickable</code></a> 修饰符可用于轻松检测点击，此外它还提供无障碍功能，并在点按时显示视觉指示（例如涟漪）。</p>
+<p>还有一些不太常用的手势检测器，它们在<strong>较低级别</strong>提供更大的灵活性，例如 <code>PointerInputScope.detectTapGestures</code> 或 <code>PointerInputScope.detectDragGestures</code>，但不提供额外功能。</p>
+<h2 id="1">1. 点击并按下</h2>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary?hl=zh-cn#clickable(androidx.compose.ui.Modifier,kotlin.Boolean,kotlin.String,androidx.compose.ui.semantics.Role,kotlin.Function0)"><code>clickable</code></a> 修饰符允许应用检测对已应用该修饰符的元素的点击。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ClickableSample</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">count</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">}</span>
+    <span class="c1">// content that you want to make clickable</span>
+    <span class="n">Text</span><span class="p">(</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">count</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">toString</span><span class="p">(),</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">clickable</span> <span class="p">{</span> <span class="n">count</span><span class="p">.</span><span class="na">value</span> <span class="o">+=</span> <span class="m">1</span> <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="clickable example" src="https://developer.android.com/images/jetpack/compose/gestures-taps.gif?hl=zh-cn" /></p>
+<p>当需要更大灵活性时，您可以通过 <code>pointerInput</code> 修饰符提供点按手势检测器：</p>
+<div class="highlight"><pre><span></span><code><span class="n">Modifier</span><span class="p">.</span><span class="na">pointerInput</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">detectTapGestures</span><span class="p">(</span>
+        <span class="n">onPress</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* Called when the gesture starts */</span> <span class="p">},</span>
+        <span class="n">onDoubleTap</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* Called on Double Tap */</span> <span class="p">},</span>
+        <span class="n">onLongPress</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* Called on Long Press */</span> <span class="p">},</span>
+        <span class="n">onTap</span> <span class="o">=</span> <span class="p">{</span> <span class="cm">/* Called on Tap */</span> <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<div class="admonition info 注意">
+<p class="admonition-title">Info</p>
+<p>如果您想要显示项列表，请考虑使用 <code>LazyColumn</code> 和 <code>LazyRow</code> 而不是使用这些 API。 <code>LazyColumn</code> 和 <code>LazyRow</code> 具有滚动功能，它们的效率远高于滚动修饰符，因为它们仅在需要时组合各个项。如需了解详情，请参阅“列表”。</p>
+</div>
+<h2 id="2">2. 滚动</h2>
+<h3 id="_1">滚动修饰符</h3>
+<p><a href="https://developer.android.com/images/jetpack/compose/gestures-simplescroll.gif?hl=zh-cn"><code>verticalScroll</code></a> 和 <a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary?hl=zh-cn#horizontalScroll(androidx.compose.ui.Modifier,androidx.compose.foundation.ScrollState,kotlin.Boolean,androidx.compose.foundation.gestures.FlingBehavior,kotlin.Boolean)"><code>horizontalScroll</code></a> 修饰符提供一种最简单的方法，可让用户在元素内容边界大于最大尺寸约束时滚动元素。利用 <code>verticalScroll</code> 和 <code>horizontalScroll</code> 修饰符，您无需转换或偏移内容。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ScrollBoxes</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">LightGray</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">verticalScroll</span><span class="p">(</span><span class="n">rememberScrollState</span><span class="p">())</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Item </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">2.</span><span class="n">dp</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="响应滚动手势的简单垂直列表" src="https://developer.android.com/images/jetpack/compose/gestures-simplescroll.gif?hl=zh-cn" /></p>
+<p>借助 <code>ScrollState</code> ，您可以更改滚动位置或获取当前状态。如需使用默认参数创建此列表，请使用 <code>rememberScrollState()</code> 。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">private</span> <span class="kd">fun</span> <span class="nf">ScrollBoxesSmooth</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="c1">// Smoothly scroll 100px on first composition</span>
+    <span class="kd">val</span> <span class="nv">state</span> <span class="o">=</span> <span class="n">rememberScrollState</span><span class="p">()</span>
+    <span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span> <span class="n">state</span><span class="p">.</span><span class="na">animateScrollTo</span><span class="p">(</span><span class="m">100</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">LightGray</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">horizontal</span> <span class="o">=</span> <span class="m">8.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">verticalScroll</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">repeat</span><span class="p">(</span><span class="m">10</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Item </span><span class="si">$</span><span class="n">it</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="m">2.</span><span class="n">dp</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="_2">可滚动的修饰符</h3>
+<p><a href="https://developer.android.com/reference/kotlin/androidx/compose/foundation/gestures/package-summary?hl=zh-cn#scrollable(androidx.compose.ui.Modifier,androidx.compose.foundation.gestures.ScrollableState,androidx.compose.foundation.gestures.Orientation,kotlin.Boolean,kotlin.Boolean,androidx.compose.foundation.gestures.FlingBehavior,androidx.compose.foundation.interaction.MutableInteractionSource)"><code>scrollable</code></a> 修饰符与滚动修饰符不同，区别在于 <code>scrollable</code> 可检测滚动手势，但不会偏移其内容。此修饰符需要 <code>ScrollableController</code> 才能正常运行。构造 <code>ScrollableController</code> 时，您必须提供一个 <code>consumeScrollDelta</code> 函数，该函数将在每个滚动步骤（通过手势输入、平滑滚动或投掷）调用，并且增量以像素为单位。为了确保正确传播事件，必须从此函数返回使用的滚动距离量。</p>
+<p>以下代码段可检测手势并显示偏移量的数值，但不会偏移任何元素：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ScrollableSample</span><span class="p">()</span> <span class="p">{</span>
+    <span class="c1">// actual composable state</span>
+    <span class="kd">var</span> <span class="nv">offset</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0f</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="m">150.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">scrollable</span><span class="p">(</span>
+                <span class="n">orientation</span> <span class="o">=</span> <span class="n">Orientation</span><span class="p">.</span><span class="na">Vertical</span><span class="p">,</span>
+                <span class="c1">// Scrollable state: describes how to consume</span>
+                <span class="c1">// scrolling delta and update offset</span>
+                <span class="n">state</span> <span class="o">=</span> <span class="n">rememberScrollableState</span> <span class="p">{</span> <span class="n">delta</span> <span class="o">-&gt;</span>
+                    <span class="n">offset</span> <span class="o">+=</span> <span class="n">delta</span>
+                    <span class="n">delta</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">LightGray</span><span class="p">),</span>
+        <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="n">offset</span><span class="p">.</span><span class="na">toString</span><span class="p">())</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img alt="一种用于检测手指按下手势并显示手指位置数值的界面元素" src="https://developer.android.com/images/jetpack/compose/gestures-numeric-offset.gif?hl=zh-cn" /></p>
                 
                   
                     
@@ -1882,7 +2094,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 2, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 27, 2021</span>
       
     
   </small>
