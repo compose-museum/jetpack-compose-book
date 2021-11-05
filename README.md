@@ -28,11 +28,11 @@
 
 ### 文档网站：
 
-<img src = "/screenshots/demo.png">
+<img src = "https://cdn.jsdelivr.net/gh/compose-museum/hello-compose/screenshots/demo.png">
 
 ### Codelabs：
 
-<img src = "/screenshots/demo2.png">
+<img src = "https://cdn.jsdelivr.net/gh/compose-museum/hello-compose/screenshots/demo2.png">
 
 
 ## 关于贡献
