@@ -2011,7 +2011,7 @@
 <h3 id="2-android-studio">2. <strong>安装或更新到</strong> <a href="https://developer.android.com/studio">最新版的 Android Studio</a></h3>
 <h3 id="3-empty-compose-activity">3. 选择创建 <strong>Empty Compose Activity</strong> <img alt="" src="../assets/create.png" /></h3>
 <h3 id="4">4. 保持版本更新</h3>
-<p>尝试使用最新的 <a href="https://developer.android.com/jetpack/androidx/releases/compose">Compose 版本</a>和 Compose 要求的 Kotlin 版本 (1.5.21)</p>
+<p>尝试使用最新的 <a href="https://developer.android.com/jetpack/androidx/releases/compose">Compose 版本</a>和 Compose 要求的 Kotlin 版本 (1.5.31)</p>
 <p><code>Gradle 版本</code>: <a href="https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google">7.2</a></p>
 <p>可手动在 <code>gradle-wrapper.properties</code> 中更新</p>
 <div class="highlight"><pre><span></span><code>distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
@@ -2019,18 +2019,18 @@
 <p><code>build.gralde.kts (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
 
-    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.2&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
+    <span class="kd">val</span> <span class="nv">compose_version</span> <span class="k">by</span> <span class="n">extra</span><span class="p">(</span><span class="s">&quot;1.0.4&quot;</span><span class="p">)</span> <span class="c1">// Compose 版本</span>
 
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
         <span class="n">mavenCentral</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="n">dependencies</span> <span class="p">{</span>
-        <span class="c1">// 7.1.0-alpha07 要求 Android Studio 2021.1.1 版本及以上</span>
-        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;com.android.tools.build:gradle:7.1.0-alpha11&quot;</span><span class="p">)</span>
+
+        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;com.android.tools.build:gradle:7.0.3&quot;</span><span class="p">)</span>
 
         <span class="c1">// Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新</span>
-        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21&quot;</span><span class="p">)</span>
+        <span class="n">classpath</span><span class="p">(</span><span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31&quot;</span><span class="p">)</span>
 
         <span class="c1">// NOTE: Do not place your application dependencies here; they belong</span>
         <span class="c1">// in the individual module build.gradle.kts files</span>
@@ -2040,20 +2040,20 @@
 <p><code>build.gradle (Project)</code></p>
 <div class="highlight"><pre><span></span><code><span class="n">buildscript</span> <span class="p">{</span>
     <span class="n">ext</span> <span class="p">{</span>
-        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">2</span><span class="err">&#39;</span>
+        <span class="n">compose_version</span> <span class="o">=</span> <span class="err">&#39;</span><span class="m">1.0</span><span class="p">.</span><span class="m">4</span><span class="err">&#39;</span>
     <span class="p">}</span>
     <span class="n">repositories</span> <span class="p">{</span>
         <span class="n">google</span><span class="p">()</span>
         <span class="n">mavenCentral</span><span class="p">()</span>
     <span class="p">}</span>
     <span class="n">dependencies</span> <span class="p">{</span>
-        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">tools</span><span class="p">.</span><span class="na">build</span><span class="p">:</span><span class="n">gradle</span><span class="p">:</span><span class="m">7.1</span><span class="p">.</span><span class="m">0</span><span class="o">-</span><span class="n">alpha11</span><span class="err">&#39;</span>
-        <span class="n">classpath</span> <span class="s">&quot;org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21&quot;</span>
+        <span class="n">classpath</span> <span class="err">&#39;</span><span class="n">com</span><span class="p">.</span><span class="na">android</span><span class="p">.</span><span class="na">tools</span><span class="p">.</span><span class="na">build</span><span class="p">:</span><span class="n">gradle</span><span class="p">:</span><span class="m">7.0</span><span class="p">.</span><span class="m">3</span><span class="s">&quot;&#39;</span>
+<span class="s">        classpath &quot;</span><span class="n">org</span><span class="p">.</span><span class="na">jetbrains</span><span class="p">.</span><span class="na">kotlin</span><span class="p">:</span><span class="n">kotlin</span><span class="o">-</span><span class="n">gradle</span><span class="o">-</span><span class="n">plugin</span><span class="p">:</span><span class="m">1.5</span><span class="p">.</span><span class="m">31</span><span class="s">&quot;</span>
 
-        <span class="c1">// NOTE: Do not place your application dependencies here; they belong</span>
-        <span class="c1">// in the individual module build.gradle files</span>
-    <span class="p">}</span>
-<span class="p">}</span>
+<span class="s">        // NOTE: Do not place your application dependencies here; they belong</span>
+<span class="s">        // in the individual module build.gradle files</span>
+<span class="s">    }</span>
+<span class="s">}</span>
 </code></pre></div>
 <h3 id="5-gradle">5. 配置 Gradle（可忽略）</h3>
 <p>您需要将应用的最低 API 级别设置为 21 或更高级别，并在应用的 build.gradle 文件中启用 Jetpack Compose，如下所示。另外还要设置 Kotlin 编译器插件的版本。</p>
@@ -2167,7 +2167,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">September 3, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 7, 2021</span>
       
     
   </small>
