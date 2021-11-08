@@ -47,9 +47,9 @@ fun TextDemo() {
 
 ## 1. style 参数
 
-当然，我们有时候也需要更换字体的大小
+`style` 参数可以帮助我们配置文本的行高，颜色，粗体等设置
 
-`Compose` 已经为我们准备了很多专门的字体大小, 从 `h1` 到 `overline`
+`Compose` 中内置的 `theme` 已经为我们准备了一些设计, 从 `h1` 到 `overline`
 
 ``` kotlin
 @Composable
@@ -71,8 +71,6 @@ fun TextDemo() {
 
 ### 文字间距
 
-当然有的时候我们想自己自定义字体的间隔和大小，那我们可以将代码改为：
-
 ``` kotlin
 @Composable
 fun TextDemo() {
@@ -92,15 +90,7 @@ fun TextDemo() {
 }
 ```
 
-它将会显示成
-
 ![]({{config.assets}}/elements/text/text2.png)  
-
-### 字体大小
-
-!!! Tips
-    如果只是想简单的修改字体大小而不考虑间隔之类的，可以直接使用 `fontSize = xx.sp` 来设置大小
-
 
 ## 2. maxLines 参数
 

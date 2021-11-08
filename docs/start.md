@@ -21,7 +21,7 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
 ```kotlin
 buildscript {
 
-    val compose_version by extra("1.0.4") // Compose 版本
+    val compose_version by extra("1.0.5") // Compose 版本
 
     repositories {
         google()
@@ -45,7 +45,7 @@ buildscript {
 ```kotlin
 buildscript {
     ext {
-        compose_version = '1.0.4'
+        compose_version = '1.0.5'
     }
     repositories {
         google()
