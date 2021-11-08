@@ -7,7 +7,7 @@
 |GradlePluginVersion（稳定版 Android Studio 北极狐可用的最新版本）|[7.0.3](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)|
 |GradlePluginVersion (Android Studio Canary 等版本可用的最新版本)|[7.1.0-alpha13](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)|
 |kotlinVersion (Compose 最低支持的 Kotlin 版本，和底下的 Compose 版本对应) |[1.5.31](https://github.com/JetBrains/kotlin/releases)|
-|composeVersion|[1.0.4](https://developer.android.com/jetpack/androidx/releases/compose)|
+|composeVersion|[1.0.5](https://developer.android.com/jetpack/androidx/releases/compose)|
 |navigationComposeVersion|[2.4.0-alpha10](https://developer.android.com/jetpack/androidx/releases/navigation)|
 |hilt|[2.38.1](https://mvnrepository.com/artifact/com.google.dagger/hilt-android)|
 
