@@ -568,13 +568,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    字体大小
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -630,7 +623,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     取消点击波纹
   </a>
   
@@ -657,7 +650,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     小试牛刀
   </a>
   
@@ -2063,13 +2056,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    字体大小
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -2125,7 +2111,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
+  <a href="#_2" class="md-nav__link">
     取消点击波纹
   </a>
   
@@ -2152,7 +2138,7 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
+  <a href="#_3" class="md-nav__link">
     小试牛刀
   </a>
   
@@ -2248,8 +2234,8 @@
 <span class="o">&lt;/</span><span class="n">resources</span><span class="o">&gt;</span>
 </code></pre></div>
 <h2 id="1-style">1. style 参数</h2>
-<p>当然，我们有时候也需要更换字体的大小</p>
-<p><code>Compose</code> 已经为我们准备了很多专门的字体大小, 从 <code>h1</code> 到 <code>overline</code></p>
+<p><code>style</code> 参数可以帮助我们配置文本的行高，颜色，粗体等设置</p>
+<p><code>Compose</code> 中内置的 <code>theme</code> 已经为我们准备了一些设计, 从 <code>h1</code> 到 <code>overline</code></p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextDemo</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Column</span><span class="p">{</span>
@@ -2266,7 +2252,6 @@
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/text/text.png" /></p>
 <h3 id="_1">文字间距</h3>
-<p>当然有的时候我们想自己自定义字体的间隔和大小，那我们可以将代码改为：</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextDemo</span><span class="p">()</span> <span class="p">{</span>
     <span class="n">Column</span><span class="p">(</span>
@@ -2284,13 +2269,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>它将会显示成</p>
 <p><img alt="" src="../../../assets/elements/text/text2.png" />  </p>
-<h3 id="_2">字体大小</h3>
-<div class="admonition tips">
-<p class="admonition-title">Tips</p>
-<p>如果只是想简单的修改字体大小而不考虑间隔之类的，可以直接使用 <code>fontSize = xx.sp</code> 来设置大小</p>
-</div>
 <h2 id="2-maxlines">2. maxLines 参数</h2>
 <p>使用 <code>maxLines</code> 参数可以帮助我们将文本限制在指定的行数之间，如果文本足够短则不会生效，如果文本超过 <code>maxLines</code> 所规定的行数，则会进行截断</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
@@ -2410,7 +2389,7 @@
     <span class="p">)</span>
 <span class="p">}</span>
 </code></pre></div>
-<h3 id="_3">取消点击波纹</h3>
+<h3 id="_2">取消点击波纹</h3>
 <p>但是我们会发现，<code>clickable</code> 有自带的波纹效果，如果我们想要取消的话，只需要添加两个参数即可：</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
 <span class="kd">fun</span> <span class="nf">TextDemo</span><span class="p">()</span> <span class="p">{</span>
@@ -2531,7 +2510,7 @@
 <li>多了一个 <code>pushStringAnnotation()</code> 方法，它会将给定的注释附加到任何附加的文本上，直到相应的 <code>pop</code> 被调用</li>
 <li><code>getStringAnnotations()</code> 方法是查询附加在这个 <code>AnnotatedString</code> 上的字符串注释。注释是附加在 <code>AnnotatedString</code> 上的元数据，例如，在我们的代码中 <code>"tag"</code> 是附加在某个范围上的字符串元数据。注释也与样式一起存储在 <code>Range</code> 中</li>
 </ol>
-<h3 id="_4">小试牛刀</h3>
+<h3 id="_3">小试牛刀</h3>
 <p>那么，你已经学会了如何自定义 <code>Text</code> 中的样式和点击事件，来尝试做出一个这样的效果？</p>
 <p><img alt="" src="../../../assets/elements/text/text14.gif" /></p>
 <p>实现的代码可以通过以下的方式来查看</p>
@@ -2615,7 +2594,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">August 14, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2021</span>
       
     
   </small>
