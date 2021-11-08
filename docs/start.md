@@ -6,7 +6,7 @@
 
 ### 4. 保持版本更新
 
-尝试使用最新的 [Compose 版本](https://developer.android.com/jetpack/androidx/releases/compose)和 Compose 要求的 Kotlin 版本 (1.5.21)
+尝试使用最新的 [Compose 版本](https://developer.android.com/jetpack/androidx/releases/compose)和 Compose 要求的 Kotlin 版本 (1.5.31)
 
 `Gradle 版本`: [7.2](https://mvnrepository.com/artifact/com.android.tools.build/gradle?repo=google)
 
@@ -21,18 +21,18 @@ distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
 ```kotlin
 buildscript {
 
-    val compose_version by extra("1.0.2") // Compose 版本
+    val compose_version by extra("1.0.4") // Compose 版本
 
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        // 7.1.0-alpha07 要求 Android Studio 2021.1.1 版本及以上
-        classpath("com.android.tools.build:gradle:7.1.0-alpha11")
+
+        classpath("com.android.tools.build:gradle:7.0.3")
 
         // Kotlin 版本，注意：Compose 版本有时候需要要求 Kotlin 到达一定的版本，请同步更新
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31")
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle.kts files
@@ -45,15 +45,15 @@ buildscript {
 ```kotlin
 buildscript {
     ext {
-        compose_version = '1.0.2'
+        compose_version = '1.0.4'
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.0-alpha11'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.21"
+        classpath 'com.android.tools.build:gradle:7.0.3"'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.31"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
