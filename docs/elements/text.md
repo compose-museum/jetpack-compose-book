@@ -176,7 +176,8 @@ fun TextDemo() {
     需要注意区分的是，`TextAlign` 设置的是文本的对齐方式，而不是位置方向
     
     ![]({{config.assets}}/elements/text/text9.png)  
-    如果需要实现 `TextAlign.Right` 中的方向，请使用 `Modifier.align(Alignment.End)`，详情使用方法在[这里](../../layout/column/#2)
+
+    如果需要实现 Text 组件居中，或者水平位置中其他方向，请参考[这里](#11)
 
 
 ## 4. lineHeight 参数
@@ -475,9 +476,9 @@ CompositionLocalProvider(LocalContentAlpha provides ContentAlpha.disabled) {
 
 ![]({{config.assets}}/elements/text/demo.png)
 
-## 11. 文字水平居中
+## 11. 文字水平位置
 
-一般情况下，Text 不会水平居中，如果你在 `Row`, `Column`, `Box` 这些 Composable 里面想要实现居中的效果，目前的做法是在 Text 外围写一个 `Box`, `Row`, `Column` 等
+一般情况下，Text 不会水平居中，如果你在 `Row`, `Column`, `Box` 这些 Composable 里面想要实现居中的效果，你可以在 Text 外围写一个 `Box`, `Row`, `Column` 等
 
 像这样：
 
@@ -495,6 +496,13 @@ Column {
 ```
 
 ![]({{config.assets}}/elements/text/text16.png)
+
+水平靠左： `Alignment.Start`
+
+水平靠右： `Alignment.End`
+
+
+如果你的 `Column` 有 `Modifier.fillMaxWidth()` 的属性，那么你可以直接在 Text 里面写 `Modifier.align(Alignment.CenterHorizontally)`
 
 
 ## 12. 更多
