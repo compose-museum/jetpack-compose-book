@@ -677,7 +677,7 @@
       
         <li class="md-nav__item">
   <a href="#11" class="md-nav__link">
-    11. 文字水平居中
+    11. 文字水平位置
   </a>
   
 </li>
@@ -2165,7 +2165,7 @@
       
         <li class="md-nav__item">
   <a href="#11" class="md-nav__link">
-    11. 文字水平居中
+    11. 文字水平位置
   </a>
   
 </li>
@@ -2338,8 +2338,8 @@
 <div class="admonition 注意">
 <p class="admonition-title">注意</p>
 <p>需要注意区分的是，<code>TextAlign</code> 设置的是文本的对齐方式，而不是位置方向</p>
-<p><img alt="" src="../../../assets/elements/text/text9.png" /><br />
-如果需要实现 <code>TextAlign.Right</code> 中的方向，请使用 <code>Modifier.align(Alignment.End)</code>，详情使用方法在<a href="../../layout/column/#2">这里</a></p>
+<p><img alt="" src="../../../assets/elements/text/text9.png" />  </p>
+<p>如果需要实现 Text 组件居中，或者水平位置中其他方向，请参考<a href="#11">这里</a></p>
 </div>
 <h2 id="4-lineheight">4. lineHeight 参数</h2>
 <p>使用 lineHeight 参数可以让我们指定 <code>Text</code> 中每行的行高间距</p>
@@ -2568,8 +2568,8 @@
 <p><img alt="" src="../../../assets/elements/text/content_alpha.png" /></p>
 <p>这张图可以很好的说明这个效果</p>
 <p><img alt="" src="../../../assets/elements/text/demo.png" /></p>
-<h2 id="11">11. 文字水平居中</h2>
-<p>一般情况下，Text 不会水平居中，如果你在 <code>Row</code>, <code>Column</code>, <code>Box</code> 这些 Composable 里面想要实现居中的效果，目前的做法是在 Text 外围写一个 <code>Box</code>, <code>Row</code>, <code>Column</code> 等</p>
+<h2 id="11">11. 文字水平位置</h2>
+<p>一般情况下，Text 不会水平居中，如果你在 <code>Row</code>, <code>Column</code>, <code>Box</code> 这些 Composable 里面想要实现居中的效果，你可以在 Text 外围写一个 <code>Box</code>, <code>Row</code>, <code>Column</code> 等</p>
 <p>像这样：</p>
 <div class="highlight"><pre><span></span><code><span class="n">Column</span> <span class="p">{</span>
     <span class="n">Text</span><span class="p">(</span><span class="s">&quot;123&quot;</span><span class="p">)</span>
@@ -2583,6 +2583,9 @@
 <span class="p">}</span>
 </code></pre></div>
 <p><img alt="" src="../../../assets/elements/text/text16.png" /></p>
+<p>水平靠左： <code>Alignment.Start</code></p>
+<p>水平靠右： <code>Alignment.End</code></p>
+<p>如果你的 <code>Column</code> 有 <code>Modifier.fillMaxWidth()</code> 的属性，那么你可以直接在 Text 里面写 <code>Modifier.align(Alignment.CenterHorizontally)</code></p>
 <h2 id="12">12. 更多</h2>
 <p><a href="../../api/elements/text/">Text 参数详情</a></p>
 <p><a href="https://developer.android.com/jetpack/compose/text">Text 一些用法</a></p>
@@ -2594,7 +2597,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 8, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 13, 2021</span>
       
     
   </small>
