@@ -9,14 +9,14 @@
       
       
       
-        <link rel="canonical" href="https://docs.compose.net.cn/open-source-project/compose-scrollable-appbar/">
+        <link rel="canonical" href="https://docs.compose.net.cn/layout/subcomposelayout/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-7.3.6">
     
     
       
-        <title>Compose 伸缩 ToolBar 的实现 - Jetpack Compose</title>
+        <title>SubcomposeLayout - Jetpack Compose</title>
       
     
     
@@ -65,7 +65,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#compose-toolbar" class="md-skip">
+        <a href="#subcomposelayout" class="md-skip">
           跳转至
         </a>
       
@@ -96,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Compose 伸缩 ToolBar 的实现
+              SubcomposeLayout
             
           </span>
         </div>
@@ -170,13 +170,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../.." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
         Jetpack Compose
       </a>
     </li>
@@ -232,15 +234,13 @@
         
   
   
-    
-  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="../compose-douban/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../open-source-project/compose-douban/" class="md-tabs__link">
         开源项目
       </a>
     </li>
@@ -297,12 +297,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
       
       
       
@@ -552,12 +554,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" checked>
       
       
       
@@ -580,7 +584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/bottomnavigation/" class="md-nav__link">
+      <a href="../bottomnavigation/" class="md-nav__link">
         BottomNavigation
       </a>
     </li>
@@ -594,7 +598,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/column/" class="md-nav__link">
+      <a href="../column/" class="md-nav__link">
         Column
       </a>
     </li>
@@ -608,7 +612,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/modalbottomsheetlayout/" class="md-nav__link">
+      <a href="../modalbottomsheetlayout/" class="md-nav__link">
         ModalBottomSheetLayout
       </a>
     </li>
@@ -622,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/row/" class="md-nav__link">
+      <a href="../row/" class="md-nav__link">
         Row
       </a>
     </li>
@@ -636,7 +640,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/spacer/" class="md-nav__link">
+      <a href="../spacer/" class="md-nav__link">
         Spacer
       </a>
     </li>
@@ -650,7 +654,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/scaffold/" class="md-nav__link">
+      <a href="../scaffold/" class="md-nav__link">
         Scaffold
       </a>
     </li>
@@ -664,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/topappbar/" class="md-nav__link">
+      <a href="../topappbar/" class="md-nav__link">
         TopAppBar
       </a>
     </li>
@@ -678,7 +682,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/custom_layout/" class="md-nav__link">
+      <a href="../custom_layout/" class="md-nav__link">
         自定义布局
       </a>
     </li>
@@ -692,7 +696,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../layout/intrinsic/" class="md-nav__link">
+      <a href="../intrinsic/" class="md-nav__link">
         固有特性测量
       </a>
     </li>
@@ -704,11 +708,56 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../../layout/subcomposelayout/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          SubcomposeLayout
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         SubcomposeLayout
       </a>
+      
+        
+
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#subcomposelayout" class="md-nav__link">
+    SubcomposeLayout 是什么？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subcomposelayout_1" class="md-nav__link">
+    SubcomposeLayout 使用示例
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1775,14 +1824,12 @@
 
   
   
-    
-  
   
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
       
       
       
@@ -1805,7 +1852,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../compose-douban/" class="md-nav__link">
+      <a href="../../open-source-project/compose-douban/" class="md-nav__link">
         Compose 仿豆瓣榜单客户端
       </a>
     </li>
@@ -1819,7 +1866,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../compose-moon-animation/" class="md-nav__link">
+      <a href="../../open-source-project/compose-moon-animation/" class="md-nav__link">
         Compose 实现月亮阴晴圆缺动画
       </a>
     </li>
@@ -1833,7 +1880,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../compose-gmusic/" class="md-nav__link">
+      <a href="../../open-source-project/compose-gmusic/" class="md-nav__link">
         Compose 一款简易的音乐播放软件
       </a>
     </li>
@@ -1845,134 +1892,11 @@
               
   
   
-    
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          Compose 伸缩 ToolBar 的实现
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
         Compose 伸缩 ToolBar 的实现
       </a>
-      
-        
-
-
-<nav class="md-nav md-nav--secondary" aria-label="目录">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      目录
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    效果图
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    主要思路
-  </a>
-  
-    <nav class="md-nav" aria-label="主要思路">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    布局预览
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    实现过程
-  </a>
-  
-    <nav class="md-nav" aria-label="实现过程">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    布局实现
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    位移实现
-  </a>
-  
-    <nav class="md-nav" aria-label="位移实现">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    最外层布局位移定义
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toolbar" class="md-nav__link">
-    toolBar 垂直方向位置不变的实现
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#title" class="md-nav__link">
-    title 水平位移的实现
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    项目地址
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2002,8 +1926,6 @@
   
   
   
-    
-  
   
     <label class="md-nav__title" for="__toc">
       <span class="md-nav__icon md-icon"></span>
@@ -2012,89 +1934,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#_1" class="md-nav__link">
-    效果图
+  <a href="#subcomposelayout" class="md-nav__link">
+    SubcomposeLayout 是什么？
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#_2" class="md-nav__link">
-    主要思路
-  </a>
-  
-    <nav class="md-nav" aria-label="主要思路">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_3" class="md-nav__link">
-    布局预览
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_4" class="md-nav__link">
-    实现过程
-  </a>
-  
-    <nav class="md-nav" aria-label="实现过程">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_5" class="md-nav__link">
-    布局实现
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#_6" class="md-nav__link">
-    位移实现
-  </a>
-  
-    <nav class="md-nav" aria-label="位移实现">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#_7" class="md-nav__link">
-    最外层布局位移定义
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#toolbar" class="md-nav__link">
-    toolBar 垂直方向位置不变的实现
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#title" class="md-nav__link">
-    title 水平位移的实现
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#_8" class="md-nav__link">
-    项目地址
+  <a href="#subcomposelayout_1" class="md-nav__link">
+    SubcomposeLayout 使用示例
   </a>
   
 </li>
@@ -2111,177 +1959,101 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/open-source-project/compose-scrollable-appbar.md" title="编辑此页" class="md-content__button md-icon">
+                  <a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/layout/subcomposelayout.md" title="编辑此页" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="compose-toolbar"><a href="https://github.com/SakurajimaMaii/ComposeWidget/blob/master/app/src/main/java/com/example/composewidget/ScrollableAppBar.kt">Compose 伸缩ToolBar的实现</a></h1>
-<h2 id="_1">效果图</h2>
-<p><img src="../../../assets/design/gesture/nested_scroll/nestedScroll.gif" width="30%" height="30%" /></p>
-<ul>
-<li>当列表向上移动时，会先带动 <code>ToolBar</code> 向上位移，等 <code>ToolBar</code> 向上移动到最大位移量时列表向上滑动</li>
-<li>当列表向下移动时，会先带动 <code>ToolBar</code> 向下位移，等 <code>ToolBar</code> 向下移动到最大位移量时列表向下滑动</li>
-</ul>
-<h2 id="_2">主要思路</h2>
-<h3 id="_3">布局预览</h3>
-<p>伸缩前布局</p>
-<p><img src="https://img-blog.csdnimg.cn/806dcfd8a28541c89b194be8e078f052.png" width="50%"/></p>
-<p>伸缩后布局</p>
-<p><img src="https://img-blog.csdnimg.cn/6ec7bb082b6b44e6aaf4572008899618.jpg" width="50%"/></p>
-<h3 id="_4">实现过程</h3>
-<h4 id="_5">布局实现</h4>
-<p>首先我们要定义两个尺寸变量</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 应用栏高度</span>
-<span class="kd">private</span> <span class="kd">val</span> <span class="nv">toolBarHeight</span> <span class="o">=</span> <span class="m">56.</span><span class="n">dp</span>
-<span class="c1">// 导航图标大小</span>
-<span class="kd">private</span> <span class="kd">val</span> <span class="nv">navigationIconSize</span> <span class="o">=</span> <span class="m">50.</span><span class="n">dp</span>
-</code></pre></div>
-<p>我们采用 <code>Box</code> 作为根布局，里面主要包含三个部分，背景图片，顶部的 <code>ToolBar</code> 以及下面的 <code>Title</code> 部分，其实现如下</p>
-<div class="highlight"><pre><span></span><code><span class="c1">//整体布局实现</span>
-<span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">scrollableAppBarHeight</span><span class="p">)</span> <span class="c1">//scrollableAppBarHeight 为高度参数,为外部获取</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="n">Image</span><span class="p">(</span><span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">backgroundImageId</span><span class="p">),</span> <span class="n">contentDescription</span> <span class="o">=</span> <span class="s">&quot;background&quot;</span><span class="p">,</span> <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">FillBounds</span><span class="p">)</span>
-
-    <span class="c1">// 自定义应用栏</span>
-    <span class="n">Row</span><span class="p">(</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span>
-            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//设置高度为toolBarHeight</span>
-            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
-        <span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span> <span class="c1">//设置垂直方向为居中对齐</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="c1">// 导航图标</span>
-        <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">navigationIconSize</span><span class="p">),</span><span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">navigationIcon</span><span class="p">()</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="c1">// title定义</span>
-    <span class="n">Box</span><span class="p">(</span>
-        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和ToolBar同高</span>
-            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-            <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">),</span>
-        <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">,</span>
-            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="m">20.</span><span class="n">dp</span><span class="p">).</span><span class="na">matchParentSize</span><span class="p">(),</span> <span class="c1">// 使用 matchParentSize 修饰符保证不影响父 Box尺寸</span>
-            <span class="n">fontSize</span> <span class="o">=</span> <span class="m">20.</span><span class="n">sp</span>
-        <span class="p">)</span>
-    <span class="p">}</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>我们主要讲解 <code>title</code> 部分</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// title 定义</span>
-<span class="n">Box</span><span class="p">(</span>
-    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-        <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">),</span>
-    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
-            <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">,</span>
-            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="m">20.</span><span class="n">dp</span><span class="p">).</span><span class="na">matchParentSize</span><span class="p">(),</span> <span class="c1">// 使用 matchParentSize 修饰符保证不影响父 Box尺寸</span>
-            <span class="n">fontSize</span> <span class="o">=</span> <span class="m">20.</span><span class="n">sp</span>
-        <span class="p">)</span>
-<span class="p">}</span>
-</code></pre></div>
-<p>首先为了保证 <code>title</code> 部分在完全收缩后高度和 <code>toolBar</code> 部分一致，我们设置 <code>Box</code> 布局高度为 <code>toolBarHeight</code></p>
-<div class="highlight"><pre><span></span><code><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-</code></pre></div>
-<p>然后定义 <code>Box</code> 在根布局里面的对齐方式为<strong>Alignment.BottomStart</strong></p>
-<div class="highlight"><pre><span></span><code><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-        <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">)</span>
-</code></pre></div>
-<p>之所以这样设置，是因为我们通过观察伸缩前和伸缩后的预览图可以知道如果保证此部分是<strong>底部左边</strong>对齐，那么在根布局向上移动的过程中我们便可以只关心此部分在<strong>水平方向</strong>的位移即可</p>
-<p>接着设置文本部分的对齐方式,保证 <code>title</code> 是居中靠左对齐的</p>
-<div class="highlight"><pre><span></span><code><span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
-</code></pre></div>
-<h4 id="_6">位移实现</h4>
-<p>首先，我们要明确 <code>ScrollableAppBar</code> 最大向上偏移量等于其<strong>定义的高度</strong>和<strong>收缩后的高度</strong>的差值，即:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 应用栏最大向上偏移量</span>
-<span class="kd">val</span> <span class="nv">maxOffsetHeightPx</span> <span class="o">=</span> <span class="n">with</span><span class="p">(</span><span class="n">LocalDensity</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span> <span class="n">scrollableAppBarHeight</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="o">-</span> <span class="n">toolBarHeight</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="p">}</span>
-</code></pre></div>
-<p>其次，<code>title</code> 部分在<strong>水平方向</strong>的位移距离其实就是导航图标的宽度，即:</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// Title 偏移量参考值</span>
-<span class="kd">val</span> <span class="nv">titleOffsetWidthReferenceValue</span> <span class="o">=</span> <span class="n">with</span><span class="p">(</span><span class="n">LocalDensity</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span> <span class="n">navigationIconSize</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="p">}</span>
-</code></pre></div>
-<p>同时需要定义从外部获取到的偏移量</p>
-<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">toolbarOffsetHeightPx</span><span class="p">:</span> <span class="n">MutableState</span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span> <span class="c1">//向上偏移量</span>
-</code></pre></div>
-<h5 id="_7">最外层布局位移定义</h5>
-<p>为根布局添加垂直方向上的位移</p>
+                  <h1>SubcomposeLayout</h1>
+                
+                <h2 id="subcomposelayout">SubcomposeLayout 是什么？</h2>
+<p>前面固有特性测量部分我们所提到过，固有特性测量的本质其实就是子组件通过父组件对其他子组件产生影响，然而在有些场景下我们不希望父组件参与其中，我们希望通过自定义子组件间测量顺序从而相互影响，Compose为我们提供了 SubcomposeLayout 来处理这类子组件存在依赖关系的场景。</p>
+<h2 id="subcomposelayout_1">SubcomposeLayout 使用示例</h2>
+<p>我们仍然使用前面固有特性测量中的例子，通过设计方案的不同可以很清晰的看出固有特性测量与 SubcomposeLayout 的区别。</p>
+<p><img src = "../../../assets/layout/subcomposelayout/demo.png" width = "50%" height = "50%"></p>
+<p>在这个例子中，其实我们可以先测量两侧文本的高度，并计算出 Divider 应占有的高度然后为 Divider 指定高度后再进行测量，从而达到设计要求。与固有特性测量不同的是，在这整个过程中父组件是没有参与的。</p>
+<p>接下里，我们来看看 SubComposeLayout 组件该如何使用。</p>
 <div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
-<span class="kd">fun</span> <span class="nf">ScrollableAppBar</span><span class="p">(</span>
+<span class="kd">fun</span> <span class="nf">SubcomposeLayout</span><span class="p">(</span>
     <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
-    <span class="n">title</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">stringResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">app_name</span><span class="p">),</span> <span class="c1">//默认为应用名</span>
-    <span class="n">navigationIcon</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span> <span class="c1">//导航图标</span>
-    <span class="nd">@DrawableRes</span> <span class="n">backgroundImageId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="c1">// 背景图片</span>
-    <span class="n">scrollableAppBarHeight</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="c1">//定义的 ScrollableAppBar 高度</span>
-    <span class="n">toolbarOffsetHeightPx</span><span class="p">:</span> <span class="n">MutableState</span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span> <span class="c1">//向上偏移量</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">scrollableAppBarHeight</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
-            <span class="n">IntOffset</span><span class="p">(</span>
-              <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-              <span class="n">y</span> <span class="o">=</span> <span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">()</span> <span class="c1">//设置偏移量</span>
-            <span class="p">)</span>
-        <span class="p">}</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-    <span class="p">)</span> <span class="p">{</span>
-        <span class="p">....</span> <span class="c1">// 背景图等内容</span>
+    <span class="n">measurePolicy</span><span class="p">:</span> <span class="n">SubcomposeMeasureScope</span><span class="p">.(</span><span class="n">Constraints</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MeasureResult</span>
+<span class="p">)</span>
+</code></pre></div>
+<p>其实 SubComposeLayout 和 Layout 组件用法差不多。不同的是，此时需要传入一个 SubcomposeMeasureScope 类型 Lambda，打开接口声明可以看到其中仅有一个 subcompose API。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span> <span class="nc">SubcomposeMeasureScope</span> <span class="p">:</span> <span class="n">MeasureScope</span> <span class="p">{</span>
+    <span class="kd">fun</span> <span class="nf">subcompose</span><span class="p">(</span><span class="n">slotId</span><span class="p">:</span> <span class="kt">Any?</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">):</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Measurable</span><span class="o">&gt;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>subcompose 可以将任何 Composable 组件内所有 LayoutNode 转化为一系列 Measurable 测量句柄。接下来我们看看在我们的示例场景中该如何使用。</p>
+<p>实际上我们可以把所有待测量的组件分为文字组件和分隔符组件两部分。由于我们的分隔符组件的高度是依赖于文字组件的，所以声明分隔符组件时我们传入一个 Int 值作为测量高度。</p>
+<p>首先我们定义一个 Composable。</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">SubcomposeRow</span><span class="p">(</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">text</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">divider</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">(</span><span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="c1">// 传入高度</span>
+<span class="p">){</span>
+    <span class="n">SubcomposeLayout</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">)</span> <span class="p">{</span> <span class="n">constraints</span><span class="o">-&gt;</span>
+        <span class="p">...</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-<h5 id="toolbar">toolBar 垂直方向位置不变的实现</h5>
-<p>设置和父布局相反的位移量保证 <code>toolBar</code> 处于原位置，即：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// 自定义应用栏</span>
-<span class="n">Row</span><span class="p">(</span>
-    <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span>
-        <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
-            <span class="n">IntOffset</span><span class="p">(</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
-                <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">()</span> <span class="c1">//保证应用栏是始终不动的</span>
-            <span class="p">)</span>
-        <span class="p">}</span>
-        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
-    <span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="p">...</span> <span class="c1">// 导航图标</span>
+我们首先可以使用 subcompose 来先测量 text Composable 中的所有 LayoutNode。并根据测量结果计算出最大高度。</p>
+<div class="highlight"><pre><span></span><code><span class="n">SubcomposeLayout</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">)</span> <span class="p">{</span> <span class="n">constraints</span><span class="o">-&gt;</span>
+    <span class="kd">var</span> <span class="nv">maxHeight</span> <span class="o">=</span> <span class="m">0</span>
+    <span class="kd">var</span> <span class="nv">placeables</span> <span class="o">=</span> <span class="n">subcompose</span><span class="p">(</span><span class="s">&quot;text&quot;</span><span class="p">,</span> <span class="n">text</span><span class="p">).</span><span class="na">map</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nv">placeable</span> <span class="o">=</span> <span class="nb">it</span><span class="p">.</span><span class="na">measure</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
+        <span class="n">maxHeight</span> <span class="o">=</span> <span class="n">placeable</span><span class="p">.</span><span class="na">height</span><span class="p">.</span><span class="na">coerceAtLeast</span><span class="p">(</span><span class="n">maxHeight</span><span class="p">)</span>
+        <span class="n">placeable</span>
+    <span class="p">}</span>
+    <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div>
-<h5 id="title">title 水平位移的实现</h5>
-<p>为了保证 <code>title</code> 均匀向右位移，用根布局此时向上位移量和最大位移量的商再乘以水平方向上的总位移即可：</p>
-<div class="highlight"><pre><span></span><code><span class="c1">// title 部分</span>
-<span class="n">Box</span><span class="p">(</span>
-    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
-        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
-        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
-        <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">)</span>
-        <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
-            <span class="n">IntOffset</span><span class="p">(</span>
-                <span class="c1">// 按照根布局向上的位移量成比例的向右位移 Title</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="p">((</span><span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span> <span class="o">/</span> <span class="n">maxOffsetHeightPx</span><span class="p">)</span> <span class="o">*</span> <span class="n">titleOffsetWidthReferenceValue</span><span class="p">).</span><span class="na">roundToInt</span><span class="p">(),</span>
-                <span class="n">y</span> <span class="o">=</span> <span class="m">0</span>
-            <span class="p">)</span>
-        <span class="p">},</span>
-    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
-<span class="p">)</span> <span class="p">{</span>
-    <span class="p">...</span> <span class="c1">//title 部分</span>
+<p>既然计算得到了文本的最大高度，我们接下来可以将高度只传入分隔符组件中并进行测量了。</p>
+<div class="highlight"><pre><span></span><code><span class="n">SubcomposeLayout</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">)</span> <span class="p">{</span> <span class="n">constraints</span><span class="o">-&gt;</span>
+    <span class="p">...</span>
+    <span class="kd">var</span> <span class="nv">dividerPlaceable</span> <span class="o">=</span> <span class="n">subcompose</span><span class="p">(</span><span class="s">&quot;divider&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">divider</span><span class="p">(</span><span class="n">maxHeight</span><span class="p">)</span>
+    <span class="p">}.</span><span class="na">map</span> <span class="p">{</span>
+        <span class="nb">it</span><span class="p">.</span><span class="na">measure</span><span class="p">(</span><span class="n">constraints</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">minWidth</span> <span class="o">=</span> <span class="m">0</span><span class="p">))</span>
+    <span class="p">}</span>
+    <span class="n">assert</span><span class="p">(</span><span class="n">dividerPlaceable</span><span class="p">.</span><span class="na">size</span> <span class="o">==</span> <span class="m">1</span><span class="p">,</span> <span class="p">{</span> <span class="s">&quot;DividerScope Error!&quot;</span> <span class="p">})</span>
+    <span class="p">...</span>
 <span class="p">}</span>
 </code></pre></div>
-<h2 id="_8">项目地址</h2>
-<p><a href="https://github.com/SakurajimaMaii/ComposeWidget/blob/master/app/src/main/java/com/example/composewidget/ScrollableAppBar.kt">ScrollableAppBar</a> 如果项目对你有所帮助,欢迎点赞👍,Star⭐,收藏😍,如果有改进意见还可以提交 issue</p>
+<p>值得注意，测量 divider 组件时我们将 minWidth 设置为零，这是由于 constraints 布局约束中宽度可能是固定的，如果不修改的话，divider 组件宽度默认会与整个组件宽度相同。接下来分别对文字组件和分隔符组件进行布局就可以了。</p>
+<div class="highlight"><pre><span></span><code>SubcomposeLayout(modifier = modifier) { constraints-&gt;
+    ...
+    layout(constraints.maxWidth, constraints.maxHeight){
+        placeables.forEach {
+            it.placeRelative(0, 0)
+        }
+        dividerPlaceable.forEach {
+            it.placeRelative(midPos, 0)
+        }
+    }
+}
+</code></pre></div>
+<p>使用也非常简单，我们只需要把文本组件和分隔符组件分开传入到我们定制的 SubcomposeRow 组件中就可以了。</p>
+<div class="highlight"><pre><span></span><code>SubcomposeRow(
+    modifier = Modifier
+        .fillMaxWidth(),
+    text = {
+        Text(text = &quot;Left&quot;, Modifier.wrapContentWidth(Alignment.Start))
+        Text(text = &quot;Right&quot;, Modifier.wrapContentWidth(Alignment.End))
+    }
+) {
+    var heightPx = with( LocalDensity.current) { it.toDp() }
+    Divider(
+        color = Color.Black,
+        modifier = Modifier
+            .width(4.dp)
+            .height(heightPx)
+    )
+}
+</code></pre></div>
+<p>最终效果与使用固有特性测量完全相同。</p>
+<p><img src = "../../../assets/layout/subcomposelayout/demo.png" width = "50%" height = "50%"></p>
                 
                   
                     
@@ -2290,7 +2062,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 13, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 18, 2021</span>
       
     
   </small>
@@ -2315,7 +2087,7 @@
     <nav class="md-footer__inner md-grid" aria-label="Footer">
       
         
-        <a href="../compose-gmusic/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Compose 一款简易的音乐播放软件" rel="prev">
+        <a href="../intrinsic/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 固有特性测量" rel="prev">
           <div class="md-footer__button md-icon">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
           </div>
@@ -2324,11 +2096,26 @@
               <span class="md-footer__direction">
                 上一页
               </span>
-              Compose 一款简易的音乐播放软件
+              固有特性测量
             </div>
           </div>
         </a>
       
+      
+        
+        <a href="../../design/animation/overview/" class="md-footer__link md-footer__link--next" aria-label="下一页: 概述" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              概述
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
       
     </nav>
   
