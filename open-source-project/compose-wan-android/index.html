@@ -2293,9 +2293,13 @@
 <blockquote>
 <p>使用<code>Paging3</code>加载分页数据，并显示到页面<code>A</code>的<code>LazyColumn</code>上，向下滑动<code>LazyColumn</code>，然后<code>navigation.navigate</code>跳转到页面<code>B</code>，接着再<code>navigatUp</code>回到页面<code>A</code>，页面<code>A</code>的<code>LazyColumn</code>又回到了列表顶部    </p>
 </blockquote>
-<p><code>LazyColumn</code>出现这个问题的原因主要在于它用于记录滚动位置的参数<code>LazyListState</code>没有做持久化保存，当重新回到<code>A</code>页面时,<code>LazyListState</code>数据重新变为默认值0，自然就回到顶部了，如下图所示  <br />
+<p>但是我们可以看到，<code>LazyListState</code>其实是通过<code>rememberLazyListState</code>做了持久化保存的，如下图所示    <br />
 <img alt="" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/291ab6de0d274da2bb1d875faa3c7d7e~tplv-k3u1fbpfcp-watermark.awebp?" />      </p>
-<p>既然原因在于<code>LazyListState</code>没有被保存，那我们将<code>LazyListSate</code>保存在<code>ViewModel</code>中就可以了，如下所示  <br />
+<p>既然做了持久化保存，那为什么返回时的位置还有问题呢？其实纯粹使用 <code>Paging</code> + <code>LazyColumn</code>，当页面切换时，会记录当前页面位置，但如果通过<code>item</code>加上<code>Header</code>或<code>Footer</code>就不行了      <br />
+这是因为<code>rememberLazyListState</code>会在列表中至少有一项时<code>restore</code>滚动位置，同时<code>Paging</code>是通过<code>Flow</code>获取数据的，当返回到页面重组时并不能马上获取到<code>Paging</code>数据，第一帧时<code>Paging</code>的<code>itemCount</code>为0    <br />
+但同时因为<code>LazyColumn</code>中已经有了一个<code>Header</code>，这时便会还原保存的位置，但因为这时<code>Paging</code>中的数据还为空，不能滚动到正确的位置，于是便又滚动到顶部了   <br />
+而当<code>LazyColumn</code>中没有<code>Header</code>时，列表中至少有一项时便是<code>Paging</code>数据成功填充的时候，这个时候还原的位置就是对的,所以没有问题    </p>
+<p>既然原因在于<code>LazyListState</code>没有在正确的时机被还原，那我们将<code>LazyListSate</code>保存在<code>ViewModel</code>中,并且在<code>Paging</code>中有数据时再还原<code>listState</code>，如下所示：  <br />
 <div class="highlight"><pre><span></span><code><span class="nd">@HiltViewModel</span>
 <span class="kd">class</span> <span class="nc">SquareViewModel</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
     <span class="kd">private</span> <span class="kd">var</span> <span class="nv">service</span><span class="p">:</span> <span class="n">HttpService</span><span class="p">,</span>
@@ -2311,8 +2315,7 @@
     <span class="n">viewModel</span><span class="p">:</span> <span class="n">SquareViewModel</span> <span class="o">=</span> <span class="n">hiltViewModel</span><span class="p">()</span>
 <span class="p">)</span> <span class="p">{</span>
     <span class="kd">val</span> <span class="nv">squareData</span> <span class="o">=</span> <span class="n">viewStates</span><span class="p">.</span><span class="na">pagingData</span><span class="p">.</span><span class="na">collectAsLazyPagingItems</span><span class="p">()</span>
-    <span class="c1">// val listState = viewStates.listState //一般这样就够了</span>
-    <span class="c1">// 当使用`Paging`时的特殊处理，一般直接使用viewStates.listState即可    </span>
+    <span class="c1">// 当`Paging`有数据时，返回`ViewModel`中的`listState`</span>
     <span class="kd">val</span> <span class="nv">listState</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">squareData</span><span class="p">.</span><span class="na">itemCount</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span> <span class="n">viewStates</span><span class="p">.</span><span class="na">listState</span> <span class="k">else</span> <span class="n">LazyListState</span><span class="p">()</span>
 
     <span class="n">RefreshList</span><span class="p">(</span><span class="n">squareData</span><span class="p">,</span> <span class="n">listState</span> <span class="o">=</span> <span class="n">listState</span><span class="p">)</span> <span class="p">{</span>
@@ -2322,7 +2325,7 @@
     <span class="p">}</span>
 <span class="p">}</span>
 </code></pre></div>
-需要注意的是，针对一般的页面，直接使用<code>viewModel.listState</code>即可，不过我在使用<code>Paing</code>时发现返回页面时<code>Paging</code>的<code>itemCount</code>会暂时变为0，导致<code>listState</code>也变为0，所以需要做一些特殊处理    <br />
+总得来说，对于一般的页面，<code>rememberLazyListState</code>已经足够，但是对于有<code>Header</code>或<code>Footer</code>的<code>Paging</code>页面，需要一些特殊处理      <br />
 关于<code>LazyColumn</code>滚动丢失的问题，更详细的讨论可参考：<a href="https://issuetracker.google.com/issues/177245496?pli=1">Scroll position of LazyColumn built with collectAsLazyPagingItems is lost when using Navigation
 </a>   </p>
 <h2 id="_4">总结</h2>
@@ -2341,7 +2344,7 @@
 <div class="md-source-date">
   <small>
     
-      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 24, 2021</span>
+      最后更新: <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">November 25, 2021</span>
       
     
   </small>
