@@ -169,10 +169,15 @@ fun ProfilePage(
 相信使用过`LazyColumn`的同学都碰到过下面的问题     
 > 使用`Paging3`加载分页数据，并显示到页面`A`的`LazyColumn`上，向下滑动`LazyColumn`，然后`navigation.navigate`跳转到页面`B`，接着再`navigatUp`回到页面`A`，页面`A`的`LazyColumn`又回到了列表顶部    
 
-`LazyColumn`出现这个问题的原因主要在于它用于记录滚动位置的参数`LazyListState`没有做持久化保存，当重新回到`A`页面时,`LazyListState`数据重新变为默认值0，自然就回到顶部了，如下图所示    
+但是我们可以看到，`LazyListState`其实是通过`rememberLazyListState`做了持久化保存的，如下图所示      
 ![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/291ab6de0d274da2bb1d875faa3c7d7e~tplv-k3u1fbpfcp-watermark.awebp?)      
 
-既然原因在于`LazyListState`没有被保存，那我们将`LazyListSate`保存在`ViewModel`中就可以了，如下所示    
+既然做了持久化保存，那为什么返回时的位置还有问题呢？其实纯粹使用 `Paging` + `LazyColumn`，当页面切换时，会记录当前页面位置，但如果通过`item`加上`Header`或`Footer`就不行了        
+这是因为`rememberLazyListState`会在列表中至少有一项时`restore`滚动位置，同时`Paging`是通过`Flow`获取数据的，当返回到页面重组时并不能马上获取到`Paging`数据，第一帧时`Paging`的`itemCount`为0      
+但同时因为`LazyColumn`中已经有了一个`Header`，这时便会还原保存的位置，但因为这时`Paging`中的数据还为空，不能滚动到正确的位置，于是便又滚动到顶部了     
+而当`LazyColumn`中没有`Header`时，列表中至少有一项时便是`Paging`数据成功填充的时候，这个时候还原的位置就是对的,所以没有问题    
+
+既然原因在于`LazyListState`没有在正确的时机被还原，那我们将`LazyListSate`保存在`ViewModel`中,并且在`Paging`中有数据时再还原`listState`，如下所示：    
 ```kotlin
 @HiltViewModel
 class SquareViewModel @Inject constructor(
@@ -189,8 +194,7 @@ fun SquarePage(
     viewModel: SquareViewModel = hiltViewModel()
 ) {
     val squareData = viewStates.pagingData.collectAsLazyPagingItems()
-    // val listState = viewStates.listState //一般这样就够了
-    // 当使用`Paging`时的特殊处理，一般直接使用viewStates.listState即可    
+    // 当`Paging`有数据时，返回`ViewModel`中的`listState`
     val listState = if (squareData.itemCount > 0) viewStates.listState else LazyListState()
 
     RefreshList(squareData, listState = listState) {
@@ -200,7 +204,7 @@ fun SquarePage(
     }
 }
 ```
-需要注意的是，针对一般的页面，直接使用`viewModel.listState`即可，不过我在使用`Paing`时发现返回页面时`Paging`的`itemCount`会暂时变为0，导致`listState`也变为0，所以需要做一些特殊处理      
+总得来说，对于一般的页面，`rememberLazyListState`已经足够，但是对于有`Header`或`Footer`的`Paging`页面，需要一些特殊处理        
 关于`LazyColumn`滚动丢失的问题，更详细的讨论可参考：[Scroll position of LazyColumn built with collectAsLazyPagingItems is lost when using Navigation
 ](https://issuetracker.google.com/issues/177245496?pli=1)   
 
