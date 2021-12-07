@@ -73,11 +73,11 @@ Column(Modifier.fillMaxSize()) {
 
 ## 为自定义 Layout 适配固有特性测量
 
-从上面的例子可以发现，我们仅使用  <code>Modifier.height(IntrinsicSize.Min)</code>  即可交给 Row 组件根据子组件的信息进行计算从而确定一个固定的高度。然而之前他时如何操作的，对于开发者而言是完全未知的。所以本文将继续深入下去，通过一个自定义 Layout 适配固有特性测量的过程来摸清固有特性测量的整个流程。
+从上面的例子可以发现，我们仅使用  <code>Modifier.height(IntrinsicSize.Min)</code>  即可交给 Row 组件根据子组件的信息进行计算从而确定一个固定的高度。然而之前他是如何操作的，对于开发者而言是完全未知的。所以本文将继续深入下去，通过一个自定义 Layout 适配固有特性测量的过程来摸清固有特性测量的整个流程。
 
 ### 重写 MeasurePolicy 固有特性测量相关方法
 
-对于适配固有特性测量的 Layout，我们需要对 MeasurePolicy 下的固有特性测量方法进行重写。还记得 MeasurePolicy 是谁嘛？没错他就是我们在自定义 Layout 中传入的最后的 lambda SAM 转换的实例类型。
+对于适配固有特性测量的 Layout，我们需要对 MeasurePolicy 下的固有特性测量方法进行重写。还记得 MeasurePolicy 是谁吗？没错他就是我们在自定义 Layout 中传入的最后的 lambda SAM 转换的实例类型。
 
 ```kotlin
 @Composable inline fun Layout(
