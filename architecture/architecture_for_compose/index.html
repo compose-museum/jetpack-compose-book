@@ -11,7 +11,7 @@
         <link rel="canonical" href="https://docs.compose.net.cn/architecture/architecture_for_compose/">
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.0.5">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.1.2">
     
     
       
@@ -19,10 +19,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.a617204b.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.f7951f6f.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.9204c3b2.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -2295,7 +2295,7 @@ https://developer.android.com/jetpack/compose/mental-model</p>
 </blockquote>
 <p><br/></p>
 <h2 id="2-mvvmwithout-jetpack">2. MVVM（Without Jetpack）</h2>
-<p>相对于 MVP 的接口通信 ，MVVM 基于观察者模式进行通信，当 UI 观察到来自 ViewModle 的数据变化时自我更新。 UI层是否能返回引用句柄已不再重要，这与 Compose 的工作方式非常契合。</p>
+<p>相对于 MVP 的接口通信 ，MVVM 基于观察者模式进行通信，当 UI 观察到来自 ViewModel 的数据变化时自我更新。 UI层是否能返回引用句柄已不再重要，这与 Compose 的工作方式非常契合。</p>
 <p><img alt="mvvm" src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8485b8fe71dc44a088832bc63e1abb50~tplv-k3u1fbpfcp-watermark.image" /></p>
 <p>自从 Android 用 ViewModel 命名了某 Jetpack 组件后，在很多人心里，Jetpack 似乎就与 MVVM 画上了等号。这确实客观推动了 MVVM 的普及，但是 Jetpack 的 ViewModel 并非只能用在 MVVM 中（比如如后文介绍的 MVI 也可以使用 ）； 反之，没有 Jetpack ，照样可以实现 MVVM。</p>
 <p>先来看看不借助 Jetpack 的情况下，MVVM 如何实现？</p>
@@ -2353,7 +2353,7 @@ https://developer.android.com/jetpack/compose/mental-model</p>
 <ul>
 <li>每个 Composable 都有一个 <code>CoroutineScope</code> 与其 Lifecycle 绑定，<code>LaunchedEffect{}</code> 可以在这个 Scope 中启动协程处理副作用。 代码中使用了一个只执行一次的 Effect 订阅 ViewModel 的路由事件通知</li>
 <li>当然我们可以将 navConroller 也传给 <code>MvvmSearchBarScreen</code> ，在其内部直接发起路由跳转。但在较复杂的项目中，跳转逻辑与页面定义应该尽量保持解耦，这更利于页面的复用和测试。</li>
-<li>我们也可以在 Composeable 中直接  <code>mutableStateOf()</code> 创建 state 来处理路由跳转，但是既然选择使用 ViewModel 了，那就应该尽可能将所有 state 集中到 ViewModle 管理。 <blockquote>
+<li>我们也可以在 Composeable 中直接  <code>mutableStateOf()</code> 创建 state 来处理路由跳转，但是既然选择使用 ViewModel 了，那就应该尽可能将所有 state 集中到 ViewModel 管理。 <blockquote>
 <p>注意: 上面例子中的处理路由跳转的  <code>navigateToResults</code> 是一个“事件”而非“状态”，关于这部分区别，在后文在详细阐述</p>
 </blockquote>
 </li>
@@ -2513,7 +2513,7 @@ https://developer.android.com/jetpack/compose/mental-model</p>
 
 <span class="p">}</span>
 </code></pre></div>
-<p>MVVM 的 ViewModle 中分散定义了多个 State ，MVI 使用 <code>ViewState</code> 对 State 集中管理，只需要订阅一个 ViewState 便可获取页面的所有状态，相对 MVVM 减少了不少模板代码。</p>
+<p>MVVM 的 ViewModel 中分散定义了多个 State ，MVI 使用 <code>ViewState</code> 对 State 集中管理，只需要订阅一个 ViewState 便可获取页面的所有状态，相对 MVVM 减少了不少模板代码。</p>
 <p>相对于 MVVM，ViewModel 也有一些变化</p>
 <div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MviViewModel</span><span class="p">(</span>
     <span class="kd">private</span> <span class="kd">val</span> <span class="nv">searchService</span><span class="p">:</span> <span class="n">DataRepository</span><span class="p">,</span>
@@ -2627,7 +2627,7 @@ https://developer.android.com/jetpack/compose/mental-model</p>
 <p><br/></p>
 <h1 id="clean-architecture">Clean Architecture</h1>
 <hr />
-<p>更大型的项目中，会引入 <code>Clean Architecture</code> ，通过 Use Case 将 ViewModel 内的逻辑进一步分解。 Compose 只是个 UI 框架，对于 ViewModle 以下的逻辑层的治理方式与传统的 Andorid 开发没有区别。所以 Clean Architecture 这样的复杂架构仍然可以在 Compose 项目中使用</p>
+<p>更大型的项目中，会引入 <code>Clean Architecture</code> ，通过 Use Case 将 ViewModel 内的逻辑进一步分解。 Compose 只是个 UI 框架，对于 ViewModel 以下的逻辑层的治理方式与传统的 Andorid 开发没有区别。所以 Clean Architecture 这样的复杂架构仍然可以在 Compose 项目中使用</p>
 <p><br/></p>
 <h1 id="_2">总结</h1>
 <hr />
@@ -2642,7 +2642,7 @@ https://developer.android.com/jetpack/compose/mental-model</p>
   <small>
     
       最后更新:
-      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 15, 2021</span>
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 17, 2021</span>
       
     
   </small>
@@ -2725,10 +2725,10 @@ https://developer.android.com/jetpack/compose/mental-model</p>
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.cefbb252.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.0bbba5b5.min.js"}</script>
     
     
-      <script src="../../assets/javascripts/bundle.a5f8ea78.min.js"></script>
+      <script src="../../assets/javascripts/bundle.649a939e.min.js"></script>
       
     
   </body>
