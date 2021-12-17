@@ -123,7 +123,7 @@ Compose UI 既然存在于 Android 体系中，必定需要有一个与 Android 
 ## 2. MVVM（Without Jetpack）
 
 
-相对于 MVP 的接口通信 ，MVVM 基于观察者模式进行通信，当 UI 观察到来自 ViewModle 的数据变化时自我更新。 UI层是否能返回引用句柄已不再重要，这与 Compose 的工作方式非常契合。
+相对于 MVP 的接口通信 ，MVVM 基于观察者模式进行通信，当 UI 观察到来自 ViewModel 的数据变化时自我更新。 UI层是否能返回引用句柄已不再重要，这与 Compose 的工作方式非常契合。
 
 
 
@@ -199,7 +199,7 @@ fun MvvmApp(
 
 - 每个 Composable 都有一个 `CoroutineScope` 与其 Lifecycle 绑定，`LaunchedEffect{}` 可以在这个 Scope 中启动协程处理副作用。 代码中使用了一个只执行一次的 Effect 订阅 ViewModel 的路由事件通知
 - 当然我们可以将 navConroller 也传给 `MvvmSearchBarScreen` ，在其内部直接发起路由跳转。但在较复杂的项目中，跳转逻辑与页面定义应该尽量保持解耦，这更利于页面的复用和测试。
-- 我们也可以在 Composeable 中直接  `mutableStateOf()` 创建 state 来处理路由跳转，但是既然选择使用 ViewModel 了，那就应该尽可能将所有 state 集中到 ViewModle 管理。 
+- 我们也可以在 Composeable 中直接  `mutableStateOf()` 创建 state 来处理路由跳转，但是既然选择使用 ViewModel 了，那就应该尽可能将所有 state 集中到 ViewModel 管理。 
 > 注意: 上面例子中的处理路由跳转的  `navigateToResults` 是一个“事件”而非“状态”，关于这部分区别，在后文在详细阐述
 
 ### 定义子 Screen 
@@ -390,7 +390,7 @@ fun MviSearchResultScreen(
 }
 ```
 
-MVVM 的 ViewModle 中分散定义了多个 State ，MVI 使用 `ViewState` 对 State 集中管理，只需要订阅一个 ViewState 便可获取页面的所有状态，相对 MVVM 减少了不少模板代码。
+MVVM 的 ViewModel 中分散定义了多个 State ，MVI 使用 `ViewState` 对 State 集中管理，只需要订阅一个 ViewState 便可获取页面的所有状态，相对 MVVM 减少了不少模板代码。
 
 
 相对于 MVVM，ViewModel 也有一些变化
@@ -521,7 +521,7 @@ fun MvvmApp(
 
 # Clean Architecture
 ---
-更大型的项目中，会引入 `Clean Architecture` ，通过 Use Case 将 ViewModel 内的逻辑进一步分解。 Compose 只是个 UI 框架，对于 ViewModle 以下的逻辑层的治理方式与传统的 Andorid 开发没有区别。所以 Clean Architecture 这样的复杂架构仍然可以在 Compose 项目中使用
+更大型的项目中，会引入 `Clean Architecture` ，通过 Use Case 将 ViewModel 内的逻辑进一步分解。 Compose 只是个 UI 框架，对于 ViewModel 以下的逻辑层的治理方式与传统的 Andorid 开发没有区别。所以 Clean Architecture 这样的复杂架构仍然可以在 Compose 项目中使用
 
 <br/>
 
