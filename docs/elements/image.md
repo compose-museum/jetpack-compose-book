@@ -12,7 +12,7 @@ fun Image(
 ```
 
 !!! 注意
-    目前在 `Compose` 中 `Image` 有三种，详情可先在[底部](http://localhost:8000/elements/image/#4)找到
+    目前在 `Compose` 中 `Image` 有三种，详情可先在[官网](https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary#image)中找到
 
 `Image` 可以帮我们加载一张图片。
 
