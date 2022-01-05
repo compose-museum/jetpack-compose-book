@@ -193,7 +193,7 @@ Column(
 以下是一个简单的例子：
 
 ``` kotlin
-var text by remember{ mutableStateOf("animateContentSize 动画")}
+var text by remember{ mutableStateOf("animateContentSize 动画") }
 Box(
     modifier = Modifier.fillMaxSize(),
     contentAlignment = Alignment.Center
@@ -311,7 +311,7 @@ Box(
 ``` kotlin
 
 var flag by remember{ mutableStateOf(false) }
-val color = remember { Animatable(Color.Gray) }
+val color = remember{ Animatable(Color.Gray) }
 
 Column{
     Box(Modifier.size(300.dp).background(color.value))
@@ -622,7 +622,7 @@ val value by animateFloatAsState(
 ```
 
 !!! note "注意"
-    在 `View UI` 系统中，我们需要使用 `ObjectAnimato` r等来实现基于时间的动画，而 `SpringAnimation` 则是基于物理的动画。要同时使用这两个不同的动画 `API` 并不容易。`Compose` 中的 `AnimationSpec` 允许我们以一种统一的方式来处理这些。
+    在 `View UI` 系统中，我们需要使用 `ObjectAnimator` 等来实现基于时间的动画，而 `SpringAnimation` 则是基于物理的动画。要同时使用这两个不同的动画 `API` 并不容易。`Compose` 中的 `AnimationSpec` 允许我们以一种统一的方式来处理这些。
 
 ### Easing
 

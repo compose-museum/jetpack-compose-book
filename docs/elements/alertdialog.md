@@ -143,7 +143,9 @@ Box(
     modifier = Modifier.fillMaxSize(),
     contentAlignment = Alignment.Center
 ) {
-    Button(onClick = { flag = true }) {
+    Button(
+        onClick = { flag = true }
+    ) {
         Text("弹窗")
     }
 }
