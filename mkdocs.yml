@@ -111,6 +111,7 @@ nav:
     - 'Compose 一款简易的音乐播放软件': open-source-project/compose-gmusic.md
     - 'Compose 伸缩 ToolBar 的实现': open-source-project/compose-scrollable-appbar.md
     - 'Compose + MVI + Navigation 快速实现 wanAndroid 客户端': open-source-project/compose-wan-android.md
+    - 'Compose 实现手写春联效果': open-source-project/compose-spring-handwriting.md
 
 extra:
   social:
