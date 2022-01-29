@@ -12,7 +12,7 @@
 
 欢迎来学习！ 
 
-<img src = "https://cdn.jsdelivr.net/gh/compose-museum/hello-compose/screenshots/demo.png">
+![](static/img/screenshot.png)
 
 
 ## 关于贡献
@@ -30,15 +30,16 @@
 
 文档采用 [docusaurus](https://docusaurus.io/) 来编辑及部署
 
+
+### 在本地测试
+
 * fork 仓库
 
 ```
 npm install
 ```
 
-* 在本地运行和测试
-
-    在项目根目录终端执行 `npm run start`，将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
+在项目根目录终端执行 `npm run start`，将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
 
 * 如何添加/更改文档？
     
@@ -50,6 +51,10 @@ npm install
     
     [调用图片方法](https://docusaurus.io/zh-CN/docs/static-assets)
 
+* 测试
+运行 `npm run-script build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
+
+
 * 最后
 
     恭喜你，当你同步了本项目的最新进度并且添加了你所想的东西，你只需要提交 PR 即可，我们在审核通过会自动同步到网站上
@@ -57,7 +62,7 @@ npm install
 
 #### 如果你觉得此项目对你有帮助的话，不妨点个 Star 支持下作者吧~！
 
-## 贡献者
+## 贡献者 ❤
 
 <a href="https://github.com/compose-museum/hello-compose/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=compose-museum/hello-compose" />
