@@ -6,10 +6,10 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 
 const config = {
   title: '你好 Compose',
-  tagline: 'Dinosaurs are cool',
+  tagline: '',
   url: 'https://docs.compose.net.cn',
   baseUrl: '/',
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
   organizationName: 'compose-museum', // Usually your GitHub org/user name.
@@ -23,7 +23,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+          editUrl: 'https://github.com/compose-museum/hello-compose/tree/master/docs/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -72,16 +72,7 @@ const config = {
                 href: 'https://github.com/compose-museum',
               },
             ],
-          },
-          {
-            title: '其他',
-            items: [
-              {
-                label: '开源项目',
-                to: '/blog',
-              },
-            ],
-          },
+          }
         ],
         copyright: `Copyright © ${new Date().getFullYear()} Jetpack Compose 博物馆, Inc. Built with Docusaurus.`,
       },
