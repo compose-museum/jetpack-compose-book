@@ -1,0 +1,37 @@
+import demo from '@site/static/img/elements/floatingactionbutton/demo.png'
+
+``` kotlin
+@OptIn(markerClass = [ExperimentalMaterialApi])
+@Composable
+fun FloatingActionButton(
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+    shape: Shape = MaterialTheme.shapes.small.copy(CornerSize(percent = 50)),
+    backgroundColor: Color = MaterialTheme.colors.secondary,
+    contentColor: Color = contentColorFor(backgroundColor),
+    elevation: FloatingActionButtonElevation = FloatingActionButtonDefaults.elevation(),
+    content: () -> Unit
+): @OptIn(markerClass = [ExperimentalMaterialApi]) @Composable Unit
+```
+
+## 1. 概述
+
+[Material Design floating action button](https://material.io/components/buttons-floating-action-button)
+
+一个 `FloatActionButton`（FAB）代表一个屏幕的主要行为。
+
+<img src={demo} />
+
+`FAB` 通常和一个 `Icon` 一起使用
+
+``` kotlin
+import androidx.compose.material.FloatingActionButton
+import androidx.compose.material.Icon
+
+FloatingActionButton(onClick = { /*do something*/ }) {
+    Icon(Icons.Filled.Favorite, contentDescription = "Localized description")
+}
+```
+
+可以查阅 [ExtendedFloatingActionButton](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#ExtendedFloatingActionButton(kotlin.Function0,kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Function0,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.material.FloatingActionButtonElevation))，它是一个包含文本和可选图标的扩展 `FAB`。
