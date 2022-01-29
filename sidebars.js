@@ -27,7 +27,6 @@ const sidebars = {
         }
       ]
     },
-    /*
     {
       type: 'category',
       label: '布局组件',
@@ -38,7 +37,7 @@ const sidebars = {
           dirName: 'layout'
         }
       ]
-    }*/
+    }
   ],
 
   opensourceProject: [
