@@ -23,7 +23,7 @@ const config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/compose-museum/hello-compose/tree/master/docs/',
+          editUrl: 'https://github.com/compose-museum/hello-compose/tree/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
