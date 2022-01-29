@@ -8,7 +8,7 @@ const sidebars = {
       type: 'category',
       label: '入门',
       link: {
-        type: 'generated-index'
+        type: 'generated-index' // 添加此参数可以在点击这个 label 的时候有一个概览的界面
       },
       collapsed: false,
       items: [
@@ -37,6 +37,10 @@ const sidebars = {
           dirName: 'layout'
         }
       ]
+    },
+    'resources',
+    {
+
     }
   ],
 

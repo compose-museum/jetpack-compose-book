@@ -1,9 +1,3 @@
----
-hide:
-  - navigation # Hide navigation
-  - toc        # Hide table of contents
----
-
 ```kotlin
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.ExperimentalAnimationApi
