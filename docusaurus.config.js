@@ -12,8 +12,8 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'compose-museum', // Usually your GitHub org/user name.
+  projectName: 'hello-compose', // Usually your repo name.
 
   presets: [
     [
