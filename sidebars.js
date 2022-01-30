@@ -38,6 +38,31 @@ const sidebars = {
         }
       ]
     },
+    {
+      type: 'category',
+      label: '设计',
+      link: {
+        type: 'generated-index'
+      },
+      collapsed: false,
+      items: [
+        {
+          type: 'category',
+          label: '动画（Animation）',
+          link: {
+            type: 'generated-index'
+          },
+          collapsed: true,
+          items: [
+            'design/animation/overview',
+            'design/animation/animationVisibility',
+            'design/animation/animateAsState',
+            'design/animation/animatable',
+            'design/animation/updateTransition'
+          ]
+        }
+      ]
+    },
     'resources',
     {
 
