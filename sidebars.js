@@ -60,6 +60,19 @@ const sidebars = {
             'design/animation/animatable',
             'design/animation/updateTransition'
           ]
+        },
+        {
+          type: 'category',
+          label: '主题（Theming）',
+          link: {
+            type: 'generated-index'
+          },
+          collapsed: true,
+          items: [
+            'design/theme/meetMaterialTheme',
+            'design/theme/understandingMaterialTheme',
+            'design/theme/customYourTheme',
+          ]
         }
       ]
     },
