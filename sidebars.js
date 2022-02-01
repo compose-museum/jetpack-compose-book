@@ -73,6 +73,34 @@ const sidebars = {
             'design/theme/understandingMaterialTheme',
             'design/theme/customYourTheme',
           ]
+        },
+        {
+          type: 'category',
+          label: '手势（Gesture）',
+          link: {
+            type: 'generated-index'
+          },
+          collapsed: true,
+          items: [
+            'design/gesture/overview',
+            'design/gesture/draggable',
+            'design/gesture/swipeable',
+            'design/gesture/transformer',
+            'design/gesture/nestedScroll',
+            'design/gesture/customGesture'
+          ]
+        },
+        {
+          type: 'category',
+          label: '列表（Lists）',
+          link: {
+            type: 'generated-index'
+          },
+          collapsed: true,
+          items: [
+            'design/lists/overview',
+            'design/lists/listItemClick',
+          ]
         }
       ]
     },
