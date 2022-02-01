@@ -640,8 +640,9 @@ val value by animateFloatAsState(
 )
 ```
 
-!!! note "注意"
-    在 `View UI` 系统中，我们需要使用 `ObjectAnimator` 等来实现基于时间的动画，而 `SpringAnimation` 则是基于物理的动画。要同时使用这两个不同的动画 `API` 并不容易。`Compose` 中的 `AnimationSpec` 允许我们以一种统一的方式来处理这些。
+:::info 注意
+在 `View UI` 系统中，我们需要使用 `ObjectAnimator` 等来实现基于时间的动画，而 `SpringAnimation` 则是基于物理的动画。要同时使用这两个不同的动画 `API` 并不容易。`Compose` 中的 `AnimationSpec` 允许我们以一种统一的方式来处理这些。
+:::
 
 ### Easing
 
@@ -673,8 +674,9 @@ fun EasingUsage() {
 * LinearEasing
 * CubicBezierEasing
 
-!!! note "注意"
-    `Easing` 对象的工作方式与平台中 `Interpolator` 类的实例相同。它没有 `getInterpolation()` 方法，而是有 `transform()` 方法。
+:::info 注意
+ `Easing` 对象的工作方式与平台中 `Interpolator` 类的实例相同。它没有 `getInterpolation()` 方法，而是有 `transform()` 方法。
+:::
 
 ### AnimationVector
 
