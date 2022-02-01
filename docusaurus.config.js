@@ -9,7 +9,7 @@ const config = {
   tagline: '',
   url: 'https://docs.compose.net.cn',
   baseUrl: '/',
-  onBrokenLinks: 'warn',
+  onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
   organizationName: 'compose-museum', // Usually your GitHub org/user name.
@@ -22,7 +22,6 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
           editUrl: 'https://github.com/compose-museum/hello-compose/tree/master/',
         },
         theme: {
