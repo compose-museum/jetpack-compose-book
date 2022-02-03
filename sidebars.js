@@ -106,7 +106,19 @@ const sidebars = {
     },
     'resources',
     {
-
+      type: 'category',
+      label: '技术原理',
+      link: {
+        type: 'generated-index'
+      },
+      collapsed: true,
+      items: [
+        'principle/recompositionScope',
+        'principle/snapshot',
+        'principle/recomposeWorkingPrinciple',
+        'principle/gapBuffer',
+        'principle/modifierStructure'
+      ]
     }
   ],
 
