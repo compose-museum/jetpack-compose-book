@@ -6,23 +6,23 @@ hide:
 
 ``` kotlin
 @Composable
-fun Contributors(){
+fun Contributors() {
     Column{
-        MemberList(R.drawable.m1, "香辣鸡腿堡")
-        MemberList(R.drawable.m2, text = "Ruger")
-        MemberList(R.drawable.m3, "凛")
-        MemberList(R.drawable.m4, text = "RE")
-        MemberList(R.drawable.m5, "fundroid")
+        MemberItem(R.drawable.m1, "香辣鸡腿堡")
+        MemberItem(R.drawable.m2, text = "Ruger")
+        MemberItem(R.drawable.m3, "凛")
+        MemberItem(R.drawable.m4, text = "RE")
+        MemberItem(R.drawable.m5, "fundroid")
     }
 }
 
 @Composable
-fun TouchFish(){
-    for(index in 0..20) MemberList(R.drawable.m2, text = "Ruger")
+fun TouchFish() {
+    for(index in 0..20) MemberItem(R.drawable.m2, text = "Ruger")
 }
 
 @Composable
-fun MemberList(
+fun MemberItem(
     imageID: Int,
     text:String
 ){
@@ -32,13 +32,21 @@ fun MemberList(
             .padding(horizontal = 10.dp, vertical = 5.dp),
         verticalAlignment = Alignment.CenterVertically
     ){
-        Surface(shape = CircleShape, modifier = Modifier.size(40.dp)){
+        Surface(
+            shape = CircleShape, 
+            modifier = Modifier.size(40.dp)
+        ) {
             Image(painter = painterResource(imageID), contentDescription = null)
         }
-        Spacer(modifier = Modifier.padding(horizontal = 8.dp))
+        Spacer(Modifier.padding(horizontal = 8.dp))
         Text(text = text, style = MaterialTheme.typography.body1, fontWeight = FontWeight.W500)
-        Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd){
-            IconButton(onClick = { /*TODO*/ }) {
+        Box(
+            modifier = Modifier.fillMaxWidth(), 
+            contentAlignment = Alignment.CenterEnd
+        ) {
+            IconButton(
+                onClick = { /*TODO*/ }
+            ) {
                 Icon(Icons.Filled.Email, null)
             }
         }
@@ -58,7 +66,9 @@ fun ListWithHeader() {
                 )
             },
             actions = {
-                IconButton(onClick = { /*TODO*/ }) {
+                IconButton(
+                    onClick = { /*TODO*/ }
+                ) {
                     Icon(Icons.Filled.Search, null)
                 }
             },
