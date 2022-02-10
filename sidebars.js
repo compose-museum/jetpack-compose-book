@@ -123,7 +123,8 @@ const sidebars = {
         'principle/snapshot',
         'principle/recomposeWorkingPrinciple',
         'principle/gapBuffer',
-        'principle/modifierStructure'
+        'principle/modifierStructure',
+        'principle/composeAnnotation'
       ]
     }
   ],
