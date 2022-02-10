@@ -3,63 +3,101 @@ title: Column
 ---
 
 import demo from '@site/static/img/layout/column/demo.png'
-import demo2 from '@site/static/img/layout/column/demo1.png'
+import demo1 from '@site/static/img/layout/column/demo1.png'
+import demo2 from '@site/static/img/layout/column/demo2.png'
+import demo3 from '@site/static/img/layout/column/demo3.png'
 
-一种界面的 Composable ，它可以让里面的子项按垂直顺序排列。对于一个以水平顺序来安排里面子项的 Composable，可以查看 [Row](./row)，注意，默认情况下，`Column` 里面的子项是不会滚动的。
-参见 `Modifier.verticalScroll` 来实现这个行为。
+```kotlin
+@Composable
+inline fun Column(
+    modifier: Modifier? = Modifier,
+    verticalArrangement: Arrangement.Vertical? = Arrangement.Top,
+    horizontalAlignment: Alignment.Horizontal? = Alignment.Start,
+    content: (@Composable @ExtensionFunctionType ColumnScope.() -> Unit)?
+): Unit
+```
 
-对于仅组合和布置当前可见项目的垂直可滚动列表，可以参见 `LazyColumn`。
+Column 是一个布局组件，它能够将里面的子项按照从上到下的顺序垂直排列。
 
-`Column` 能够根据使用 `ColumnScope.weight` 修改器提供的权重来分配子项的高度。如果其中的一个子项没有被提供权重，那么它将会被要求提供一个首选的高度，然后再根据剩余的可用空间按比例计算有权重的子项的尺寸。
+`verticalArrangment` 和 `horizontalAlignment` 参数分别可以帮助我们安排子项的垂直/水平位置，在默认的情况下，子项会以垂直方向上靠上（Arrangment.Top），水平方向上靠左（Alignment.Start）来排布。
 
-当它的子项都没有权重时，一个 `Column` 将尽可能小，以适配它的子项一个一个地叠加。为了改变 `Column` 的高度，可以使用 `Modifier.requiredHeight` 修改器。
+接下来我们来简单体验一下 Column 组件吧！
 
-例如，想让它填满所有可用的高度，可以使用 `Modifier.fillMaxHeight`。如果一个 `Column` 的至少一个子项有一个权重，`Column` 将填满可用的高度，所以不需要 `Modifier.fillMaxHeight`。如果 `Column` 的大小应该被限制，那么应该使用 `Modifier.requiredHeight` 或 `Modifier.requiredSize`。
-
-当 `Column` 的尺寸大于它的子项的总和时，可以指定一个垂直的 `Arrangement` 来定义 `Column` 内子项的定位。可用的定位行为参见 [Arrangement](https://developer.android.com/reference/kotlin/androidx/compose/foundation/layout/Arrangement)；也可以使用 `Arrangement` 的构造函数来定义一个自定义的排列。
-
-使用示例：
-
-``` kotlin
+```kotlin
 Column {
-    
-    // 没有权重的子项将会有指定的尺寸
-
-    Box(Modifier.size(40.dp, 80.dp).background(Color.Magenta))
-
-    // 有权重，这个子项将会占用剩余高度的一半
-
-    Box(Modifier.width(40.dp).weight(1f).background(Color.Yellow))
-
-    // 有权重，但是 fill 参数是 false，这个子项将会最多占用剩余高度的一半
-    // 因此，如果指定的高度较大，它将会占用 80 dp（它的首选高度）
-
-    Box(
-        Modifier.size(40.dp, 80.dp)
-            .weight(1f, fill = false)
-            .background(Color.Green)
+    Text(
+        text = "Hello, World!",
+        style = MaterialTheme.typography.h6
     )
+    Text("Jetpack Compose")
 }
 ```
 
 <img src={demo} />
 
-再来看看第三个子项的 `fill` 参数为 true （默认）时候的情况吧，
+如上图所示，Column 将里面的两个 Text 组件按照垂直排列了，并且带有一定的间隔。
 
-``` kotlin
-Column {
-    
-    Box(Modifier.size(40.dp, 80.dp).background(Color.Magenta))
-    
-    Box(Modifier.width(40.dp).weight(1f).background(Color.Yellow))
-    
-    Box(
-        Modifier.size(40.dp, 80.dp)
-            .weight(1f)
-            .background(Color.Green)
+接下来我们来了解一下 Column 组件的其他方面。我们先让刚才的 Column 组件加上边框效果，看看效果是怎么样的。
+
+```kotlin
+Column(
+    modifier = Modifier
+        .border(1.dp, Color.Black)
+) {
+    Text(
+        text = "Hello, World!",
+        style = MaterialTheme.typography.h6
     )
+    Text("Jetpack Compose")
+}
+```
+
+<img src={demo1} />
+
+可以发现，Column 组件将我们的两个 Text 组件包裹起来了，没错，在不给 Column 指定高度、宽度、大小的情况下，Column 组件默认会包裹里面的子项。在这个时候，我们无法使用 Column 参数中的 verticalArrangement 或 horizontalAlignment 来定位子项在 Colunn 中的整体位置。
+只要我们给 Column 指定了
+
+1. 高度，那么就能使用 verticalArrangement 参数来定位子项在 Column 中的垂直位置。
+2. 宽度，那么就能使用 horizontalAlignment 参数来定位子项在 Column 中的水平位置。
+3. 大小，那么就可以同时使用以上的两个参数来定位子项的水平/垂直位置
+
+```kotlin
+Column(
+    modifier = Modifier
+        .border(1.dp, Color.Black)
+        .size(150.dp),
+    verticalArrangement = Arrangement.Center
+) {
+    Text(
+        text = "Hello, World!",
+        style = MaterialTheme.typography.h6
+    )
+    Text("Jetpack Compose")
 }
 ```
 
 <img src={demo2} />
 
+通过 `verticalArrangement` 参数，我们将两个 Text 排布在了 Column 组件的中央，但水平方向上仍然是 Column 默认定义的 Alignment.Start（水平靠左）方向。
+
+在给 Column 定义了大小之后，我们能够使用 Modifier.align 来单独设置子项的水平方向。
+
+```kotlin
+Column(
+    modifier = Modifier
+        .border(1.dp, Color.Black)
+        .size(150.dp),
+    verticalArrangement = Arrangement.Center
+) {
+    Text(
+        text = "Hello, World!",
+        style = MaterialTheme.typography.h6,
+        modifier = Modifier.align(Alignment.CenterHorizontally)
+    )
+    Text("Jetpack Compose")
+}
+```
+
+<img src={demo3} />
+
+设置了 Modifier.align 属性的子项会优先于 Column 的 `horizontalAlignment` 参数来定位。
