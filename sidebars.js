@@ -32,6 +32,7 @@ const sidebars = {
       label: '布局组件',
       collapsed: true,
       items: [
+        'layout/box',
         'layout/bottomnavigation',
         'layout/column',
         'layout/modalbottomsheetlayout',

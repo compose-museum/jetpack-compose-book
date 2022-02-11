@@ -1,0 +1,24 @@
+---
+title: Box
+---
+
+import demo from '@site/static/img/layout/box/demo.png'
+
+Box 是一个能够将里面的子项依次按照顺序堆叠的布局组件。
+
+```kotlin
+Box {
+    Box(
+        modifier = Modifier.size(150.dp).background(Color.Green)
+    )
+    Box(
+        modifier = Modifier.size(80.dp).background(Color.Red)
+    )
+    Text(
+        text = "世界"
+    )
+}
+```
+
+<img src={demo} />
+
