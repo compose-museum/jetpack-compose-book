@@ -6,6 +6,7 @@ import demo from '@site/static/img/layout/column/demo.png'
 import demo1 from '@site/static/img/layout/column/demo1.png'
 import demo2 from '@site/static/img/layout/column/demo2.png'
 import demo3 from '@site/static/img/layout/column/demo3.png'
+import demo4 from '@site/static/img/layout/column/demo4.png'
 
 ```kotlin
 @Composable
@@ -54,7 +55,7 @@ Column(
 
 <img src={demo1} />
 
-可以发现，Column 组件将我们的两个 Text 组件包裹起来了，没错，在不给 Column 指定高度、宽度、大小的情况下，Column 组件默认会包裹里面的子项。在这个时候，我们无法使用 Column 参数中的 verticalArrangement 或 horizontalAlignment 来定位子项在 Colunn 中的整体位置。
+可以发现，Column 组件将我们的两个 Text 组件包裹起来了，没错，在不给 Column 指定高度、宽度、大小的情况下，Column 组件默认会尽可能小地包裹里面的子项。在这个时候，我们无法使用 Column 参数中的 verticalArrangement 或 horizontalAlignment 来定位子项在 Colunn 中的整体位置。
 只要我们给 Column 指定了
 
 1. 高度，那么就能使用 verticalArrangement 参数来定位子项在 Column 中的垂直位置。
@@ -101,3 +102,5 @@ Column(
 <img src={demo3} />
 
 设置了 Modifier.align 属性的子项会优先于 Column 的 `horizontalAlignment` 参数来定位。
+
+<img src={demo4} />

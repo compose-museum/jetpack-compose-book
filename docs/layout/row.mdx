@@ -6,31 +6,58 @@ import demo from '@site/static/img/layout/row/demo.png'
 import demo2 from '@site/static/img/layout/row/demo2.png'
 
 ``` kotlin
-@Composable inline fun Row(
-    modifier: Modifier = Modifier, 
-    horizontalArrangement: Arrangement.Horizontal = Arrangement.Start, 
-    verticalAlignment: Alignment.Vertical = Alignment.Top, 
-    content: RowScope.() -> Unit
+@Composable
+inline fun Row(
+    modifier: Modifier? = Modifier,
+    horizontalArrangement: Arrangement.Horizontal? = Arrangement.Start,
+    verticalAlignment: Alignment.Vertical? = Alignment.Top,
+    content: (@Composable @ExtensionFunctionType RowScope.() -> Unit)?
 ): Unit
 ```
 
-`Row` 会将里面的子项放在一个水平的序列中
+Row 组件能够将里面的子项按照从左到右的方向水平排列。和 Column 组件一起配合，我们可以构建出很丰富的界面。
 
-`Row` 布局能够根据使用 **RowScope.weight** 修改器提供的权重来分配里面子项的宽度
-
-如果一个子项没有提供权重的话，会使用这个子项默认的宽度，再根据其他剩余有权重的子项计算剩余的空间
+我们来试试制作一个简单的帖子界面。
 
 ``` kotlin
-@Composable
-fun RowDemo() {
-    Row {
-        Box(Modifier.size(40.dp).background(Color.Magenta))
-        Box(Modifier.size(40.dp).weight(1f).background(Color.Yellow))
-        Box(
-            Modifier.size(40.dp)
-                .weight(1f)
-                .background(Color.Green)
+ Surface(
+    shape = RoundedCornerShape(8.dp),
+    modifier = Modifier
+        .padding(horizontal = 12.dp) // 设置 Surface 的外边距
+        .fillMaxWidth(),
+    elevation = 10.dp
+) {
+    Column(
+        modifier = Modifier.padding(12.dp) // 里面内容的外边距
+    ) {
+        Text(
+            text = "Jetpack Compose 是什么？",
+            style = MaterialTheme.typography.h6
         )
+        Spacer(Modifier.padding(vertical = 5.dp))
+        Text(
+            text = "Jetpack Compose 是用于构建原生 Android 界面的新工具包。它可简化并加快 Android 上的界面开发，使用更少的代码、强大的工具和直观的 Kotlin API，快速让应用生动而精彩。"
+        )
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            IconButton(
+                onClick = { /*TODO*/ }
+            ) {
+                Icon(Icons.Filled.Favorite, null)
+            }
+            IconButton(
+                onClick = { /*TODO*/ },
+            ) {
+                Icon(painterResource(id = R.drawable.chat), null)
+            }
+            IconButton(
+                onClick = { /*TODO*/ },
+            ) {
+                Icon(Icons.Filled.Share, null)
+            }
+        }
     }
 }
 ```
@@ -38,16 +65,6 @@ fun RowDemo() {
 <img src={demo} />
 
 
-``` kotlin
-Row {
-    Box(Modifier.size(40.dp).background(Color.Magenta))
-    Box(Modifier.size(40.dp).background(Color.Yellow))
-    Box(Modifier.size(40.dp).background(Color.Green))
-}
-```
-
-而如果 `Row` 里面的子项都没有设置 **weight** 的话，将会尽可能的小，使里面的子项紧贴在一起
-
-也就是有点像 **xml** 中的 **wrap_content** 属性
+Row 组件中的 horizontalArrangement 参数帮助我们合理地分配了按钮的水平位置，可以看到，喜欢按钮和分享按钮被分配在了左右两边，事实上，Arrangment 就是来帮助我们快速安排好子项的位置，除了 Center（居中）, Start（水平靠左）, End（水平靠右） 这些常见的位置，还有一些在特定场景下可能用到的位置分布，例如 Space Between, Space Evenly 等等。
 
 <img src={demo2} />
