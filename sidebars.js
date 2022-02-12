@@ -125,7 +125,8 @@ const sidebars = {
         'principle/recomposeWorkingPrinciple',
         'principle/gapBuffer',
         'principle/modifierStructure',
-        'principle/composeAnnotation'
+        'principle/composeAnnotation',
+        'principle/composeRemoteImage'
       ]
     }
   ],
