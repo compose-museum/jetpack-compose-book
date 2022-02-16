@@ -32,6 +32,7 @@ const sidebars = {
       label: '布局组件',
       collapsed: true,
       items: [
+        'layout/box',
         'layout/bottomnavigation',
         'layout/column',
         'layout/modalbottomsheetlayout',
@@ -124,7 +125,8 @@ const sidebars = {
         'principle/recomposeWorkingPrinciple',
         'principle/gapBuffer',
         'principle/modifierStructure',
-        'principle/composeAnnotation'
+        'principle/composeAnnotation',
+        'principle/composeRemoteImage'
       ]
     }
   ],
