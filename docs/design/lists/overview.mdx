@@ -137,7 +137,7 @@ fun MessageList() {
 
 ## 5. Item 动画
 
-如果你使用过 `RecyclerView` 组件，你会知道它能自动对 `item` 变化进行动画处理。`Lazy` 布局还没有提供这个功能，这意味着 `item` 的变化会导致一个即时的 `snap`。你可以关注这个 `bug` 来跟踪这个功能的任何变化。
+如果你使用过 `RecyclerView` 组件，你会知道它能自动对 `item` 变化进行动画处理。`Lazy` 布局还没有提供这个功能，这意味着 `item` 的变化会导致一个即时的 `snap`。你可以关注这个 [bug](https://issuetracker.google.com/issues/150812265?pli=1) 来跟踪这个功能的任何变化。
 
 ## 6. Sticky headers (实验性)
 
@@ -335,7 +335,7 @@ fun MessageList(messages: List<Message>) {
 `Paging` 库可以让应用程序能够支持大型项目列表，在必要时加载和显示列表的一小块。`Paging3.0`及以后的版本通过 `androidx.paging:paging-compose` 库提供 `Compose` 支持。
 
 :::info 注意
-    `Compose` 只支持 `Paging 3.0` 及以后的版本。如果你正在使用早期版本的 `Paging` 库，你需要先[迁移](https://developer.android.com/topic/libraries/architecture/paging/v3-migration)到 3.0。
+`Compose` 只支持 `Paging 3.0` 及以后的版本。如果你正在使用早期版本的 `Paging` 库，你需要先[迁移](https://developer.android.com/topic/libraries/architecture/paging/v3-migration)到 3.0。
 :::
 
 为了显示分页内容的列表，我们可以使用 `collectAsLazyPagingItems()` 扩展函数，然后将返回的 `LazyPagingItems` 传给我们 `LazyColumn` 中的 `items()`。类似于视图中的分页支持，你可以在数据加载时通过检查项目是否为空来显示占位符。
