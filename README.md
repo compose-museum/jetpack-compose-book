@@ -67,28 +67,20 @@ npm install
   <img src="https://contrib.rocks/image?repo=compose-museum/hello-compose" />
 </a>
 
-### License
-```
-MIT License
+### 版权声明
 
-Copyright (c) 2021 Compose-Museum
+<a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/2.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/">知识共享署名-非商业性使用 2.0 通用许可协议</a>进行许可。
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+除特别注明外，项目中除了代码部分均采用[非商业性使用 2.0 通用 (CC BY-NC 2.0)](https://creativecommons.org/licenses/by-nc/2.0/deed.zh) 进行许可。
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+您可以自由地：
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+共享 — 在任何媒介以任何形式复制、发行本作品
 
-```
+演绎 — 修改、转换或以本作品为基础进行创作
+
+但是你必须遵守：
+
+署名 — 您必须给出适当的署名，提供指向本许可协议的链接，同时标明是否（对原始作品）作了修改。您可以用任何合理的方式来署名，但是不得以任何方式暗示许可人为您或您的使用背书。
+
+非商业性使用 — 您不得将本作品用于商业目的。
