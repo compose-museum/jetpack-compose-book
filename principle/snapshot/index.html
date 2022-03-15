@@ -1,0 +1,2793 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.compose.net.cn/principle/snapshot/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>透过Snapshot看重组 - Jetpack Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetbrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Jetbrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#snapshot" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jetpack Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              透过Snapshot看重组
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
+        Jetpack Compose
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-tabs__link">
+        第三方组件
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/elements/text/" class="md-tabs__link">
+        API 文档
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../open-source-project/compose-douban/" class="md-tabs__link">
+        开源项目
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Jetpack Compose
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Jetpack Compose
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Jetpack Compose" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Jetpack Compose
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/" class="md-nav__link">
+        在开始之前
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/" class="md-nav__link">
+        快速入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          基本组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="基本组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          基本组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/alertdialog/" class="md-nav__link">
+        AlertDialog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/card/" class="md-nav__link">
+        Card
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/floatingactionbutton/" class="md-nav__link">
+        FloatingActionButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/icon/" class="md-nav__link">
+        Icon
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/image/" class="md-nav__link">
+        Image
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/iconbutton/" class="md-nav__link">
+        IconButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/surface/" class="md-nav__link">
+        Surface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/slider/" class="md-nav__link">
+        Slider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/textfield/" class="md-nav__link">
+        TextField
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          布局组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="布局组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          布局组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/bottomnavigation/" class="md-nav__link">
+        BottomNavigation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/column/" class="md-nav__link">
+        Column
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/modalbottomsheetlayout/" class="md-nav__link">
+        ModalBottomSheetLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/row/" class="md-nav__link">
+        Row
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/spacer/" class="md-nav__link">
+        Spacer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/scaffold/" class="md-nav__link">
+        Scaffold
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/topappbar/" class="md-nav__link">
+        TopAppBar
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/custom_layout/" class="md-nav__link">
+        自定义布局
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/intrinsic/" class="md-nav__link">
+        固有特性测量
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/subcomposelayout/" class="md-nav__link">
+        SubcomposeLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6">
+          设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="设计" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1" type="checkbox" id="__nav_1_6_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1">
+          动画 (Animation)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="动画 (Animation)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          动画 (Animation)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animationvisibility/" class="md-nav__link">
+        AnimationVisibility
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatestate/" class="md-nav__link">
+        Animate*State
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatable/" class="md-nav__link">
+        Animatable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/update_transition/" class="md-nav__link">
+        UpdateTransition
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_2">
+          主题 (Theming)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="主题 (Theming)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          主题 (Theming)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
+        初识 MaterialTheme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/understanding_material_theme/" class="md-nav__link">
+        深入理解 MaterialTheme 与 CompositionLocal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/custom_your_theme/" class="md-nav__link">
+        自定义你的主题方案
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3" type="checkbox" id="__nav_1_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3">
+          手势 (Gestures)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="手势 (Gestures)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          手势 (Gestures)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/draggable/" class="md-nav__link">
+        Draggable拖动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/swipeable/" class="md-nav__link">
+        Swipeable滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/transformer/" class="md-nav__link">
+        Transformer双指拖动、缩放与旋转
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/nested_scroll/" class="md-nav__link">
+        NestedScroll嵌套滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/custom_gesture/" class="md-nav__link">
+        自定义触摸反馈
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_4">
+          列表 (Lists)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="列表 (Lists)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          列表 (Lists)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/list_item_click/" class="md-nav__link">
+        列表点击事件
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/draw/custom_draw/" class="md-nav__link">
+        绘制 (Graphics)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_7">
+          关于 Modifier
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="关于 Modifier" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          关于 Modifier
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/introduction/" class="md-nav__link">
+        方法介绍
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_8">
+          技术原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="技术原理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          技术原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recomposition_scope/" class="md-nav__link">
+        了解Compose的重组作用域
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          透过Snapshot看重组
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        透过Snapshot看重组
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#snapshot-api" class="md-nav__link">
+    Snapshot API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    创建快照
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    可变快照
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    观察读取和写入
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    全局快照
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    多线程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    冲突
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    解惑
+  </a>
+  
+    <nav class="md-nav" aria-label="解惑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    1. 例子①
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2" class="md-nav__link">
+    2. 例子②
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3" class="md-nav__link">
+    3. 例子③
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4" class="md-nav__link">
+    4. 例子④
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    5. 例子⑤
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../gap_buffer/" class="md-nav__link">
+        Compose运行原理与GapBuffer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recompose_working_principle/" class="md-nav__link">
+        重组的工作流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifier_structure/" class="md-nav__link">
+        图解Modifier
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_9">
+          架构
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="架构" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          架构
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/architecture_for_compose/" class="md-nav__link">
+        Compose架构如何选？MVP,MVVM,MVI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use_jetpack_in_compose/" class="md-nav__link">
+        在 Compose 中使用 Jetpack 组件库
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codelabs/" class="md-nav__link">
+        代码实验室
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../version/" class="md-nav__link">
+        版本更新迭代内容与介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        关于贡献
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          第三方组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="第三方组件" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          第三方组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Accompanist
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Accompanist" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Accompanist
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/glide/" class="md-nav__link">
+        Glide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/insets/" class="md-nav__link">
+        Insets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+        System UI Controller
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+        AppCompat Theme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+        Pager layouts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+        Swipe Refresh
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+        Flow layouts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
+        Compose版骨架屏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
+        Compose版StateLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
+        Compose版SmartRefreshLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API 文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API 文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API 文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          开源项目
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="开源项目" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          开源项目
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-douban/" class="md-nav__link">
+        Compose 仿豆瓣榜单客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-moon-animation/" class="md-nav__link">
+        Compose 实现月亮阴晴圆缺动画
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-gmusic/" class="md-nav__link">
+        Compose 一款简易的音乐播放软件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+        Compose 伸缩 ToolBar 的实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-wan-android/" class="md-nav__link">
+        Compose + MVI + Navigation 快速实现 wanAndroid 客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-spring-handwriting/" class="md-nav__link">
+        Compose 实现手写春联效果
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#snapshot-api" class="md-nav__link">
+    Snapshot API
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    创建快照
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    可变快照
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    观察读取和写入
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    全局快照
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    多线程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    冲突
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    总结
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    解惑
+  </a>
+  
+    <nav class="md-nav" aria-label="解惑">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-1" class="md-nav__link">
+    1. 例子①
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-2" class="md-nav__link">
+    2. 例子②
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-3" class="md-nav__link">
+    3. 例子③
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-4" class="md-nav__link">
+    4. 例子④
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-5" class="md-nav__link">
+    5. 例子⑤
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/principle/snapshot.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<h1 id="snapshot">透过Snapshot看重组</h1>
+<p>Jetpack Compose 引入了一种处理可观察状态的新方法 —— <code>Snapsot</code>（快照）。在 Compose 中我们通过 <code>state</code> 的变化来触发重组，那么请思考以下几个问题：
+- 为什么 <code>state</code> 变化能触发重组呢？
+- 它是如何确定重组范围呢？
+- 只要 <code>state</code> 变化就一定会重组吗？  </p>
+<p>让我们带着问题去学习！</p>
+<blockquote>
+<p>本文部分例子和内容来自：<a href="https://dev.to/zachklipp/introduction-to-the-compose-snapshot-system-19cn">Introduction to the Compose Snapshot system</a></p>
+</blockquote>
+<h2 id="snapshot-api">Snapshot API</h2>
+<blockquote>
+<p>一般情况下我们不需要了解快照如何使用，这些都是框架应该做的事情，我们手动操作很可能搞出问题。所以这里只是演示快照的使用（不涉及底层实现），这样有助于理解Compose重组的机制。</p>
+</blockquote>
+<p><code>Snapshot</code>(快照)，简单比喻就是给所有 <code>state</code> 拍了个照，因此你能获取到拍摄之前的状态。</p>
+<p>我们通过代码演示来看看 <code>Snapshot</code> 到底是做什么的:
+首先定义一个 <code>Dog</code> 类,包含一个 <code>state</code>:
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">Dog</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nv">name</span><span class="p">:</span> <span class="n">MutableState</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="_1">创建快照</h2>
+<div class="highlight"><pre><span></span><code>  <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+  <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="err">“</span><span class="n">Spot</span><span class="err">”</span>
+  <span class="kd">val</span> <span class="nv">snapshot</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeSnapshot</span><span class="p">()</span>  
+  <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="err">“</span><span class="n">Fido</span><span class="err">”</span>
+
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot</span><span class="p">.</span><span class="na">enter</span> <span class="p">{</span>
+      <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="p">}</span> 
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+
+  <span class="c1">// Output:</span>
+  <span class="n">Fido</span>
+  <span class="n">Spot</span>
+  <span class="n">Fido</span>
+</code></pre></div>
+<hr />
+<ul>
+<li><code>takeSnapshot()</code> 将<code>"拍摄"</code>程序中所有 <code>State</code> 值的快照，无论它们是在何处创建的</li>
+<li><code>enter</code> 函数会把快照状态恢复并应用到函数体中</li>
+</ul>
+<p>因此我们看到仅在 <code>enter</code> 中是旧值。</p>
+<h2 id="_2">可变快照</h2>
+<p>我们尝试在 <code>enter</code> 块中更改狗狗的名字：</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+  <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Spot&quot;</span>
+
+  <span class="kd">val</span> <span class="nv">snapshot</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeSnapshot</span><span class="p">()</span>
+
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot</span><span class="p">.</span><span class="na">enter</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+    <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Fido&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Output:</span>
+<span class="n">Spot</span>
+<span class="n">Spot</span>
+
+<span class="n">java</span><span class="p">.</span><span class="na">lang</span><span class="p">.</span><span class="na">IllegalStateException</span><span class="p">:</span> <span class="n">Cannot</span> <span class="n">modify</span> <span class="n">a</span> <span class="n">state</span> <span class="kd">object</span> <span class="nc">in</span> <span class="n">a</span> <span class="n">read</span><span class="o">-</span><span class="n">only</span> <span class="n">snapshot</span>
+</code></pre></div>
+<p>会发现当我们尝试修改值时报错了，因为 <code>takeSnapshot()</code> 是只读的,因此在 <code>enter</code> 内部我们可以读但不能写，如果想要创建一个可变快照应使用 <code>takeMutableSnapshot()</code> 方法。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+  <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Spot&quot;</span>
+
+  <span class="kd">val</span> <span class="nv">snapshot</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeMutableSnapshot</span><span class="p">()</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot</span><span class="p">.</span><span class="na">enter</span> <span class="p">{</span>
+    <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Fido&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Output:</span>
+<span class="n">Spot</span>
+<span class="n">Fido</span>
+<span class="n">Spot</span> 
+</code></pre></div>
+<p>可以看到程序没有崩溃了，但是在 <code>enter</code> 里的操作并没有在其范围之外生效！这是一个很重要的隔离机制，如果我们想要应用 <code>enter</code> 内部的变更需要调用 <code>apply()</code> 方法：<br />
+<div class="highlight"><pre><span></span><code> <span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+  <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Spot&quot;</span>
+
+  <span class="kd">val</span> <span class="nv">snapshot</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeMutableSnapshot</span><span class="p">()</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot</span><span class="p">.</span><span class="na">enter</span> <span class="p">{</span>
+    <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Fido&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot</span><span class="p">.</span><span class="na">apply</span><span class="p">()</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Output:</span>
+<span class="n">Spot</span>
+<span class="n">Fido</span>
+<span class="n">Spot</span>
+<span class="n">Fido</span> 
+</code></pre></div>
+可以看到调用 <code>apply</code> 之后，新值在 <code>enter</code> 之外也生效了。我们还可以使 <code>Snapshot.withMutableSnapshot()</code> 来简化调用：
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+  <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Spot&quot;</span>
+
+  <span class="n">Snapshot</span><span class="p">.</span><span class="na">withMutableSnapshot</span> <span class="p">{</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+    <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Fido&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+到目前为止我们知道了：
+- 拍摄我们所有状态的快照
+- “恢复”状态到特定的代码块
+- 改变状态值</p>
+<p>但我们还不知道如何感知读写，接下来让我们搞清楚这个。</p>
+<h2 id="_3">观察读取和写入</h2>
+<p>无论是 <code>LiveData</code>,<code>Flow</code> 还是 <code>State</code> 都是观察者模式，那么就要有观察者和被观察者。对于快照系统，被观察者就是我们的 <code>state</code>，而观察者有两个，一个是读取观察者，一个是写入观察者。</p>
+<p>实际上 <code>takeMutableSnapshot</code>有两个可选参数的，分别在读和写时回调：</p>
+<p><div class="highlight"><pre><span></span><code> <span class="kd">fun</span> <span class="nf">takeMutableSnapshot</span><span class="p">(</span>
+            <span class="n">readObserver</span><span class="p">:</span> <span class="p">((</span><span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span><span class="p">,</span>
+            <span class="n">writeObserver</span><span class="p">:</span> <span class="p">((</span><span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span><span class="o">?</span> <span class="o">=</span> <span class="kc">null</span>
+        <span class="p">):</span> <span class="n">MutableSnapshot</span> <span class="o">=</span>
+            <span class="p">(</span><span class="n">currentSnapshot</span><span class="p">()</span> <span class="k">as?</span> <span class="n">MutableSnapshot</span><span class="p">)</span><span class="o">?.</span><span class="na">takeNestedMutableSnapshot</span><span class="p">(</span>
+                <span class="n">readObserver</span><span class="p">,</span>
+                <span class="n">writeObserver</span>
+            <span class="p">)</span> <span class="o">?:</span> <span class="n">error</span><span class="p">(</span><span class="s">&quot;Cannot create a mutable snapshot of an read-only snapshot&quot;</span><span class="p">)</span>
+</code></pre></div>
+因此我们可以在回调中执行一些操作,在 <code>Compose</code> 中就是值读取时记录 <code>ComposeScope</code>,写入时如果有变化则将对应的 <code>Scope</code> 标记为 <code>invalid</code>。</p>
+<h2 id="_4">全局快照</h2>
+<p>全局快照是位于快照树根部的可变快照。与必须 <code>apply</code> 才能生效的常规可变快照相比，全局快照没有 <code>apply</code> 操作。比如我们会在 <code>ViewModel</code> 里定义 <code>state</code>,并且在 <code>repository</code>请求数据并给 <code>state</code> 赋值。此时就会由 GlobalSnapshot 去发送通知：</p>
+<p>它通过调用：
+- <code>Snapshot.notifyObjectsInitialized</code>。这会为自上次调用以来更改的任何状态发送通知。
+- <code>Snapshot.sendApplyNotifications()</code>。这类似于 notifyObjectsInitialized，但只有在实际发生更改时才会推进快照。在第一种情况下，只要将任何可变快照应用于全局快照，就会隐式调用此函数。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">object</span> <span class="nc">GlobalSnapshotManager</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">started</span> <span class="o">=</span> <span class="n">AtomicBoolean</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+
+    <span class="kd">fun</span> <span class="nf">ensureStarted</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">started</span><span class="p">.</span><span class="na">compareAndSet</span><span class="p">(</span><span class="kc">false</span><span class="p">,</span> <span class="kc">true</span><span class="p">))</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">channel</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">&lt;</span><span class="kt">Unit</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Channel</span><span class="p">.</span><span class="na">CONFLATED</span><span class="p">)</span>
+            <span class="n">CoroutineScope</span><span class="p">(</span><span class="n">AndroidUiDispatcher</span><span class="p">.</span><span class="na">Main</span><span class="p">).</span><span class="na">launch</span> <span class="p">{</span>
+                <span class="n">channel</span><span class="p">.</span><span class="na">consumeEach</span> <span class="p">{</span>
+                    <span class="n">Snapshot</span><span class="p">.</span><span class="na">sendApplyNotifications</span><span class="p">()</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">Snapshot</span><span class="p">.</span><span class="na">registerGlobalWriteObserver</span> <span class="p">{</span>
+                <span class="n">channel</span><span class="p">.</span><span class="na">offer</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>可以看到在 <code>android</code> 平台上注册了 <code>writeObserver</code>,它还有 <code>ApplyObserver</code> 我们后面再说。</p>
+<h2 id="_5">多线程</h2>
+<p>在给定线程的快照中，在应用该快照之前，不会看到其他线程对状态值所做的更改。快照与其他快照“隔离”。在应用快照并自动推进全局快照之前，对快照内的状态所做的任何更改对其他线程都将不可见。
+看这个类名大家就懂了 <code>SnapshotThreadLocal</code>:
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">actual</span> <span class="kd">class</span> <span class="nc">SnapshotThreadLocal</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">map</span> <span class="o">=</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">ThreadMap</span><span class="o">&gt;</span><span class="p">(</span><span class="n">emptyThreadMap</span><span class="p">)</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">writeMutex</span> <span class="o">=</span> <span class="kt">Any</span><span class="p">()</span>
+
+    <span class="nd">@Suppress</span><span class="p">(</span><span class="s">&quot;UNCHECKED_CAST&quot;</span><span class="p">)</span>
+    <span class="kd">actual</span> <span class="kd">fun</span> <span class="nf">get</span><span class="p">():</span> <span class="n">T? </span><span class="o">=</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">id</span><span class="p">)</span> <span class="k">as</span> <span class="n">T?</span>
+
+    <span class="kd">actual</span> <span class="kd">fun</span> <span class="nf">set</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="n">T?)</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">Thread</span><span class="p">.</span><span class="na">currentThread</span><span class="p">().</span><span class="na">id</span>
+        <span class="n">synchronized</span><span class="p">(</span><span class="n">writeMutex</span><span class="p">)</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">current</span> <span class="o">=</span> <span class="n">map</span><span class="p">.</span><span class="na">get</span><span class="p">()</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="na">trySet</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span> <span class="k">return</span>
+            <span class="n">map</span><span class="p">.</span><span class="na">set</span><span class="p">(</span><span class="n">current</span><span class="p">.</span><span class="na">newWith</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<h2 id="_6">冲突</h2>
+<p>如果我们"拍摄"了多个快照并且均应用修改会怎样呢？
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="kd">val</span> <span class="nv">dog</span> <span class="o">=</span> <span class="n">Dog</span><span class="p">()</span>
+  <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Spot&quot;</span>
+
+  <span class="kd">val</span> <span class="nv">snapshot1</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeMutableSnapshot</span><span class="p">()</span>
+  <span class="kd">val</span> <span class="nv">snapshot2</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeMutableSnapshot</span><span class="p">()</span>
+
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot1</span><span class="p">.</span><span class="na">enter</span> <span class="p">{</span>
+    <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Fido&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;in snapshot1: &quot;</span> <span class="o">+</span> <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="p">}</span>
+  <span class="c1">// Don’t apply it yet, let’s try setting a third value first.</span>
+
+  <span class="n">println</span><span class="p">(</span><span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot2</span><span class="p">.</span><span class="na">enter</span> <span class="p">{</span>
+    <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Fluffy&quot;</span>
+    <span class="n">println</span><span class="p">(</span><span class="s">&quot;in snapshot2: &quot;</span> <span class="o">+</span> <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="p">}</span>
+
+  <span class="c1">// Ok now we can apply both.</span>
+  <span class="n">println</span><span class="p">(</span><span class="s">&quot;before applying: &quot;</span> <span class="o">+</span> <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot1</span><span class="p">.</span><span class="na">apply</span><span class="p">()</span>
+  <span class="n">println</span><span class="p">(</span><span class="s">&quot;after applying 1: &quot;</span> <span class="o">+</span> <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+  <span class="n">snapshot2</span><span class="p">.</span><span class="na">apply</span><span class="p">()</span>
+  <span class="n">println</span><span class="p">(</span><span class="s">&quot;after applying 2: &quot;</span> <span class="o">+</span> <span class="n">dog</span><span class="p">.</span><span class="na">name</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1">// Output:</span>
+<span class="n">Spot</span>
+<span class="k">in</span> <span class="n">snapshot1</span><span class="p">:</span> <span class="n">Fido</span>
+<span class="n">Spot</span>
+<span class="k">in</span> <span class="n">snapshot2</span><span class="p">:</span> <span class="n">Fluffy</span>
+<span class="n">before</span> <span class="n">applying</span><span class="p">:</span> <span class="n">Spot</span>
+<span class="n">after</span> <span class="n">applying</span> <span class="m">1</span><span class="p">:</span> <span class="n">Fido</span>
+<span class="n">after</span> <span class="n">applying</span> <span class="m">2</span><span class="p">:</span> <span class="n">Fido</span>
+</code></pre></div>
+会发现第二个快照的更改无法应用，因为它们都视图以相同的初始值进行修改，因此第二个快照要么再执行一次 <code>enter</code>，要么告诉如何解冲突。  </p>
+<p>Compose 实际上有一个用于解决合并冲突的 API！<code>mutableStateOf()</code> 需要一个可选的 <code>SnapshotMutationPolicy</code>. 该策略定义了如何比较特定类型的值 (equivalent) 以及如何解决冲突 (merge)。并且提供了一些开箱即用的策略：</p>
+<ul>
+<li><code>structuralEqualityPolicy</code>– 使用对象的 <code>equals</code> 方法 ( ==)比较对象，所有写入都被认为是非冲突的。</li>
+<li><code>referentialEqualityPolicy</code>– 通过引用 ( ===)比较对象，所有写入都被认为是非冲突的。</li>
+<li><code>neverEqualPolicy</code>– 将所有对象视为不相等，所有写入都被认为是非冲突的。</li>
+</ul>
+<p>我们也可以构建自己的规则：
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">Dog</span> <span class="p">{</span>
+  <span class="kd">var</span> <span class="nv">name</span><span class="p">:</span> <span class="n">MutableState</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="o">=</span>
+    <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">policy</span> <span class="o">=</span> <span class="k">object</span> <span class="p">:</span> <span class="nc">SnapshotMutationPolicy</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span> <span class="p">{</span>
+      <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">equivalent</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span>
+
+      <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">merge</span><span class="p">(</span><span class="n">previous</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">current</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">applied</span><span class="p">:</span> <span class="kt">String</span><span class="p">):</span> <span class="kt">String</span> <span class="o">=</span>
+        <span class="s">&quot;</span><span class="si">$</span><span class="n">applied</span><span class="s">, briefly known as </span><span class="si">$</span><span class="n">current</span><span class="s">, originally known as </span><span class="si">$</span><span class="n">previous</span><span class="s">&quot;</span>
+    <span class="p">})</span>
+<span class="p">}</span>
+
+<span class="kd">fun</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+  <span class="c1">// Same as before.</span>
+<span class="p">}</span>
+
+<span class="c1">// Output:</span>
+<span class="n">Spot</span>
+<span class="k">in</span> <span class="n">snapshot1</span><span class="p">:</span> <span class="n">Fido</span>
+<span class="n">Spot</span>
+<span class="k">in</span> <span class="n">snapshot2</span><span class="p">:</span> <span class="n">Fluffy</span>
+<span class="n">before</span> <span class="n">applying</span><span class="p">:</span> <span class="n">Spot</span>
+<span class="n">after</span> <span class="n">applying</span> <span class="m">1</span><span class="p">:</span> <span class="n">Fido</span>
+<span class="n">after</span> <span class="n">applying</span> <span class="m">2</span><span class="p">:</span> <span class="n">Fluffy</span><span class="p">,</span> <span class="n">briefly</span> <span class="n">known</span> <span class="k">as</span> <span class="n">Fido</span><span class="p">,</span> <span class="n">originally</span> <span class="n">known</span> <span class="k">as</span> <span class="n">Spot</span>
+</code></pre></div></p>
+<h2 id="_7">总结</h2>
+<p>以上就是 <code>Snapshot</code> (快照)的基本使用,它就相当于高级的 DiffUtil。它的特点总结起来就是：
+- 响应式：有状态的代码始终自动保持最新。我们无需担心订阅和反订阅。
+- 隔离性：有状态代码可以对状态进行操作，而不必担心在不同线程上运行的代码会改变该状态。<code>Compose</code> 可以利用这一点来实现旧的 <code>View</code> 系统无法实现的效果，例如将重构放到多个后台线程上去执行。</p>
+<h2 id="_8">解惑</h2>
+<ul>
+<li><strong>为什么<code>state</code>变化能触发重组呢？</strong><blockquote>
+<p>Jetpack Compose在执行时注册了 <code>readObserverOf</code> 和<code>writeObserverOf</code> :
+<div class="highlight"><pre><span></span><code> <span class="kd">private</span> <span class="kd">inline</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">composing</span><span class="p">(</span>
+        <span class="n">composition</span><span class="p">:</span> <span class="n">ControlledComposition</span><span class="p">,</span>
+        <span class="n">modifiedValues</span><span class="p">:</span> <span class="n">IdentityArraySet</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;?</span><span class="p">,</span>
+        <span class="n">block</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">T</span>
+    <span class="p">):</span> <span class="n">T</span> <span class="p">{</span>
+        <span class="kd">val</span> <span class="nv">snapshot</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">takeMutableSnapshot</span><span class="p">(</span>
+            <span class="n">readObserverOf</span><span class="p">(</span><span class="n">composition</span><span class="p">),</span> <span class="n">writeObserverOf</span><span class="p">(</span><span class="n">composition</span><span class="p">,</span> <span class="n">modifiedValues</span><span class="p">)</span>
+        <span class="p">)</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="k">return</span> <span class="n">snapshot</span><span class="p">.</span><span class="na">enter</span><span class="p">(</span><span class="n">block</span><span class="p">)</span>
+        <span class="p">}</span> <span class="k">finally</span> <span class="p">{</span>
+            <span class="n">applyAndCheck</span><span class="p">(</span><span class="n">snapshot</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+其中在读取状态的地方会执行：</p>
+</blockquote>
+</li>
+<li><code>readObserverOf</code> 来记录哪些 <code>scope 使用了此</code>state` :</li>
+</ul>
+<div class="highlight"><pre><span></span><code> <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">recordReadOf</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">areChildrenComposing</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">composer</span><span class="p">.</span><span class="na">currentRecomposeScope</span><span class="o">?.</span><span class="na">let</span> <span class="p">{</span>
+                <span class="nb">it</span><span class="p">.</span><span class="na">used</span> <span class="o">=</span> <span class="kc">true</span>
+                <span class="n">observations</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">it</span><span class="p">)</span>
+                <span class="p">...</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>
+<p><code>writeObserverOf</code>
+ 而写入时会找出对应使用此 <code>state</code> 的 <code>scope</code> 使其 <code>invalidate</code> :
+<div class="highlight"><pre><span></span><code> <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">recordWriteOf</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">=</span> <span class="n">synchronized</span><span class="p">(</span><span class="n">lock</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">invalidateScopeOfLocked</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+
+        <span class="n">derivedStates</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">invalidateScopeOfLocked</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+  <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">invalidateScopeOfLocked</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+          <span class="n">observations</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">scope</span> <span class="o">-&gt;</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">scope</span><span class="p">.</span><span class="na">invalidateForResult</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">==</span> <span class="n">InvalidationResult</span><span class="p">.</span><span class="na">IMMINENT</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">observationsProcessed</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+在下次帧信号到达时对于这些<code>scope</code>执行重组。</p>
+</li>
+<li>
+<p><strong>它是如何确定重组范围呢？</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>能够被标记为 Invalid 的代码必须是非 inline 且无返回值的 @Composalbe function/lambda，必须遵循 重组范围最小化 原则。
+详细参见：<a href="https://compose.net.cn/principle/recomposition_scope/">Compose 如何确定重组范围</a></p>
+</blockquote>
+<ul>
+<li><strong>只要 <code>state</code> 变化就一定会重组吗？</strong><br />
+不一定，具体案例请看以下例子：</li>
+</ul>
+<h3 id="1-1">1. 例子①</h3>
+<p><div class="highlight"><pre><span></span><code>    <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">lifecycleScope</span><span class="p">.</span><span class="na">launch</span> <span class="p">{</span>
+                <span class="n">delay</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
+                <span class="kd">val</span> <span class="nv">text</span><span class="o">=</span> <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span>
+                <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Compose&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+不会重组，因为 <code>delay</code> 导致状态的读取是在 <code>snap.apply</code> 方法之外执行的,
+因此也就不会注册 <code>readObserverOf</code> ,自然也就不会与 <code>composeScope</code> 挂钩，也就不会触发重组，在这个例子里如果是在 <code>delay</code> 之前读取则会重组。</p>
+<h3 id="2-2">2. 例子②</h3>
+<div class="highlight"><pre><span></span><code>   <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">thread</span> <span class="p">{</span>
+                <span class="kd">val</span> <span class="nv">text</span> <span class="o">=</span>  <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span>
+                <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Compose&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p><code>thread</code> 中的<code>state</code>在不同线程读取，由于<code>SnapshotThreadLocal</code>机制，如果此线程无快照，则获取<code>GlobalSnapshot</code>：
+<div class="highlight"><pre><span></span><code>internal fun currentSnapshot(): Snapshot =
+    threadSnapshot.get() ?: currentGlobalSnapshot.get()
+</code></pre></div>
+由于没有对应的<code>readObserver</code>,因此此例子不会重组。但是如果在<code>composable</code>内读取了此<code>state</code>是会重组的，因为<code>ReComposer</code>注册了<code>ApplyObserver</code>,在<code>apply</code>时也会对<code>globalModified</code>进行记录，在下一帧信号到达时去查找对应的<code>scope</code>（大家可以断点跟一下流程）：
+<div class="highlight"><pre><span></span><code> <span class="kd">val</span> <span class="nv">unregisterApplyObserver</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">registerApplyObserver</span> <span class="p">{</span> <span class="n">changed</span><span class="p">,</span> <span class="n">_</span> <span class="o">-&gt;</span>
+                <span class="n">synchronized</span><span class="p">(</span><span class="n">stateLock</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span> <span class="o">&gt;=</span> <span class="n">State</span><span class="p">.</span><span class="na">Idle</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">snapshotInvalidations</span> <span class="o">+=</span> <span class="n">changed</span>
+                        <span class="n">deriveStateLocked</span><span class="p">()</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="kc">null</span>
+                <span class="p">}</span><span class="o">?.</span><span class="na">resume</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span>
+            <span class="p">}</span>
+</code></pre></div></p>
+<h3 id="3-3">3. 例子③</h3>
+<p><div class="highlight"><pre><span></span><code><span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">darkMode</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+            <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Compose&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+这个也没触发重组，可能大家会疑惑，这个没异步，断点也有 <code>readObserver</code> 和 <code>writeObserver</code> 为啥不会触发重组呢？  不是说状态变更会将使用它的 <code>scope</code> 记为 <code>invalid</code> 吗？</p>
+<p>然而实际运行中，<code>InvalidationResult</code>为<code>IGNORE</code>
+<div class="highlight"><pre><span></span><code> <span class="kd">fun</span> <span class="nf">invalidate</span><span class="p">(</span><span class="n">scope</span><span class="p">:</span> <span class="n">RecomposeScopeImpl</span><span class="p">,</span> <span class="n">instance</span><span class="p">:</span> <span class="kt">Any?</span><span class="p">):</span> <span class="n">InvalidationResult</span> <span class="p">{</span>
+        <span class="p">...</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="n">anchor</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">slotTable</span><span class="p">.</span><span class="na">ownsAnchor</span><span class="p">(</span><span class="n">anchor</span><span class="p">)</span> <span class="o">||</span> <span class="o">!</span><span class="n">anchor</span><span class="p">.</span><span class="na">valid</span><span class="p">)</span>
+            <span class="c1">// The scope has not yet entered the composition</span>
+            <span class="k">return</span> <span class="n">InvalidationResult</span><span class="p">.</span><span class="na">IGNORED</span> 
+
+        <span class="p">...</span>
+    <span class="p">}</span>
+</code></pre></div></p>
+<p>首先我们确实记录下了使用 <code>state</code> 的 <code>scope</code>,不然也不会在修改时触发 <code>invalidate</code> 行为。但此时 <code>slotTable</code> 里并还没有可重组的区域锚点信息，只有在组合完成之后才能拿到每个区域的锚点<code>anchors</code>。
+简单描述就是 <code>Compose</code> 使用 <code>SlotTable</code> 来记录数据信息，此时第一次完整的组合都没完成，不知道该从哪下手。  </p>
+<blockquote>
+<p>有关 <code>SlotTable</code> 的更多信息请参阅：<a href="https://juejin.cn/post/6889797083667267598">深入详解JetpackCompose|实现原理</a></p>
+</blockquote>
+<p>其次就是由于 <code>state</code> 的创建是在 <code>enter</code> 代码块中，此时 <code>state.snapshotId</code>==<code>Snapshot.id</code> ,并不会记录 <code>state</code> 的变化。毕竟快照的 <code>diff</code> 是作用在两个快照之间。
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span> <span class="p">:</span> <span class="n">StateRecord</span><span class="o">&gt;</span> <span class="n">T</span><span class="p">.</span><span class="nf">overwritableRecord</span><span class="p">(</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">StateObject</span><span class="p">,</span>
+    <span class="n">snapshot</span><span class="p">:</span> <span class="n">Snapshot</span><span class="p">,</span>
+    <span class="n">candidate</span><span class="p">:</span> <span class="n">T</span>
+<span class="p">):</span> <span class="n">T</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+    <span class="kd">val</span> <span class="nv">id</span> <span class="o">=</span> <span class="n">snapshot</span><span class="p">.</span><span class="na">id</span>
+    <span class="c1">//此时直接返回，并没有记录state变化</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">candidate</span><span class="p">.</span><span class="na">snapshotId</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="k">return</span> <span class="n">candidate</span>
+
+     <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div></p>
+<p>但是如果你把 <code>state</code> 的创建放到 <code>setContent</code> 之外呢？</p>
+<h3 id="4-4">4. 例子④</h3>
+<div class="highlight"><pre><span></span><code>  <span class="kd">val</span> <span class="nv">darkMode</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">darkMode</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+            <span class="n">darkMode</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Compose&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+<p><strong>答案是会重组</strong>  </p>
+<p>因为这个状态是在拍摄之前创建的，此时 <code>state.snapshotId</code>!=<code>Snapshot.id</code>,此期间对 <code>state</code> 的修改虽然不会立即标记为 <code>invalid</code> ,但是会计入  <code>modified</code> , <code>apply</code> 之后，由全局快照进行通知:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span> <span class="p">:</span> <span class="n">StateRecord</span><span class="o">&gt;</span> <span class="n">T</span><span class="p">.</span><span class="nf">overwritableRecord</span><span class="p">(</span>
+    <span class="n">state</span><span class="p">:</span> <span class="n">StateObject</span><span class="p">,</span>
+    <span class="n">snapshot</span><span class="p">:</span> <span class="n">Snapshot</span><span class="p">,</span>
+    <span class="n">candidate</span><span class="p">:</span> <span class="n">T</span>
+<span class="p">):</span> <span class="n">T</span> <span class="p">{</span>
+    <span class="p">...</span>
+
+    <span class="kd">val</span> <span class="nv">id</span> <span class="o">=</span> <span class="n">snapshot</span><span class="p">.</span><span class="na">id</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">candidate</span><span class="p">.</span><span class="na">snapshotId</span> <span class="o">==</span> <span class="n">id</span><span class="p">)</span> <span class="k">return</span> <span class="n">candidate</span>
+
+    <span class="kd">val</span> <span class="nv">newData</span> <span class="o">=</span> <span class="n">newOverwritableRecord</span><span class="p">(</span><span class="n">state</span><span class="p">,</span> <span class="n">snapshot</span><span class="p">)</span>
+    <span class="n">newData</span><span class="p">.</span><span class="na">snapshotId</span> <span class="o">=</span> <span class="n">id</span>
+
+   <span class="c1">//记录变化</span>
+    <span class="n">snapshot</span><span class="p">.</span><span class="na">recordModified</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">newData</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>会在 <code>apply</code> 时通知到观察者 <code>ApplyObserver</code>（刚才还提到 writerObserver ），记录下 <code>changed</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">unregisterApplyObserver</span> <span class="o">=</span> <span class="n">Snapshot</span><span class="p">.</span><span class="na">registerApplyObserver</span> <span class="p">{</span> <span class="n">changed</span><span class="p">,</span> <span class="n">_</span> <span class="o">-&gt;</span>
+                <span class="n">synchronized</span><span class="p">(</span><span class="n">stateLock</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="n">_state</span><span class="p">.</span><span class="na">value</span> <span class="o">&gt;=</span> <span class="n">State</span><span class="p">.</span><span class="na">Idle</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="c1">// here</span>
+                        <span class="n">snapshotInvalidations</span> <span class="o">+=</span> <span class="n">changed</span>
+                        <span class="n">deriveStateLocked</span><span class="p">()</span>
+                    <span class="p">}</span> <span class="k">else</span> <span class="kc">null</span>
+                <span class="p">}</span><span class="o">?.</span><span class="na">resume</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span>
+            <span class="p">}</span>
+</code></pre></div>
+<p><code>composation</code> 则会找出观察了对应变化状态的 <code>scope</code> 标记为 <code>invalid</code> 等待重组：  </p>
+<div class="highlight"><pre><span></span><code> <span class="kd">private</span> <span class="kd">fun</span> <span class="nf">addPendingInvalidationsLocked</span><span class="p">(</span><span class="n">values</span><span class="p">:</span> <span class="n">Set</span><span class="o">&lt;</span><span class="kt">Any</span><span class="o">&gt;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nv">invalidated</span><span class="p">:</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">RecomposeScopeImpl</span><span class="o">&gt;?</span> <span class="o">=</span> <span class="kc">null</span>
+
+        <span class="kd">fun</span> <span class="nf">invalidate</span><span class="p">(</span><span class="n">value</span><span class="p">:</span> <span class="kt">Any</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">observations</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span> <span class="n">scope</span> <span class="o">-&gt;</span>
+                <span class="k">if</span> <span class="p">(</span>
+                    <span class="o">!</span><span class="n">observationsProcessed</span><span class="p">.</span><span class="na">remove</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span> <span class="o">&amp;&amp;</span>
+                    <span class="n">scope</span><span class="p">.</span><span class="na">invalidateForResult</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="o">!=</span> <span class="n">InvalidationResult</span><span class="p">.</span><span class="na">IGNORED</span>
+                <span class="p">)</span> <span class="p">{</span>
+                    <span class="kd">val</span> <span class="nv">set</span> <span class="o">=</span> <span class="n">invalidated</span>
+                        <span class="o">?:</span> <span class="n">HashSet</span><span class="o">&lt;</span><span class="n">RecomposeScopeImpl</span><span class="o">&gt;</span><span class="p">().</span><span class="na">also</span> <span class="p">{</span>
+                            <span class="n">invalidated</span> <span class="o">=</span> <span class="nb">it</span>
+                        <span class="p">}</span>
+                    <span class="k">set</span><span class="p">.</span><span class="na">add</span><span class="p">(</span><span class="n">scope</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">value</span> <span class="k">in</span> <span class="n">values</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="k">is</span> <span class="n">RecomposeScopeImpl</span><span class="p">)</span> <span class="p">{</span>
+                <span class="n">value</span><span class="p">.</span><span class="na">invalidateForResult</span><span class="p">(</span><span class="kc">null</span><span class="p">)</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="n">invalidate</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>
+                <span class="n">derivedStates</span><span class="p">.</span><span class="na">forEachScopeOf</span><span class="p">(</span><span class="n">value</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">invalidate</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+        <span class="n">invalidated</span><span class="o">?.</span><span class="na">let</span> <span class="p">{</span>
+            <span class="n">observations</span><span class="p">.</span><span class="na">removeValueIf</span> <span class="p">{</span> <span class="n">scope</span> <span class="o">-&gt;</span> <span class="n">scope</span> <span class="k">in</span> <span class="nb">it</span> <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+</code></pre></div>
+<h3 id="5-5">5. 例子⑤</h3>
+<p><div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">onlyDisplay</span> <span class="o">=</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="s">&quot;onlyDisplay&quot;</span><span class="p">)</span>
+
+<span class="kd">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">Text</span><span class="p">(</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">onlyDisplay</span><span class="p">.</span><span class="na">value</span><span class="p">,</span>
+                <span class="n">fontSize</span> <span class="o">=</span> <span class="m">50.</span><span class="n">sp</span><span class="p">,</span>
+            <span class="p">)</span>
+            <span class="n">onlyDisplay</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="s">&quot;Display&quot;</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+如果把 <code>state</code> 声明放到 <code>kt</code> 文件最外层，是否会重组？</p>
+<p>答案是不会，因为在 <code>kotlin</code> 中如果把变量不放到类里，直接放到文件顶层。编译之后其实会生成一个文件，而这个属性则变成 <code>static</code> 的。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">MainActivityKt</span> <span class="p">{</span>
+       <span class="kd">static</span> <span class="n">MutableState</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">onlyDisplay</span> <span class="o">=</span> <span class="n">SnapshotStateKt</span><span class="p">.</span><span class="na">mutableStateOf$default</span><span class="p">(</span><span class="s">&quot;onlyDisplay&quot;</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="kc">null</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>因此这个例子就涉及了类的初始化问题：</p>
+<blockquote>
+<p>只有主动请求一个类,这个类才会初始化,仅包含静态变量,函数,等静态的东西.  </p>
+</blockquote>
+<hr />
+<p>也就是说在这个例子里只有在调用 <code>onlyDisplay</code> 时，才执行初始化，所以其 <code>state.snapshotId==snapshot.Id</code> ,此时首次组合尚未执行完毕，本次的 <code>invalidateResult==IGNORE</code>，也不会记为 <code>modified</code>，就和例子③ 一样的问题了。</p>
+<hr />
+<blockquote>
+<p>以上就是快照系统的使用和<code>Jetpack Compose</code> 重组的机制，有任何不正确的地方欢迎指正。</p>
+</blockquote>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">June 20, 2021</span>
+      
+    
+  </small>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../recomposition_scope/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 了解Compose的重组作用域" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              了解Compose的重组作用域
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../gap_buffer/" class="md-footer__link md-footer__link--next" aria-label="下一页: Compose运行原理与GapBuffer" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              Compose运行原理与GapBuffer
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/Compose-Museum/Compose-Tutorial/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>

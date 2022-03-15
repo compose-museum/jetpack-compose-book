@@ -8,19 +8,21 @@
       
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="canonical" href="https://docs.compose.net.cn/design/theme/understanding_material_theme/">
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
     
     
       
-        <title>Jetpack Compose</title>
+        <title>深入理解 MaterialTheme 与 CompositionLocal - Jetpack Compose</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.2d9f7617.min.css">
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2d9f7617.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -35,9 +37,9 @@
       
     
     
-      <link rel="stylesheet" href="/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -60,6 +62,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#1-materialtheme" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -70,9 +77,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="/." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+    <a href="../../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
       
-  <img src="/assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -88,7 +95,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              深入理解 MaterialTheme 与 CompositionLocal
             
           </span>
         </div>
@@ -160,13 +167,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="/." class="md-tabs__link">
+      <a href="../../.." class="md-tabs__link md-tabs__link--active">
         Jetpack Compose
       </a>
     </li>
@@ -187,7 +196,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/third-party-component/accompanist/overview/" class="md-tabs__link">
+      <a href="../../../third-party-component/accompanist/overview/" class="md-tabs__link">
         第三方组件
       </a>
     </li>
@@ -210,7 +219,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/api/elements/text/" class="md-tabs__link">
+      <a href="../../../api/elements/text/" class="md-tabs__link">
         API 文档
       </a>
     </li>
@@ -228,7 +237,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/open-source-project/compose-douban/" class="md-tabs__link">
+      <a href="../../../open-source-project/compose-douban/" class="md-tabs__link">
         开源项目
       </a>
     </li>
@@ -256,9 +265,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+    <a href="../../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
       
-  <img src="/assets/logo.png" alt="logo">
+  <img src="../../../assets/logo.png" alt="logo">
 
     </a>
     Jetpack Compose
@@ -284,12 +293,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
       
       
       
@@ -312,7 +323,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../../.." class="md-nav__link">
         概述
       </a>
     </li>
@@ -326,7 +337,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/start/" class="md-nav__link">
+      <a href="../../../start/" class="md-nav__link">
         在开始之前
       </a>
     </li>
@@ -340,7 +351,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/tutorial/" class="md-nav__link">
+      <a href="../../../tutorial/" class="md-nav__link">
         快速入门
       </a>
     </li>
@@ -380,7 +391,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/alertdialog/" class="md-nav__link">
+      <a href="../../../elements/alertdialog/" class="md-nav__link">
         AlertDialog
       </a>
     </li>
@@ -394,7 +405,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/button/" class="md-nav__link">
+      <a href="../../../elements/button/" class="md-nav__link">
         Button
       </a>
     </li>
@@ -408,7 +419,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/card/" class="md-nav__link">
+      <a href="../../../elements/card/" class="md-nav__link">
         Card
       </a>
     </li>
@@ -422,7 +433,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/floatingactionbutton/" class="md-nav__link">
+      <a href="../../../elements/floatingactionbutton/" class="md-nav__link">
         FloatingActionButton
       </a>
     </li>
@@ -436,7 +447,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/icon/" class="md-nav__link">
+      <a href="../../../elements/icon/" class="md-nav__link">
         Icon
       </a>
     </li>
@@ -450,7 +461,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/image/" class="md-nav__link">
+      <a href="../../../elements/image/" class="md-nav__link">
         Image
       </a>
     </li>
@@ -464,7 +475,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/iconbutton/" class="md-nav__link">
+      <a href="../../../elements/iconbutton/" class="md-nav__link">
         IconButton
       </a>
     </li>
@@ -478,7 +489,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/surface/" class="md-nav__link">
+      <a href="../../../elements/surface/" class="md-nav__link">
         Surface
       </a>
     </li>
@@ -492,7 +503,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/slider/" class="md-nav__link">
+      <a href="../../../elements/slider/" class="md-nav__link">
         Slider
       </a>
     </li>
@@ -506,7 +517,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/text/" class="md-nav__link">
+      <a href="../../../elements/text/" class="md-nav__link">
         Text
       </a>
     </li>
@@ -520,7 +531,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/textfield/" class="md-nav__link">
+      <a href="../../../elements/textfield/" class="md-nav__link">
         TextField
       </a>
     </li>
@@ -567,7 +578,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/bottomnavigation/" class="md-nav__link">
+      <a href="../../../layout/bottomnavigation/" class="md-nav__link">
         BottomNavigation
       </a>
     </li>
@@ -581,7 +592,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/column/" class="md-nav__link">
+      <a href="../../../layout/column/" class="md-nav__link">
         Column
       </a>
     </li>
@@ -595,7 +606,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/modalbottomsheetlayout/" class="md-nav__link">
+      <a href="../../../layout/modalbottomsheetlayout/" class="md-nav__link">
         ModalBottomSheetLayout
       </a>
     </li>
@@ -609,7 +620,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/row/" class="md-nav__link">
+      <a href="../../../layout/row/" class="md-nav__link">
         Row
       </a>
     </li>
@@ -623,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/spacer/" class="md-nav__link">
+      <a href="../../../layout/spacer/" class="md-nav__link">
         Spacer
       </a>
     </li>
@@ -637,7 +648,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/scaffold/" class="md-nav__link">
+      <a href="../../../layout/scaffold/" class="md-nav__link">
         Scaffold
       </a>
     </li>
@@ -651,7 +662,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/topappbar/" class="md-nav__link">
+      <a href="../../../layout/topappbar/" class="md-nav__link">
         TopAppBar
       </a>
     </li>
@@ -665,7 +676,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/custom_layout/" class="md-nav__link">
+      <a href="../../../layout/custom_layout/" class="md-nav__link">
         自定义布局
       </a>
     </li>
@@ -679,7 +690,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/intrinsic/" class="md-nav__link">
+      <a href="../../../layout/intrinsic/" class="md-nav__link">
         固有特性测量
       </a>
     </li>
@@ -693,7 +704,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/subcomposelayout/" class="md-nav__link">
+      <a href="../../../layout/subcomposelayout/" class="md-nav__link">
         SubcomposeLayout
       </a>
     </li>
@@ -712,12 +723,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" checked>
       
       
       
@@ -766,7 +779,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/overview/" class="md-nav__link">
+      <a href="../../animation/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -780,7 +793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/animationvisibility/" class="md-nav__link">
+      <a href="../../animation/animationvisibility/" class="md-nav__link">
         AnimationVisibility
       </a>
     </li>
@@ -794,7 +807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/animatestate/" class="md-nav__link">
+      <a href="../../animation/animatestate/" class="md-nav__link">
         Animate*State
       </a>
     </li>
@@ -808,7 +821,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/animatable/" class="md-nav__link">
+      <a href="../../animation/animatable/" class="md-nav__link">
         Animatable
       </a>
     </li>
@@ -822,7 +835,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/update_transition/" class="md-nav__link">
+      <a href="../../animation/update_transition/" class="md-nav__link">
         UpdateTransition
       </a>
     </li>
@@ -841,12 +854,14 @@
               
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" checked>
       
       
       
@@ -869,7 +884,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/theme/overview/" class="md-nav__link">
+      <a href="../overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -883,7 +898,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/theme/meet_material_theme/" class="md-nav__link">
+      <a href="../meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
     </li>
@@ -895,11 +910,68 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="/design/theme/understanding_material_theme/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          深入理解 MaterialTheme 与 CompositionLocal
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         深入理解 MaterialTheme 与 CompositionLocal
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-materialtheme" class="md-nav__link">
+    1. MaterialTheme 是怎么做到的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-compositionlocal" class="md-nav__link">
+    2. CompositionLocal介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="2. CompositionLocal介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compositionlocalof-staticcompositionlocalof" class="md-nav__link">
+    compositionLocalOf 与 staticCompositionLocalOf 区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -911,7 +983,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/theme/custom_your_theme/" class="md-nav__link">
+      <a href="../custom_your_theme/" class="md-nav__link">
         自定义你的主题方案
       </a>
     </li>
@@ -958,7 +1030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/overview/" class="md-nav__link">
+      <a href="../../gesture/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -972,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/draggable/" class="md-nav__link">
+      <a href="../../gesture/draggable/" class="md-nav__link">
         Draggable拖动
       </a>
     </li>
@@ -986,7 +1058,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/swipeable/" class="md-nav__link">
+      <a href="../../gesture/swipeable/" class="md-nav__link">
         Swipeable滑动
       </a>
     </li>
@@ -1000,7 +1072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/transformer/" class="md-nav__link">
+      <a href="../../gesture/transformer/" class="md-nav__link">
         Transformer双指拖动、缩放与旋转
       </a>
     </li>
@@ -1014,7 +1086,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/nested_scroll/" class="md-nav__link">
+      <a href="../../gesture/nested_scroll/" class="md-nav__link">
         NestedScroll嵌套滑动
       </a>
     </li>
@@ -1028,7 +1100,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/custom_gesture/" class="md-nav__link">
+      <a href="../../gesture/custom_gesture/" class="md-nav__link">
         自定义触摸反馈
       </a>
     </li>
@@ -1075,7 +1147,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/lists/overview/" class="md-nav__link">
+      <a href="../../lists/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1089,7 +1161,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/lists/list_item_click/" class="md-nav__link">
+      <a href="../../lists/list_item_click/" class="md-nav__link">
         列表点击事件
       </a>
     </li>
@@ -1110,7 +1182,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/draw/custom_draw/" class="md-nav__link">
+      <a href="../../draw/custom_draw/" class="md-nav__link">
         绘制 (Graphics)
       </a>
     </li>
@@ -1157,7 +1229,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/modifier/overview/" class="md-nav__link">
+      <a href="../../../modifier/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1171,7 +1243,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/modifier/introduction/" class="md-nav__link">
+      <a href="../../../modifier/introduction/" class="md-nav__link">
         方法介绍
       </a>
     </li>
@@ -1218,7 +1290,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/recomposition_scope/" class="md-nav__link">
+      <a href="../../../principle/recomposition_scope/" class="md-nav__link">
         了解Compose的重组作用域
       </a>
     </li>
@@ -1232,7 +1304,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/snapshot/" class="md-nav__link">
+      <a href="../../../principle/snapshot/" class="md-nav__link">
         透过Snapshot看重组
       </a>
     </li>
@@ -1246,7 +1318,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/gap_buffer/" class="md-nav__link">
+      <a href="../../../principle/gap_buffer/" class="md-nav__link">
         Compose运行原理与GapBuffer
       </a>
     </li>
@@ -1260,7 +1332,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/recompose_working_principle/" class="md-nav__link">
+      <a href="../../../principle/recompose_working_principle/" class="md-nav__link">
         重组的工作流程
       </a>
     </li>
@@ -1274,7 +1346,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/modifier_structure/" class="md-nav__link">
+      <a href="../../../principle/modifier_structure/" class="md-nav__link">
         图解Modifier
       </a>
     </li>
@@ -1321,7 +1393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/architecture/architecture_for_compose/" class="md-nav__link">
+      <a href="../../../architecture/architecture_for_compose/" class="md-nav__link">
         Compose架构如何选？MVP,MVVM,MVI
       </a>
     </li>
@@ -1335,7 +1407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/architecture/use_jetpack_in_compose/" class="md-nav__link">
+      <a href="../../../architecture/use_jetpack_in_compose/" class="md-nav__link">
         在 Compose 中使用 Jetpack 组件库
       </a>
     </li>
@@ -1356,7 +1428,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/codelabs/" class="md-nav__link">
+      <a href="../../../codelabs/" class="md-nav__link">
         代码实验室
       </a>
     </li>
@@ -1370,7 +1442,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/resources/" class="md-nav__link">
+      <a href="../../../resources/" class="md-nav__link">
         资源
       </a>
     </li>
@@ -1384,7 +1456,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/version/" class="md-nav__link">
+      <a href="../../../version/" class="md-nav__link">
         版本更新迭代内容与介绍
       </a>
     </li>
@@ -1398,7 +1470,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contributing/" class="md-nav__link">
+      <a href="../../../contributing/" class="md-nav__link">
         关于贡献
       </a>
     </li>
@@ -1472,7 +1544,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/overview/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1486,7 +1558,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/coil/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/coil/" class="md-nav__link">
         Coil
       </a>
     </li>
@@ -1500,7 +1572,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/glide/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/glide/" class="md-nav__link">
         Glide
       </a>
     </li>
@@ -1514,7 +1586,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/insets/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/insets/" class="md-nav__link">
         Insets
       </a>
     </li>
@@ -1528,7 +1600,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
         System UI Controller
       </a>
     </li>
@@ -1542,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
         AppCompat Theme
       </a>
     </li>
@@ -1556,7 +1628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
         Pager layouts
       </a>
     </li>
@@ -1570,7 +1642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
         Swipe Refresh
       </a>
     </li>
@@ -1584,7 +1656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+      <a href="../../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
         Flow layouts
       </a>
     </li>
@@ -1605,7 +1677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
+      <a href="../../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
         Compose版骨架屏
       </a>
     </li>
@@ -1619,7 +1691,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/coil/" class="md-nav__link">
+      <a href="../../../third-party-component/coil/" class="md-nav__link">
         Coil
       </a>
     </li>
@@ -1633,7 +1705,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
+      <a href="../../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
         Compose版StateLayout
       </a>
     </li>
@@ -1647,7 +1719,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
+      <a href="../../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
         Compose版SmartRefreshLayout
       </a>
     </li>
@@ -1721,7 +1793,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/elements/text/" class="md-nav__link">
+      <a href="../../../api/elements/text/" class="md-nav__link">
         Text
       </a>
     </li>
@@ -1735,7 +1807,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/elements/button/" class="md-nav__link">
+      <a href="../../../api/elements/button/" class="md-nav__link">
         Button
       </a>
     </li>
@@ -1790,7 +1862,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-douban/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-douban/" class="md-nav__link">
         Compose 仿豆瓣榜单客户端
       </a>
     </li>
@@ -1804,7 +1876,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-moon-animation/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-moon-animation/" class="md-nav__link">
         Compose 实现月亮阴晴圆缺动画
       </a>
     </li>
@@ -1818,7 +1890,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-gmusic/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-gmusic/" class="md-nav__link">
         Compose 一款简易的音乐播放软件
       </a>
     </li>
@@ -1832,7 +1904,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
         Compose 伸缩 ToolBar 的实现
       </a>
     </li>
@@ -1846,7 +1918,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-wan-android/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-wan-android/" class="md-nav__link">
         Compose + MVI + Navigation 快速实现 wanAndroid 客户端
       </a>
     </li>
@@ -1860,7 +1932,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-spring-handwriting/" class="md-nav__link">
+      <a href="../../../open-source-project/compose-spring-handwriting/" class="md-nav__link">
         Compose 实现手写春联效果
       </a>
     </li>
@@ -1881,12 +1953,223 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-materialtheme" class="md-nav__link">
+    1. MaterialTheme 是怎么做到的
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-compositionlocal" class="md-nav__link">
+    2. CompositionLocal介绍
+  </a>
+  
+    <nav class="md-nav" aria-label="2. CompositionLocal介绍">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compositionlocalof-staticcompositionlocalof" class="md-nav__link">
+    compositionLocalOf 与 staticCompositionLocalOf 区别
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/design/theme/understanding_material_theme.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
 
+
+
+  <h1>深入理解 MaterialTheme 与 CompositionLocal</h1>
+
+<h2 id="1-materialtheme">1. MaterialTheme 是怎么做到的</h2>
+<p>为深入理解 MaterialTheme 工作原理，我们需要进入源码一探究竟。</p>
+<p><img src = "../../../assets/design/theme/understanding_material_theme/carbon.png" width = "90%" height = "50%"></p>
+<p>需要注意的是，此时传入的 content 参数其实是声明在 Theme 中的自定义布局系统，其类型是一个带有 Composable 注解的 lambda (对于这类带有 Composable 的 lambda 简称为 composable )。</p>
+<p>我们所关注的 colors 被 remember 修饰后赋值为 rememberedColors。如果 MaterialTheme 这个 composable 发生 recompose 时便会检查 colors 是否发生了改变从而决定更新。</p>
+<p>接下来使用 CompositionLocalProvider 方法，通过中缀 providers 将 rememberedColors 提供给了 LocalColors。让我们回到自定义视图中，看看我们是如何通过 MaterialTheme 获取到当前主题配色的。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">object</span> <span class="nc">MaterialTheme</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">colors</span><span class="p">:</span> <span class="n">Colors</span>
+        <span class="nd">@Composable</span>
+        <span class="nd">@ReadOnlyComposable</span>
+        <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">LocalColors</span><span class="p">.</span><span class="na">current</span>
+    <span class="kd">val</span> <span class="nv">typography</span><span class="p">:</span> <span class="n">Typography</span>
+        <span class="nd">@Composable</span>
+        <span class="nd">@ReadOnlyComposable</span>
+        <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">LocalTypography</span><span class="p">.</span><span class="na">current</span>
+    <span class="kd">val</span> <span class="nv">shapes</span><span class="p">:</span> <span class="n">Shapes</span>
+        <span class="nd">@Composable</span>
+        <span class="nd">@ReadOnlyComposable</span>
+        <span class="k">get</span><span class="p">()</span> <span class="o">=</span> <span class="n">LocalShapes</span><span class="p">.</span><span class="na">current</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>可以发现在获取到当前主题配色时使用的是 MaterialTheme 类单例的 colors 属性，间接使用了 LocalColors。</p>
+<p>总结来说，我们在自定义 Theme 使用的是 MaterialTheme 函数为 LocalColors 赋值，而在获取时使用的是 MaterialTheme 类单例，间接从 LocalColors 中获取到值。所以 LocalColors 到底是何方神圣呢？</p>
+<div class="highlight"><pre><span></span><code><span class="kd">internal</span> <span class="kd">val</span> <span class="nv">LocalColors</span> <span class="o">=</span> <span class="n">staticCompositionLocalOf</span> <span class="p">{</span> <span class="n">lightColors</span><span class="p">()</span> <span class="p">}</span>
+</code></pre></div>
+<p>通过声明可以发现他实际上是一个 CompositionLocal，其初始值是 lightColors() 返回的 colors 配置。</p>
+<p>MaterialTheme 方法中通过 CompositionLocalProvider 方法为我们的自定义视图 composable 提供了一些 CompositionLocal，包含了所有的主题配置信息。</p>
+<h2 id="2-compositionlocal">2. CompositionLocal介绍</h2>
+<p>很多时候我们需要在 composable 树中共享一些数据（例如主题配置），一种有效方式就是通过显式参数传递的方式进行实现，当参数越来越多时，composable 参数列表会变得越来越臃肿，难以进行维护。当 composable 需要彼此间传递数据，并且实现各自的私有性时，如果仍采用显式参数传递的方式则可能会产生意料之外的麻烦与崩溃。</p>
+<p>为解决上述痛点问题， Jetpack Compose 提供了 CompostionLocal 用来完成 composable 树中共享数据方式。CompositionLocals 是具有层级的，可以被限定在以某个 composable 作为根结点的子树中，其默认会向下传递的，当然当前子树中的某个 composable 可以对该 CompositionLocals 进行覆盖，从而使得新值会在这个 composable 中继续向下传递。</p>
+<p>Jetpack Compose 为我们提供了compositionLocalOf 方法用于创建一个 CompostionLocal 实例。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.runtime.compositionLocalOf</span>
+
+<span class="kd">var</span> <span class="nv">LocalString</span> <span class="o">=</span> <span class="n">compositionLocalOf</span> <span class="p">{</span> <span class="s">&quot;Jetpack Compose&quot;</span> <span class="p">}</span>
+</code></pre></div>
+<p>在 composable 树的某个地方，我们可以使用 CompositionLocalProvider 方法为 CompositionLocal 提供一个值。通常情况下位于 composable 树的根部，但也可以位于任何位置，还可以在多个位置使用，以覆盖子树能够获取到的值。我们的示例选择在 Column 所包含的 composable 中使用 CompositionLocalProvider。</p>
+<div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">androidx.compose.runtime.CompositionLocalProvider</span>
+
+<span class="n">setContent</span> <span class="p">{</span>
+    <span class="n">CustomColorTheme</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Column</span> <span class="p">{</span>
+            <span class="n">CompositionLocalProvider</span><span class="p">(</span>
+                <span class="n">LocalString</span> <span class="n">provides</span> <span class="s">&quot;Hello World&quot;</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">Text</span><span class="p">(</span>
+                    <span class="n">text</span> <span class="o">=</span> <span class="n">LocalString</span><span class="p">.</span><span class="na">current</span><span class="p">,</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Green</span>
+                <span class="p">)</span>
+                <span class="n">CompositionLocalProvider</span><span class="p">(</span>
+                    <span class="n">LocalString</span> <span class="n">provides</span> <span class="s">&quot;Ruger McCarthy&quot;</span>
+                <span class="p">)</span> <span class="p">{</span>
+                    <span class="n">Text</span><span class="p">(</span>
+                        <span class="n">text</span> <span class="o">=</span> <span class="n">LocalString</span><span class="p">.</span><span class="na">current</span><span class="p">,</span>
+                        <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Blue</span>
+                    <span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">Text</span><span class="p">(</span>
+                <span class="n">text</span> <span class="o">=</span> <span class="n">LocalString</span><span class="p">.</span><span class="na">current</span><span class="p">,</span>
+                <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Red</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>实际效果可以看到，虽然所有 composable 均依赖的是同一个 CompositionLocal，而其获得到的实际的值却是不一样的。</p>
+<p><img alt="demo1" src="../../../assets/design/theme/understanding_material_theme/demo1.png" /></p>
+<h3 id="compositionlocalof-staticcompositionlocalof">compositionLocalOf 与 staticCompositionLocalOf 区别</h3>
+<p>当我们创建  CompositionLocal 时，通常需要使用 <code>compositionLocalOf</code> 或 <code>staticCompositionLocalOf</code> 方法。然而这两者的区别是什么呢？其实<code>staticCompositionLocalOf</code> 方法声明处的注释文档中说明了一切。</p>
+<blockquote>
+<p>Unlike compositionLocalOf, reads of a staticCompositionLocalOf are not tracked by the composer and changing the value provided in the CompositionLocalProvider call will cause the entirety of the content to be recomposed instead of just the places where in the composition the local value is used.</p>
+</blockquote>
+<p>简单概括就是，当我们选择使用 <code>staticCompositionLocalOf</code> 时，实际上创建了个<code>StaticProvidableCompositionLocal</code> 实例，当其所提供的值改变时，会导致  CompositionLocalProvide 内部所有 composable 触发重组(recompose)。</p>
+<p>如果我们选择使用 <code>compositionLocalOf</code>，实际上创建了个 <code>DynamicProvidableCompositionLocal</code> 实例，当其所提供的值改变时，仅会导致  CompositionLocalProvide 内部依赖当前 CompositionLocal 的 composable 触发重组(recompose)。</p>
+<p>Talk is cheap，Show me the code~. 接下来我们进行对照示例印证。</p>
+<p>既然要对照，我们就分别使用 <code>staticCompositionLocalOf</code> 与 <code>compositionLocalOf</code> 创建 CompositionLocal。我们使用三层嵌套的 Box 进行举例，我们将 CompositionLocalProvide 包裹在最外层，若某层 Box 触发了重组(recompose) 便会更新该层的文本信息。我们的示例中处于中层 的 Box 依赖了 CompositionLocal。</p>
+<p>当我们修改了 CompositionLocal 所提供的值时，可以发现 <code>staticCompositionLocalOf</code> 场景下，所有 Box 均发生了重组，而 <code>DynamicCompositionLocal</code> 场景下，仅中层依赖了 CompositionLocal 的 Box 触发了重组。文章结尾处提供了实例代码。</p>
+<p><img src="../../../assets/design/theme/understanding_material_theme/static.gif" width="40%" height = "40%"> <img src="../../../assets/design/theme/understanding_material_theme/dynamic.gif" width="40%" height = "40%"></p>
+<p><strong>示例代码</strong></p>
+<div class="highlight"><pre><span></span><code><span class="kd">var</span> <span class="nv">isStatic</span> <span class="o">=</span> <span class="kc">false</span>
+<span class="kd">var</span> <span class="nv">compositionLocalName</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="kd">val</span> <span class="nv">currentLocalColor</span> <span class="o">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">isStatic</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">compositionLocalName</span> <span class="o">=</span> <span class="s">&quot;StaticCompositionLocal 场景&quot;</span>
+    <span class="n">staticCompositionLocalOf</span> <span class="p">{</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span> <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">compositionLocalName</span> <span class="o">=</span> <span class="s">&quot;DynamicCompositionLocal 场景&quot;</span>
+    <span class="n">compositionLocalOf</span> <span class="p">{</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span> <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nv">recomposeFlag</span> <span class="o">=</span> <span class="s">&quot;Init&quot;</span>
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">CompositionLocalDemo</span><span class="p">(</span><span class="n">isStatic</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">color</span> <span class="k">by</span> <span class="n">remember</span><span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Green</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+        <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Column</span><span class="p">(</span><span class="n">horizontalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span><span class="p">){</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;</span><span class="si">${</span><span class="n">compositionLocalName</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
+            <span class="n">Spacer</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">20.</span><span class="n">dp</span><span class="p">))</span>
+            <span class="n">CompositionLocalProvider</span><span class="p">(</span>
+                <span class="n">currentLocalColor</span> <span class="n">provides</span> <span class="n">color</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">TaggedBox</span><span class="p">(</span><span class="s">&quot;Wrapper: </span><span class="si">${</span><span class="n">recomposeFlag</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="m">400.</span><span class="n">dp</span><span class="p">,</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">TaggedBox</span><span class="p">(</span><span class="s">&quot;Middle: </span><span class="si">${</span><span class="n">recomposeFlag</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="m">300.</span><span class="n">dp</span><span class="p">,</span> <span class="n">currentLocalColor</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span>
+                        <span class="n">TaggedBox</span><span class="p">(</span><span class="s">&quot;Inner: </span><span class="si">${</span><span class="n">recomposeFlag</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span> <span class="m">200.</span><span class="n">dp</span><span class="p">,</span> <span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">)</span>
+                    <span class="p">}</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+            <span class="n">Spacer</span> <span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="m">20.</span><span class="n">dp</span><span class="p">))</span>
+            <span class="n">Button</span><span class="p">(</span>
+                <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span>
+                    <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Blue</span>
+                <span class="p">}</span>
+            <span class="p">)</span> <span class="p">{</span>
+                <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Change Theme&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="n">recomposeFlag</span> <span class="o">=</span> <span class="s">&quot;Recompose&quot;</span>
+<span class="p">}</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TaggedBox</span><span class="p">(</span><span class="n">tag</span><span class="p">:</span><span class="kt">String</span><span class="p">,</span> <span class="n">size</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="n">background</span><span class="p">:</span> <span class="n">Color</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span> <span class="o">=</span> <span class="p">{})</span> <span class="p">{</span>
+    <span class="n">Column</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">size</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">background</span><span class="p">(</span><span class="n">background</span><span class="p">),</span>
+        <span class="n">horizontalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterHorizontally</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">tag</span><span class="p">)</span>
+        <span class="n">Box</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">(),</span>
+            <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span>
+        <span class="p">)</span> <span class="p">{</span>
+            <span class="n">content</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 12, 2021</span>
+      
+    
+  </small>
+</div>
+
+              
             </article>
           </div>
         </div>
@@ -1894,6 +2177,41 @@
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../meet_material_theme/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 初识 MaterialTheme" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              初识 MaterialTheme
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../custom_your_theme/" class="md-footer__link md-footer__link--next" aria-label="下一页: 自定义你的主题方案" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              自定义你的主题方案
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1928,10 +2246,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "/assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="/assets/javascripts/bundle.467223ff.min.js"></script>
+      <script src="../../../assets/javascripts/bundle.467223ff.min.js"></script>
       
     
   </body>

@@ -1,0 +1,2413 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.compose.net.cn/principle/gap_buffer/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>Compose运行原理与GapBuffer - Jetpack Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetbrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Jetbrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#composable" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jetpack Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Compose运行原理与GapBuffer
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
+        Jetpack Compose
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-tabs__link">
+        第三方组件
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/elements/text/" class="md-tabs__link">
+        API 文档
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../open-source-project/compose-douban/" class="md-tabs__link">
+        开源项目
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Jetpack Compose
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Jetpack Compose
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Jetpack Compose" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Jetpack Compose
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/" class="md-nav__link">
+        在开始之前
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/" class="md-nav__link">
+        快速入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          基本组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="基本组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          基本组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/alertdialog/" class="md-nav__link">
+        AlertDialog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/card/" class="md-nav__link">
+        Card
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/floatingactionbutton/" class="md-nav__link">
+        FloatingActionButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/icon/" class="md-nav__link">
+        Icon
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/image/" class="md-nav__link">
+        Image
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/iconbutton/" class="md-nav__link">
+        IconButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/surface/" class="md-nav__link">
+        Surface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/slider/" class="md-nav__link">
+        Slider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/textfield/" class="md-nav__link">
+        TextField
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          布局组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="布局组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          布局组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/bottomnavigation/" class="md-nav__link">
+        BottomNavigation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/column/" class="md-nav__link">
+        Column
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/modalbottomsheetlayout/" class="md-nav__link">
+        ModalBottomSheetLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/row/" class="md-nav__link">
+        Row
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/spacer/" class="md-nav__link">
+        Spacer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/scaffold/" class="md-nav__link">
+        Scaffold
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/topappbar/" class="md-nav__link">
+        TopAppBar
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/custom_layout/" class="md-nav__link">
+        自定义布局
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/intrinsic/" class="md-nav__link">
+        固有特性测量
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/subcomposelayout/" class="md-nav__link">
+        SubcomposeLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6">
+          设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="设计" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1" type="checkbox" id="__nav_1_6_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1">
+          动画 (Animation)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="动画 (Animation)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          动画 (Animation)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animationvisibility/" class="md-nav__link">
+        AnimationVisibility
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatestate/" class="md-nav__link">
+        Animate*State
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatable/" class="md-nav__link">
+        Animatable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/update_transition/" class="md-nav__link">
+        UpdateTransition
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_2">
+          主题 (Theming)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="主题 (Theming)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          主题 (Theming)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
+        初识 MaterialTheme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/understanding_material_theme/" class="md-nav__link">
+        深入理解 MaterialTheme 与 CompositionLocal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/custom_your_theme/" class="md-nav__link">
+        自定义你的主题方案
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3" type="checkbox" id="__nav_1_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3">
+          手势 (Gestures)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="手势 (Gestures)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          手势 (Gestures)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/draggable/" class="md-nav__link">
+        Draggable拖动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/swipeable/" class="md-nav__link">
+        Swipeable滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/transformer/" class="md-nav__link">
+        Transformer双指拖动、缩放与旋转
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/nested_scroll/" class="md-nav__link">
+        NestedScroll嵌套滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/custom_gesture/" class="md-nav__link">
+        自定义触摸反馈
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_4">
+          列表 (Lists)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="列表 (Lists)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          列表 (Lists)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/list_item_click/" class="md-nav__link">
+        列表点击事件
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/draw/custom_draw/" class="md-nav__link">
+        绘制 (Graphics)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_7">
+          关于 Modifier
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="关于 Modifier" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          关于 Modifier
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/introduction/" class="md-nav__link">
+        方法介绍
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_8">
+          技术原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="技术原理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          技术原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recomposition_scope/" class="md-nav__link">
+        了解Compose的重组作用域
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../snapshot/" class="md-nav__link">
+        透过Snapshot看重组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Compose运行原理与GapBuffer
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Compose运行原理与GapBuffer
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#composable" class="md-nav__link">
+    揭秘 @Composable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gapbuffer" class="md-nav__link">
+    基于 GapBuffer 的运行过程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memoization" class="md-nav__link">
+    基于位置的 memoization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    存储参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    重组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    结语
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../recompose_working_principle/" class="md-nav__link">
+        重组的工作流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modifier_structure/" class="md-nav__link">
+        图解Modifier
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_9">
+          架构
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="架构" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          架构
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/architecture_for_compose/" class="md-nav__link">
+        Compose架构如何选？MVP,MVVM,MVI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use_jetpack_in_compose/" class="md-nav__link">
+        在 Compose 中使用 Jetpack 组件库
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codelabs/" class="md-nav__link">
+        代码实验室
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../version/" class="md-nav__link">
+        版本更新迭代内容与介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        关于贡献
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          第三方组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="第三方组件" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          第三方组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Accompanist
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Accompanist" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Accompanist
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/glide/" class="md-nav__link">
+        Glide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/insets/" class="md-nav__link">
+        Insets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+        System UI Controller
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+        AppCompat Theme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+        Pager layouts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+        Swipe Refresh
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+        Flow layouts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
+        Compose版骨架屏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
+        Compose版StateLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
+        Compose版SmartRefreshLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API 文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API 文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API 文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          开源项目
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="开源项目" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          开源项目
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-douban/" class="md-nav__link">
+        Compose 仿豆瓣榜单客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-moon-animation/" class="md-nav__link">
+        Compose 实现月亮阴晴圆缺动画
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-gmusic/" class="md-nav__link">
+        Compose 一款简易的音乐播放软件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+        Compose 伸缩 ToolBar 的实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-wan-android/" class="md-nav__link">
+        Compose + MVI + Navigation 快速实现 wanAndroid 客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-spring-handwriting/" class="md-nav__link">
+        Compose 实现手写春联效果
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#composable" class="md-nav__link">
+    揭秘 @Composable
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#gapbuffer" class="md-nav__link">
+    基于 GapBuffer 的运行过程
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memoization" class="md-nav__link">
+    基于位置的 memoization
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    存储参数
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    重组
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    结语
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/principle/gap_buffer.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+  <h1>Compose运行原理与GapBuffer</h1>
+
+<h2 id="composable">揭秘 @Composable</h2>
+<p>如果你已经看过 <code>Compose</code>，你可能在很多的示例代码中看到过 <code>@Composable</code> 注解。有一件很重要的事必须说明，<code>Compose</code> 没有使用注解处理器。<code>Compose</code> 在 <code>Kotlin</code> 编译插件在类型检查和代码生成阶段工作，因此不需要使用注解处理器。</p>
+<p>这个注解更像是一个关键字。就像 <code>Kotlin</code> 里面的 <code>suspend</code> 关键字一样。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// function declaration</span>
+<span class="kd">suspend</span> <span class="kd">fun</span> <span class="nf">MyFun</span><span class="p">()</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+
+<span class="c1">// lambda declaration</span>
+<span class="kd">val</span> <span class="nv">myLambda</span> <span class="o">=</span> <span class="n">suspend</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+
+<span class="c1">// function type</span>
+<span class="kd">fun</span> <span class="nf">MyFun</span><span class="p">(</span><span class="n">myParam</span><span class="p">:</span> <span class="n">suspend</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+</code></pre></div>
+<p>Kotlin 的 <code>suspend</code> 关键字会用在函数类型，你可以定义一个函数、<code>lambda</code> 或者是类型是 <code>suspend</code> 的。<code>Compose</code> 也一样，它可以改变函数的类型。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// function declaration</span>
+<span class="nd">@Composable</span> <span class="kd">fun</span> <span class="nf">MyFun</span><span class="p">()</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+
+<span class="c1">// lambda declaration</span>
+<span class="kd">val</span> <span class="nv">myLambda</span> <span class="o">=</span> <span class="nd">@Composable</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+
+<span class="c1">// function type</span>
+<span class="kd">fun</span> <span class="nf">MyFun</span><span class="p">(</span><span class="n">myParam</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span> <span class="err">…</span> <span class="p">}</span>
+</code></pre></div>
+<p>有一点很重要这里必须要说明，当你为一个函数添加了 <code>@Composable</code> 注解时，你就改变了这个函数类型。也就是说，相同函数类型没有注解和有注解是不兼容的。同样的，<code>suspend</code> 函数也需要一个调用的上下文，意思就是只能在只能在另一个 <code>suspend</code> 函数里面调用 <code>suspend</code> 函数。</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Example</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">suspend</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">a</span><span class="p">()</span> <span class="c1">// allowed</span>
+   <span class="n">b</span><span class="p">()</span> <span class="c1">// NOT allowed</span>
+<span class="p">}</span>
+
+<span class="kd">suspend</span> <span class="kd">fun</span> <span class="nf">Example</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="n">suspend</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">a</span><span class="p">()</span> <span class="c1">// allowed</span>
+   <span class="n">b</span><span class="p">()</span> <span class="c1">// allowed</span>
+<span class="p">}</span>
+</code></pre></div>
+<code>Composable</code> 工作方式也是一样的。因为有一个调用上下文的对象贯穿这整个调用。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Example</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">a</span><span class="p">()</span> <span class="c1">// allowed</span>
+   <span class="n">b</span><span class="p">()</span> <span class="c1">// NOT allowed</span>
+<span class="p">}</span>
+
+<span class="nd">@Composable</span> 
+<span class="kd">fun</span> <span class="nf">Example</span><span class="p">(</span><span class="n">a</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">a</span><span class="p">()</span> <span class="c1">// allowed</span>
+   <span class="n">b</span><span class="p">()</span> <span class="c1">// allowed</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="gapbuffer">基于 GapBuffer 的运行过程</h2>
+<p>那么，这个我们传递的上下文是什么呢？还有为什么我们需要这么做？</p>
+<p>我们把这个对象叫 “Composer”。<code>Composer</code> 的实现包含了一个跟 <a href="https://en.wikipedia.org/wiki/Gap_buffer">Gap Buffer</a> 很类似的数据结构。这个数据结构经常用在文本编辑器里面。</p>
+<p><code>Gap Buffer</code> 表示的是一个包含了 <code>index</code> 和 <code>cursor</code> 的集合。在内存里面它就是一个扁平的数组。这个扁平的数组会比实际表示的数据要大一些，其中没有使用的空间就是 <code>gap</code>。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo1.png" height = 400 width = 400></p>
+<p>现在，一个正在执行的 <code>Composable</code> 层级会用这个数据结构插入数据。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo2.png" height = 400 width = 400></p>
+<p>假设我们已经完成了这个层级结构的数据插入。有时候，我们需要 <code>rcompose</code>，因此我们需要重置 <code>cursor</code> 到数组的顶部并重新再次遍历整个数组。当我们在执行的时候我们可以根据数据看是否需要更新值。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo3.png" height = 400 width = 400></p>
+<p>可能因为UI结构的改变我们想要插入数据，这个时候我们就把 <code>gap</code> 移动到了当前的位置。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo4.png" height = 400 width = 400></p>
+<p>现在我们可以插入数据了。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo5.png" height = 400 width = 400></p>
+<p>很重要的一点是我们需要理解这个数据结构的所有的操作—— <code>get</code>, <code>move</code>, <code>insert</code>, <code>delete</code> ——都是常量阶时间复杂度的操作，除了移动gap时间复杂度是 O(n)。我们选择这个数据结构的原因是因为我们认为，平均来说，<code>UI</code> 结构的变化不会太多。动态的UI通常是根据数据值的变化，而结构的变化不会经常发生。如果确实发生了结构行的变化，通常是一大块的变化，因此执行 O(n) 复杂度的 <code>gap</code> 移动也是合理的权衡。</p>
+<p>让我们看一个 <code>counter</code> 的示例：</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">Counter</span><span class="p">()</span> <span class="p">{</span>
+ <span class="kd">var</span> <span class="nv">count</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">}</span>
+ <span class="n">Button</span><span class="p">(</span>
+   <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Count: </span><span class="si">$</span><span class="n">count</span><span class="s">&quot;</span><span class="p">,</span>
+   <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">count</span> <span class="o">+=</span> <span class="m">1</span> <span class="p">}</span>
+ <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>我们写代码会这么写，编译器会为我们做什么呢？</p>
+<p>当编译器看到 <code>Composable</code> 注解时便会插入额外的参数并在函数体内调用。</p>
+<p>首先，编译器添加了一个 <code>Composer.start</code> 的调用并传入一个在编译期生成的整型关键字。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Counter</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">:</span> <span class="n">Composer</span><span class="p">)</span> <span class="p">{</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+ <span class="kd">var</span> <span class="nv">count</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">}</span>
+ <span class="n">Button</span><span class="p">(</span>
+   <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Count: </span><span class="si">$</span><span class="n">count</span><span class="s">&quot;</span><span class="p">,</span>
+   <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">count</span> <span class="o">+=</span> <span class="m">1</span> <span class="p">}</span>
+ <span class="p">)</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">end</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>编译器还把 <code>Composer</code> 的对象传递到了所有的函数体内部有 <code>Composable</code> 的地方。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Counter</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">:</span> <span class="n">Composer</span><span class="p">)</span> <span class="p">{</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+ <span class="kd">var</span> <span class="nv">count</span> <span class="k">by</span> <span class="n">remember</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">)</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">}</span>
+ <span class="n">Button</span><span class="p">(</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">,</span>
+   <span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Count: </span><span class="si">$</span><span class="n">count</span><span class="s">&quot;</span><span class="p">,</span>
+   <span class="n">onClick</span> <span class="o">=</span> <span class="p">{</span> <span class="n">count</span> <span class="o">+=</span> <span class="m">1</span> <span class="p">},</span>
+ <span class="p">)</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">end</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>当一个 <code>Composer</code> 执行，它做了下面这些事情：</p>
+<ul>
+<li><code>Composer.start</code> 被执行了，并且保存了一个组对象</li>
+<li><code>remember</code> 插入的组对象</li>
+<li>状态实例 <code>mutableStateOf</code> 返回的值被存储了下来</li>
+<li><code>Button</code> 每个参数后面也持有了一个组对象</li>
+</ul>
+<p>最后我们走到了 <code>Composer.end</code>。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo6.png" height = 400 width = 400></p>
+<p>现在这个数据结构持有了这个 <code>composition</code> 的所有对象，按照整个树的执行顺序排序，实际上是整个树的深度优先遍历。</p>
+<p>现在所有这些组对象占用了很多的空间，那这到底是为了什么呢？这些组对象存在的目的是为了管理 <code>move</code> 和 <code>insert</code> 这些可能发生在动态UI的操作。编译器知道会改变 <code>UI</code> 结构代码是什么样子，因此它可以根据条件来插入这些组。大部分情况下，编译器不需要这些组，因此它不会插入那么多的组到 <code>slot table</code> 里面。为了演示具体情况我们看下面这个条件逻辑。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span> 
+<span class="kd">fun</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+ <span class="kd">val</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">getData</span><span class="p">()</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">Loading</span><span class="p">(...)</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+   <span class="n">Header</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+   <span class="n">Body</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>在这个 <code>Composable</code> 里面，<code>getData</code> 函数会返回一些结果，当 <code>result == null</code> 时会渲染 <code>Loading</code>  ，在另一个场景下会渲染 <code>Header</code> 和 <code>Body</code> 。编译器会分别插入两个不同的整形关键字给 <code>if</code> 语句的条件分支。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">App</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">:</span> <span class="n">Composer</span><span class="p">)</span> <span class="p">{</span>
+ <span class="kd">val</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">getData</span><span class="p">()</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">==</span> <span class="kc">null</span><span class="p">)</span> <span class="p">{</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+   <span class="n">Loading</span><span class="p">(...)</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">end</span><span class="p">()</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="m">456</span><span class="p">)</span>
+   <span class="n">Header</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+   <span class="n">Body</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">end</span><span class="p">()</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>让我们假设一开始这个代码执行结果返回的是 null。那么就是插入一个组到 <code>gap</code> 数组里面，然后屏幕开始 <code>loading</code>。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo7.png" height = 400 width = 400></p>
+<p>接着我们假设返回的结果不再是 null，因此 <code>if</code> 语句的第二个分支被执行了。这也是它有意思的地方。</p>
+<p><code>Composer.start</code> 执行入了一个整形关键字为 456 的组。编译器发现这个组跟表里面的 123 不匹配，因此它知道 <code>UI</code> 的结构发生了变化。</p>
+<p>然后编译器就把 <code>gap</code> 移动到当前的位置并扩大，实际上舍弃了旧的 <code>UI</code>。</p>
+<p>这个时候，代码正常执行，还有新的 <code>Header</code> 和 <code>Body</code> 都被插入进来。</p>
+<p><img src = "../../../assets/principle/gap_buffer/demo8.png" height = 400 width = 400></p>
+<p>在这个例子里面，if 语句只是 <code>slot table</code> 里一个 <code>slot entry</code>。通过插入一个组让我们能够操控 <code>UI</code> 的控制流，让编译器能够去管理，当在执行 <code>UI</code> 的时候可以用这些类似缓存的数据结构。</p>
+<p>这个概念我们称其为“基于位置的 memoization ”，这也是 <code>Compose</code> 始终在使用的概念。</p>
+<h2 id="memoization">基于位置的 memoization</h2>
+<p>通常，我们有一个通用的 <code>memoization</code> ，其含义是编译器会根据函数输入的参数缓存函数的结果。为了说明基于位置的 <code>memoization</code>，我们创建了一个 <code>Composable</code> 来执行一些计算。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">App</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+ <span class="kd">val</span> <span class="nv">results</span> <span class="o">=</span> <span class="n">items</span><span class="p">.</span><span class="na">filter</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">matches</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="p">}</span>
+ <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这个函数传入一个 <code>items</code> 列表和一个 <code>query</code> 字符串，然后执行了针对传入的 <code>items</code> 做了一个 <code>filter</code> 过滤计算。我们可以把这个计算包装到一个记录的调用里面（记录指的是知道怎么像表发起请求）。在返回之前，这个过滤器计算完并且把结果记录下来。</p>
+<p>当这个函数再次被执行的时候，拿新传递进来的值同历史记录做对比，如果没变化，过滤操作会被跳过，之前的结果直接返回。这就是 <code>memoization</code>。</p>
+<p>有趣的是，这个操作开销很小，编译器只需要存储之前的调用。这个计算可能会发生在整个 <code>UI</code> 的过程中，因为你是根据位置存储的，只有在那个位置才会存储。</p>
+<p>下面是 <code>remember</code> 函数的签名，它是一个可变参数和计算函数的作为参数的函数。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">remember</span><span class="p">(</span><span class="k">vararg</span> <span class="n">inputs</span><span class="p">:</span> <span class="kt">Any?</span><span class="p">,</span> <span class="n">calculation</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">):</span> <span class="n">T</span>
+</code></pre></div>
+<p>这里有一个比较有意思的退化场景，在没有参数的时候，我们能做的一件事就是故意错误使用这个 <code>API</code>。我们可以故意传一个脏数据进行计算，比如 <code>Math.random()</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span> <span class="kd">fun</span> <span class="nf">App</span><span class="p">()</span> <span class="p">{</span>
+ <span class="kd">val</span> <span class="nv">x</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">Math</span><span class="p">.</span><span class="na">random</span><span class="p">()</span> <span class="p">}</span>
+ <span class="c1">// ...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>如果你正在做的是一个全局的 <code>memoization</code> 的话那就没有意义。但是基于位置的 <code>memoization</code>，它将会是一个新的语义。每次我们用 <code>Composable</code> 的层级，<code>Math.random</code> 都会返回新值。但是，每次 <code>Composable</code> 被重新组合的时候，<code>Math.random</code> 都会返回相同的值。这样就可以持久化，持久化就可以进行状态管理了。</p>
+<h2 id="_1">存储参数</h2>
+<p>为了演示 <code>Composable</code> 函数的参数是怎么被保存的，我们用 Google 这个 <code>Composable</code>函数，它有一个 <code>Int</code> 类型的 <code>number</code> 入参，里面调用了一个叫 <code>Address</code> 的 <code>Composable</code>，然后渲染<code>Address</code>。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span> 
+<span class="kd">fun</span> <span class="nf">Google</span><span class="p">(</span><span class="n">number</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="p">{</span>
+ <span class="n">Address</span><span class="p">(</span>
+   <span class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">,</span>
+   <span class="n">street</span><span class="o">=</span><span class="s">&quot;Amphitheatre Pkwy&quot;</span><span class="p">,</span>
+   <span class="n">city</span><span class="o">=</span><span class="s">&quot;Mountain View&quot;</span><span class="p">,</span>
+   <span class="n">state</span><span class="o">=</span><span class="s">&quot;CA&quot;</span>
+   <span class="n">zip</span><span class="o">=</span><span class="s">&quot;94043&quot;</span>
+ <span class="p">)</span>
+<span class="p">}</span>
+
+<span class="nd">@Composable</span> 
+<span class="kd">fun</span> <span class="nf">Address</span><span class="p">(</span>
+ <span class="n">number</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+ <span class="n">street</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+ <span class="n">city</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+ <span class="n">state</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span>
+ <span class="n">zip</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span> <span class="p">{</span>
+ <span class="n">Text</span><span class="p">(</span><span class="s">&quot;</span><span class="si">$</span><span class="n">number</span><span class="s"> </span><span class="si">$</span><span class="n">street</span><span class="s">&quot;</span><span class="p">)</span>
+ <span class="n">Text</span><span class="p">(</span><span class="n">city</span><span class="p">)</span>
+ <span class="n">Text</span><span class="p">(</span><span class="s">&quot;, &quot;</span><span class="p">)</span>
+ <span class="n">Text</span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+ <span class="n">Text</span><span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span>
+ <span class="n">Text</span><span class="p">(</span><span class="n">zip</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>compose</code> 将 <code>Composable</code> 函数的参数保存在表里面。如果是这样的话，我们看下上面的例子会有一些冗余，“Mountain View” 和 “CA”，这两个添加到地址里面会随着文本的调用再次存储，因此这些字符串会被存储两次。</p>
+<p>我们可以在编译阶段通过添加 <code>static</code> 的参数来避免这种冗余。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Google</span><span class="p">(</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">:</span> <span class="n">Composer</span><span class="p">,</span>
+ <span class="err">$</span><span class="n">static</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+ <span class="n">number</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">)</span> <span class="p">{</span>
+ <span class="n">Address</span><span class="p">(</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">,</span>
+   <span class="m">0</span><span class="n">b11110</span> <span class="n">or</span> <span class="p">(</span><span class="err">$</span><span class="n">static</span> <span class="n">and</span> <span class="m">0</span><span class="n">b1</span><span class="p">),</span>
+   <span class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">,</span>
+   <span class="n">street</span><span class="o">=</span><span class="s">&quot;Amphitheatre Pkwy&quot;</span><span class="p">,</span>
+   <span class="n">city</span><span class="o">=</span><span class="s">&quot;Mountain View&quot;</span><span class="p">,</span>
+   <span class="n">state</span><span class="o">=</span><span class="s">&quot;CA&quot;</span>
+   <span class="n">zip</span><span class="o">=</span><span class="s">&quot;94043&quot;</span>
+ <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>这个例子中 <code>static</code> 是一个整数字段表示运行时是否知道参数有没有发生改变。如果参数没变，那么就没必要去存数据。因此在这个 <code>Google</code> 的例子里面，编译器传入了一个参数用以表示是否会发生改变。</p>
+<p>那么在 <code>Address</code> 里，编译器同样可以这么做，把它传给字符串。</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Address</span><span class="p">(</span>
+  <span class="err">$</span><span class="n">composer</span><span class="p">:</span> <span class="n">Composer</span><span class="p">,</span>
+  <span class="err">$</span><span class="n">static</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span>
+  <span class="n">number</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="n">street</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> 
+  <span class="n">city</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">state</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">zip</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span> <span class="p">{</span>
+  <span class="n">Text</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">,</span> <span class="p">(</span><span class="err">$</span><span class="n">static</span> <span class="n">and</span> <span class="m">0</span><span class="n">b11</span><span class="p">)</span> <span class="n">and</span> <span class="p">((</span><span class="err">$</span><span class="n">static</span> <span class="n">and</span> <span class="m">0</span><span class="n">b10</span><span class="p">)</span> <span class="n">shr</span> <span class="m">1</span><span class="p">),</span> <span class="s">&quot;</span><span class="si">$</span><span class="n">number</span><span class="s"> </span><span class="si">$</span><span class="n">street</span><span class="s">&quot;</span><span class="p">)</span>
+  <span class="n">Text</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">,</span> <span class="p">(</span><span class="err">$</span><span class="n">static</span> <span class="n">and</span> <span class="m">0</span><span class="n">b100</span><span class="p">)</span> <span class="n">shr</span> <span class="m">2</span><span class="p">,</span> <span class="n">city</span><span class="p">)</span>
+  <span class="n">Text</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">,</span> <span class="m">0</span><span class="n">b1</span><span class="p">,</span> <span class="s">&quot;, &quot;</span><span class="p">)</span>
+  <span class="n">Text</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">,</span> <span class="p">(</span><span class="err">$</span><span class="n">static</span> <span class="n">and</span> <span class="m">0</span><span class="n">b1000</span><span class="p">)</span> <span class="n">shr</span> <span class="m">3</span><span class="p">,</span> <span class="n">state</span><span class="p">)</span>
+  <span class="n">Text</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">,</span> <span class="m">0</span><span class="n">b1</span><span class="p">,</span> <span class="s">&quot; &quot;</span><span class="p">)</span>
+  <span class="n">Text</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">,</span> <span class="p">(</span><span class="err">$</span><span class="n">static</span> <span class="n">and</span> <span class="m">0</span><span class="n">b10000</span><span class="p">)</span> <span class="n">shr</span> <span class="m">4</span><span class="p">,</span> <span class="n">zip</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+这里的逻辑运算看起来比较晦涩也让人看起来比较困惑，但是我们没必要去理解它，这是编译器擅长的事情，我们不擅长处理。</p>
+<p>在 <code>Google</code> 的示例里面，我们看到了冗余的信息，但也有一些常量。其实我们也没必要去存储它们。因此整个层级结构是由参数的数量决定的并且这也是唯一需要编译器去存储的。</p>
+<p>正因如此，我们再进一步，生成了代码才理解那个数字是唯一会改变的东西。这段代码将会这样运行，如果这个数字没变的话，整个函数都会被跳过，然后我们可以引导 <code>Composer</code> 当前的 <code>index</code> 到下一个位置，就好像函数已经被执行了一样。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Google</span><span class="p">(</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">:</span> <span class="n">Composer</span><span class="p">,</span>
+ <span class="n">number</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">)</span> <span class="p">{</span>
+ <span class="k">if</span> <span class="p">(</span><span class="n">number</span> <span class="o">==</span> <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">next</span><span class="p">())</span> <span class="p">{</span>
+   <span class="n">Address</span><span class="p">(</span>
+     <span class="err">$</span><span class="n">composer</span><span class="p">,</span>
+     <span class="n">number</span><span class="o">=</span><span class="n">number</span><span class="p">,</span>
+     <span class="n">street</span><span class="o">=</span><span class="s">&quot;Amphitheatre Pkwy&quot;</span><span class="p">,</span>
+     <span class="n">city</span><span class="o">=</span><span class="s">&quot;Mountain View&quot;</span><span class="p">,</span>
+     <span class="n">state</span><span class="o">=</span><span class="s">&quot;CA&quot;</span>
+     <span class="n">zip</span><span class="o">=</span><span class="s">&quot;94043&quot;</span>
+   <span class="p">)</span>
+ <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">skip</span><span class="p">()</span>
+ <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><code>Composer</code> 知道需要快进到哪一步去恢复执行。</p>
+<h2 id="_2">重组</h2>
+<p>为了理解重组是怎么工作的，让我们再回头看下 <code>counter</code> 的例子。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">fun</span> <span class="nf">Counter</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">:</span> <span class="n">Composer</span><span class="p">)</span> <span class="p">{</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">start</span><span class="p">(</span><span class="m">123</span><span class="p">)</span>
+ <span class="kd">var</span> <span class="nv">count</span> <span class="o">=</span> <span class="n">remember</span><span class="p">(</span><span class="err">$</span><span class="n">composer</span><span class="p">)</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="m">0</span><span class="p">)</span> <span class="p">}</span>
+ <span class="n">Button</span><span class="p">(</span>
+   <span class="err">$</span><span class="n">composer</span><span class="p">,</span>
+   <span class="n">text</span><span class="o">=</span><span class="s">&quot;Count: </span><span class="si">${</span><span class="n">count</span><span class="p">.</span><span class="na">value</span><span class="si">}</span><span class="s">&quot;</span><span class="p">,</span>
+   <span class="n">onPress</span><span class="o">=</span><span class="p">{</span> <span class="n">count</span><span class="p">.</span><span class="na">value</span> <span class="o">+=</span> <span class="m">1</span> <span class="p">},</span>
+ <span class="p">)</span>
+ <span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">end</span><span class="p">()</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>编译器给这个 <code>counter</code> 例子自动生成的代码有 <code>composer.start</code> 和 <code>composer.end</code>。不管 <code>counter</code> 什么时候执行，它通过读取 <code>APP</code> 模型实例的属性都能知道 <code>count</code> 的值。在运行时，不管什么时候调用 <code>composer.end</code>，我们都能选择是否返回值。</p>
+<div class="highlight"><pre><span></span><code><span class="err">$</span><span class="n">composer</span><span class="p">.</span><span class="na">end</span><span class="p">()</span><span class="o">?.</span><span class="na">updateScope</span> <span class="p">{</span> <span class="n">nextComposer</span> <span class="o">-&gt;</span>
+ <span class="n">Counter</span><span class="p">(</span><span class="n">nextComposer</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>然后我们可以用该值调用 <code>updateScope</code> 方法，方法传一个 <code>lambda</code> 来告诉运行时在必要时怎么去重启这个 <code>Composable</code>。这个和 <code>LiveData</code> 接收一个 <code>lambda</code> 是一样。这里我们用可空（？）的原因是，返回值是可空的，为什么是可空的呢？因为如果我们在 <code>Counter</code> 运行的时候不读取任何模型对象，我们就没法告诉运行时怎么去更新，因为它永远不会更新。</p>
+<h2 id="_3">结语</h2>
+<p>你需要知道的是大部分这些细节只是实现细节。标准 <code>Kotlin</code> 函数库里面 <code>Composable</code> 函数会有不同的行为和能力，有时候理解它们怎么实现会对我们有所帮助，但是行为和能力不会变，实现是有可能变的。</p>
+<p>同样的，<code>Compose</code> 的编译器在特定情形下可以生成更高效的代码。后续，我们也希望能进一步优化。</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">July 16, 2021</span>
+      
+    
+  </small>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../snapshot/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 透过Snapshot看重组" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              透过Snapshot看重组
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../recompose_working_principle/" class="md-footer__link md-footer__link--next" aria-label="下一页: 重组的工作流程" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              重组的工作流程
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/Compose-Museum/Compose-Tutorial/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>

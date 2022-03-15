@@ -8,19 +8,21 @@
       
       
       
-      <link rel="icon" href="/assets/images/favicon.png">
+        <link rel="canonical" href="https://docs.compose.net.cn/open-source-project/compose-scrollable-appbar/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
     
     
       
-        <title>Jetpack Compose</title>
+        <title>Compose 伸缩 ToolBar 的实现 - Jetpack Compose</title>
       
     
     
-      <link rel="stylesheet" href="/assets/stylesheets/main.2d9f7617.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2d9f7617.min.css">
       
         
-        <link rel="stylesheet" href="/assets/stylesheets/palette.e6a45f82.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
         
       
     
@@ -35,9 +37,9 @@
       
     
     
-      <link rel="stylesheet" href="/stylesheets/extra.css">
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
     
-    <script>__md_scope=new URL("/",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -60,6 +62,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#compose-toolbar" class="md-skip">
+          跳转至
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -70,9 +77,9 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="页眉">
-    <a href="/." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+    <a href="../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
       
-  <img src="/assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -88,7 +95,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              
+              Compose 伸缩 ToolBar 的实现
             
           </span>
         </div>
@@ -166,7 +173,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/." class="md-tabs__link">
+      <a href="../.." class="md-tabs__link">
         Jetpack Compose
       </a>
     </li>
@@ -187,7 +194,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/third-party-component/accompanist/overview/" class="md-tabs__link">
+      <a href="../../third-party-component/accompanist/overview/" class="md-tabs__link">
         第三方组件
       </a>
     </li>
@@ -210,7 +217,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="/api/elements/text/" class="md-tabs__link">
+      <a href="../../api/elements/text/" class="md-tabs__link">
         API 文档
       </a>
     </li>
@@ -222,13 +229,15 @@
         
   
   
+    
+  
 
 
   
   
   
     <li class="md-tabs__item">
-      <a href="/open-source-project/compose-douban/" class="md-tabs__link">
+      <a href="../compose-douban/" class="md-tabs__link md-tabs__link--active">
         开源项目
       </a>
     </li>
@@ -256,9 +265,9 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="/." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+    <a href="../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
       
-  <img src="/assets/logo.png" alt="logo">
+  <img src="../../assets/logo.png" alt="logo">
 
     </a>
     Jetpack Compose
@@ -312,7 +321,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         概述
       </a>
     </li>
@@ -326,7 +335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/start/" class="md-nav__link">
+      <a href="../../start/" class="md-nav__link">
         在开始之前
       </a>
     </li>
@@ -340,7 +349,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/tutorial/" class="md-nav__link">
+      <a href="../../tutorial/" class="md-nav__link">
         快速入门
       </a>
     </li>
@@ -380,7 +389,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/alertdialog/" class="md-nav__link">
+      <a href="../../elements/alertdialog/" class="md-nav__link">
         AlertDialog
       </a>
     </li>
@@ -394,7 +403,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/button/" class="md-nav__link">
+      <a href="../../elements/button/" class="md-nav__link">
         Button
       </a>
     </li>
@@ -408,7 +417,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/card/" class="md-nav__link">
+      <a href="../../elements/card/" class="md-nav__link">
         Card
       </a>
     </li>
@@ -422,7 +431,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/floatingactionbutton/" class="md-nav__link">
+      <a href="../../elements/floatingactionbutton/" class="md-nav__link">
         FloatingActionButton
       </a>
     </li>
@@ -436,7 +445,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/icon/" class="md-nav__link">
+      <a href="../../elements/icon/" class="md-nav__link">
         Icon
       </a>
     </li>
@@ -450,7 +459,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/image/" class="md-nav__link">
+      <a href="../../elements/image/" class="md-nav__link">
         Image
       </a>
     </li>
@@ -464,7 +473,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/iconbutton/" class="md-nav__link">
+      <a href="../../elements/iconbutton/" class="md-nav__link">
         IconButton
       </a>
     </li>
@@ -478,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/surface/" class="md-nav__link">
+      <a href="../../elements/surface/" class="md-nav__link">
         Surface
       </a>
     </li>
@@ -492,7 +501,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/slider/" class="md-nav__link">
+      <a href="../../elements/slider/" class="md-nav__link">
         Slider
       </a>
     </li>
@@ -506,7 +515,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/text/" class="md-nav__link">
+      <a href="../../elements/text/" class="md-nav__link">
         Text
       </a>
     </li>
@@ -520,7 +529,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/elements/textfield/" class="md-nav__link">
+      <a href="../../elements/textfield/" class="md-nav__link">
         TextField
       </a>
     </li>
@@ -567,7 +576,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/bottomnavigation/" class="md-nav__link">
+      <a href="../../layout/bottomnavigation/" class="md-nav__link">
         BottomNavigation
       </a>
     </li>
@@ -581,7 +590,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/column/" class="md-nav__link">
+      <a href="../../layout/column/" class="md-nav__link">
         Column
       </a>
     </li>
@@ -595,7 +604,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/modalbottomsheetlayout/" class="md-nav__link">
+      <a href="../../layout/modalbottomsheetlayout/" class="md-nav__link">
         ModalBottomSheetLayout
       </a>
     </li>
@@ -609,7 +618,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/row/" class="md-nav__link">
+      <a href="../../layout/row/" class="md-nav__link">
         Row
       </a>
     </li>
@@ -623,7 +632,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/spacer/" class="md-nav__link">
+      <a href="../../layout/spacer/" class="md-nav__link">
         Spacer
       </a>
     </li>
@@ -637,7 +646,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/scaffold/" class="md-nav__link">
+      <a href="../../layout/scaffold/" class="md-nav__link">
         Scaffold
       </a>
     </li>
@@ -651,7 +660,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/topappbar/" class="md-nav__link">
+      <a href="../../layout/topappbar/" class="md-nav__link">
         TopAppBar
       </a>
     </li>
@@ -665,7 +674,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/custom_layout/" class="md-nav__link">
+      <a href="../../layout/custom_layout/" class="md-nav__link">
         自定义布局
       </a>
     </li>
@@ -679,7 +688,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/intrinsic/" class="md-nav__link">
+      <a href="../../layout/intrinsic/" class="md-nav__link">
         固有特性测量
       </a>
     </li>
@@ -693,7 +702,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/layout/subcomposelayout/" class="md-nav__link">
+      <a href="../../layout/subcomposelayout/" class="md-nav__link">
         SubcomposeLayout
       </a>
     </li>
@@ -766,7 +775,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/overview/" class="md-nav__link">
+      <a href="../../design/animation/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -780,7 +789,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/animationvisibility/" class="md-nav__link">
+      <a href="../../design/animation/animationvisibility/" class="md-nav__link">
         AnimationVisibility
       </a>
     </li>
@@ -794,7 +803,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/animatestate/" class="md-nav__link">
+      <a href="../../design/animation/animatestate/" class="md-nav__link">
         Animate*State
       </a>
     </li>
@@ -808,7 +817,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/animatable/" class="md-nav__link">
+      <a href="../../design/animation/animatable/" class="md-nav__link">
         Animatable
       </a>
     </li>
@@ -822,7 +831,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/animation/update_transition/" class="md-nav__link">
+      <a href="../../design/animation/update_transition/" class="md-nav__link">
         UpdateTransition
       </a>
     </li>
@@ -869,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/theme/overview/" class="md-nav__link">
+      <a href="../../design/theme/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -883,7 +892,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/theme/meet_material_theme/" class="md-nav__link">
+      <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
         初识 MaterialTheme
       </a>
     </li>
@@ -897,7 +906,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/theme/understanding_material_theme/" class="md-nav__link">
+      <a href="../../design/theme/understanding_material_theme/" class="md-nav__link">
         深入理解 MaterialTheme 与 CompositionLocal
       </a>
     </li>
@@ -911,7 +920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/theme/custom_your_theme/" class="md-nav__link">
+      <a href="../../design/theme/custom_your_theme/" class="md-nav__link">
         自定义你的主题方案
       </a>
     </li>
@@ -958,7 +967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/overview/" class="md-nav__link">
+      <a href="../../design/gesture/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -972,7 +981,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/draggable/" class="md-nav__link">
+      <a href="../../design/gesture/draggable/" class="md-nav__link">
         Draggable拖动
       </a>
     </li>
@@ -986,7 +995,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/swipeable/" class="md-nav__link">
+      <a href="../../design/gesture/swipeable/" class="md-nav__link">
         Swipeable滑动
       </a>
     </li>
@@ -1000,7 +1009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/transformer/" class="md-nav__link">
+      <a href="../../design/gesture/transformer/" class="md-nav__link">
         Transformer双指拖动、缩放与旋转
       </a>
     </li>
@@ -1014,7 +1023,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/nested_scroll/" class="md-nav__link">
+      <a href="../../design/gesture/nested_scroll/" class="md-nav__link">
         NestedScroll嵌套滑动
       </a>
     </li>
@@ -1028,7 +1037,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/gesture/custom_gesture/" class="md-nav__link">
+      <a href="../../design/gesture/custom_gesture/" class="md-nav__link">
         自定义触摸反馈
       </a>
     </li>
@@ -1075,7 +1084,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/lists/overview/" class="md-nav__link">
+      <a href="../../design/lists/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1089,7 +1098,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/lists/list_item_click/" class="md-nav__link">
+      <a href="../../design/lists/list_item_click/" class="md-nav__link">
         列表点击事件
       </a>
     </li>
@@ -1110,7 +1119,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/design/draw/custom_draw/" class="md-nav__link">
+      <a href="../../design/draw/custom_draw/" class="md-nav__link">
         绘制 (Graphics)
       </a>
     </li>
@@ -1157,7 +1166,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/modifier/overview/" class="md-nav__link">
+      <a href="../../modifier/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1171,7 +1180,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/modifier/introduction/" class="md-nav__link">
+      <a href="../../modifier/introduction/" class="md-nav__link">
         方法介绍
       </a>
     </li>
@@ -1218,7 +1227,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/recomposition_scope/" class="md-nav__link">
+      <a href="../../principle/recomposition_scope/" class="md-nav__link">
         了解Compose的重组作用域
       </a>
     </li>
@@ -1232,7 +1241,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/snapshot/" class="md-nav__link">
+      <a href="../../principle/snapshot/" class="md-nav__link">
         透过Snapshot看重组
       </a>
     </li>
@@ -1246,7 +1255,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/gap_buffer/" class="md-nav__link">
+      <a href="../../principle/gap_buffer/" class="md-nav__link">
         Compose运行原理与GapBuffer
       </a>
     </li>
@@ -1260,7 +1269,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/recompose_working_principle/" class="md-nav__link">
+      <a href="../../principle/recompose_working_principle/" class="md-nav__link">
         重组的工作流程
       </a>
     </li>
@@ -1274,7 +1283,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/principle/modifier_structure/" class="md-nav__link">
+      <a href="../../principle/modifier_structure/" class="md-nav__link">
         图解Modifier
       </a>
     </li>
@@ -1321,7 +1330,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/architecture/architecture_for_compose/" class="md-nav__link">
+      <a href="../../architecture/architecture_for_compose/" class="md-nav__link">
         Compose架构如何选？MVP,MVVM,MVI
       </a>
     </li>
@@ -1335,7 +1344,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/architecture/use_jetpack_in_compose/" class="md-nav__link">
+      <a href="../../architecture/use_jetpack_in_compose/" class="md-nav__link">
         在 Compose 中使用 Jetpack 组件库
       </a>
     </li>
@@ -1356,7 +1365,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/codelabs/" class="md-nav__link">
+      <a href="../../codelabs/" class="md-nav__link">
         代码实验室
       </a>
     </li>
@@ -1370,7 +1379,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/resources/" class="md-nav__link">
+      <a href="../../resources/" class="md-nav__link">
         资源
       </a>
     </li>
@@ -1384,7 +1393,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/version/" class="md-nav__link">
+      <a href="../../version/" class="md-nav__link">
         版本更新迭代内容与介绍
       </a>
     </li>
@@ -1398,7 +1407,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/contributing/" class="md-nav__link">
+      <a href="../../contributing/" class="md-nav__link">
         关于贡献
       </a>
     </li>
@@ -1472,7 +1481,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/overview/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/overview/" class="md-nav__link">
         概述
       </a>
     </li>
@@ -1486,7 +1495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/coil/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/coil/" class="md-nav__link">
         Coil
       </a>
     </li>
@@ -1500,7 +1509,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/glide/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/glide/" class="md-nav__link">
         Glide
       </a>
     </li>
@@ -1514,7 +1523,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/insets/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/insets/" class="md-nav__link">
         Insets
       </a>
     </li>
@@ -1528,7 +1537,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
         System UI Controller
       </a>
     </li>
@@ -1542,7 +1551,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
         AppCompat Theme
       </a>
     </li>
@@ -1556,7 +1565,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
         Pager layouts
       </a>
     </li>
@@ -1570,7 +1579,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
         Swipe Refresh
       </a>
     </li>
@@ -1584,7 +1593,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+      <a href="../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
         Flow layouts
       </a>
     </li>
@@ -1605,7 +1614,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
+      <a href="../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
         Compose版骨架屏
       </a>
     </li>
@@ -1619,7 +1628,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/coil/" class="md-nav__link">
+      <a href="../../third-party-component/coil/" class="md-nav__link">
         Coil
       </a>
     </li>
@@ -1633,7 +1642,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
+      <a href="../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
         Compose版StateLayout
       </a>
     </li>
@@ -1647,7 +1656,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
+      <a href="../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
         Compose版SmartRefreshLayout
       </a>
     </li>
@@ -1721,7 +1730,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/elements/text/" class="md-nav__link">
+      <a href="../../api/elements/text/" class="md-nav__link">
         Text
       </a>
     </li>
@@ -1735,7 +1744,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/api/elements/button/" class="md-nav__link">
+      <a href="../../api/elements/button/" class="md-nav__link">
         Button
       </a>
     </li>
@@ -1762,12 +1771,14 @@
 
   
   
+    
+  
   
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
       
-        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" checked>
       
       
       
@@ -1790,7 +1801,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-douban/" class="md-nav__link">
+      <a href="../compose-douban/" class="md-nav__link">
         Compose 仿豆瓣榜单客户端
       </a>
     </li>
@@ -1804,7 +1815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-moon-animation/" class="md-nav__link">
+      <a href="../compose-moon-animation/" class="md-nav__link">
         Compose 实现月亮阴晴圆缺动画
       </a>
     </li>
@@ -1818,7 +1829,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-gmusic/" class="md-nav__link">
+      <a href="../compose-gmusic/" class="md-nav__link">
         Compose 一款简易的音乐播放软件
       </a>
     </li>
@@ -1830,11 +1841,133 @@
               
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="/open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Compose 伸缩 ToolBar 的实现
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         Compose 伸缩 ToolBar 的实现
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    效果图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    主要思路
+  </a>
+  
+    <nav class="md-nav" aria-label="主要思路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    布局预览
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    实现过程
+  </a>
+  
+    <nav class="md-nav" aria-label="实现过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    布局实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    位移实现
+  </a>
+  
+    <nav class="md-nav" aria-label="位移实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    最外层布局位移定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toolbar" class="md-nav__link">
+    toolBar 垂直方向位置不变的实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#title" class="md-nav__link">
+    title 水平位移的实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    项目地址
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1846,7 +1979,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-wan-android/" class="md-nav__link">
+      <a href="../compose-wan-android/" class="md-nav__link">
         Compose + MVI + Navigation 快速实现 wanAndroid 客户端
       </a>
     </li>
@@ -1860,7 +1993,7 @@
   
   
     <li class="md-nav__item">
-      <a href="/open-source-project/compose-spring-handwriting/" class="md-nav__link">
+      <a href="../compose-spring-handwriting/" class="md-nav__link">
         Compose 实现手写春联效果
       </a>
     </li>
@@ -1881,12 +2014,310 @@
               </div>
             
             
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    效果图
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    主要思路
+  </a>
+  
+    <nav class="md-nav" aria-label="主要思路">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    布局预览
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_4" class="md-nav__link">
+    实现过程
+  </a>
+  
+    <nav class="md-nav" aria-label="实现过程">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_5" class="md-nav__link">
+    布局实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#_6" class="md-nav__link">
+    位移实现
+  </a>
+  
+    <nav class="md-nav" aria-label="位移实现">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#_7" class="md-nav__link">
+    最外层布局位移定义
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#toolbar" class="md-nav__link">
+    toolBar 垂直方向位置不变的实现
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#title" class="md-nav__link">
+    title 水平位移的实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_8" class="md-nav__link">
+    项目地址
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content" data-md-component="content">
             <article class="md-content__inner md-typeset">
               
-  <h1>404 - Not found</h1>
+                
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/open-source-project/compose-scrollable-appbar.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
 
+
+
+<h1 id="compose-toolbar"><a href="https://github.com/SakurajimaMaii/ComposeWidget/blob/master/app/src/main/java/com/example/composewidget/ScrollableAppBar.kt">Compose 伸缩ToolBar的实现</a></h1>
+<h2 id="_1">效果图</h2>
+<p><img src="../../../assets/design/gesture/nested_scroll/nestedScroll.gif" width="30%" height="30%" /></p>
+<ul>
+<li>当列表向上移动时，会先带动 <code>ToolBar</code> 向上位移，等 <code>ToolBar</code> 向上移动到最大位移量时列表向上滑动</li>
+<li>当列表向下移动时，会先带动 <code>ToolBar</code> 向下位移，等 <code>ToolBar</code> 向下移动到最大位移量时列表向下滑动</li>
+</ul>
+<h2 id="_2">主要思路</h2>
+<h3 id="_3">布局预览</h3>
+<p>伸缩前布局</p>
+<p><img src="https://img-blog.csdnimg.cn/806dcfd8a28541c89b194be8e078f052.png" width="50%"/></p>
+<p>伸缩后布局</p>
+<p><img src="https://img-blog.csdnimg.cn/6ec7bb082b6b44e6aaf4572008899618.jpg" width="50%"/></p>
+<h3 id="_4">实现过程</h3>
+<h4 id="_5">布局实现</h4>
+<p>首先我们要定义两个尺寸变量</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 应用栏高度</span>
+<span class="kd">private</span> <span class="kd">val</span> <span class="nv">toolBarHeight</span> <span class="o">=</span> <span class="m">56.</span><span class="n">dp</span>
+<span class="c1">// 导航图标大小</span>
+<span class="kd">private</span> <span class="kd">val</span> <span class="nv">navigationIconSize</span> <span class="o">=</span> <span class="m">50.</span><span class="n">dp</span>
+</code></pre></div>
+<p>我们采用 <code>Box</code> 作为根布局，里面主要包含三个部分，背景图片，顶部的 <code>ToolBar</code> 以及下面的 <code>Title</code> 部分，其实现如下</p>
+<div class="highlight"><pre><span></span><code><span class="c1">//整体布局实现</span>
+<span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">scrollableAppBarHeight</span><span class="p">)</span> <span class="c1">//scrollableAppBarHeight 为高度参数,为外部获取</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Image</span><span class="p">(</span><span class="n">painter</span> <span class="o">=</span> <span class="n">painterResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">backgroundImageId</span><span class="p">),</span> <span class="n">contentDescription</span> <span class="o">=</span> <span class="s">&quot;background&quot;</span><span class="p">,</span> <span class="n">contentScale</span> <span class="o">=</span> <span class="n">ContentScale</span><span class="p">.</span><span class="na">FillBounds</span><span class="p">)</span>
+
+    <span class="c1">// 自定义应用栏</span>
+    <span class="n">Row</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span>
+            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//设置高度为toolBarHeight</span>
+            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+        <span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span> <span class="c1">//设置垂直方向为居中对齐</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="c1">// 导航图标</span>
+        <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">size</span><span class="p">(</span><span class="n">navigationIconSize</span><span class="p">),</span><span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">Center</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">navigationIcon</span><span class="p">()</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="c1">// title定义</span>
+    <span class="n">Box</span><span class="p">(</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和ToolBar同高</span>
+            <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">),</span>
+        <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">,</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="m">20.</span><span class="n">dp</span><span class="p">).</span><span class="na">matchParentSize</span><span class="p">(),</span> <span class="c1">// 使用 matchParentSize 修饰符保证不影响父 Box尺寸</span>
+            <span class="n">fontSize</span> <span class="o">=</span> <span class="m">20.</span><span class="n">sp</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>我们主要讲解 <code>title</code> 部分</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// title 定义</span>
+<span class="n">Box</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">),</span>
+    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">title</span><span class="p">,</span>
+            <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">White</span><span class="p">,</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="m">20.</span><span class="n">dp</span><span class="p">).</span><span class="na">matchParentSize</span><span class="p">(),</span> <span class="c1">// 使用 matchParentSize 修饰符保证不影响父 Box尺寸</span>
+            <span class="n">fontSize</span> <span class="o">=</span> <span class="m">20.</span><span class="n">sp</span>
+        <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>首先为了保证 <code>title</code> 部分在完全收缩后高度和 <code>toolBar</code> 部分一致，我们设置 <code>Box</code> 布局高度为 <code>toolBarHeight</code></p>
+<div class="highlight"><pre><span></span><code><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+</code></pre></div>
+<p>然后定义 <code>Box</code> 在根布局里面的对齐方式为<strong>Alignment.BottomStart</strong></p>
+<div class="highlight"><pre><span></span><code><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">)</span>
+</code></pre></div>
+<p>之所以这样设置，是因为我们通过观察伸缩前和伸缩后的预览图可以知道如果保证此部分是<strong>底部左边</strong>对齐，那么在根布局向上移动的过程中我们便可以只关心此部分在<strong>水平方向</strong>的位移即可</p>
+<p>接着设置文本部分的对齐方式,保证 <code>title</code> 是居中靠左对齐的</p>
+<div class="highlight"><pre><span></span><code><span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
+</code></pre></div>
+<h4 id="_6">位移实现</h4>
+<p>首先，我们要明确 <code>ScrollableAppBar</code> 最大向上偏移量等于其<strong>定义的高度</strong>和<strong>收缩后的高度</strong>的差值，即:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 应用栏最大向上偏移量</span>
+<span class="kd">val</span> <span class="nv">maxOffsetHeightPx</span> <span class="o">=</span> <span class="n">with</span><span class="p">(</span><span class="n">LocalDensity</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span> <span class="n">scrollableAppBarHeight</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="o">-</span> <span class="n">toolBarHeight</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="p">}</span>
+</code></pre></div>
+<p>其次，<code>title</code> 部分在<strong>水平方向</strong>的位移距离其实就是导航图标的宽度，即:</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// Title 偏移量参考值</span>
+<span class="kd">val</span> <span class="nv">titleOffsetWidthReferenceValue</span> <span class="o">=</span> <span class="n">with</span><span class="p">(</span><span class="n">LocalDensity</span><span class="p">.</span><span class="na">current</span><span class="p">)</span> <span class="p">{</span> <span class="n">navigationIconSize</span><span class="p">.</span><span class="na">roundToPx</span><span class="p">().</span><span class="na">toFloat</span><span class="p">()</span> <span class="p">}</span>
+</code></pre></div>
+<p>同时需要定义从外部获取到的偏移量</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span> <span class="nv">toolbarOffsetHeightPx</span><span class="p">:</span> <span class="n">MutableState</span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span> <span class="c1">//向上偏移量</span>
+</code></pre></div>
+<h5 id="_7">最外层布局位移定义</h5>
+<p>为根布局添加垂直方向上的位移</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">ScrollableAppBar</span><span class="p">(</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">title</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="n">stringResource</span><span class="p">(</span><span class="n">id</span> <span class="o">=</span> <span class="n">R</span><span class="p">.</span><span class="na">string</span><span class="p">.</span><span class="na">app_name</span><span class="p">),</span> <span class="c1">//默认为应用名</span>
+    <span class="n">navigationIcon</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span> <span class="c1">//导航图标</span>
+    <span class="nd">@DrawableRes</span> <span class="n">backgroundImageId</span><span class="p">:</span> <span class="kt">Int</span><span class="p">,</span> <span class="c1">// 背景图片</span>
+    <span class="n">scrollableAppBarHeight</span><span class="p">:</span> <span class="n">Dp</span><span class="p">,</span> <span class="c1">//定义的 ScrollableAppBar 高度</span>
+    <span class="n">toolbarOffsetHeightPx</span><span class="p">:</span> <span class="n">MutableState</span><span class="o">&lt;</span><span class="kt">Float</span><span class="o">&gt;</span> <span class="c1">//向上偏移量</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">scrollableAppBarHeight</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
+            <span class="n">IntOffset</span><span class="p">(</span>
+              <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+              <span class="n">y</span> <span class="o">=</span> <span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">()</span> <span class="c1">//设置偏移量</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+    <span class="p">)</span> <span class="p">{</span>
+        <span class="p">....</span> <span class="c1">// 背景图等内容</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="toolbar">toolBar 垂直方向位置不变的实现</h5>
+<p>设置和父布局相反的位移量保证 <code>toolBar</code> 处于原位置，即：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// 自定义应用栏</span>
+<span class="n">Row</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span>
+        <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
+            <span class="n">IntOffset</span><span class="p">(</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="m">0</span><span class="p">,</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="o">-</span><span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">roundToInt</span><span class="p">()</span> <span class="c1">//保证应用栏是始终不动的</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">(),</span>
+    <span class="n">verticalAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterVertically</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span> <span class="c1">// 导航图标</span>
+<span class="p">}</span>
+</code></pre></div>
+<h5 id="title">title 水平位移的实现</h5>
+<p>为了保证 <code>title</code> 均匀向右位移，用根布局此时向上位移量和最大位移量的商再乘以水平方向上的总位移即可：</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// title 部分</span>
+<span class="n">Box</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">toolBarHeight</span><span class="p">)</span> <span class="c1">//和 ToolBar 同高</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">align</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">BottomStart</span><span class="p">)</span>
+        <span class="p">.</span><span class="na">offset</span> <span class="p">{</span>
+            <span class="n">IntOffset</span><span class="p">(</span>
+                <span class="c1">// 按照根布局向上的位移量成比例的向右位移 Title</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="o">-</span><span class="p">((</span><span class="n">toolbarOffsetHeightPx</span><span class="p">.</span><span class="na">value</span> <span class="o">/</span> <span class="n">maxOffsetHeightPx</span><span class="p">)</span> <span class="o">*</span> <span class="n">titleOffsetWidthReferenceValue</span><span class="p">).</span><span class="na">roundToInt</span><span class="p">(),</span>
+                <span class="n">y</span> <span class="o">=</span> <span class="m">0</span>
+            <span class="p">)</span>
+        <span class="p">},</span>
+    <span class="n">contentAlignment</span> <span class="o">=</span> <span class="n">Alignment</span><span class="p">.</span><span class="na">CenterStart</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="p">...</span> <span class="c1">//title 部分</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="_8">项目地址</h2>
+<p><a href="https://github.com/SakurajimaMaii/ComposeWidget/blob/master/app/src/main/java/com/example/composewidget/ScrollableAppBar.kt">ScrollableAppBar</a> 如果项目对你有所帮助,欢迎点赞👍,Star⭐,收藏😍,如果有改进意见还可以提交 issue</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">October 13, 2021</span>
+      
+    
+  </small>
+</div>
+
+              
             </article>
           </div>
         </div>
@@ -1894,6 +2325,41 @@
       </main>
       
         <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../compose-gmusic/" class="md-footer__link md-footer__link--prev" aria-label="上一页: Compose 一款简易的音乐播放软件" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              Compose 一款简易的音乐播放软件
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../compose-wan-android/" class="md-footer__link md-footer__link--next" aria-label="下一页: Compose + MVI + Navigation 快速实现 wanAndroid 客户端" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              Compose + MVI + Navigation 快速实现 wanAndroid 客户端
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
@@ -1928,10 +2394,10 @@
     <div class="md-dialog" data-md-component="dialog">
       <div class="md-dialog__inner md-typeset"></div>
     </div>
-    <script id="__config" type="application/json">{"base": "/", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "/assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
     
     
-      <script src="/assets/javascripts/bundle.467223ff.min.js"></script>
+      <script src="../../assets/javascripts/bundle.467223ff.min.js"></script>
       
     
   </body>

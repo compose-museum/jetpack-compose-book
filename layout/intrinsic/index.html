@@ -1,0 +1,2357 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.compose.net.cn/layout/intrinsic/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>固有特性测量 - Jetpack Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetbrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Jetbrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#_1" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jetpack Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              固有特性测量
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
+        Jetpack Compose
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-tabs__link">
+        第三方组件
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/elements/text/" class="md-tabs__link">
+        API 文档
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../open-source-project/compose-douban/" class="md-tabs__link">
+        开源项目
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Jetpack Compose
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Jetpack Compose
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Jetpack Compose" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Jetpack Compose
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/" class="md-nav__link">
+        在开始之前
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/" class="md-nav__link">
+        快速入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          基本组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="基本组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          基本组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/alertdialog/" class="md-nav__link">
+        AlertDialog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/card/" class="md-nav__link">
+        Card
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/floatingactionbutton/" class="md-nav__link">
+        FloatingActionButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/icon/" class="md-nav__link">
+        Icon
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/image/" class="md-nav__link">
+        Image
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/iconbutton/" class="md-nav__link">
+        IconButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/surface/" class="md-nav__link">
+        Surface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/slider/" class="md-nav__link">
+        Slider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/textfield/" class="md-nav__link">
+        TextField
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          布局组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="布局组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          布局组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../bottomnavigation/" class="md-nav__link">
+        BottomNavigation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../column/" class="md-nav__link">
+        Column
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../modalbottomsheetlayout/" class="md-nav__link">
+        ModalBottomSheetLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../row/" class="md-nav__link">
+        Row
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../spacer/" class="md-nav__link">
+        Spacer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scaffold/" class="md-nav__link">
+        Scaffold
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../topappbar/" class="md-nav__link">
+        TopAppBar
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../custom_layout/" class="md-nav__link">
+        自定义布局
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          固有特性测量
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        固有特性测量
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    固有特性测量是什么
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    在基础组件中使用固有特性测量
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    为自定义 Layout 适配固有特性测量
+  </a>
+  
+    <nav class="md-nav" aria-label="为自定义 Layout 适配固有特性测量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurepolicy" class="md-nav__link">
+    重写 MeasurePolicy 固有特性测量相关方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-measure" class="md-nav__link">
+    在 Layout measure 中适配
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    对固有特性测量的思考
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../subcomposelayout/" class="md-nav__link">
+        SubcomposeLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6">
+          设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="设计" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1" type="checkbox" id="__nav_1_6_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1">
+          动画 (Animation)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="动画 (Animation)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          动画 (Animation)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animationvisibility/" class="md-nav__link">
+        AnimationVisibility
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatestate/" class="md-nav__link">
+        Animate*State
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatable/" class="md-nav__link">
+        Animatable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/update_transition/" class="md-nav__link">
+        UpdateTransition
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_2">
+          主题 (Theming)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="主题 (Theming)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          主题 (Theming)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
+        初识 MaterialTheme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/understanding_material_theme/" class="md-nav__link">
+        深入理解 MaterialTheme 与 CompositionLocal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/custom_your_theme/" class="md-nav__link">
+        自定义你的主题方案
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3" type="checkbox" id="__nav_1_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3">
+          手势 (Gestures)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="手势 (Gestures)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          手势 (Gestures)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/draggable/" class="md-nav__link">
+        Draggable拖动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/swipeable/" class="md-nav__link">
+        Swipeable滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/transformer/" class="md-nav__link">
+        Transformer双指拖动、缩放与旋转
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/nested_scroll/" class="md-nav__link">
+        NestedScroll嵌套滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/custom_gesture/" class="md-nav__link">
+        自定义触摸反馈
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_4">
+          列表 (Lists)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="列表 (Lists)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          列表 (Lists)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/list_item_click/" class="md-nav__link">
+        列表点击事件
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/draw/custom_draw/" class="md-nav__link">
+        绘制 (Graphics)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_7">
+          关于 Modifier
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="关于 Modifier" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          关于 Modifier
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/introduction/" class="md-nav__link">
+        方法介绍
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_8">
+          技术原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="技术原理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          技术原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/recomposition_scope/" class="md-nav__link">
+        了解Compose的重组作用域
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/snapshot/" class="md-nav__link">
+        透过Snapshot看重组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/gap_buffer/" class="md-nav__link">
+        Compose运行原理与GapBuffer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/recompose_working_principle/" class="md-nav__link">
+        重组的工作流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/modifier_structure/" class="md-nav__link">
+        图解Modifier
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_9">
+          架构
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="架构" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          架构
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/architecture_for_compose/" class="md-nav__link">
+        Compose架构如何选？MVP,MVVM,MVI
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../architecture/use_jetpack_in_compose/" class="md-nav__link">
+        在 Compose 中使用 Jetpack 组件库
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codelabs/" class="md-nav__link">
+        代码实验室
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../version/" class="md-nav__link">
+        版本更新迭代内容与介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        关于贡献
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          第三方组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="第三方组件" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          第三方组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Accompanist
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Accompanist" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Accompanist
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/glide/" class="md-nav__link">
+        Glide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/insets/" class="md-nav__link">
+        Insets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+        System UI Controller
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+        AppCompat Theme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+        Pager layouts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+        Swipe Refresh
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+        Flow layouts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
+        Compose版骨架屏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
+        Compose版StateLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
+        Compose版SmartRefreshLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API 文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API 文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API 文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          开源项目
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="开源项目" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          开源项目
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-douban/" class="md-nav__link">
+        Compose 仿豆瓣榜单客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-moon-animation/" class="md-nav__link">
+        Compose 实现月亮阴晴圆缺动画
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-gmusic/" class="md-nav__link">
+        Compose 一款简易的音乐播放软件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+        Compose 伸缩 ToolBar 的实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-wan-android/" class="md-nav__link">
+        Compose + MVI + Navigation 快速实现 wanAndroid 客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-spring-handwriting/" class="md-nav__link">
+        Compose 实现手写春联效果
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    固有特性测量是什么
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    在基础组件中使用固有特性测量
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#layout" class="md-nav__link">
+    为自定义 Layout 适配固有特性测量
+  </a>
+  
+    <nav class="md-nav" aria-label="为自定义 Layout 适配固有特性测量">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#measurepolicy" class="md-nav__link">
+    重写 MeasurePolicy 固有特性测量相关方法
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#layout-measure" class="md-nav__link">
+    在 Layout measure 中适配
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_3" class="md-nav__link">
+    对固有特性测量的思考
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/layout/intrinsic.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+  <h1>固有特性测量</h1>
+
+<h2 id="_1">固有特性测量是什么</h2>
+<p>在 <a href="https://docs.compose.net.cn/layout/custom_layout/">自定义Layout</a> 中我们提到 Compose 布局原理，Compose 中的每个 UI 组件是不允许多次进行测量的，多次测量在运行时会抛异常，禁止多次测量的好处是为了提高性能，但在很多场景中多次测量子 UI 组件是有意义的。在 Jetpack Compose 代码实验室中就提供了这样一种场景，我们希望中间分割线高度与两边文案高的一边保持相等。</p>
+<p><img src = "../../../assets/layout/intrinsic/demo1.png" width = "50%" height = "50%"></p>
+<p>为实现这个需求，官方所提供的设计方案是希望父组件可以预先获取到两边的文案组件高度信息，然后计算两边高度的最大值即可确定当前父组件的高度值，此时仅需将分割线高度值铺满整个父组件即可。</p>
+<p>为了实现父组件预先获取文案组件高度信息从而确定自身的高度信息，Compose 为开发者们提供了固有特性测量机制，允许开发者在每个子组件正式测量前能获取到每个子组件的宽高等信息。</p>
+<h2 id="_2">在基础组件中使用固有特性测量</h2>
+<p>使用固有特性测量的前提是当前作用的 Layout 需要适配固有特性测量，目前许多基础组件已经完成对固有特性测量的适配，可以直接使用。</p>
+<p>在上面所提到的例子中父组件所提供的能力使用基础组件中的 Row 组件即可承担，我们仅需为 Row 组件高度设置固有特性测量即可。我们使用 <code>Modifier.height(IntrinsicSize.Min)</code>  即可为高度设置固有特性测量。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TwoTexts</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span> <span class="n">text1</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="n">text2</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">Row</span><span class="p">(</span><span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">IntrinsicSize</span><span class="p">.</span><span class="na">Min</span><span class="p">))</span> <span class="p">{</span> <span class="c1">// I&#39;m here</span>
+        <span class="n">Text</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="m">4.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">wrapContentWidth</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">Start</span><span class="p">),</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text1</span>
+        <span class="p">)</span>
+
+        <span class="n">Divider</span><span class="p">(</span><span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">,</span> <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxHeight</span><span class="p">().</span><span class="na">width</span><span class="p">(</span><span class="m">1.</span><span class="n">dp</span><span class="p">))</span>
+        <span class="n">Text</span><span class="p">(</span>
+            <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+                <span class="p">.</span><span class="na">weight</span><span class="p">(</span><span class="m">1f</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">padding</span><span class="p">(</span><span class="n">end</span> <span class="o">=</span> <span class="m">4.</span><span class="n">dp</span><span class="p">)</span>
+                <span class="p">.</span><span class="na">wrapContentWidth</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">End</span><span class="p">),</span>
+            <span class="n">text</span> <span class="o">=</span> <span class="n">text2</span>
+        <span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@Preview</span>
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">TwoTextsPreview</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">LayoutsCodelabTheme</span> <span class="p">{</span>
+        <span class="n">Surface</span> <span class="p">{</span>
+            <span class="n">TwoTexts</span><span class="p">(</span><span class="n">text1</span> <span class="o">=</span> <span class="s">&quot;Hi&quot;</span><span class="p">,</span> <span class="n">text2</span> <span class="o">=</span> <span class="s">&quot;there&quot;</span><span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>通过使用固有特性测量即可完成上面所述场景的需求，展示效果如图所示。</p>
+<p><img src = "../../../assets/layout/intrinsic/demo2.png" width = "50%" height = "50%"></p>
+<p>值得注意的是此时我们的 Modifier 仅使用 <code>Modifier.height(IntrinsicSize.Min)</code>  为高度设置了固有特性测量，并没有进行宽度的设置。此时所表达的意思是，当宽度不限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。当然你也可以进行宽度的设置，当宽度受限时通过子组件预先测量的宽高信息所能计算的高度最少可以是多少。</p>
+<p>可能你不能理解宽度受限可能影响高度这件事，其实我们常用的 Text 组件当宽度收到不同限制时，其高度就是不一样的。</p>
+<div class="highlight"><pre><span></span><code><span class="n">Column</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">fillMaxSize</span><span class="p">())</span> <span class="p">{</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="m">50.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Red</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Jetpack Compose is an excellent development tool&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="n">Box</span><span class="p">(</span><span class="n">Modifier</span><span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">).</span><span class="na">background</span><span class="p">(</span><span class="n">Color</span><span class="p">.</span><span class="na">Yellow</span><span class="p">))</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Jetpack Compose is an excellent development tool&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><img src = "../../../assets/layout/intrinsic/demo3.png" width = "50%" height = "50%"></p>
+<p>⚠️ <strong>注意事项：</strong> 你只能对已经适配固有特性测量能力的组件使用 <code>IntrinsicSize.Min</code> 或 <code>IntrinsicSize.Max</code> ，否则程序会运行时抛出异常而崩溃。对于所有自定义 Layout 的开发者来说如果支持使用者使用固有特性测量，则必须要进行固有特性测量的适配工作。</p>
+<h2 id="layout">为自定义 Layout 适配固有特性测量</h2>
+<p>从上面的例子可以发现，我们仅使用  <code>Modifier.height(IntrinsicSize.Min)</code>  即可交给 Row 组件根据子组件的信息进行计算从而确定一个固定的高度。然而之前他是如何操作的，对于开发者而言是完全未知的。所以本文将继续深入下去，通过一个自定义 Layout 适配固有特性测量的过程来摸清固有特性测量的整个流程。</p>
+<h3 id="measurepolicy">重写 MeasurePolicy 固有特性测量相关方法</h3>
+<p>对于适配固有特性测量的 Layout，我们需要对 MeasurePolicy 下的固有特性测量方法进行重写。还记得 MeasurePolicy 是谁吗？没错他就是我们在自定义 Layout 中传入的最后的 lambda SAM 转换的实例类型。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span> <span class="kd">inline</span> <span class="kd">fun</span> <span class="nf">Layout</span><span class="p">(</span>
+    <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">,</span>
+    <span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span> <span class="o">=</span> <span class="n">Modifier</span><span class="p">,</span>
+    <span class="n">measurePolicy</span><span class="p">:</span> <span class="n">MeasurePolicy</span>
+<span class="p">)</span> 
+</code></pre></div>
+<p>对于固有特性测量的适配，我们需要根据需求重写以下四个方法。</p>
+<p><img src = "../../../assets/layout/intrinsic/demo4.png" width = "50%" height = "50%"></p>
+<p>使用 <code>Modifier.width(IntrinsicSize.Max)</code> ，则会调用 <code>maxIntrinsicWidth</code> 方法</p>
+<p>使用 <code>Modifier.width(IntrinsicSize.Min)</code> ，则会调用 <code>minIntrinsicWidth</code> 方法</p>
+<p>使用 <code>Modifier.height(IntrinsicSize.Max)</code> ，则会调用 <code>maxIntrinsicHeight</code> 方法</p>
+<p>使用 <code>Modifier.height(IntrinsicSize.Min)</code>  ，则会调用 <code>minIntrinsicHeight</code> 方法</p>
+<p>⚠️ <strong>注意事项：</strong> 如果哪个 Modifier 使用了, 但其对应方法没有重写仍会崩溃。</p>
+<p>在 Layout 声明时，我们就不能使用 SAM 形式了，而是要规规矩矩实现 MeasurePolicy</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">IntrinsicRow</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">){</span>
+    <span class="n">Layout</span><span class="p">(</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="p">,</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">,</span>
+        <span class="n">measurePolicy</span> <span class="o">=</span> <span class="n">object</span><span class="p">:</span> <span class="n">MeasurePolicy</span> <span class="p">{</span>
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="n">MeasureScope</span><span class="p">.</span><span class="nf">measure</span><span class="p">(</span>
+                <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Measurable</span><span class="o">&gt;</span><span class="p">,</span>
+                <span class="n">constraints</span><span class="p">:</span> <span class="n">Constraints</span>
+            <span class="p">):</span> <span class="n">MeasureResult</span> <span class="p">{</span>
+                <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="n">IntrinsicMeasureScope</span><span class="p">.</span><span class="nf">minIntrinsicHeight</span><span class="p">(</span>
+                <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntrinsicMeasurable</span><span class="o">&gt;</span><span class="p">,</span>
+                <span class="n">width</span><span class="p">:</span> <span class="kt">Int</span>
+            <span class="p">):</span> <span class="kt">Int</span> <span class="p">{</span>
+                <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="n">IntrinsicMeasureScope</span><span class="p">.</span><span class="nf">maxIntrinsicHeight</span><span class="p">(</span>
+                <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntrinsicMeasurable</span><span class="o">&gt;</span><span class="p">,</span>
+                <span class="n">width</span><span class="p">:</span> <span class="kt">Int</span>
+            <span class="p">):</span> <span class="kt">Int</span> <span class="p">{</span>
+                <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="n">IntrinsicMeasureScope</span><span class="p">.</span><span class="nf">maxIntrinsicWidth</span><span class="p">(</span>
+                <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntrinsicMeasurable</span><span class="o">&gt;</span><span class="p">,</span>
+                <span class="n">height</span><span class="p">:</span> <span class="kt">Int</span>
+            <span class="p">):</span> <span class="kt">Int</span> <span class="p">{</span>
+                <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="n">IntrinsicMeasureScope</span><span class="p">.</span><span class="nf">minIntrinsicWidth</span><span class="p">(</span>
+                <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntrinsicMeasurable</span><span class="o">&gt;</span><span class="p">,</span>
+                <span class="n">height</span><span class="p">:</span> <span class="kt">Int</span>
+            <span class="p">):</span> <span class="kt">Int</span> <span class="p">{</span>
+                <span class="n">TODO</span><span class="p">(</span><span class="s">&quot;Not yet implemented&quot;</span><span class="p">)</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span> 
+<span class="p">}</span>
+</code></pre></div>
+<p>在我们的案例中仅使用了 <code>Modifier.height(IntrinsicSize.Min)</code> ，出于简单考虑仅重写了 <code>minIntrinsicHeight</code> 以作示例。</p>
+<p><code>minIntrinsicHeight</code> 与 <code>maxIntrinsicHeight</code> 有相同的两个参数 <code>measurables</code> 与 <code>width</code></p>
+<p><code>measurables</code>：类似于 <code>measure</code> 方法的 measurables，用于获取子组件的宽高信息。</p>
+<p><code>width</code>：父组件所能提供的最大宽度（无论此时是 <code>minIntrinsicHeight</code> 还是 <code>maxIntrinsicHeight</code> ）</p>
+<div class="highlight"><pre><span></span><code><span class="n">Modifier</span>
+    <span class="p">.</span><span class="na">widthIn</span><span class="p">(</span><span class="m">100.</span><span class="n">dp</span><span class="p">,</span> <span class="m">200.</span><span class="n">dp</span><span class="p">)</span> <span class="c1">//在此场景下minIntrinsicHeight的参数width值为200.dp对应的px</span>
+    <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">IntrinsicSize</span><span class="p">.</span><span class="na">Max</span><span class="p">)</span>
+</code></pre></div>
+<p>接下来我们使用 <code>maxIntrinsicHeight</code> 即可获取到每个子组件在给定宽度下能够保证正确展示的最小高度，这个正确展示的高度是由子组件来保证的。再得到所有子组件的高度信息后，我们即可计算最大高度值，此值将会被设置为当前父组件（也就是当前自定义Layout）的固定高度。</p>
+<div class="highlight"><pre><span></span><code><span class="kd">override</span> <span class="kd">fun</span> <span class="n">IntrinsicMeasureScope</span><span class="p">.</span><span class="nf">minIntrinsicHeight</span><span class="p">(</span>
+    <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntrinsicMeasurable</span><span class="o">&gt;</span><span class="p">,</span>
+    <span class="n">width</span><span class="p">:</span> <span class="kt">Int</span>
+<span class="p">):</span> <span class="kt">Int</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nv">maxHeight</span> <span class="o">=</span> <span class="m">0</span>
+    <span class="n">measurables</span><span class="p">.</span><span class="na">forEach</span> <span class="p">{</span>
+        <span class="n">maxHeight</span> <span class="o">=</span> <span class="nb">it</span><span class="p">.</span><span class="na">minIntrinsicHeight</span><span class="p">(</span><span class="n">width</span><span class="p">).</span><span class="na">coerceAtLeast</span><span class="p">(</span><span class="n">maxHeight</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">maxHeight</span>
+<span class="p">}</span>
+</code></pre></div>
+<h3 id="layout-measure">在 Layout measure 中适配</h3>
+<p>接下来我们将所有使用的 Composable 声明出来。</p>
+<div class="highlight"><pre><span></span><code><span class="n">IntrinsicRow</span><span class="p">(</span>
+    <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+        <span class="p">.</span><span class="na">fillMaxWidth</span><span class="p">()</span>
+        <span class="p">.</span><span class="na">height</span><span class="p">(</span><span class="n">IntrinsicSize</span><span class="p">.</span><span class="na">Min</span><span class="p">)</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Left&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">wrapContentWidth</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">Start</span><span class="p">).</span><span class="na">layoutId</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">))</span>
+    <span class="n">Divider</span><span class="p">(</span>
+        <span class="n">color</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="na">Black</span><span class="p">,</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">Modifier</span>
+            <span class="p">.</span><span class="na">width</span><span class="p">(</span><span class="m">4.</span><span class="n">dp</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">fillMaxHeight</span><span class="p">()</span>
+                <span class="p">.</span><span class="na">layoutId</span><span class="p">(</span><span class="s">&quot;devider&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="n">Text</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="s">&quot;Right&quot;</span><span class="p">,</span> <span class="n">Modifier</span><span class="p">.</span><span class="na">wrapContentWidth</span><span class="p">(</span><span class="n">Alignment</span><span class="p">.</span><span class="na">End</span><span class="p">).</span><span class="na">layoutId</span><span class="p">(</span><span class="s">&quot;main&quot;</span><span class="p">))</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>此时，由于声明了 <code>Modifier.fillMaxWidth()</code>，导致我们自定义 Layout 宽度是固定的，又因为我们使用了固有特性测量，此时我们自定义 Layout 的高度也是固定的。具体表现为 constraints 参数中 minWidth 与 maxWidth 相等（宽度固定），minHeight 与 maxHeight 相等（高度固定）。</p>
+<p>而我们希望 Devider 测量的宽度不应是固定与父组件相同，而是要根据其自身声明的宽度，也就是 <code>Modifier.width(4.dp)</code> ，所以我们对 Devider 测量使用的 constraints 进行了修改。将其最小值设置为零。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">IntrinsicRow</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="nd">@Composable</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span><span class="p">){</span>
+    <span class="n">Layout</span><span class="p">(</span>
+        <span class="n">content</span> <span class="o">=</span> <span class="n">content</span><span class="p">,</span>
+        <span class="n">modifier</span> <span class="o">=</span> <span class="n">modifier</span><span class="p">,</span>
+        <span class="n">measurePolicy</span> <span class="o">=</span> <span class="n">object</span><span class="p">:</span> <span class="n">MeasurePolicy</span> <span class="p">{</span>
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="n">MeasureScope</span><span class="p">.</span><span class="nf">measure</span><span class="p">(</span>
+                <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Measurable</span><span class="o">&gt;</span><span class="p">,</span>
+                <span class="n">constraints</span><span class="p">:</span> <span class="n">Constraints</span>
+            <span class="p">):</span> <span class="n">MeasureResult</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nv">devideConstraints</span> <span class="o">=</span> <span class="n">constraints</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">minWidth</span> <span class="o">=</span> <span class="m">0</span><span class="p">)</span>
+                <span class="kd">var</span> <span class="nv">mainPlaceables</span> <span class="o">=</span> <span class="n">measurables</span><span class="p">.</span><span class="na">filter</span> <span class="p">{</span>
+                    <span class="nb">it</span><span class="p">.</span><span class="na">layoutId</span> <span class="o">==</span> <span class="s">&quot;main&quot;</span>
+                <span class="p">}.</span><span class="na">map</span> <span class="p">{</span>
+                    <span class="nb">it</span><span class="p">.</span><span class="na">measure</span><span class="p">(</span><span class="n">constraints</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="kd">var</span> <span class="nv">devidePlaceable</span> <span class="o">=</span> <span class="n">measurables</span><span class="p">.</span><span class="na">first</span> <span class="p">{</span> <span class="nb">it</span><span class="p">.</span><span class="na">layoutId</span> <span class="o">==</span> <span class="s">&quot;devider&quot;</span><span class="p">}.</span><span class="na">measure</span><span class="p">(</span><span class="n">devideConstraints</span><span class="p">)</span>
+                <span class="kd">var</span> <span class="nv">midPos</span> <span class="o">=</span> <span class="n">constraints</span><span class="p">.</span><span class="na">maxWidth</span> <span class="o">/</span> <span class="m">2</span>
+                <span class="k">return</span> <span class="n">layout</span><span class="p">(</span><span class="n">constraints</span><span class="p">.</span><span class="na">maxWidth</span><span class="p">,</span> <span class="n">constraints</span><span class="p">.</span><span class="na">maxHeight</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="n">mainPlaceables</span><span class="p">.</span><span class="na">forEach</span> <span class="p">{</span>
+                        <span class="nb">it</span><span class="p">.</span><span class="na">placeRelative</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
+                    <span class="p">}</span>
+                    <span class="n">devidePlaceable</span><span class="p">.</span><span class="na">placeRelative</span><span class="p">(</span><span class="n">midPos</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+            <span class="kd">override</span> <span class="kd">fun</span> <span class="n">IntrinsicMeasureScope</span><span class="p">.</span><span class="nf">minIntrinsicHeight</span><span class="p">(</span>
+                <span class="n">measurables</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">IntrinsicMeasurable</span><span class="o">&gt;</span><span class="p">,</span>
+                <span class="n">width</span><span class="p">:</span> <span class="kt">Int</span>
+            <span class="p">):</span> <span class="kt">Int</span> <span class="p">{</span>
+                <span class="kd">var</span> <span class="nv">maxHeight</span> <span class="o">=</span> <span class="m">0</span>
+                <span class="n">measurables</span><span class="p">.</span><span class="na">forEach</span> <span class="p">{</span>
+                    <span class="n">maxHeight</span> <span class="o">=</span> <span class="nb">it</span><span class="p">.</span><span class="na">maxIntrinsicHeight</span><span class="p">(</span><span class="n">width</span><span class="p">).</span><span class="na">coerceAtLeast</span><span class="p">(</span><span class="n">maxHeight</span><span class="p">)</span>
+                <span class="p">}</span>
+                <span class="k">return</span> <span class="n">maxHeight</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>最终效果如下，这样我们就为我们自定义 Layout 适配了固有特性测量能力。</p>
+<p><img src = "../../../assets/layout/intrinsic/demo5.png" width = "50%" height = "50%"></p>
+<h2 id="_3">对固有特性测量的思考</h2>
+<p>固有特性测量的本质就是父组件可在正式测量布局前预先获取到每个子组件宽高信息后通过计算来确定自身的固定宽度或高度，从而间接影响到其中包含的部分子组件布局信息。也就是说子组件可以根据自身宽高信息从而确定父组件的宽度或高度，从而影响其他子组件布局。在我们使用的方案中，我们通过文案子组件的高度确定了父组件的固定高度，从而间接确定了分割线的高度。此时子组件要通过固有特性测量这种方式，通过父组件而对其他子组件产生影响，然而在有些场景下我们不希望父组件参与其中，而希望子组件间通过测量的先后顺序直接相互影响，Compose 为我们提供了 SubcomposeLayout 来处理这类子组件存在依赖关系的场景。由于本文篇幅有限，有关于 SubcomposeLayout 内容后续会继续更新，请持续关注。</p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 7, 2021</span>
+      
+    
+  </small>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../custom_layout/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 自定义布局" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              自定义布局
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../subcomposelayout/" class="md-footer__link md-footer__link--next" aria-label="下一页: SubcomposeLayout" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              SubcomposeLayout
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/Compose-Museum/Compose-Tutorial/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>

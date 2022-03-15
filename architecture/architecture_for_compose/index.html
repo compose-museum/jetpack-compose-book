@@ -1,0 +1,2751 @@
+
+<!doctype html>
+<html lang="zh" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://docs.compose.net.cn/architecture/architecture_for_compose/">
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.2.3, mkdocs-material-8.2.5">
+    
+    
+      
+        <title>Compose架构如何选？MVP,MVVM,MVI - Jetpack Compose</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.2d9f7617.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.e6a45f82.min.css">
+        
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CJetbrains+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Jetbrains Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="none" data-md-color-accent="none">
+  
+    
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#sample-wanandroid-search" class="md-skip">
+          跳转至
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="页眉">
+    <a href="../.." title="Jetpack Compose" class="md-header__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Jetpack Compose
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Compose架构如何选？MVP,MVVM,MVI
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="搜索" placeholder="搜索" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="查找">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="清空当前内容" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            正在初始化搜索引擎
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="标签" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
+        Jetpack Compose
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-tabs__link">
+        第三方组件
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../api/elements/text/" class="md-tabs__link">
+        API 文档
+      </a>
+    </li>
+  
+
+  
+
+      
+        
+  
+  
+
+
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../open-source-project/compose-douban/" class="md-tabs__link">
+        开源项目
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="导航栏" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Jetpack Compose" class="md-nav__button md-logo" aria-label="Jetpack Compose" data-md-component="logo">
+      
+  <img src="../../assets/logo.png" alt="logo">
+
+    </a>
+    Jetpack Compose
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/Compose-Museum/Compose-Tutorial/" title="前往仓库" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    Jetpack Compose 博物馆
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1" type="checkbox" id="__nav_1" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1">
+          Jetpack Compose
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Jetpack Compose" data-md-level="1">
+        <label class="md-nav__title" for="__nav_1">
+          <span class="md-nav__icon md-icon"></span>
+          Jetpack Compose
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../start/" class="md-nav__link">
+        在开始之前
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial/" class="md-nav__link">
+        快速入门
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_4" type="checkbox" id="__nav_1_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_4">
+          基本组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="基本组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_4">
+          <span class="md-nav__icon md-icon"></span>
+          基本组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/alertdialog/" class="md-nav__link">
+        AlertDialog
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/card/" class="md-nav__link">
+        Card
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/floatingactionbutton/" class="md-nav__link">
+        FloatingActionButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/icon/" class="md-nav__link">
+        Icon
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/image/" class="md-nav__link">
+        Image
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/iconbutton/" class="md-nav__link">
+        IconButton
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/surface/" class="md-nav__link">
+        Surface
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/slider/" class="md-nav__link">
+        Slider
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../elements/textfield/" class="md-nav__link">
+        TextField
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_5" type="checkbox" id="__nav_1_5" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_5">
+          布局组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="布局组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_5">
+          <span class="md-nav__icon md-icon"></span>
+          布局组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/bottomnavigation/" class="md-nav__link">
+        BottomNavigation
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/column/" class="md-nav__link">
+        Column
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/modalbottomsheetlayout/" class="md-nav__link">
+        ModalBottomSheetLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/row/" class="md-nav__link">
+        Row
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/spacer/" class="md-nav__link">
+        Spacer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/scaffold/" class="md-nav__link">
+        Scaffold
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/topappbar/" class="md-nav__link">
+        TopAppBar
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/custom_layout/" class="md-nav__link">
+        自定义布局
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/intrinsic/" class="md-nav__link">
+        固有特性测量
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../layout/subcomposelayout/" class="md-nav__link">
+        SubcomposeLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6" type="checkbox" id="__nav_1_6" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6">
+          设计
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="设计" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_6">
+          <span class="md-nav__icon md-icon"></span>
+          设计
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_1" type="checkbox" id="__nav_1_6_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_1">
+          动画 (Animation)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="动画 (Animation)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_1">
+          <span class="md-nav__icon md-icon"></span>
+          动画 (Animation)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animationvisibility/" class="md-nav__link">
+        AnimationVisibility
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatestate/" class="md-nav__link">
+        Animate*State
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/animatable/" class="md-nav__link">
+        Animatable
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/animation/update_transition/" class="md-nav__link">
+        UpdateTransition
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_2" type="checkbox" id="__nav_1_6_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_2">
+          主题 (Theming)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="主题 (Theming)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_2">
+          <span class="md-nav__icon md-icon"></span>
+          主题 (Theming)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/meet_material_theme/" class="md-nav__link">
+        初识 MaterialTheme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/understanding_material_theme/" class="md-nav__link">
+        深入理解 MaterialTheme 与 CompositionLocal
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/theme/custom_your_theme/" class="md-nav__link">
+        自定义你的主题方案
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_3" type="checkbox" id="__nav_1_6_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_3">
+          手势 (Gestures)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="手势 (Gestures)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_3">
+          <span class="md-nav__icon md-icon"></span>
+          手势 (Gestures)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/draggable/" class="md-nav__link">
+        Draggable拖动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/swipeable/" class="md-nav__link">
+        Swipeable滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/transformer/" class="md-nav__link">
+        Transformer双指拖动、缩放与旋转
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/nested_scroll/" class="md-nav__link">
+        NestedScroll嵌套滑动
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/gesture/custom_gesture/" class="md-nav__link">
+        自定义触摸反馈
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_6_4" type="checkbox" id="__nav_1_6_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_6_4">
+          列表 (Lists)
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="列表 (Lists)" data-md-level="3">
+        <label class="md-nav__title" for="__nav_1_6_4">
+          <span class="md-nav__icon md-icon"></span>
+          列表 (Lists)
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/lists/list_item_click/" class="md-nav__link">
+        列表点击事件
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../design/draw/custom_draw/" class="md-nav__link">
+        绘制 (Graphics)
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_7" type="checkbox" id="__nav_1_7" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_7">
+          关于 Modifier
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="关于 Modifier" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_7">
+          <span class="md-nav__icon md-icon"></span>
+          关于 Modifier
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../modifier/introduction/" class="md-nav__link">
+        方法介绍
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_8" type="checkbox" id="__nav_1_8" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_8">
+          技术原理
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="技术原理" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_8">
+          <span class="md-nav__icon md-icon"></span>
+          技术原理
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/recomposition_scope/" class="md-nav__link">
+        了解Compose的重组作用域
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/snapshot/" class="md-nav__link">
+        透过Snapshot看重组
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/gap_buffer/" class="md-nav__link">
+        Compose运行原理与GapBuffer
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/recompose_working_principle/" class="md-nav__link">
+        重组的工作流程
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../principle/modifier_structure/" class="md-nav__link">
+        图解Modifier
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_1_9" type="checkbox" id="__nav_1_9" checked>
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_1_9">
+          架构
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="架构" data-md-level="2">
+        <label class="md-nav__title" for="__nav_1_9">
+          <span class="md-nav__icon md-icon"></span>
+          架构
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Compose架构如何选？MVP,MVVM,MVI
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Compose架构如何选？MVP,MVVM,MVI
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sample-wanandroid-search" class="md-nav__link">
+    Sample :  Wanandroid Search
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    前期准备：Model层
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compose" class="md-nav__link">
+    Compose为什么需要架构？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#android" class="md-nav__link">
+    Android中的常见架构模式
+  </a>
+  
+    <nav class="md-nav" aria-label="Android中的常见架构模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mvp" class="md-nav__link">
+    1. MVP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mvvmwithout-jetpack" class="md-nav__link">
+    2. MVVM（Without Jetpack）
+  </a>
+  
+    <nav class="md-nav" aria-label="2. MVVM（Without Jetpack）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activity-viewmodel" class="md-nav__link">
+    Activity 中创建 ViewModel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navgraph" class="md-nav__link">
+    定义 NavGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen" class="md-nav__link">
+    定义子 Screen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewmodel" class="md-nav__link">
+    ViewModel 实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-jetpack-mvvm" class="md-nav__link">
+    3. Jetpack MVVM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mvi" class="md-nav__link">
+    MVI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    页面路由
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-architecture" class="md-nav__link">
+    Clean Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    总结
+  </a>
+  
+    <nav class="md-nav" aria-label="总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample" class="md-nav__link">
+    Sample 代码：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../use_jetpack_in_compose/" class="md-nav__link">
+        在 Compose 中使用 Jetpack 组件库
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../codelabs/" class="md-nav__link">
+        代码实验室
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../resources/" class="md-nav__link">
+        资源
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../version/" class="md-nav__link">
+        版本更新迭代内容与介绍
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../contributing/" class="md-nav__link">
+        关于贡献
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2">
+          第三方组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="第三方组件" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          第三方组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_2_1">
+          Accompanist
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="Accompanist" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          Accompanist
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/overview/" class="md-nav__link">
+        概述
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/glide/" class="md-nav__link">
+        Glide
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/insets/" class="md-nav__link">
+        Insets
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/system_ui_controller/" class="md-nav__link">
+        System UI Controller
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/appcompat_theme/" class="md-nav__link">
+        AppCompat Theme
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/pager_layouts/" class="md-nav__link">
+        Pager layouts
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/swipe_refresh/" class="md-nav__link">
+        Swipe Refresh
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/accompanist/flow_layouts/" class="md-nav__link">
+        Flow layouts
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/shimmer/compose_shimmer/" class="md-nav__link">
+        Compose版骨架屏
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/coil/" class="md-nav__link">
+        Coil
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/statelayout/compose_statelayout/" class="md-nav__link">
+        Compose版StateLayout
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../third-party-component/refreshlayout/compose_refreshlayout/" class="md-nav__link">
+        Compose版SmartRefreshLayout
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3" type="checkbox" id="__nav_3" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3">
+          API 文档
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="API 文档" data-md-level="1">
+        <label class="md-nav__title" for="__nav_3">
+          <span class="md-nav__icon md-icon"></span>
+          API 文档
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_3_1" type="checkbox" id="__nav_3_1" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_3_1">
+          组件
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="组件" data-md-level="2">
+        <label class="md-nav__title" for="__nav_3_1">
+          <span class="md-nav__icon md-icon"></span>
+          组件
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/text/" class="md-nav__link">
+        Text
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api/elements/button/" class="md-nav__link">
+        Button
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_4" type="checkbox" id="__nav_4" >
+      
+      
+      
+      
+        <label class="md-nav__link" for="__nav_4">
+          开源项目
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <nav class="md-nav" aria-label="开源项目" data-md-level="1">
+        <label class="md-nav__title" for="__nav_4">
+          <span class="md-nav__icon md-icon"></span>
+          开源项目
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-douban/" class="md-nav__link">
+        Compose 仿豆瓣榜单客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-moon-animation/" class="md-nav__link">
+        Compose 实现月亮阴晴圆缺动画
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-gmusic/" class="md-nav__link">
+        Compose 一款简易的音乐播放软件
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-scrollable-appbar/" class="md-nav__link">
+        Compose 伸缩 ToolBar 的实现
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-wan-android/" class="md-nav__link">
+        Compose + MVI + Navigation 快速实现 wanAndroid 客户端
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../open-source-project/compose-spring-handwriting/" class="md-nav__link">
+        Compose 实现手写春联效果
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="目录">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      目录
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#sample-wanandroid-search" class="md-nav__link">
+    Sample :  Wanandroid Search
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#model" class="md-nav__link">
+    前期准备：Model层
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compose" class="md-nav__link">
+    Compose为什么需要架构？
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#android" class="md-nav__link">
+    Android中的常见架构模式
+  </a>
+  
+    <nav class="md-nav" aria-label="Android中的常见架构模式">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-mvp" class="md-nav__link">
+    1. MVP
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-mvvmwithout-jetpack" class="md-nav__link">
+    2. MVVM（Without Jetpack）
+  </a>
+  
+    <nav class="md-nav" aria-label="2. MVVM（Without Jetpack）">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#activity-viewmodel" class="md-nav__link">
+    Activity 中创建 ViewModel
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#navgraph" class="md-nav__link">
+    定义 NavGraph
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#screen" class="md-nav__link">
+    定义子 Screen
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#viewmodel" class="md-nav__link">
+    ViewModel 实现
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-jetpack-mvvm" class="md-nav__link">
+    3. Jetpack MVVM
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mvi" class="md-nav__link">
+    MVI
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    页面路由
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#clean-architecture" class="md-nav__link">
+    Clean Architecture
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_2" class="md-nav__link">
+    总结
+  </a>
+  
+    <nav class="md-nav" aria-label="总结">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sample" class="md-nav__link">
+    Sample 代码：
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+<a href="https://github.com/Compose-Museum/Compose-Tutorial/tree/main/docs/architecture/architecture_for_compose.md" title="编辑此页" class="md-content__button md-icon">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+</a>
+
+
+
+<p><img alt="" src="../../../assets/architecture/demo.png" /></p>
+<p>本次 I/O 大会上曝出了 Compose 1.0 即将发布的消息，虽然 API 层面已趋于稳定，但真正要在项目中落地还少不了一套合理的应用架构。传统 Android 开发中的 MVP、MVVM 等架构在声明式UI这一新物种中是否还依旧可用呢？</p>
+<p>本文以一个简单的业务场景为例，试图找出一种与 Compose 最契合的架构模式</p>
+<h3 id="sample-wanandroid-search">Sample :  Wanandroid Search</h3>
+<blockquote>
+<p>App基本功能：用户输入关键字，在 wanandroid 网站中搜索出相关内容并展示</p>
+</blockquote>
+<p><img alt="" src="../../../assets/architecture/demo2.png" /></p>
+<p>功能虽然简单，但是集合了数据请求、UI展示等常见业务场景，可用来做UI层与逻辑层的解耦实验。</p>
+<h3 id="model">前期准备：Model层</h3>
+<p>其实无论 MVX 中 X 如何变化， Model 都可以用同一套实现。我们先定义一个 <code>DataRepository</code> ，用于从 wanandroid 获取搜索结果。 后文Sample中的 Model 层都基于此 Repo 实现</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@ViewModelScoped</span>
+<span class="kd">class</span> <span class="nc">DataRepository</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(){</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">okhttpClient</span> <span class="k">by</span> <span class="n">lazy</span> <span class="p">{</span>
+        <span class="n">OkHttpClient</span><span class="p">.</span><span class="na">Builder</span><span class="p">().</span><span class="na">build</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">apiService</span> <span class="k">by</span> <span class="n">lazy</span> <span class="p">{</span>
+        <span class="n">Retrofit</span><span class="p">.</span><span class="na">Builder</span><span class="p">()</span>
+            <span class="p">.</span><span class="na">baseUrl</span><span class="p">(</span><span class="s">&quot;https://www.wanandroid.com/&quot;</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">client</span><span class="p">(</span><span class="n">okhttpClient</span><span class="p">)</span>
+            <span class="p">.</span><span class="na">addConverterFactory</span><span class="p">(</span><span class="n">GsonConverterFactory</span><span class="p">.</span><span class="na">create</span><span class="p">())</span>
+            <span class="p">.</span><span class="na">build</span><span class="p">().</span><span class="na">create</span><span class="p">(</span><span class="n">ApiService</span><span class="o">::</span><span class="n">class</span><span class="p">.</span><span class="na">java</span><span class="p">)</span>
+    <span class="p">}</span>
+
+
+    <span class="kd">suspend</span> <span class="kd">fun</span> <span class="nf">getArticlesList</span><span class="p">(</span><span class="n">key</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">=</span>
+        <span class="n">apiService</span><span class="p">.</span><span class="na">getArticlesList</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><br/></p>
+<h1 id="compose">Compose为什么需要架构？</h1>
+<hr />
+<p>首先，先看看不借助任何架构的 Compose 代码是怎样的？</p>
+<p>不使用架构的情况下，逻辑代码将与UI代码偶合在一起，在Compose中这种弊端显得尤为明显。常规 Android 开发默认引入了 MVC 思想，XML的布局方式使得UI层与逻辑层有了初步的解耦。但是 Compose 中，布局和逻辑同样都使用Kotlin实现，当布局中夹了杂逻辑，界限变得更加模糊。</p>
+<p>此外，Compose UI中混入逻辑代码会带来更多的潜在隐患。由于 Composable 会频繁重组，逻辑代码中如果涉及I/O 就必须当做 <code>SideEffect{}</code> 处理、一些不能随重组频繁创建的对象也必须使用 <code>remember{}</code> 保存，当这些逻辑散落在UI中时，无形中增加了开发者的心智负担，很容易发生遗漏。</p>
+<p>Sample 的业务场景特别简单，UI中出现少许 <code>remember{}</code> 、<code>LaunchedEffect{}</code> 似乎也没什么不妥，对于一些相对简单的业务场景出现下面这样的代码没有问题：</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">NoArchitectureResultScreen</span><span class="p">(</span>
+    <span class="n">answer</span><span class="p">:</span> <span class="kt">String</span>
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span> <span class="p">}</span>
+
+    <span class="kd">val</span> <span class="nv">dataRepository</span> <span class="o">=</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">DataRepository</span><span class="p">()</span> <span class="p">}</span>
+
+    <span class="kd">var</span> <span class="nv">result</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ArticleBean</span><span class="o">&gt;</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="n">emptyList</span><span class="p">())</span> <span class="p">}</span>
+
+    <span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">isLoading</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">true</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">withContext</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span> <span class="p">{</span> <span class="n">dataRepository</span><span class="p">.</span><span class="na">getArticlesList</span><span class="p">(</span><span class="n">answer</span><span class="p">).</span><span class="na">data</span><span class="p">.</span><span class="na">datas</span> <span class="p">}</span>
+        <span class="n">isLoading</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">false</span>
+    <span class="p">}</span>
+
+    <span class="n">SearchResultScreen</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">isLoading</span><span class="p">.</span><span class="na">value</span> <span class="p">,</span> <span class="n">answer</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div>
+但是，当业务足够复杂时，你会发现这样的代码是难以忍受的。这正如在 React 前端开发中，虽然 Hooks 提供了处理逻辑的能力，但却依然无法取代 Redux。</p>
+<p><br/></p>
+<h1 id="android">Android中的常见架构模式</h1>
+<hr />
+<p><strong>MVP</strong>、<strong>MVVM</strong>、<strong>MVI</strong> 是 Android中的而一些常见架构模式，它们的目的都是服务于UI层与逻辑层的解耦，只是在解耦方式上有所不同，如何选择取决于使用者的喜好以及项目的特点</p>
+<blockquote>
+<p>“没有最好的架构，只有最合适的架构。”</p>
+</blockquote>
+<p>那么在 Compose 项目中何种架构最合适呢？</p>
+<p><br/></p>
+<h2 id="1-mvp">1. MVP</h2>
+<p>MVP 主要特点是 <code>Presenter</code> 与 <code>View</code> 之间通过接口通信， Presenter 通过调用 View 的方法实现UI的更新。</p>
+<p><img alt="mvp" src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/993bec0ee3ad477a93f3b03c3b35732f~tplv-k3u1fbpfcp-watermark.image" /></p>
+<p>这要求 Presenter 需要持有一个 View 层对象的引用，但是 Compose 显然无法获得这种引用，因为用来创建 UI 的 Composable 必须要求返回 Unit，如下：</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">HomeScreen</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">Column</span> <span class="p">{</span>
+        <span class="n">Text</span><span class="p">(</span><span class="s">&quot;Hello World!&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+官方文档中对无返回值的要求也进行了明确约束：</p>
+<blockquote>
+<p>The function doesn’t return anything. Compose functions that emit UI do not need to return anything, because they describe the desired screen state instead of constructing UI widgets.
+https://developer.android.com/jetpack/compose/mental-model</p>
+</blockquote>
+<p>Compose UI 既然存在于 Android 体系中，必定需要有一个与 Android 世界连接的起点，起点处可能是一个 <code>Activity</code> 或者 <code>Fragment</code>，用他们做UI层的引用句柄不可以吗?</p>
+<p>理论上可以，但是当 Activity 接收 Presenter 通知后，仍然无法在内部获取局部引用，只能设法触发整体Recomposition，这完全丧失了 MVP 的优势，即通过获取局部引用进行精准刷新。</p>
+<blockquote>
+<p>通过分析可以得到结论： “MVP 这种依赖接口通信的解耦方式无法在 Compose 项目中使用”</p>
+</blockquote>
+<p><br/></p>
+<h2 id="2-mvvmwithout-jetpack">2. MVVM（Without Jetpack）</h2>
+<p>相对于 MVP 的接口通信 ，MVVM 基于观察者模式进行通信，当 UI 观察到来自 ViewModel 的数据变化时自我更新。 UI层是否能返回引用句柄已不再重要，这与 Compose 的工作方式非常契合。</p>
+<p><img alt="mvvm" src="https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8485b8fe71dc44a088832bc63e1abb50~tplv-k3u1fbpfcp-watermark.image" /></p>
+<p>自从 Android 用 ViewModel 命名了某 Jetpack 组件后，在很多人心里，Jetpack 似乎就与 MVVM 画上了等号。这确实客观推动了 MVVM 的普及，但是 Jetpack 的 ViewModel 并非只能用在 MVVM 中（比如如后文介绍的 MVI 也可以使用 ）； 反之，没有 Jetpack ，照样可以实现 MVVM。</p>
+<p>先来看看不借助 Jetpack 的情况下，MVVM 如何实现？</p>
+<h3 id="activity-viewmodel">Activity 中创建 ViewModel</h3>
+<p>首先 View 层创建 ViewModel 用于订阅</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MvvmActivity</span> <span class="p">:</span> <span class="n">AppCompatActivity</span><span class="p">()</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">mvvmViewModel</span> <span class="o">=</span> <span class="n">MvvmViewModel</span><span class="p">(</span><span class="n">DataRepository</span><span class="p">())</span>
+
+    <span class="kd">override</span> <span class="kd">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle?)</span> <span class="p">{</span>
+        <span class="k">super</span><span class="p">.</span><span class="na">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+        <span class="n">setContent</span> <span class="p">{</span>
+            <span class="n">ComposePlaygroundTheme</span> <span class="p">{</span>
+                <span class="n">MvvmApp</span><span class="p">(</span><span class="n">mvvmViewModel</span><span class="p">)</span> <span class="c1">//将vm传给Composable</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Compose 项目一般使用单 Activity 结构， Activity 作为全局入口非常适合创建全局 ViewModel。 子 Compoable 之间需要基于 ViewModel 通信，所以构建 Composable 时将 ViewModel 作为参数传入。</p>
+<p>Sample 中我们在 Activity 中创建的 ViewModel 仅仅是为了传递给 <code>MvvmApp</code> 使用，这种情况下也可以通过传递 <code>Lazy&lt;MvvmViewModel&gt;</code>，将创建延迟到真正需要使用的时候以提高性能。 </p>
+<h3 id="navgraph">定义 NavGraph</h3>
+<p>当涉及到 Compose 页面切换时，<code>navigation-compose</code> 是一个不错选择，Sample中也特意设计了<code>SearchBarScreen</code> 和  <code>SearchResultScreen</code> 的切换场景</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// build.gradle</span>
+<span class="n">implementation</span> <span class="s2">&quot;androidx.navigation:navigation-compose:$latest_version&quot;</span>
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MvvmApp</span><span class="p">(</span>
+    <span class="n">mvvmViewModel</span><span class="p">:</span> <span class="n">MvvmViewModel</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">navController</span> <span class="o">=</span> <span class="n">rememberNavController</span><span class="p">()</span>
+
+    <span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">mvvmViewModel</span><span class="p">.</span><span class="na">navigateToResults</span>
+            <span class="p">.</span><span class="na">collect</span> <span class="p">{</span> 
+                <span class="n">navController</span><span class="p">.</span><span class="na">navigate</span><span class="p">(</span><span class="s">&quot;result&quot;</span><span class="p">)</span> <span class="c1">//订阅VM路由事件通知，处理路由跳转</span>
+            <span class="p">}</span> 
+    <span class="p">}</span>
+
+    <span class="n">NavHost</span><span class="p">(</span><span class="n">navController</span><span class="p">,</span> <span class="n">startDestination</span> <span class="o">=</span> <span class="s">&quot;searchBar&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">composable</span><span class="p">(</span><span class="s">&quot;searchBar&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MvvmSearchBarScreen</span><span class="p">(</span>
+                <span class="n">mvvmViewModel</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">composable</span><span class="p">(</span><span class="s">&quot;result&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">MvvmSearchResultScreen</span><span class="p">(</span>
+                <span class="n">mvvmViewModel</span><span class="p">,</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+- 在 root-level 的 MvvmApp 中定义 <code>NavGraph</code>， <code>composable("$dest_id"){}</code> 中构造路由节点的各个子 Screen，构造时传入 ViewModel 用于 Screen 之间的通信</p>
+<ul>
+<li>每个 Composable 都有一个 <code>CoroutineScope</code> 与其 Lifecycle 绑定，<code>LaunchedEffect{}</code> 可以在这个 Scope 中启动协程处理副作用。 代码中使用了一个只执行一次的 Effect 订阅 ViewModel 的路由事件通知</li>
+<li>当然我们可以将 navConroller 也传给 <code>MvvmSearchBarScreen</code> ，在其内部直接发起路由跳转。但在较复杂的项目中，跳转逻辑与页面定义应该尽量保持解耦，这更利于页面的复用和测试。</li>
+<li>我们也可以在 Composeable 中直接  <code>mutableStateOf()</code> 创建 state 来处理路由跳转，但是既然选择使用 ViewModel 了，那就应该尽可能将所有 state 集中到 ViewModel 管理。 <blockquote>
+<p>注意: 上面例子中的处理路由跳转的  <code>navigateToResults</code> 是一个“事件”而非“状态”，关于这部分区别，在后文在详细阐述</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="screen">定义子 Screen</h3>
+<p>接下来看一下两个 Screen 的具体实现</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MvvmSearchBarScreen</span><span class="p">(</span>
+    <span class="n">mvvmViewModel</span><span class="p">:</span> <span class="n">MvvmViewModel</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="n">SearchBarScreen</span> <span class="p">{</span> 
+        <span class="n">mvvmViewModel</span><span class="p">.</span><span class="na">searchKeyword</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+
+<span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MvvmSearchResultScreen</span><span class="p">(</span>
+    <span class="n">mvvmViewModel</span><span class="p">:</span> <span class="n">MvvmViewModel</span>
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">val</span> <span class="nv">result</span> <span class="k">by</span> <span class="n">mvvmViewModel</span><span class="p">.</span><span class="na">result</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
+    <span class="kd">val</span> <span class="nv">isLoading</span> <span class="k">by</span> <span class="n">mvvmViewModel</span><span class="p">.</span><span class="na">isLoading</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
+
+    <span class="n">SearchResultScreen</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">isLoading</span><span class="p">,</span> <span class="n">mvvmViewModel</span><span class="p">.</span><span class="na">key</span><span class="p">.</span><span class="na">value</span><span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div>
+大量逻辑都抽象到 ViewModel 中，所以 Screen 非常简洁</p>
+<ul>
+<li>
+<p><code>SearchBarScreen</code> 接受用户输入，将搜索关键词发送给 ViewModel</p>
+</li>
+<li>
+<p><code>MvvmSearchResultScreen</code> 作为结果页显示 ViewModel 发送的数据，包括 Loading 状态和搜索结果等。</p>
+</li>
+<li><code>collectAsState</code> 用来将 Flow 转化为 Compose 的 state，每当 Flow 接收到新数据时会触发 Composable 重组。 Compose 同时支持 LiveData、RxJava 等其他响应式库的<code>collectAsState</code></li>
+</ul>
+<p>UI层的更多内容可以查阅 <code>SearchBarScreen</code> 和 <code>SearchResultScreen</code> 的源码。经过逻辑抽离后，这两个 Composable 只剩余布局相关的代码，可以在任何一种 MVX 中实现复用。</p>
+<h3 id="viewmodel">ViewModel 实现</h3>
+<p>最后看一下 ViewModel 的实现</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MvvmViewModel</span><span class="p">(</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">searchService</span><span class="p">:</span> <span class="n">DataRepository</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">coroutineScope</span> <span class="o">=</span> <span class="n">MainScope</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_isLoading</span><span class="p">:</span> <span class="n">MutableStateFlow</span><span class="o">&lt;</span><span class="kt">Boolean</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">MutableStateFlow</span><span class="p">(</span><span class="kc">false</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">isLoading</span> <span class="o">=</span> <span class="n">_isLoading</span><span class="p">.</span><span class="na">asStateFlow</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_result</span><span class="p">:</span> <span class="n">MutableStateFlow</span><span class="o">&lt;</span><span class="n">List</span><span class="o">&lt;</span><span class="n">ArticleBean</span><span class="o">&gt;&gt;</span> <span class="o">=</span> <span class="n">MutableStateFlow</span><span class="p">(</span><span class="n">emptyList</span><span class="p">())</span>
+    <span class="kd">val</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">_result</span><span class="p">.</span><span class="na">asStateFlow</span><span class="p">()</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_key</span> <span class="o">=</span> <span class="n">MutableStateFlow</span><span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">key</span> <span class="o">=</span> <span class="n">_key</span><span class="p">.</span><span class="na">asStateFlow</span><span class="p">()</span>
+
+    <span class="c1">//使用Channel定义事件</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_navigateToResults</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">&lt;</span><span class="kt">Boolean</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Channel</span><span class="p">.</span><span class="na">BUFFERED</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">navigateToResults</span> <span class="o">=</span> <span class="n">_navigateToResults</span><span class="p">.</span><span class="na">receiveAsFlow</span><span class="p">()</span>
+
+    <span class="kd">fun</span> <span class="nf">searchKeyword</span><span class="p">(</span><span class="n">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span> <span class="p">{</span>
+            <span class="n">_isLoading</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">true</span>
+            <span class="n">_navigateToResults</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+            <span class="n">_key</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">input</span>
+            <span class="kd">val</span> <span class="nv">result</span> <span class="o">=</span> <span class="n">withContext</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span> <span class="p">{</span> <span class="n">searchService</span><span class="p">.</span><span class="na">getArticlesList</span><span class="p">(</span><span class="n">input</span><span class="p">)</span> <span class="p">}</span>
+            <span class="n">_result</span><span class="p">.</span><span class="na">emit</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="na">data</span><span class="p">.</span><span class="na">datas</span><span class="p">)</span>
+            <span class="n">_isLoading</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="kc">false</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+- 接收到用户输入后，通过 <code>DataRepository</code> 发起搜索请求</p>
+<ul>
+<li>搜索过程中依次更新 <code>loading</code>（loading显示状态）、<code>navigateToResult</code>(页面跳转事件)、 <code>key</code>（搜索关键词）、<code>result</code>（搜索结果）等内容，不断驱动UI刷新</li>
+</ul>
+<p>所有状态集中在 ViewModel 管理，甚至页面跳转、Toast弹出等事件也由 ViewModel 负责通知，这对单元测试非常友好，在单测中无需再 mock 各种UI相关的上下文。</p>
+<p><br/></p>
+<h2 id="3-jetpack-mvvm">3. Jetpack MVVM</h2>
+<blockquote>
+<p>Jeptack 的意义在于降低 MVVM 在 Android平台的落地成本。</p>
+</blockquote>
+<p>引入 Jetpack 后的代码变化不大，主要变动在于 ViewModel 的创建。</p>
+<p>Jetpack 提供了多个组件，降低了 ViewModel 的使用成本：
+- 通过 hilt 的 DI 降低 ViewModel 构造成本，无需手动传入 DataRepository 等依赖
+- 任意 Composable 都可以从最近的 Scope 中获取 ViewModel，无需层层传参。</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@HiltViewModel</span>
+<span class="kd">class</span> <span class="nc">JetpackMvvmViewModel</span> <span class="nd">@Inject</span> <span class="k">constructor</span><span class="p">(</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">searchService</span><span class="p">:</span> <span class="n">DataRepository</span> <span class="c1">// DataRepository 依靠DI注入</span>
+<span class="p">)</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="p">()</span> <span class="p">{</span>
+    <span class="p">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">JetpackMvvmApp</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">navController</span> <span class="o">=</span> <span class="n">rememberNavController</span><span class="p">()</span>
+
+    <span class="n">NavHost</span><span class="p">(</span><span class="n">navController</span><span class="p">,</span> <span class="n">startDestination</span> <span class="o">=</span> <span class="s">&quot;searchBar&quot;</span><span class="p">,</span> <span class="n">route</span> <span class="o">=</span> <span class="s">&quot;root&quot;</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">composable</span><span class="p">(</span><span class="s">&quot;searchBar&quot;</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">JetpackMvvmSearchBarScreen</span><span class="p">(</span>
+                <span class="n">viewModel</span><span class="p">(</span><span class="n">navController</span><span class="p">,</span> <span class="s">&quot;root&quot;</span><span class="p">)</span> <span class="c1">//viewModel 可以在需要时再获取, 无需实现创建好并通过参数传进来</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+        <span class="n">composable</span><span class="p">(</span><span class="s">&quot;result&quot;</span><span class="p">)</span> <span class="p">{</span>
+
+            <span class="n">JetpackMvvmSearchResultScreen</span><span class="p">(</span>
+                <span class="n">viewModel</span><span class="p">(</span><span class="n">navController</span><span class="p">,</span> <span class="s">&quot;root&quot;</span><span class="p">)</span> <span class="c1">//可以获取跟同一个ViewModel实例</span>
+            <span class="p">)</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">inline</span> <span class="kd">fun</span> <span class="o">&lt;</span><span class="k">reified</span> <span class="n">VM</span> <span class="p">:</span> <span class="n">ViewModel</span><span class="o">&gt;</span> <span class="nf">viewModel</span><span class="p">(</span>
+    <span class="n">navController</span><span class="p">:</span> <span class="n">NavController</span><span class="p">,</span>
+    <span class="n">graphId</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+<span class="p">):</span> <span class="n">VM</span> <span class="o">=</span>
+    <span class="c1">//在 NavGraph 全局范围使用 Hilt 创建 ViewModel</span>
+    <span class="n">hiltNavGraphViewModel</span><span class="p">(</span> 
+        <span class="n">backStackEntry</span> <span class="o">=</span> <span class="n">navController</span><span class="p">.</span><span class="na">getBackStackEntry</span><span class="p">(</span><span class="n">graphId</span><span class="p">)</span>
+    <span class="p">)</span>
+</code></pre></div></p>
+<p>Jetpack 甚至提供了 <code>hilt-navigation-compose</code> 库，可以在 Composable 中获取 NavGraph Scope 或  Destination Scope 的 ViewModel，并自动依赖 Hilt 构建。Destination Scope 的 ViewModel 会跟随 BackStack 的弹出自动 Clear ，避免泄露。</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// build.gradle</span>
+<span class="n">implementation</span> <span class="n">androidx</span><span class="o">.</span><span class="na">hilt</span><span class="o">:</span><span class="n">hilt</span><span class="o">-</span><span class="n">navigation</span><span class="o">-</span><span class="nl">compose:</span><span class="n">$latest_versioin</span>
+</code></pre></div>
+<blockquote>
+<p>“未来 Jetpack 各组件之间协同效应会变得越来越强。”
+参考 https://developer.android.com/jetpack/compose/libraries#hilt</p>
+</blockquote>
+<p><br/></p>
+<h2 id="mvi">MVI</h2>
+<hr />
+<p>MVI 与 MVVM 很相似，其借鉴了前端框架的思想，更加强调<strong>数据的单向流动</strong>和<strong>唯一数据源</strong>，可以看做是 <strong>MVVM + Redux</strong> 的结合。</p>
+<p>MVI 的 I 指 Intent，这里不是启动 Activity 那个 Intent，而是一种对用户操作的封装形式，为避免混淆，也可唤做 Action 等其他称呼。 用户操作以 Action 的形式送给 Model层 进行处理。代码中，我们可以用 Jetpack 的 ViewModel 负责 Intent 的接受和处理，因为 ViewModel 可以在 Composable 中方便获取。</p>
+<p><img alt="mvi" src="https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/765d1d45817744728c78ceb1e2566b9a~tplv-k3u1fbpfcp-watermark.image" /></p>
+<p>在 <code>SearchBarScreen</code> 用户输入关键词后通过 <code>Action</code> 通知 ViewModel 进行搜索</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MviSearchBarScreen</span><span class="p">(</span>
+    <span class="n">mviViewModel</span><span class="p">:</span> <span class="n">MviViewModel</span><span class="p">,</span>
+    <span class="n">onConfirm</span><span class="p">:</span> <span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Unit</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="n">SearchBarScreen</span> <span class="p">{</span>
+        <span class="n">mviViewModel</span><span class="p">.</span><span class="na">onAction</span><span class="p">(</span><span class="n">MviViewModel</span><span class="p">.</span><span class="na">UiAction</span><span class="p">.</span><span class="na">SearchInput</span><span class="p">(</span><span class="nb">it</span><span class="p">))</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>通过 <code>Action</code> 通信，有利于 View 与 ViewModel 之间的进一步解耦，同时所有调用以 Action 的形式汇总到一处，也有利于对行为的集中分析和监控</p>
+<div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MviSearchResultScreen</span><span class="p">(</span>
+    <span class="n">mviViewModel</span><span class="p">:</span> <span class="n">MviViewModel</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">viewState</span> <span class="k">by</span> <span class="n">mviViewModel</span><span class="p">.</span><span class="na">viewState</span><span class="p">.</span><span class="na">collectAsState</span><span class="p">()</span>
+
+    <span class="n">SearchResultScreen</span><span class="p">(</span>
+        <span class="n">viewState</span><span class="p">.</span><span class="na">result</span><span class="p">,</span> <span class="n">viewState</span><span class="p">.</span><span class="na">isLoading</span><span class="p">,</span> <span class="n">viewState</span><span class="p">.</span><span class="na">key</span>
+    <span class="p">)</span>
+
+<span class="p">}</span>
+</code></pre></div>
+<p>MVVM 的 ViewModel 中分散定义了多个 State ，MVI 使用 <code>ViewState</code> 对 State 集中管理，只需要订阅一个 ViewState 便可获取页面的所有状态，相对 MVVM 减少了不少模板代码。</p>
+<p>相对于 MVVM，ViewModel 也有一些变化</p>
+<div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MviViewModel</span><span class="p">(</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">searchService</span><span class="p">:</span> <span class="n">DataRepository</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">coroutineScope</span> <span class="o">=</span> <span class="n">MainScope</span><span class="p">()</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_viewState</span><span class="p">:</span> <span class="n">MutableStateFlow</span><span class="o">&lt;</span><span class="n">ViewState</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">MutableStateFlow</span><span class="p">(</span><span class="n">ViewState</span><span class="p">())</span>
+    <span class="kd">val</span> <span class="nv">viewState</span> <span class="o">=</span> <span class="n">_viewState</span><span class="p">.</span><span class="na">asStateFlow</span><span class="p">()</span>
+
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_navigateToResults</span> <span class="o">=</span> <span class="n">Channel</span><span class="o">&lt;</span><span class="n">OneShotEvent</span><span class="o">&gt;</span><span class="p">(</span><span class="n">Channel</span><span class="p">.</span><span class="na">BUFFERED</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">navigateToResults</span> <span class="o">=</span> <span class="n">_navigateToResults</span><span class="p">.</span><span class="na">receiveAsFlow</span><span class="p">()</span>
+
+    <span class="kd">fun</span> <span class="nf">onAction</span><span class="p">(</span><span class="n">uiAction</span><span class="p">:</span> <span class="n">UiAction</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">when</span> <span class="p">(</span><span class="n">uiAction</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">is</span> <span class="n">UiAction</span><span class="p">.</span><span class="na">SearchInput</span> <span class="o">-&gt;</span> <span class="p">{</span>
+                <span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span> <span class="p">{</span>
+                    <span class="n">_viewState</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">_viewState</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isLoading</span> <span class="o">=</span> <span class="kc">true</span><span class="p">)</span>
+                    <span class="kd">val</span> <span class="nv">result</span> <span class="o">=</span>
+                        <span class="n">withContext</span><span class="p">(</span><span class="n">Dispatchers</span><span class="p">.</span><span class="na">IO</span><span class="p">)</span> <span class="p">{</span> <span class="n">searchService</span><span class="p">.</span><span class="na">getArticlesList</span><span class="p">(</span><span class="n">uiAction</span><span class="p">.</span><span class="na">input</span><span class="p">)</span> <span class="p">}</span>
+                    <span class="n">_viewState</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span>
+                        <span class="n">_viewState</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="p">.</span><span class="na">data</span><span class="p">.</span><span class="na">datas</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">uiAction</span><span class="p">.</span><span class="na">input</span><span class="p">)</span>
+                    <span class="n">_navigateToResults</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">OneShotEvent</span><span class="p">.</span><span class="na">NavigateToResults</span><span class="p">)</span>
+                    <span class="n">_viewState</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">_viewState</span><span class="p">.</span><span class="na">value</span><span class="p">.</span><span class="na">copy</span><span class="p">(</span><span class="n">isLoading</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">data</span> <span class="kd">class</span> <span class="nc">ViewState</span><span class="p">(</span>
+        <span class="kd">val</span> <span class="nv">isLoading</span><span class="p">:</span> <span class="kt">Boolean</span> <span class="o">=</span> <span class="kc">false</span><span class="p">,</span>
+        <span class="kd">val</span> <span class="nv">result</span><span class="p">:</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ArticleBean</span><span class="o">&gt;</span> <span class="o">=</span> <span class="n">emptyList</span><span class="p">(),</span>
+        <span class="kd">val</span> <span class="nv">key</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">&quot;&quot;</span>
+    <span class="p">)</span>
+
+    <span class="kd">sealed</span> <span class="kd">class</span> <span class="nc">OneShotEvent</span> <span class="p">{</span>
+        <span class="kd">object</span> <span class="nc">NavigateToResults</span> <span class="p">:</span> <span class="n">OneShotEvent</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="kd">sealed</span> <span class="kd">class</span> <span class="nc">UiAction</span> <span class="p">{</span>
+        <span class="kd">class</span> <span class="nc">SearchInput</span><span class="p">(</span><span class="kd">val</span> <span class="nv">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">:</span> <span class="n">UiAction</span><span class="p">()</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<ul>
+<li>
+<p>页面所有的状态都定义在 <code>ViewState</code> 这个 data class 中，状态的修改只能在 <code>onAction</code> 中进行, 其余场所都是 immutable 的， 保证了数据流只能单向修改。 反观 MVVM ，<code>MutableStateFlow</code> 对外暴露时转成 immutable 才能保证这种安全性，需要增加不少模板代码且仍然容易遗漏。</p>
+</li>
+<li>
+<p>事件则统一定义在 <code>OneShotEvent</code>中。 Event 不同于 State，同一类型的事件允许响应多次，因此定义事件使用 <code>Channel</code> 而不是 <code>StateFlow</code>。</p>
+</li>
+</ul>
+<blockquote>
+<p>Compose 鼓励多使用 State 少使用 Event， Event 只适合用在弹 Toast 等少数场景中</p>
+</blockquote>
+<p>通过浏览 ViewModel 的 ViewState 和 Aciton 定义就可以理清 ViewModel 的职责，可以直接拿来作为接口文档使用。</p>
+<p><br/></p>
+<h1 id="_1">页面路由</h1>
+<hr />
+<p>Sample 中之所以使用事件而非状态来处理路由跳转，一个主要原因是由于使用了 <code>Navigation</code>。Navigation 有自己的 <code>backstack</code> 管理，当点击 back 键时会自动帮助我们返回前一页面。倘若我们使用状态来描述当前页面，当点击 back时，没有机会更新状态，这将造成 ViewState 与 UI 的不一致。</p>
+<blockquote>
+<p>关于路由方案的建议：简单项目使用<strong>事件</strong>控制页面跳转没有问题，但是对于复杂项目，推荐使用<strong>状态</strong>进行页面管理，有利于逻辑层时刻感知到当前的UI状态。</p>
+</blockquote>
+<p>我们可以将 NavController 的 backstack 状态 与 ViewModel 的状态建立同步：</p>
+<p><div class="highlight"><pre><span></span><code><span class="kd">class</span> <span class="nc">MvvmViewModel</span><span class="p">(</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">searchService</span><span class="p">:</span> <span class="n">DataRepository</span><span class="p">,</span>
+<span class="p">)</span> <span class="p">{</span>
+
+    <span class="p">...</span>
+    <span class="c1">//使用 StateFlow 描述页面</span>
+    <span class="kd">private</span> <span class="kd">val</span> <span class="nv">_destination</span> <span class="o">=</span> <span class="n">MutableStateFlow</span><span class="p">(</span><span class="n">DestSearchBar</span><span class="p">)</span>
+    <span class="kd">val</span> <span class="nv">destination</span> <span class="o">=</span> <span class="n">_destination</span><span class="p">.</span><span class="na">asStateFlow</span><span class="p">()</span>
+
+    <span class="kd">fun</span> <span class="nf">searchKeyword</span><span class="p">(</span><span class="n">input</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">coroutineScope</span><span class="p">.</span><span class="na">launch</span> <span class="p">{</span>
+            <span class="p">...</span>
+            <span class="n">_destination</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">DestSearchResult</span>
+            <span class="p">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+
+    <span class="kd">fun</span> <span class="nf">bindNavStack</span><span class="p">(</span><span class="n">navController</span><span class="p">:</span> <span class="n">NavController</span><span class="p">)</span> <span class="p">{</span>
+        <span class="c1">//navigation 的状态时刻同步到 viewModel</span>
+        <span class="n">navController</span><span class="p">.</span><span class="na">addOnDestinationChangedListener</span> <span class="p">{</span> <span class="n">_</span><span class="p">,</span> <span class="n">_</span><span class="p">,</span> <span class="n">arguments</span> <span class="o">-&gt;</span>
+            <span class="n">run</span> <span class="p">{</span>
+                <span class="n">_destination</span><span class="p">.</span><span class="na">value</span> <span class="o">=</span> <span class="n">requireNotNull</span><span class="p">(</span><span class="n">arguments</span><span class="o">?.</span><span class="na">getString</span><span class="p">(</span><span class="n">KEY_ROUTE</span><span class="p">))</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+如上，当 navigation 状态变化时，会及时同步到 ViewModel ，这样就可以使用 StateFlow 而非 Channel 来描述页面状态了。</p>
+<p><div class="highlight"><pre><span></span><code><span class="nd">@Composable</span>
+<span class="kd">fun</span> <span class="nf">MvvmApp</span><span class="p">(</span>
+    <span class="n">mvvmViewModel</span><span class="p">:</span> <span class="n">MvvmViewModel</span>
+<span class="p">)</span> <span class="p">{</span>
+    <span class="kd">val</span> <span class="nv">navController</span> <span class="o">=</span> <span class="n">rememberNavController</span><span class="p">()</span>
+
+    <span class="n">LaunchedEffect</span><span class="p">(</span><span class="kt">Unit</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">with</span><span class="p">(</span><span class="n">mvvmViewModel</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">bindNavStack</span><span class="p">(</span><span class="n">navController</span><span class="p">)</span> <span class="c1">//建立同步</span>
+            <span class="n">destination</span>
+                <span class="p">.</span><span class="na">collect</span> <span class="p">{</span>
+                    <span class="n">navController</span><span class="p">.</span><span class="na">navigate</span><span class="p">(</span><span class="nb">it</span><span class="p">)</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+在入口处，为 NavController 和 ViewModel 建立同步绑定即可。</p>
+<p><br/></p>
+<h1 id="clean-architecture">Clean Architecture</h1>
+<hr />
+<p>更大型的项目中，会引入 <code>Clean Architecture</code> ，通过 Use Case 将 ViewModel 内的逻辑进一步分解。 Compose 只是个 UI 框架，对于 ViewModel 以下的逻辑层的治理方式与传统的 Andorid 开发没有区别。所以 Clean Architecture 这样的复杂架构仍然可以在 Compose 项目中使用</p>
+<p><br/></p>
+<h1 id="_2">总结</h1>
+<hr />
+<p>比较了这么多种架构，那种与 Compose 最契合呢？ </p>
+<p>Compose 的声明式UI思想来自 React，所以同样来自 Redux 思想的 MVI 应该是 Compose 的最佳伴侣。当然 MVI 只是在 MVVM 的基础上做了一些改良，如果你已经有了一个 MVVM 的项目，只是想将 UI 部分改造成 Compose ，那么没必要为了改造成 MVI 而进行重构，MVVM 也可以很好地配合 Compose 使用的。 但是如果你想将一个 MVP 项目改造成 Compose 可能成本就有点大了。</p>
+<p>关于 Jetpack，如果你的项目只用于 Android，那么 Jetpack 无疑是一个好工具。但是 Compose 未来的应用场景将会很广泛，如果你有预期未来会配合 KMP 开发跨平台应用，那么就需要学会不依赖 Jetpack 的开发方式，这也是本文为什么要介绍非 Jetpack 下的 MVVM 的一个初衷。</p>
+<h4 id="sample">Sample 代码：</h4>
+<p><a href="https://github.com/vitaviva/JetpackComposePlayground/tree/main/architecture">点击这里</a></p>
+
+  <hr>
+<div class="md-source-file">
+  <small>
+    
+      最后更新:
+      <span class="git-revision-date-localized-plugin git-revision-date-localized-plugin-date">December 17, 2021</span>
+      
+    
+  </small>
+</div>
+
+              
+            </article>
+          </div>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    <nav class="md-footer__inner md-grid" aria-label="页脚">
+      
+        
+        <a href="../../principle/modifier_structure/" class="md-footer__link md-footer__link--prev" aria-label="上一页: 图解Modifier" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                上一页
+              </span>
+              图解Modifier
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../use_jetpack_in_compose/" class="md-footer__link md-footer__link--next" aria-label="下一页: 在 Compose 中使用 Jetpack 组件库" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                下一页
+              </span>
+              在 Compose 中使用 Jetpack 组件库
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        <div class="md-social">
+  
+    
+    
+      
+      
+    
+    <a href="https://github.com/Compose-Museum/Compose-Tutorial/" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.0.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs"], "translations": {"clipboard.copy": "\u590d\u5236", "clipboard.copied": "\u5df2\u590d\u5236", "search.config.lang": "ja", "search.config.pipeline": "trimmer, stemmer", "search.config.separator": "[\\uff0c\\u3002]+", "search.placeholder": "\u641c\u7d22", "search.result.placeholder": "\u952e\u5165\u4ee5\u5f00\u59cb\u641c\u7d22", "search.result.none": "\u6ca1\u6709\u627e\u5230\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.one": "\u627e\u5230 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.other": "# \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.one": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 1 \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.more.other": "\u5728\u8be5\u9875\u4e0a\u8fd8\u6709 # \u4e2a\u7b26\u5408\u6761\u4ef6\u7684\u7ed3\u679c", "search.result.term.missing": "\u7f3a\u5c11", "select.version.title": "\u9009\u62e9\u5f53\u524d\u7248\u672c"}, "search": "../../assets/javascripts/workers/search.bd0b6b67.min.js"}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.467223ff.min.js"></script>
+      
+    
+  </body>
+</html>
