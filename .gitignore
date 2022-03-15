@@ -20,3 +20,7 @@ yarn-debug.log*
 yarn-error.log*
 
 .history/
+
+.idea
+*.iml
+.vscode
