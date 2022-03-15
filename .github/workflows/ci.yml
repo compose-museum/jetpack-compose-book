@@ -6,6 +6,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: github.repository == 'milklabdev/jetpack-compose-book'
     steps:
       - uses: actions/checkout@v3
         with:
