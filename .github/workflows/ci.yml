@@ -15,9 +15,9 @@ jobs:
           node-version: 16.x
           cache: npm
       - name: Install dependencies
-        run: npm install --frozen-lockfile
+        run: yarn install --frozen-lockfile
       - name: Build website
-        run: npm run-script build
+        run: yarn build
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
