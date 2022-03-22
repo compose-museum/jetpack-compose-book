@@ -108,7 +108,18 @@ const sidebars = {
             'design/lists/overview',
             'design/lists/listItemClick',
           ]
-        }
+        },
+        {
+          type: 'category',
+          label: '图形（Graphics）',
+          link: {
+            type: 'generated-index'
+          },
+          collapsed: true,
+          items: [
+            'design/graphics/customDraw',
+          ]
+        },
       ]
     },
     'resources',
