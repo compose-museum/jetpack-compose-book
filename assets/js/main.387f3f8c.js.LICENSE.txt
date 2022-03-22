@@ -113,6 +113,15 @@ PERFORMANCE OF THIS SOFTWARE.
 *****************************************************/
 
 /**
+ * Prism: Lightweight, robust, elegant syntax highlighting
+ *
+ * @license MIT <https://opensource.org/licenses/MIT>
+ * @author Lea Verou <https://lea.verou.me>
+ * @namespace
+ * @public
+ */
+
+/**
  * lunr - http://lunrjs.com - A bit like Solr, but much smaller and not as bright - 2.3.9
  * Copyright (C) 2020 Oliver Nightingale
  * @license MIT
