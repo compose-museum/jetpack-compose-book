@@ -3,7 +3,7 @@ name: Test deployment
 on:
   pull_request:
     branches:
-      - mster
+      - master
 jobs:
   test-deploy:
     name: Test deployment
