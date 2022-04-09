@@ -33,6 +33,10 @@
 
 ### 在本地编辑&测试
 
+前置条件：
+1. [Node.js](https://nodejs.org/en/download/) >= 14
+2. npm >= 6.9.0
+
 #### 1. fork 仓库
 
 ```
