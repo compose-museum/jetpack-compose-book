@@ -5,17 +5,15 @@ title: 自定义触摸反馈
 
 import drag from '@site/static/img/design/gesture/custom_gesture/drag.gif'
 import transform from '@site/static/img/design/gesture/custom_gesture/transform.gif'
-import boxnest from '@site/static/img/design/gesture/custom_gesture/box_nest.jpg'
+import boxnest from '@site/static/img/design/gesture/custom_gesture/boxnest.jpg'
 
-Jetpack Compose 为我们提供了许多手势处理 Modifier，对于常见业务需求来说已足够我们使用了，然而如果说我们对手势有定制需求，就需要具备自定义手势处理的能力了。通过使用官方所提供的基础 API 来完成各类手势交互需求，触摸反馈基础 API 类似传统 View 系统的 `onTouchEvent()`。 当然 Compose 中也支持类似传统 ViewGroup 通过 `onInterceptTouchEvent()`定制手势事件分发流程。通过对自定义手势处理的学习将帮助大家掌握处理绝大多数场景下手势需求的能力。
+import boxnest2 from '@site/static/img/design/gesture/custom_gesture/boxnest2.jpg'
+
+import boxnest3 from '@site/static/img/design/gesture/custom_gesture/boxnest3.jpg'
+
+通过前面 `Draggable` 修饰符、`Swipeable` 修饰符、`Transformable` 修饰符以及 `NestedScroll` 修饰符使用方法的学习，想必大家已经可以处理一些常见手势需求了。然而针对复杂手势需求，我们就需要对 Compose 中的手势处理有更深入的理解。实际上前面所提到的手势处理修饰符都是基于低级别的 `PointerInput` 修饰符进行封装实现的，所以弄清楚 `PointerInput` 修饰符的使用方法，有助于我们对高级别手势处理修饰符的理解，并且能够帮助我们更好的完成上层开发实现各种复杂的手势需求。
 
 ## 使用 PointerInput Modifier
-
-对于所有手势操作的处理都需要封装在这个 Modifier 中，我们知道 Modifier 是用来修饰 UI 组件的，所以将手势操作的处理封装在 Modifier 符合开发者设计直觉，这同时也做到了手势处理逻辑与 UI 视图的解耦，从而提高复用性。
-
-通过翻阅 `Swipeable Modifier` 、`Draggable Modifier ` 以及 `Transformer Modifier`，我们都能看到 `PointerInput Modifier` 的身影。因为这类上层的手势处理 Modifier 其实都是基于这个基础 Modifier 实现的。所以既然要自定义手势处理流程，自定义逻辑也必然要在这个 Modifier 中进行实现。
-
-通过 `PointerInput Modifier` 实现我们可以看出，我们所定义的自定义手势处理流程均发生在 `PointerInputScope` 中，suspend 关键字也告知我们自定义手势处理流程是发生在协程中。这其实是无可厚非的，在探索重组工作原理的过程中我们也经常能够看到协程的身影。伴随着越来越多的主流开发技术拥抱协程，这也就意味着协程成了 Android 开发者未来必须掌握的技能。推广协程同时其实也是在推广 Kotlin，即使官方一直强调不会放弃 Java，然而谁又会在 Java 中使用 Kotlin 协程呢？ 
 
 ```kotlin
 fun Modifier.pointerInput(
@@ -33,13 +31,16 @@ fun Modifier.pointerInput(
 }
 ```
 
+使用 `PointerInput` 修饰符时我们需要传入两个参数，`keys` 与 `block`。
 
+- **keys：**当 Composable 组件发生重组时，如果传入的 keys 发生了变化，则手势事件处理过程会被中断。
+- **block：**在这个 `PointerInputScope` 类型作用域代码块中我们便可以声明手势事件处理逻辑了。通过 suspend 关键字可知这是个协程体，这意味着在 Compose 中手势处理最终都发生在协程中。如果你对协程还不了解的话，可能需要额外的拓展学习一下了，伴随着越来越多的主流开发框架拥抱协程，协程将会成为Android 开发者未来必须掌握的技能。
 
-接下来我们就看看 `PointerInputScope` 作用域中，为我们可以使用哪些 API 来处理手势交互。本文将会根据手势能力分类进行解释说明。
+我们在 `PointerInputScope` 接口声明中能够找到所有可用的手势处理方法，我们可以通过这些方法获取到更加详细的手势信息以及更加细粒度的手势事件处理，接下来我们先来介绍 `PointerInputScope` 中的 `GestureDetector` 系列 API 方法。
 
 ### 拖动类型基础 API
 
-#### API 介绍
+谈到拖动监听，许多人第一个反应就是前面所提到的 `Draggable` 修饰符。`Draggable` 修饰符作为手势处理的高层次封装，在监听 UI 组件拖动手势的基础能力上也附加了许多特性与限制，同时也隐藏了一些细粒度的手势事件回调设置。例如在 `Draggable` 修饰符中我们只能监听水平或垂直两个方向的拖动手势，所以为了能够更完整的监听拖动手势，Compose 为我们提供了低级别的 `detectDragGestures` 系列 API。
 
 | API名称                          | 作用                 |
 | -------------------------------- | -------------------- |
@@ -48,38 +49,7 @@ fun Modifier.pointerInput(
 | detectHorizontalDragGestures     | 监听水平拖动手势     |
 | detectVerticalDragGestures       | 监听垂直拖动手势     |
 
-谈及拖动，许多人第一个反应就是 `Draggable Modifier`，因为 `Draggable Modifier` 为我们提供了监听 UI 组件拖动能力。然而 `Draggable Modifier` 在提供了监听 UI 组件拖动能力的同时也拓展增加其他功能，我们通过 `Draggable Modifier` 参数列表即可看出。例如通过使用 `DraggableState` 允许开发者根据需求使 UI 组件自动被拖动。
-
-```kotlin
-fun Modifier.draggable(
-    state: DraggableState,
-    orientation: Orientation,
-    enabled: Boolean = true,
-    interactionSource: MutableInteractionSource? = null,
-    startDragImmediately: Boolean = false,
-    onDragStarted: suspend CoroutineScope.(startedPosition: Offset) -> Unit = {},
-    onDragStopped: suspend CoroutineScope.(velocity: Float) -> Unit = {},
-    reverseDirection: Boolean = false
-)
-```
-
-我们上面所罗列的这些拖动 API 只提供了监听 UI 组件拖动的能力，我们可以根据需求为其拓展功能，这也是这些API所存在的意义。我们从字面上就可以看出每个 API 所对应的含义，由于这些API的功能与参数相近，这里我们仅以 `detectDragGestures` 作为举例说明。
-
-#### 举例说明
-
-接下来我们将完成一个绿色方块的手势拖动。在 `Draggabel Modifier` 中我们还只能监听垂直或水平中某一个方向的手势拖动，而使用 `detectDragGestures` 所有手势信息都是可以拿到的。如果我们还是只希望拿到某一个方向的手势拖动，使用 `detectHorizontalDragGestures`  或 `detectVerticalDragGestures` 即可，当然我们也可以使用 `detectDragGestures` 并且忽略掉某个方向的手势信息。如果我们希望在长按后才能拿到手势信息可以使用 `detectDragGesturesAfterLongPress`。
-
-`detectDragGestures` 提供了四个参数。
-
-onDragStart (可选)：拖动开始时回调
-
-onDragEnd (可选)：拖动结束时回调
-
-onDragCancel (可选)：拖动取消时回调
-
-onDrag (必须)：拖动时回调
-
-`decectDragGestures` 的源码分析在 *awaitTouchSlopOrCancellation* 小节会有讲解。
+这类拖动监听 API 功能上相类似，使用时需要传入参数也比较相近。我们可以根据实际情况来选用不同 API。在使用这些 API 时，我们可以定制在不同时机的处理回调，以 `detectDragGestures` 为例。
 
 ```kotlin
 suspend fun PointerInputScope.detectDragGestures(
@@ -90,46 +60,45 @@ suspend fun PointerInputScope.detectDragGestures(
 )
 ```
 
-> 💡 **Tips **
->
-> 有些同学可能困惑 `onDragCancel` 触发时机。在一些场景中，当组件拖动时会根据事件分发顺序进行事件分发，当前面先处理事件的组件满足了设置的消费条件，导致手势事件被消费，导致本组件拿到的是被消费的手势事件，从而会执行 `onDragCancel` 回调。如何定制事件分发顺序并消费事件后续会进行详细的描述。
+这里提供了四个回调时机，`onDragStart` 会在拖动开始时回调，`onDragEnd` 会在拖动结束时回调，`onDragCancel` 会在拖动取消时回调，而 `onDrag` 则会在拖动真正发生时回调。
 
-示例如下所示
+> 注意：onDragCancel 触发时机多发生于滑动冲突的场景，子组件可能最开始是可以获取到拖动事件的，当拖动手势事件达到莫个指定条件时可能会被父组件劫持消费，这种场景下便会执行 onDragCancel 回调。所以 onDragCancel 回调主要依赖于实际业务逻辑。
+
+我们可以利用 `detectDragGestures` 轻松的实现拖动手势监听。
 
 ```kotlin
-@Preview
 @Composable
 fun DragGestureDemo() {
-    var boxSize = 100.dp
-    var offset by remember { mutableStateOf(Offset.Zero) }
-    Box(contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Box(Modifier
-            .size(boxSize)
-            .offset {
-                IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
-            }
-            .background(Color.Green)
-            .pointerInput(Unit) {
-                detectDragGestures(
-                    onDragStart = { offset ->
-                        // 拖动开始
-                    },
-                    onDragEnd = {
-                        // 拖动结束
-                    },
-                    onDragCancel = {
-                        // 拖动取消
-                    },
-                    onDrag = { change: PointerInputChange, dragAmount: Offset ->
-                        // 拖动时
-                        offset += dragAmount
-                    }
-                )
-            }
+  var boxSize = 100.dp
+  var offset by remember { mutableStateOf(Offset.Zero) }
+  Box(contentAlignment = Alignment.Center,
+    modifier = Modifier.fillMaxSize()
+  ) {
+    Box(Modifier
+      .size(boxSize)
+      .offset {
+        IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+      }
+      .background(Color.Green)
+      .pointerInput(Unit) {
+        detectDragGestures(
+          onDragStart = { offset ->
+            Log.d(TAG, "拖动开始了～")
+          },
+          onDragEnd = {
+            Log.d(TAG, "拖动结束了～")
+          },
+          onDragCancel = {
+            Log.d(TAG, "拖动取消了～")
+          },
+          onDrag = { change: PointerInputChange, dragAmount: Offset ->
+            Log.d(TAG, "拖动中～")
+            offset += dragAmount
+          }
         )
-    }
+      }
+    )
+  }
 }
 ```
 
@@ -139,49 +108,35 @@ fun DragGestureDemo() {
 
 ### 点击类型基础 API
 
-#### API 介绍
+在 `PointerInputScope` 中，我们可以使用 `detectTapGestures` 设置更细粒度的点击监听回调。作为低级别点击监听 API，在发生点击时不会带有像 `Clickable` 修饰符与 `CombinedClickable` 修饰符那样会为所修饰的组件施加一个涟漪波纹效果动画的蒙层，我们能够根据需要进行更灵活的上层定制。
 
 | API名称           | 作用         |
 | ----------------- | ------------ |
 | detectTapGestures | 监听点击手势 |
 
-与 `Clickable Modifier` 不同的是，`detectTapGestures` 可以监听更多的点击事件。作为手机监听的基础 API，必然不会存在 `Clickable Modifier` 所拓展的涟漪效果。
-
-#### 举例说明
-
-接下来我们将为一个绿色方块添加点击手势处理逻辑。`detectTapGestures` 提供了四个可选参数，用来监听不同点击事件。
-
-onDoubleTap (可选)：双击时回调
-
-onLongPress (可选)：长按时回调
-
-onPress (可选)：按下时回调
-
-onTap (可选)：轻触时回调
+`detectTapGestures` 提供了四个可选事件回调，可以根据需求来设置不同点击事件回调。
 
 ```kotlin
 suspend fun PointerInputScope.detectTapGestures(
-    onDoubleTap: ((Offset) -> Unit)? = null,
-    onLongPress: ((Offset) -> Unit)? = null,
-    onPress: suspend PressGestureScope.(Offset) -> Unit = NoPressGesture,
-    onTap: ((Offset) -> Unit)? = null
+  onDoubleTap: ((Offset) -> Unit)? = null,
+  onLongPress: ((Offset) -> Unit)? = null,
+  onPress: suspend PressGestureScope.(Offset) -> Unit = NoPressGesture,
+  onTap: ((Offset) -> Unit)? = null
 )
 ```
 
-> 💡 **Tips ** 
->
-> onPress 普通按下事件
->
-> onDoubleTap 前必定会先回调 2 次 Press
->
-> onLongPress 前必定会先回调 1 次 Press（时间长）
->
-> onTap 前必定会先回调 1 次 Press（时间短）
+- onDoubleTap (可选)：双击时回调
+- onLongPress (可选)：长按时回调
+- onPress (可选)：按下时回调
+- onTap (可选)：轻触时回调
 
-示例如下所示
+这几种点击事件回调存在着先后次序的，并不是每次只会执行其中一个。`onPress` 是最普通的 `ACTION_DOWN` 事件，你的手指一旦按下便会回调。如果你连着按了两下，则会在执行两次 `onPress` 后执行 `onDoubleTap`。如果你的手指按下后不抬起，当达到长按的判定阈值 (400ms) 会执行 `onLongPress`。如果你的手指按下后快速抬起，在轻触的判定阈值内(100ms)会执行 `onTap` 回调。
+
+总的来说， `onDoubleTap` 回调前必定会先回调 2 次 Press，而 onLongPress 与 onTap 回调前必定会回调 1 次 Press。
+
+ `detectTapGestures` 使用起来非常简单，我们根据需求来设置不同点击事件回调即可。
 
 ```kotlin
-@Preview
 @Composable
 fun TapGestureDemo() {
     var boxSize = 100.dp
@@ -192,56 +147,47 @@ fun TapGestureDemo() {
             .pointerInput(Unit) {
                 detectTapGestures(
                     onDoubleTap = { offset: Offset ->
-                        // 双击
+                        Log.d(TAG, "发生双击操作了～")
                     },
                     onLongPress = { offset: Offset ->
-                        // 长按
+                        Log.d(TAG, "发生长按操作了～")
                     },
                     onPress = {  offset: Offset ->
-                        // 按下
+                        Log.d(TAG, "发生按下操作了～")
                     },
                     onTap = {  offset: Offset ->
-                        // 轻触
+                        Log.d(TAG, "发生轻触操作了～")
                     }
-                )
-            }
-        )
-    }
+               )
+           }
+       )
+   }
 }
 ```
 
 ### 变换类型基础 API
 
-#### API 介绍
+使用 `detectTransformGestures` 可以获取到双指拖动、缩放与旋转手势操作中更具体的手势信息，例如重心。
 
 | API名称                 | 作用                     |
 | ----------------------- | ------------------------ |
 | detectTransformGestures | 监听拖动、缩放与旋转手势 |
 
-与 `Transfomer Modifier` 不同的是，通过这个 API 可以监听单指的拖动手势，和拖动类型基础 API所提供的功能一样，除此之外还支持监听双指缩放与旋转手势。反观`Transfomer Modifier` 只能监听到双指拖动手势，不知设计成这样的行为不一致是否是 Google 有意而为之。
+与 `Transfomer` 修饰符不同的是，通过这个 API 可以监听单指的拖动手势，和拖动类型基础 API所提供的功能一样，除此之外还支持监听双指缩放与旋转手势。反观 `Transfomer` 修饰符 只能监听到双指拖动手势，不知设计成这样的行为不一致是否是官方有意为之。
 
-#### 举例说明
-
-接下来我们为这个绿色方块添加变化手势处理逻辑。`detectTransformGestures` 方法提供了两个参数。
-
-panZoomLock(可选)： 当拖动或缩放手势发生时是否支持旋转
-
-onGesture(必须)：当拖动、缩放或旋转手势发生时回调
-
-```kotlin
+``` kotlin
 suspend fun PointerInputScope.detectTransformGestures(
     panZoomLock: Boolean = false,
     onGesture: (centroid: Offset, pan: Offset, zoom: Float, rotation: Float) -> Unit
 )
 ```
 
->💡 **Tips**
->
->关于偏移、缩放与旋转，我们建议的调用顺序是 rotate -> scale -> offset
->
->1. 若offset发生在rotate之前时，rotate会对offset造成影响。具体表现为当出现拖动手势时，组件会以当前角度为坐标轴进行偏移。
->
->2. 若offset发生在scale之前时，scale也会对offset造成影响。具体表现为UI组件在拖动时不跟手
+与 `Tranformable` 修饰符一样，`detectTransformGestures` 方法提供了两个参数。
+
+- **panZoomLock**(可选)： 当拖动或缩放手势发生时是否支持旋转
+- **onGesture**(必须)：当拖动、缩放或旋转手势发生时回调
+
+使用起来十分简单，我们仅需根据手势信息来更新状态就可以了。当我们处理旋转、缩放与拖动这类手势时，需要格外的注意 `Modifier` 调用次序，因为这会影响最终呈现效果。
 
 ```kotlin
 @Preview
@@ -281,18 +227,30 @@ fun TransformGestureDemo() {
 
 ### forEachGesture
 
-在传统 View 系统中，一次手指按下、移动到抬起过程中的所有手势事件可以共同构成一个手势事件序列。我们可以通过自定义手势处理来对于每一个手势事件序列进行定制处理。Compose 提供了 `forEachGesture` 以允许用户可以对每一个手势事件序列进行相同的定制处理。如果我们忘记使用 `forEachGesture` ，那么只会处理第一次手势事件序列。有些同学可能会问，为什么我不能在手势处理逻辑最外层套一层 `while(true) ` 呢，通过 `forEachGesture` 的实现我们可以看到 `forEachGesture` 其实内部也是由`while ` 实现的，除此之外他保证了协程只有存活时才能监听手势事件，同时也保证了每次交互结束时所有手指都是离开屏幕的。有些同学看到 `while` 可能新生疑问，难道这样不会阻塞主线程嘛？其实我们在介绍 `PointerInput Modifier` 时就提到过，我们的手势操作处理均发生在协程中。其实前面我们所提到的绝大多数 API 其内部实现均使用了 `forEachGesture` 。有些特殊场景下我们仅使用前面所提出的 API 可能仍然无法满足我们的需求，当然如果可以满足的话我们直接使用其分别对应的 `Modifier` 即可，前面所提出的 API 存在的意义是为了方便开发者为其进行功能拓展。既然要掌握自定义手势处理，我们就要从更底层角度来看这些上层 API 是如何实现的，了解原理我们就可以轻松自定义了。
+前面提到 Compose 手势操作实际上是在协程中监听处理的，当协程处理完一轮手势交互后便会结束，当进行第二次手势交互时由于负责手势监听的协程已经结束，手势事件便会被丢弃掉。那我们该怎样才能让手势监听协程能够不断地处理每一轮的手势交互呢。我们很容易想到可以在外层嵌套一个 `while(true) `进行实现，然而这么做并不优雅，且也存在着一些问题。
+
+当用户出现一连串手势操作时，很难保证各手势之间有清晰分界，即无法保证每一轮手势结束后，所有手指都是离开屏幕的。在传统 View 体系中，一次手指按下、移动到抬起过程中的所有手势事件可以看作是一个完整的手势交互序列。每当用户触摸屏幕交互时，我们可以根据这一次用户输入的手势交互序列中的手势信息进行相应的处理。
+
+当第一轮手势处理结束或者被中断取消后，如果仍有手指留在屏幕。如果采用 `while(true)` 处理手势，则第二轮手势处理可能会使用第一轮手势交互序列中信息，导致出现不符预期的结果。
+
+Compose 为我们提供了 `forEachGesture` 方法保证了每一轮手势处理逻辑的一致性。实际上前面我们所介绍的 GestureDetect 系列 API，其内部实现都使用了 `forEachGesture`。
+
+通过 `forEachGesture` 的源码可知，每一轮手势处理结束后或本次手势处理被取消时，都会使用 `awaitAllPointersUp()` 保证所有手指均已抬起。并且同时也会与当前组件的生命周期对齐，当组件离开视图树时，手势监听也会随之结束。
 
 ```kotlin
 suspend fun PointerInputScope.forEachGesture(block: suspend PointerInputScope.() -> Unit) {
     val currentContext = currentCoroutineContext()
     while (currentContext.isActive) {
         try {
-            block()
-            // 挂起等待所有手指抬起
-            awaitAllPointersUp()
+          block()
+          // 挂起等待所有手指抬起
+          awaitAllPointersUp()
         } catch (e: CancellationException) {
-            ...
+            if (currentContext.isActive) {
+                // 手势事件取消时，如果协程还存活则等待手指抬起再进行下一轮监听
+                awaitAllPointersUp()
+                throw e
+            }
         }
     }
 }
@@ -300,9 +258,9 @@ suspend fun PointerInputScope.forEachGesture(block: suspend PointerInputScope.()
 
 ## 手势事件作用域 awaitPointerEventScope
 
-在 `PointerInputScope` 中我们可以找到一个名为 `awaitPointerEventScope` 的 API 方法。
+我们前面介绍的 `GestureDetector` 系列 API 本质上仍然是一种封装，既然手势处理是在协程中完成的，所以**手势监听必然是通过协程的挂起恢复实现的，以取代传统的回调监听方式**。要想深入理解 Compose 手势处理，就需要学习更为底层的手势处理挂起方法。
 
-通过翻阅方法声明可以发现这是个挂起方法，其尾部 lambda 在 `AwaitPointerEventScope` 作用域中。 通过这个 `AwaitPointerEventScope` 作用域我们可以获取到更加底层的 API 手势事件，这也为自定义手势处理提供了可能。
+在 `PointerInputScope` 中我们使用 `awaitPointerEventScope` 方法获得 `AwaitPointerEventScope` 作用域，在` AwaitPointerEventScope` 作用域中我们可以使用 Compose 中所有低级别的手势处理挂起方法。当 `awaitPointerEventScope` 内所有手势事件都处理完成后 `awaitPointerEventScop`e 便会恢复执行将 Lambda 中最后一行表达式的数值作为返回值返回。
 
 ```kotlin
 suspend fun <R> awaitPointerEventScope(
@@ -326,103 +284,120 @@ suspend fun <R> awaitPointerEventScope(
 | awaitHorizontalTouchSlopOrCancellation | 有效水平拖动事件     |
 | awaitVerticalTouchSlopOrCancellation   | 有效垂直拖动事件     |
 
-### 万物之源 awaitPointerEvent
+### 事件之源 awaitPointerEvent
 
-`awaitPointerEvent` 类似于传统 View 系统的 `onTouchEvent()` 。无论用户是按下、移动或抬起都将视作一次手势事件，当手势事件发生时 `awaitPointerEvent` 会恢复执行并将手势事件返回。
+之所以称这个 API 为事件之源，因为上层所有手势监听 API 都是基于这个 API 实现的，他的作用类似于传统 View 中的 `onTouchEvent() `。无论用户是按下、移动或抬起都将视作一次手势事件，当手势事件发生时 `awaitPointerEvent` 便会恢复返回监听到的屏幕上所有手指的交互信息。
+
+```kotlin
+forEachGesture {
+    awaitPointerEventScope {
+        var event = awaitPointerEvent()
+        Log.d(TAG, "x: ${event.changes[0].position.x}, y: ${event.changes[0].position.y}")
+    }
+}
+```
+
+#### 手势事件分发
+
+实际上 `awaitPointerEvent` 存在着一个可选参数 `PointerEventPass`，这个参数实际上是用来定制手势事件分发顺序的。
 
 ```kotlin
 suspend fun awaitPointerEvent(
-  pass: PointerEventPass = PointerEventPass.Main
+    pass: PointerEventPass = PointerEventPass.Main
 ): PointerEvent
 ```
 
-通过 API 声明可以看到 `awaitPointerEvent` 有个可选参数 `PointerEventPass`
+通过 API 声明可以看到 `awaitPointerEvent` 有个可选参数 `PointerEventPass`，这个参数实际上是用来定制手势事件分发顺序的。
 
-我们知道手势事件的分发是由父组件到子组件的单链结构。这个参数目的是用以设置父组件与子组件的事件分发顺序，`PointerEventPass` 有 3 个枚举值可供选择，每个枚举值的具体含义如下
+PointerEventPass 有 3 个枚举值可以让我们来决定手势的处理阶段。在 Compose 中，手势处理共有三个阶段：
 
-| 枚举值                   | 含义                                                         |
-| ------------------------ | ------------------------------------------------------------ |
-| PointerEventPass.Initial | 本组件优先处理手势，处理后交给子组件                         |
-| PointerEventPass.Main    | 若子组件为Final，本组件优先处理手势。否则将手势交给子组件处理，结束后本组件再处理。 |
-| PointerEventPass.Final   | 若子组件也为Final，本组件优先处理手势。否则将手势交给子组件处理，结束后本组件再处理。 |
+- Initial：自上而下的分发手势事件
+- Main：自下而上的分发手势事件
+- Final：自上而下的分发手势事件
 
-大家可能觉得 Main 与 Final 是等价的。但其实两者在作为子组件时分发顺序会完全不同，举个例子。
+在 Inital 阶段，手势事件会在所有使用 Inital 参数的组件间**自上而下**的完成首次分发。利用 Inital 可以使父组件能够预先劫持消费手势事件，这类似于传统 View 中 onInterceptTouchEvent 的作用。
 
-当父组件为Final，子组件为Main时，事件分发顺序： 子组件  -> 父组件
+在 Main 阶段，手势事件会在所有使用 Main 参数的组件间**自下而上**的完成第二次分发。利用 Main 可以使子组件能先于父组件完成手势事件的处理，这有些类似于传统 View 中 onTouchEvent 的作用。
 
-当父组件为Final，子组件为Final时，事件分发顺序： 父组件 -> 子组件
+在 Final 阶段，手势事件会在所有使用 Final 参数的组件间**自上而下**的完成最后一次分发。Final阶段一般用来让组件了解经历过前面几个阶段后的手势事件消费情况，从而确定自身行为。例如按钮组件可以不再手指从按钮上移动开的事件，因为这个事件可能已被父组件滚动器用于滚动消费了
 
-文字描述可能并不直观，接下来进行举例说明。
+接下来我们通过一个嵌套组件的手势监听来演示事件的分发过程。当所有组件的手势监听均默认使用 Main 时，事件分发顺序为：第三层 -> 第二层 -> 第一层
 
-#### 事件分发流程
+<div align = "center">
+  <img src = {boxnest} width = "50%" height = "50%"/>
+</div>
 
-接下来，我将通过一个嵌套了三层 Box 的示例来直观表现事件分发过程。我们为这嵌套的三层Box 中的每一层都进行手势获取。
+而如果第一层组件使用 Inital，第二层组件使用 Final ，第三层组件使用 Main，事件分发顺序为：第一层 -> 第三层 -> 第二层
 
-<img src = {boxnest} width = "50%" height = "50%" />
+<div align = "center">
+  <img src = {boxnest2} width = "50%" height = "50%"/>
+</div>
 
-如果我们点击中间的绿色方块时，便会触发手势事件。
+接下来，我们换作四层嵌套来观察手势事件的分发，其中第一层与第三层使用 Initial，第二层使用 Final，第三层使用 Main，事件分发顺序为：第一层 -> 第三层 -> 第四层 -> 第二层
 
-当三层 Box 均使用默认 Main 模式时，事件分发顺序为：第三层 -> 第二层 -> 第一层
-
-当第一层Box使用 Inital 模式，第二层使用 Final 模式，第三层使用 Main 模式时，事件分发顺序为：第一层 -> 第三层 -> 第二层
+<div align = "center">
+  <img src = {boxnest3} width = "50%" height = "50%"/>
+</div>
 
 ```kotlin
-@Preview
 @Composable
 fun NestedBoxDemo() {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
-            .fillMaxSize()
+            .size(400.dp)
+            .background(Color.Red)
             .pointerInput(Unit) {
                 awaitPointerEventScope {
                     awaitPointerEvent(PointerEventPass.Initial)
-                    Log.d("compose_study", "first layer")
+                    Log.d(TAG, "first layer")
                 }
             }
     ) {
         Box(
             contentAlignment = Alignment.Center,
             modifier = Modifier
-                .size(400.dp)
+                .size(200.dp)
                 .background(Color.Blue)
                 .pointerInput(Unit) {
                     awaitPointerEventScope {
                         awaitPointerEvent(PointerEventPass.Final)
-                        Log.d("compose_study", "second layer")
+                        Log.d(TAG, "second layer")
                     }
                 }
         ) {
             Box(
-                Modifier
-                    .size(200.dp)
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(100.dp)
                     .background(Color.Green)
                     .pointerInput(Unit) {
                         awaitPointerEventScope {
-                            awaitPointerEvent()
-                            Log.d("compose_study", "third layer")
+                            awaitPointerEvent(PointerEventPass.Initial)
+                            Log.d(TAG, "third layer")
                         }
                     }
-            )
+            ) {
+                Box(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .background(Color.White)
+                        .pointerInput(Unit) {
+                            awaitPointerEventScope {
+                                awaitPointerEvent(PointerEventPass.Main)
+                                Log.d(TAG, "fourth layer")
+                            }
+                        }
+                )
+            }
         }
     }
 }
-
-// Output:
-// first layer
-// third layer
-// second layer
 ```
 
-能够自定义事件分发顺序之后，我们就可以决定手势事件由事件分发流程中哪个组件进行消费。那么如何进行消费呢，这就需要我们看看 `awaitPointerEvent` 返回的手势事件了。通过 `awaintPointerEvent` 声明，我们可以看到返回的手势事件是个 `PointerEvent` 实例。
+#### 手势事件消费
 
-通过 `PointerEvent` 类声明，我们可以看到两个成员属性 changes 与 motionEvent。
-
-motionEvent 我们再熟悉不过了，就是传统 View 系统中的手势事件，然而却被声明了 internal 关键字，看来是不希望我们使用。
-
-changes 是一个 List，其中包含了每次发生手势事件时，屏幕上所有手指的状态信息。
-
-当只有一根手指时，这个 List 的大小为 1。在多指操作时，我们通过这个 List 获取其他手指的状态信息就可以轻松定制多指自定义手势处理了。
+在了解手势事件分发之后，我们接下来学习如何完成手势事件消费，我们看到 `awaitPointerEvent` 返回了一个 `PointerEvent` 实例。
 
 ```kotlin
 actual data class PointerEvent internal constructor(
@@ -431,7 +406,12 @@ actual data class PointerEvent internal constructor(
 )
 ```
 
-#### PointerInputChange
+从 PointerEvent 类的声明中可以看到包含了两个属性 changes 与 motionEvent。
+
+- **motionEvent**：实际上就是传统 View 系统中的 MotionEvent，由于被声明 internal ，说明官方并不希望我们直接拿来使用。
+- **changes**：其中包含了一次手势交互中所有手指的交互信息。在多指操作时，利用 `changes` 可以轻松定制多指手势处理。
+
+可以看出**单指交互的完整信息被封装在了一个 PointerInputChange 实例中**，接下来我们看看 PointerInputChange 提供了哪些手势信息。
 
 ```kotlin
 class PointerInputChange(
@@ -446,6 +426,10 @@ class PointerInputChange(
     val type: PointerType = PointerType.Touch // 手势类型(鼠标、手指、手写笔、橡皮) 
 )
 ```
+
+利用这些丰富的手势信息，我们可以在上层定制实现各类复杂的交互手势。
+
+可以看到其中的 consumed 成员记录着该事件是否已被消费，我们可以使用 `PointerInputChange` 提供的 consume 系列 API 来修改这个手势事件的消费标记。
 
 | API名称                       | 作用                                          |
 | ----------------------------- | --------------------------------------------- |
@@ -464,14 +448,21 @@ class PointerInputChange(
 | consumeAllChanges             | 消费按下与移动手势                            |
 | isOutOfBounds                 | 当前手势是否在固定范围内                      |
 
-这些 API 会在我们自定义手势处理时会被用到。可以发现的是，Compose 通过 `PointerEventPass` 来定制事件分发流程，在事件分发流程中即使前一个组件先获取了手势信息并进行了消费，后面的组件仍然可以通过带有 `IgnoreConsumed` 系列 API 来获取到手势信息。这也极大增加了手势操作的可定制性。就好像父组件先把事件消费，希望子组件不要处理这个手势了，但子组件完全可以不用听从父组件的话。
+前面提到，我们可以通过设置 `PointerEventPass` 来定制嵌套组件间手势事件分发顺序。假设分发流程中组件 A 预先获取到了手势信息并进行消费，手势事件仍然会被之后的组件 B 获取得到。组件 B 在使用 `positionChange` 获取的偏移值时会返回 `Offset.ZERO`，这是因为此时该手势事件已被标记为已消费的状态。当然组件 B 也可以通过 IgnoreConsumed 系列 API 突破已消费标记的限制获取到手势信息。
 
-我们通过一个实例来看看该如何进行手势消费，处于方便我们的示例不涉及移动，只消费按下手势事件来进行举例。和之前的样式一样，我们将手势消费放在了第三层 Box，根据事件分发规则我们知道第三层Box是第2个处理手势事件的，所以输出结果如下。
+我们仍然通过前面使用的嵌套组件示例子来看看手势事件的消费。我们的嵌套组件中第一层组件使用 Inital，第二层组件使用 Final ，第三层组件使用 Main。
+
+<div align = "center">
+  <img src = {boxnest2} width = "50%" height = "50%"/>
+</div>
+
+我们在第三层组件的手势事件监听中进行消费，因为我们知道手势事件会交由第一层, 再交由第三层，最后交由第二层。第三层组件处于本次手势分发流程的中间位置。
+
+当我们在第三层组件消费了` ACTION_DOWN` 后，之后处理的第二层组件接收的手势事件仍是被标记为消费状态的。
 
 ```kotlin
-@Preview
 @Composable
-fun Demo() {
+fun ConsumeDemo() {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -479,7 +470,7 @@ fun Demo() {
             .pointerInput(Unit) {
                 awaitPointerEventScope {
                     var event = awaitPointerEvent(PointerEventPass.Initial)
-                    Log.d("compose_study", "first layer, downChange: ${event.changes[0].consumed.downChange}")
+                    Log.d(TAG, "first layer, downChange: ${event.changes[0].consumed.downChange}")
                 }
             }
     ) {
@@ -491,7 +482,7 @@ fun Demo() {
                 .pointerInput(Unit) {
                     awaitPointerEventScope {
                         var event = awaitPointerEvent(PointerEventPass.Final)
-                        Log.d("compose_study", "second layer, downChange: ${event.changes[0].consumed.downChange}")
+                        Log.d(TAG, "second layer, downChange: ${event.changes[0].consumed.downChange}")
                     }
                 }
         ) {
@@ -502,103 +493,21 @@ fun Demo() {
                     .pointerInput(Unit) {
                         awaitPointerEventScope {
                             var event = awaitPointerEvent()
-                            event.changes[0].consumeDownChange()
-                            Log.d("compose_study", "third layer, downChange: ${event.changes[0].consumed.downChange}")
+                            event.changes[0].consumeDownChange() // 消费手势事件
+                            Log.d(TAG, "third layer, downChange: ${event.changes[0].consumed.downChange}")
                         }
                     }
             )
         }
     }
 }
-
-// Output:
-// first layer, downChange: false
-// third layer, downChange: true
-// second layer, downChange: true
 ```
 
-
-
-⚠️ **注意事项**
-
-如果我们是在定制事件分发流程，那么需要注意以下两种写法
-
-```kotlin
-// 正确写法
-awaitPointerEventScope {
-    var event = awaitPointerEvent() 
-  	event.changes[0].consumeDownChange()
-}
-
-// 错误写法
-var event = awaitPointerEventScope {
-    awaitPointerEvent()
-}
-event.changes[0].consumeDownChange()
-```
-
-他们的区别在于 `awaitPointerEventScope` 会在其内部所有手势在事件分发流程结束后返回，当所有组件都已经完成手势处理再进行消费已经没有什么意义了。我们仍然用刚才的例子来直观说明这个问题。我们在每一层Box `awaitPointerEventScope` 后面添加了日志信息。
-
-通过输出结果可以发现，这三层执行的相对顺序没有发生变化，然而却是在事件分发流程结束后才进行输出的。
-
-```kotlin
-@Preview
-@Composable
-fun Demo() {
-    Box(
-        contentAlignment = Alignment.Center,
-        modifier = Modifier
-            .fillMaxSize()
-            .pointerInput(Unit) {
-                awaitPointerEventScope {
-                    var event = awaitPointerEvent(PointerEventPass.Initial)
-                    Log.d("compose_study", "first layer, downChange: ${event.changes[0].consumed.downChange}")
-                }
-                Log.d("compose_study", "first layer Outside")
-            }
-    ) {
-        Box(
-            contentAlignment = Alignment.Center,
-            modifier = Modifier
-                .size(400.dp)
-                .background(Color.Blue)
-                .pointerInput(Unit) {
-                    awaitPointerEventScope {
-                        var event = awaitPointerEvent(PointerEventPass.Final)
-                        Log.d("compose_study", "second layer, downChange: ${event.changes[0].consumed.downChange}")
-                    }
-                    Log.d("compose_study", "second layer Outside")
-                }
-        ) {
-            Box(
-                Modifier
-                    .size(200.dp)
-                    .background(Color.Green)
-                    .pointerInput(Unit) {
-                        awaitPointerEventScope {
-                            var event = awaitPointerEvent()
-                            event.changes[0].consumeDownChange()
-                            Log.d("compose_study", "third layer, downChange: ${event.changes[0].consumed.downChange}")
-                        }
-                        Log.d("compose_study", "third layer Outside")
-                    }
-            )
-        }
-    }
-}
-
-// Output:
-// first layer, downChange: false
-// third layer, downChange: true
-// second layer, downChange: true
-// first layer Outside
-// third layer Outside
-// second layer Outside
-```
+介绍完 Compose 的手势事件分发与消费，想必大家已经对 `awaitPointerEvent` 这个低级别基础手势监听 API 已经有了足够的了解。然而在实际场景中我们还是应该更多的依赖上层封装完善的 API，因为当手势逻辑变得越来越复杂时，维护手势交互处理逻辑的难度也会越来越大。接下来我们来介绍 `AwaitPointerEventScope` 中基于 `awaitPointerEvent` 实现的几个常用手势监听挂起方法。
 
 ### awaitFirstDown
 
-`awaitFirstDown` 将等待第一根手指按下事件时恢复执行，并将手指按下事件返回。分析源码我们可以发现 `awaitFirstDown` 也使用的是 `awaitPointerEvent` 实现的，默认使用 Main 模式。
+`awaitFirstDown` 将等待第一根手指 `ACTION_DOWN` 事件时恢复执行，并将手指按下事件返回。翻阅源码可以看出其内部实现原理并不复杂。
 
 ```kotlin
 suspend fun AwaitPointerEventScope.awaitFirstDown(
@@ -606,19 +515,31 @@ suspend fun AwaitPointerEventScope.awaitFirstDown(
 ): PointerInputChange {
     var event: PointerEvent
     do {
+        // 监听手势事件
         event = awaitPointerEvent()
     } while (
+    // 遍历每一根手指的事件信息
         !event.changes.fastAll {
-            if (requireUnconsumed) it.changedToDown() else it.changedToDownIgnoreConsumed()
+            // 需要没有被消费过的手势事件
+            if (requireUnconsumed) {
+                // 返回该事件是否是一个还没有被消费的DOWN事件
+                // 当返回 false 时说明是不是DOWN事件或已被消费的DOWN事件
+                it.changedToDown()
+            } else {
+                // 返回该事件是否是一个DOWN事件，忽略是否已被消费
+                // 当返回 false 时说明是不是DOWN事件
+                it.changedToDownIgnoreConsumed()
+            }
         }
     )
+    // 返回第一根手指的事件信息
     return event.changes[0]
 }
 ```
 
 ### drag
 
-看到 `drag` 可能很多同学疑惑为什么又是拖动。其实前面所提到的拖动类型基础API `detectDragGestures` 其内部就是使用 `drag` 而实现的。与 `detectDragGestures` 不同的是，`drag` 需要主动传入一个 `PointerId` 用以表示要具体获取到哪根手指的拖动事件。
+我们前面提到的 `detectDragGestures`，以及更为上层的 `Draggable` 修饰符内部都是使用 `drag` 挂起方法来实现拖动监听的。通过函数签名可以看到我们不仅需要手指拖动的监听回调，还需传入手指的标识信息，表示监听具体哪根手指的拖动手势。
 
 ```kotlin
 suspend fun AwaitPointerEventScope.drag(
@@ -627,52 +548,9 @@ suspend fun AwaitPointerEventScope.drag(
 )
 ```
 
-翻阅源码可以发现，其实 drag 内部实现最终使用的仍然还是 `awaitPointerEvent` 。这里就不具体展开看了，感兴趣的可以自己去跟源码。
-
-#### 举例说明
-
-通过结合 `awaitFirstDown` 与 `drag` 这些基础 API 我们已经可以自己实现 UI 拖动手势流程了。我们仍然以我们的绿色方块作为实例，为其添加拖动手势。
+我们可以先利用 ` awaitFirstDown` 获取到记录着交互信息的 `PointerInputChange` 实例，其中 `id` 字段记录着发生 ` ACTION_DOWN` 事件的手指标识信息。通过结合 `forEachGesture`、`awaitFirstDown` 与 `drag`，我们便可以实现一个简单的拖动手势监听了。
 
 ```kotlin
-@Preview
-@Composable
-fun BaseDragGestureDemo() {
-    var boxSize = 100.dp
-    var offset by remember { mutableStateOf(Offset.Zero) }
-    Box(contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize()
-    ) {
-        Box(Modifier
-            .size(boxSize)
-            .offset {
-                IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
-            }
-            .background(Color.Green)
-            .pointerInput(Unit) {
-                forEachGesture { // 循环监听每一组事件序列
-                    awaitPointerEventScope {
-                        var downEvent = awaitFirstDown()
-                        drag(downEvent.id) {
-                            offset += it.positionChange()
-                        }
-                    }
-                }
-            }
-        )
-    }
-}
-```
-
-<div align = "center">
-  <img src = {drag} width = "50%" height = "50%" />
-</div>
-
-### awaitDragOrCancellation
-
-与 `drag` 不同的是，`awaitDragOrCancellation` 负责监听单次拖动事件。当手指已经抬起或拖动事件已经被消费时会返回 null。当然我们也可以使用 `awaitDragOrCancellation` 来完成 UI 拖动手势处理流程。通过翻阅源码可以发现 `drag` 其实内部也是使用 `awaitDragOrCancellation` 进行实现的。而 `awaitDragOrCancellation` 内部仍然是 `awaitPointerEvent`。
-
-```kotlin
-@Preview
 @Composable
 fun BaseDragGestureDemo() {
     var boxSize = 100.dp
@@ -689,13 +567,12 @@ fun BaseDragGestureDemo() {
             .pointerInput(Unit) {
                 forEachGesture {
                     awaitPointerEventScope {
-                        var downPointer = awaitFirstDown()
-                        while (true) {
-                            var event = awaitDragOrCancellation(downPointer.id)
-                            if (event == null) {
-                                break
-                            }
-                            offset += event.positionChange()
+                        // 获取第一根手指的DOWN事件
+                        var downEvent = awaitFirstDown()
+                        // 根据手指标识符跟踪多痛手势
+                        drag(downEvent.id) {
+                            // 根据手势位置改变量更新偏移量状态
+                            offset += it.positionChange()
                         }
                     }
                 }
@@ -705,9 +582,40 @@ fun BaseDragGestureDemo() {
 }
 ```
 
+### awaitDragOrCancellation
+
+与 `drag` 不同的是，`awaitDragOrCancellation` 负责监听单次拖动事件。当手指已经抬起或拖动事件已经被消费时会返回 null。当然我们也可以使用 `awaitDragOrCancellation` 来完成 UI 拖动手势处理流程。通过翻阅源码可以发现 `drag` 其实内部也是使用 `awaitDragOrCancellation` 进行实现的。而 `awaitDragOrCancellation` 内部仍然是事件之源 `awaitPointerEvent`。
+
+```kotlin
+Box(Modifier
+    .size(boxSize)
+    .offset {
+        IntOffset(offset.x.roundToInt(), offset.y.roundToInt())
+    }
+    .background(Color.Green)
+    .pointerInput(Unit) {
+        forEachGesture {
+            awaitPointerEventScope {
+                // 获取第一根手指的DOWN事件
+                var downPointer = awaitFirstDown()
+                while (true) {
+                    // 根据手指标识符跟踪拖动手势，手指抬起货拖动事件被消费时返回null
+                    var event = awaitDragOrCancellation(downPointer.id)
+                    if (event == null) {
+                        break
+                    }
+                    // 根据手势位置改变量更新偏移量状态
+                    offset += event.positionChange()
+                }
+            }
+        }
+    }
+)
+```
+
 ### awaitTouchSlopOrCancellation
 
-`awaitTouchSlopOrCancellation` 用于监测当前拖动手势是否是一次有效的拖动。有效指的是当前手势滑动的欧式距离(位移)是否超过设定的阈值。若拖动手势还没有达到阈值便抬起或拖动手势事件已经被消费时将返回null，翻阅源码我们又找到了`awaitPointerEvent` ，所以说 `awaitPointerEvent` 是万物之源嘛～。
+`awaitTouchSlopOrCancellation` 用于监测当前拖动手势是否是一次有效的拖动。有效指的是当前手势滑动的欧式距离(位移)是否超过设定的阈值。若拖动手势还没有达到阈值便抬起或拖动手势事件已经被消费时将返回null，翻阅源码我们也可以发现最终仍然使用 `awaitPointerEvent` 来完成手势监听的。
 
 ```kotlin
 suspend fun AwaitPointerEventScope.awaitTouchSlopOrCancellation(
@@ -735,7 +643,7 @@ suspend fun AwaitPointerEventScope.awaitTouchSlopOrCancellation(
 }
 ```
 
-我们前面所提到的 `detectDragGestures` 其内部不仅使用了 `drag` 还使用了 `awaitTouchSlopOrCancellation` 来判断手势拖动操作。仅当监测为一次有效的拖动时，才会执行 onDragStart 回调。接下来就是使用 `drag` 来监听拖动手势，仅当 `drag` 返回 false (即在拖动过程中事件分发流程前面的组件达成定制条件消费了这次的拖动手势事件) 会执行 onDragCancel 回调，否则如果所有手指抬起正常结束则会执行 onDragEnd 回调。
+我们前面所提到的 `detectDragGestures` 其内部不仅使用了 `drag` 还使用了 `awaitTouchSlopOrCancellation` 来判断手势拖动操作。仅当监测为一次有效的拖动时，才会执行` onDragStart` 回调。接下来就是使用 `drag` 来监听拖动手势，仅当 `drag` 返回 false (即在拖动过程中事件分发流程前面的组件达成定制条件消费了这次的拖动手势事件) 会执行 onDragCancel 回调，否则如果所有手指抬起正常结束则会执行 `onDragEnd` 回调。
 
 ```kotlin
 suspend fun PointerInputScope.detectDragGestures(
