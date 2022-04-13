@@ -7,7 +7,7 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: '你好 Compose',
   tagline: '',
-  url: 'https://milklab.dev',
+  url: 'https://jetpackcompose.cn',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
