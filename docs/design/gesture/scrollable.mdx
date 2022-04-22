@@ -1,0 +1,146 @@
+---
+id: scrollable
+title: 滚动（Scrollable）
+---
+
+import demo from '@site/static/img/design/gesture/scrollable/demo1.png'
+
+当视图组件的宽度或长度超出屏幕边界时，我们希望能滑动查看更多的内容。对于长列表场景，我们可以使用 LazyColumn 与 LazyRow 组件来实现。而对于一般组件，我们可以使用 Scrollable 系列修饰符来修饰组件，使其具备可滚动能力。
+
+Scrollable 系列修饰符包含了 horizontalScroll、verticalScroll 与 scrollable。接下来我们来分别介绍这三个修饰符的使用方法。
+
+## 1. horizontalScroll 水平滚动
+
+当组件宽度超出屏幕边界时，可以使用 horizontalScroll 修饰符为组件增加水平滑动查看更多内容的能力。参数签名如下：
+
+```Kotlin
+fun Modifier.horizontalScroll(
+  state: ScrollState,
+  enabled: Boolean = true,
+  flingBehavior: FlingBehavior? = null,
+  reverseScrolling: Boolean = false
+)
+```
+
+horizontalScroll 修饰符仅有一个必选参数 scrollState 。我们可以使用 rememberScrollState 快速创建一个 scrollState 实例并传入即可。我们可以使用这个修饰符来修饰希望能够支持滚动的组件，这里我们直接用来修饰 Row 组件作为示例。
+
+```undefined
+fun PlantCardListPreview() { 
+  var scrollState = rememberScrollState() 
+  Row( 
+    modifier = Modifier
+      .height(136.dp)
+      .horizontalScroll(scrollState)
+    ) {
+      repeat(plantList.size) {
+        // 子组件内容
+    }
+  }
+}
+```
+
+## 2. verticalScroll 垂直滚动
+
+与 horizontalScroll 修饰符功能一样，当组件高度超出屏幕时可以使用 verticalScroll 修饰符使组件在垂直方向上能够滚动。参数列表与 horizontalScroll 完全一致，使用方法也完全相同，这里不再多加赘述。
+
+## 3. 低级别 scrollable 修饰符
+
+horizontalScroll 与 verticalScroll 都是基于 scrollable 修饰符实现的，scrollable 修饰符只提供了最基本的滚动手势监听，而上层 horizontalScroll 与 verticalScroll 分别额外提供了滚动在布局内容方面的偏移。
+
+scrollable 修饰符的参数列表与 horizontalScroll、verticalScroll 也是非常相似的，我们需要输入一个 ScrollableState 滚动状态和一个 Orientation 方向。Orientation 仅有 Horizontal 与 Vertical 可供选择，这说明我们只能监听水平或垂直方向的滚动。
+
+```Kotlin
+fun Modifier.scrollable(
+  state: ScrollableState,
+  orientation: Orientation,
+  enabled: Boolean = true,
+  reverseDirection: Boolean = false,
+  flingBehavior: FlingBehavior? = null,
+  interactionSource: MutableInteractionSource? = null
+)
+```
+
+ScrollState 示例中的 value 字段表示当前滚动位置，从源码中可以看到他实际上是一个可变状态。我们可以利用这个状态来处理手势逻辑，并且我们还可以使用 ScrollState 动态控制组件发生滚动行为。
+
+**注意：**滚动位置范围为 0 ～ MAX_VALUE。默认场景下当手指在组件上向右滑动时，滚动位置会增大，向左滑滑动时，滚动位置会减小，直至滚动位置减少到 0。由于滚动位置默认初始值为 0，所以初始我们只能向右滑增大滚动位置。如果我们将  scrollable 中的 reverseDirection 参数设置为 true 时，那么此时手指向左滑滚动位置会增大，向右滑滚动位置会减小，这允许我们在初始位置向左滑动。scrollable 中的 reverseDirection 参数与 horizontalScroll 中的 reverseScrolling 参数是有区别的，实际上 reverseDirection 参数数值与 reverseScrolling 参数截然相反。
+
+**补充提示:**  在使用 rememberScrollState 创建 ScrollState 实例时我们是可以通过 initial 参数来指定组件初始滚动位置的
+
+```Kotlin
+class ScrollState(initial: Int) : ScrollableState {
+  var value: Int by mutableStateOf(initial, structuralEqualityPolicy())
+  private set
+
+  suspend fun animateScrollTo(...)
+  suspend fun scrollTo(...)
+  ...
+}
+```
+
+接下来，我们基于 scrollable 修饰符的滚动监听能力，自己来定制实现 horizontalScroll 修饰符。这里我们仍然为 Row 组件增加横向滚动的能力，利用 offset 修饰符使组件内容内容偏移。由于初始位置为 Row 的左侧首部，我们希望能够在初始位置手指向左划动查看 Row 组件右部超出屏幕的内容，所以我们这里需要将 reverseDirection 参数设置为 true。
+
+```Kotlin
+@Composable
+fun PlantCardListPreview() {
+  BloomTheme{
+    var scrollState = rememberScrollState()
+    Row(
+      modifier = Modifier
+        .height(136.dp)
+        .offset(x = with(LocalDensity.current) {
+          // 滚动位置增大时应向左偏移，所以此时应设置为负数
+          -scrollState.value.toDp()
+        })
+        .scrollable(scrollState, Orientation.Horizontal, reverseDirection = true)
+    ) {
+      repeat(plantList.size) {
+        // 子组件内容
+      }
+    }
+  }
+}
+```
+
+<img src = {demo} width = "50%" height = "50%" />
+
+如果我们采用这种方案实现会发现当我们左滑时原本位于屏幕外的组件内容，实际上一片空白。这是因为 Row 组件的默认测量策略导致超出屏幕的子组件宽度测量结果为零，此时就需要我们使用 layout 修饰符自己来定制组件布局了。
+
+我们需要拷贝创建一个新的约束用于测量组件的真实宽度，主动设置组件所应占有的宽高尺寸空间，并根据组件的滚动偏移量来摆放组件内容。
+
+```Kotlin
+Row(
+  modifier = Modifier
+    .height(136.dp)
+    .scrollable(scrollState, Orientation.Horizontal, reverseDirection = true)
+    .layout { measurable, constraints ->
+      // 约束中默认最大宽度为父组件所允许的最大宽度，此处为屏幕宽度
+      // 将最大宽度设置为无限大
+      val childConstraints = constraints.copy(
+        maxWidth = Constraints.Infinity
+      )
+      // 使用新的约束进行组件测量
+      val placeable = measurable.measure(childConstraints)
+      // 计算当前组件宽度与父组件所允许的最大宽度中取一个最小值
+      // 如果组件超出屏幕，此时width为屏幕宽度。如果没有超出，则为组件本文宽度
+      val width = placeable.width.coerceAtMost(constraints.maxWidth)
+      // 计算当前组件高度与父组件所允许的最大高度中取一个最小值
+      val height = placeable.height.coerceAtMost(constraints.maxHeight)
+      // 计算可滚动的距离
+      val scrollDistance = placeable.width - width
+      // 主动设置组件的宽高
+      layout(width, height) {
+        // 根据可滚动的距离来计算滚动位置
+        val scroll = scrollState.value.coerceIn(0, scrollDistance)
+        // 根据滚动位置得到实际组件偏移量
+        val xOffset = -scroll
+        // 对组件内容完成布局
+        placeable.placeRelativeWithLayer(xOffset, 0)
+      }
+    }
+) {
+  repeat(plantList.size) {
+    // 子组件内容
+  }
+}
+```
+
