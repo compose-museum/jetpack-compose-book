@@ -96,7 +96,8 @@ const sidebars = {
             'design/gesture/transformer',
             'design/gesture/scrollable',
             'design/gesture/nestedScroll',
-            'design/gesture/customGesture'
+            'design/gesture/customGesture',
+            'design/gesture/gesture_with_anim'
           ]
         },
         {

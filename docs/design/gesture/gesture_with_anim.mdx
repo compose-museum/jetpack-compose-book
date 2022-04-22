@@ -1,0 +1,79 @@
+---
+id: gesture_with_anim
+title: 实现惯性滑动
+---
+
+import demo from '@site/static/img/design/gesture/gesture_with_animate/demo.png'
+
+前面我们介绍过，如果当手指拖动离开屏幕存在初速度时，被拖动的组件会惯性滑动一段距离后停下，这种交互效果被称作 Fling。本节不妨使用前面所学习的手势监听挂起方法从底层模拟实现这种特殊的交互效果。
+
+<img src = {demo} width = "50%" height = "50%" />
+
+既然我们是要拖动组件，当发生拖动手势时组件我们可以设置 offset 移动组件位置。当发生 Fling 时组件会惯性朝着某一方向滑动一段距离后停下，实际上在手指离开屏幕时我们可以根据当前手势速度与组件位置来预先计算出组件最终停留的位置，所以 Fling 本质上只是以种交互动画。既然是动画，我们便可以使用 Animatable 包装组件偏移量信息。
+
+```Kotlin
+var offset = remember {
+  Animatable(Offset.Zero, Offset.VectorConverter)
+}
+```
+
+对于拖动手势，我们首先需要使用 awaitFirstDown 获取 ACTION_DOWN 手势事件信息。值得注意的是，当上一轮 Fling 未结束本轮手势便开始时。我们可以使用 Animatable 提供的 stop 方法来中断结束上一轮动画。
+
+```Kotlin
+forEachGesture {
+  val down =  awaitPointerEventScope { awaitFirstDown() }
+  offset.stop()
+  ...
+}
+```
+
+接下来我们可以利用 awaitTouchSlopOrCancellation 检测当前是否为有效拖动手势，当检测成功后便可以使用 drag 来监听具体的拖动手势事件。
+
+```Kotlin
+forEachGesture {
+  val down =  awaitPointerEventScope { awaitFirstDown() }
+  offset.stop()
+  awaitPointerEventScope {
+    var validDrag: PointerInputChange?
+    do {
+      validDrag = awaitTouchSlopOrCancellation(down.id) { change, _ ->
+        // 消费位置变化表示接受
+        change.consumePositionChange()
+      }
+    } while (validDrag != null && !validDrag.positionChangeConsumed())
+    if (validDrag != null) {
+      // 拖动手势监听
+    }
+  }
+}
+```
+
+前面我们提到过当手指离开屏幕时，我们需要根据离屏时的位置信息与速度信息来计算组件最终会停留的位置。位置信息我们可以利用 offset 获取得到，而速度信息的获取则需要使用速度追踪器 VelocityTracker。
+
+当发生拖动时，我们首先使用 snapTo 移动组件偏移位置。既然追踪手势速度，我们就需要将手势信息告知 VelocityTracker，通过 addPosition 实时告知 VelocityTracker 当前的手势位置，VelocityTracker 便可以实时计算出当前的手势速度了。
+
+```Kotlin
+drag(validDrag.id) {
+  launch {
+    offset.snapTo(
+      offset.value + it.positionChange()
+    )
+    velocityTracker.addPosition(
+      it.uptimeMillis,
+      it.position
+    )
+  }
+}
+```
+
+当手指离开屏幕时，我们可以利用 VelocityTracker 与 Offset 获取到实时速度信息与位置信息。之后，我们可以利用 splineBasedDecay 创建一个衰值推算器，这可以帮助我们根据当前速度与位置信息推算出组件 Fling 后停留的位置。由于最终位置可能会超出屏幕所以我们还需设置数值上下界，并采用 animateTo 进行 Fling 动画。由于我们希望的是组件最终会缓缓的停下，所以这里采用的是 LinearOutSlowInEasing 插值器。
+
+```Kotlin
+val decay = splineBasedDecay<Offset>(this)
+var targetOffset = decay.calculateTargetValue(Offset.VectorConverter, offset.value, Offset(horizontalVelocity, verticalVelocity)).run {
+  Offset(x.coerceIn(0f, 320.dp.toPx()), y.coerceIn(0f, 320.dp.toPx()))
+}
+launch {
+  offset.animateTo(targetOffset, tween(2000, easing = LinearOutSlowInEasing))
+}
+```
