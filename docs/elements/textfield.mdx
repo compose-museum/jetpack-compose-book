@@ -340,25 +340,30 @@ TextField(
 
 ## BasicTextField
 
-``` kotlin
+```kotlin
 @Composable
 fun BasicTextField(
-    value: String,
-    onValueChange: (String) -> Unit,
-    modifier: Modifier = Modifier,
-    enabled: Boolean = true,
-    readOnly: Boolean = false,
-    textStyle: TextStyle = TextStyle.Default,
-    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
-    keyboardActions: KeyboardActions = KeyboardActions.Default,
-    singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
-    visualTransformation: VisualTransformation = VisualTransformation.None,
-    onTextLayout: (TextLayoutResult) -> Unit = {},
-    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
-    cursorBrush: Brush = SolidColor(Color.Black),
-    decorationBox: (innerTextField: () -> Unit) -> Unit = @Composable { innerTextField -> innerTextField() }
-): @Composable Unit
+  value: String,
+  onValueChange: (String) -> Unit,
+  modifier: Modifier = Modifier,
+  enabled: Boolean = true,
+  readOnly: Boolean = false,
+  textStyle: TextStyle = TextStyle.Default,
+  keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+  keyboardActions: KeyboardActions = KeyboardActions.Default,
+  singleLine: Boolean = false,
+  maxLines: Int = Int.MAX_VALUE,
+  visualTransformation: VisualTransformation = VisualTransformation.None,
+  onTextLayout: (TextLayoutResult) -> Unit = {},
+  // 当输入框内文本触发更新时候的回调，包括了当前文本的各种信息
+  interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
+  cursorBrush: Brush = SolidColor(Color.Black),
+  // 输入框光标的颜色
+  decorationBox: @Composable (innerTextField: @Composable () -> Unit) -> Unit =
+    @Composable { innerTextField -> innerTextField() }
+  // 是一个允许在 TextField 周围添加修饰的 @Composable lambda
+  // 我们需要在布局中调用 innerTextField() 才能完成 TextField 的构建
+)
 ```
 
 使用 `BasicTextField` 可以让你拥有更高的自定义效果
@@ -414,14 +419,7 @@ Box(
 
 <img src={demo6Gif}/>
 
-在 `BasicTextField` 中的 `decorationBox` 参数是一个允许在 `TextField` 周围添加修饰的 `@Composable lambda`
-
-你可以实现：
-
-1. 图标，占位符，帮助消息，或者其他类似的东西。
-2. 可以让你相对于你修饰的位置来控制内部的 `TextField`。
-
-为了可以让你相对于你修饰的位置来控制内部的 `TextField`，`TextField` 的实现将传入一个由框架控制的 @Composable 参数 `innerTextField` 传递给您提供的 `decorationBox lambda`，你需要准确地调用一次它
+在刚才的例子中，我们在 decorationBox 里面写了很多布局组件，最后通过调用一次 innerTextFiled() 来完成输入框的构建。
 
 ### 2. 其他效果
 

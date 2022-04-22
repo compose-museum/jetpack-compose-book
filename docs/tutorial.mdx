@@ -25,7 +25,7 @@ import demo15 from '@site/static/img/tutorial/demo15.png'
 
 `Jetpack Compose` 是一个用于构建原生 `Android UI` 的现代工具包。`Jetpack Compose` 用更少的代码、强大的工具和直观的 `Kotlin API` 简化并加速了 `Android` 上的 `UI` 开发。
 
-在本教程中，你将用声明式函数构建一个简单的 `UI` 组件。你将不会编辑任何 `XML` 布局或使用布局编辑器。相反，你将调用 `Jetpack Compose` 函数来说明你想要的元素，剩下的就由 `Compose` 编译器来完成。
+在这章中，你将用声明式函数构建一个简单的 `UI` 组件。你可以不用编辑任何 `XML` 布局或使用布局编辑器。相反，你将调用 `Jetpack Compose` 函数来说明你想要的元素，剩下的就由 `Compose` 编译器来完成。
 
 :::tip
 请参阅 `Jetpack` [发布](https://developer.android.com/jetpack/androidx/versions/all-channel) 说明，了解最新的更新。
@@ -33,18 +33,17 @@ import demo15 from '@site/static/img/tutorial/demo15.png'
 
 ## 1. 第一步：Composable 函数
 
-`Jetpack Compose` 是围绕着 `Composable` 函数建立的。这些函数让你通过描述它的形状和数据依赖性，以编程方式定义你的应用程序的用户界面，而不是专注于用户界面的构建过程。要创建一个 `Composable` 函数，只需在函数名称中添加 `@Composable` 注解。
+`Jetpack Compose` 是围绕着 `Composable` 函数建立的。这些函数让你通过描述它的形状和数据依赖性，以编程方式定义你的 UI，而不是专注于 UI 的构建过程。要创建一个 `Composable` 函数，只需在函数名称中添加 `@Composable` 注解。
 
 <img src = {demo} width = "600" height = "600" />
 
 ### 添加一个 Text 元素
 
-首先，我们会在 onCreate 方法中添加一个 Text 元素来显示一个 "Hello World!" 的文本，你可以通过定义一个内容块，然后调用 `Text()` 函数来做到
+首先，我们会在 onCreate 方法中添加一个 Text 元素来显示一个 Hello World! 的文本。
 
-setContent 块定义了一个我们可以调用 `Composable` 函数的 avtivity 的布局，Composable 函数只能从其他的 Composable 函数中调用
+setContent 块定义了一个我们可以调用 `Composable` 函数的 avtivity 的布局，`Composable` 函数只能从其他的 `Composable` 函数中调用
 
 Jetpack Compose 使用一个 Kotlin 编译器插件来将这些 `Composable` 函数转化为应用程序的 `UI` 元素。例如，由 `Compose UI` 库定义的 `Text()` 函数就可以在屏幕上显示一个文本标签。
-
 
 ``` kotlin
 class MainActivity : ComponentActivity() {
@@ -74,8 +73,9 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+// Composable 函数一般用大写开头，为了和普通的函数作为区分
 @Composable
-fun MessageCard(name: String) { // Composable 函数一般用大写开头，为了和普通的函数作为区分
+fun MessageCard(name: String) {
     Text(text = "Hello $name")
 }
 ```
@@ -186,7 +186,7 @@ fun MessageCard(msg: Message) {
 
 ### 优化你的 UI
 
-现在我们的布局有正确的结构，但是元素之间没有很好的间隔，而且左边的图片太大了，为了修饰和配置一个 Composable, Compose 使用了 `modifiers`，它们允许你改变 Composable 的尺寸、布局、外观或添加高级交互，比如可以让一个元素变得可以点击。你可以把它们连接起来，用来创建更丰富的 Composables，接下来就让我们使用其中一些来改善布局。
+现在我们的布局有正确的结构，但是元素之间没有很好的间隔，而且左边的图片太大了，为了修饰和配置一个 Composable, Compose 使用了 `modifiers`，它们允许你改变 Composable 的尺寸、布局、外观或添加高级交互，比如可以让一个元素变得可以点击。你可以把它们连接起来，用来创建更丰富的 Composables，接下来就让我们使用其中一些修饰符来改善布局。
 
 ``` kotlin
 @Composable
@@ -216,7 +216,7 @@ fun MessageCard(msg: Message) {
 
 ## 3. 第三步：Material design
 
-`Compose` 是为支持 `Material design` 原则而建立的。它的许多 `UI` 元素都是开箱即用的 `Material design`。在这一步中，你将用 `Material` 小部件来设计你的应用程序。
+`Compose` 是为支持 `Material design` 原则而建立的。它的许多 `UI` 元素都是开箱即用的。在这一步中，你将用 `Material` 小部件来设计你的应用程序。
 
 <img src = {demo3Gif} />
 
@@ -251,8 +251,9 @@ fun PreviewMessageCard() {
 }
 ```
 
-!!! note "注意"
-    一个空的 Compose Activity 已经自动为你的项目生成了一个默认的主题，允许你自定义 MaterialTheme。如果你给你的项目命名与 ExamplesTheme 不同，你可以在 ui.theme 包中找到你的自定义主题。
+:::warning 注意
+一个 Empty Compose Activity 已经自动为你的项目生成了一个默认的主题，允许你自定义 MaterialTheme。如果你给你的项目命名与 ExamplesTheme 不同，你可以在 ui.theme 包中找到你的自定义主题。
+:::
 
 ### 颜色（Color）
 
@@ -412,7 +413,7 @@ fun PreviewMessageCard() {
 
 <img src = {demo5Gif} />
 
-你可以在[这里](https://gist.github.com/Nthily/d7665503600d0499bf96a9521721c801) 获取 `MsgData` 的代码
+你可以在[这里](https://gist.github.com/Nthily/d7665503600d0499bf96a9521721c801)获取 `MsgData` 的代码
 
 在这个代码片段中，你可以看到 `LazyColumn` 有一个 items 子项。它接收一个 List 作为参数，它的 lambda 接收一个我们命名为 message 的参数（我们可以随便命名）。
 而这个 lambda 将会调用每个 List 中里面提供的 item。
