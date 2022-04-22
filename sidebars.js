@@ -90,9 +90,11 @@ const sidebars = {
           collapsed: true,
           items: [
             'design/gesture/overview',
+            'design/gesture/clickable&combinedClickable',
             'design/gesture/draggable',
             'design/gesture/swipeable',
             'design/gesture/transformer',
+            'design/gesture/scrollable',
             'design/gesture/nestedScroll',
             'design/gesture/customGesture'
           ]
