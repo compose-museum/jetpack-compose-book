@@ -1,0 +1,78 @@
+---
+id: clickable&combinedClickable
+title: 点击（Clickable & CombinedClickable）
+---
+
+## 1. Clickable 点击
+
+Clickable 修饰符用来监听组件的点击操作，并且当点击事件发生时会为被点击的组件施加一个波纹涟漪效果动画的蒙层。
+
+```Kotlin
+fun Modifier.clickable(
+  enabled: Boolean = true,
+  onClickLabel: String? = null,
+  role: Role? = null,
+  onClick: () -> Unit
+)
+```
+
+Clickable 修饰符使用起来非常简单，在绝大多数场景下我们只需要传入 onClick 回调即可，用于处理点击事件。当然你也可以为 enable 参数设置为一个可变状态，通过状态来动态控制启用点击监听。
+
+```Kotlin
+@Composable
+fun ClickDemo() {
+  var enableState by remember {
+    mutableStateOf<Boolean>(true)
+  }
+  Box(modifier = Modifier
+      .size(200.dp)
+      .background(Color.Green)
+      .clickable(enabled = enableState) {
+        Log.d(TAG, "发生单击操作了～")
+      }
+  )
+}
+```
+
+## 2. CombinedClickable 复合点击
+
+对于长按点击、双击等复合类点击手势，我们可以使用 CombinedClickable 修饰符来实现手势监听。与 Clickable 修饰符一样，他同样也可以监听单击手势，并且也会为被点击的组件施加一个波纹涟漪效果动画的蒙层。
+
+```Kotlin
+fun Modifier.combinedClickable(
+  enabled: Boolean = true,
+  onClickLabel: String? = null,
+  role: Role? = null,
+  onLongClickLabel: String? = null,
+  onLongClick: (() -> Unit)? = null,
+  onDoubleClick: (() -> Unit)? = null,
+  onClick: () -> Unit
+)
+```
+
+使用起来也很简单，我们为需要监听的点击事件设置监听回调就可以了。
+
+```Kotlin
+@Composable
+fun CombinedClickDemo() {
+  var enableState by remember {
+    mutableStateOf<Boolean>(true)
+  }
+  Box(modifier = Modifier
+    .size(200.dp)
+    .background(Color.Green)
+    .combinedClickable(
+      enabled = enableState,
+      onLongClick = {
+        Log.d(TAG, "发生长按点击操作了～")
+      },
+      onDoubleClick = {
+        Log.d(TAG, "发生双击操作了～")
+      },
+      onClick = {
+        Log.d(TAG, "发生单击操作了～")
+      }
+    )
+  )
+}
+```

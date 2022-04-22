@@ -584,7 +584,9 @@ fun BaseDragGestureDemo() {
 
 ### awaitDragOrCancellation
 
-与 `drag` 不同的是，`awaitDragOrCancellation` 负责监听单次拖动事件。当手指已经抬起或拖动事件已经被消费时会返回 null。当然我们也可以使用 `awaitDragOrCancellation` 来完成 UI 拖动手势处理流程。通过翻阅源码可以发现 `drag` 其实内部也是使用 `awaitDragOrCancellation` 进行实现的。而 `awaitDragOrCancellation` 内部仍然是事件之源 `awaitPointerEvent`。
+与 `drag` 不同的是，`awaitDragOrCancellation` 负责监听单次拖动事件。当该手指抬起时，如果有其他手指还在屏幕上，则会选择其中一根手指来继续追踪手势。当最后一根手指离开屏幕时则会返回抬起事件。
+
+当手指拖动事件已经在 Main 阶段被消费，拖动行为会被认为已经取消，此时会返回 `null`。如果在调用 `awaitDragOrCancellation` 前，`pointId` 对应手指没有产生 `ACTION_DOWN` 事件则也会返回` null`。当然我们也可以使用 `awaitDragOrCancellation  `来完成 UI 拖动手势处理流程。
 
 ```kotlin
 Box(Modifier
@@ -602,8 +604,13 @@ Box(Modifier
                     // 根据手指标识符跟踪拖动手势，手指抬起货拖动事件被消费时返回null
                     var event = awaitDragOrCancellation(downPointer.id)
                     if (event == null) {
+                        // 拖动事件被取消
                         break
                     }
+                  	if (event.changedToUp()) {
+                			// 所有手指均已抬起
+                			break
+            				}
                     // 根据手势位置改变量更新偏移量状态
                     offset += event.positionChange()
                 }
@@ -615,68 +622,14 @@ Box(Modifier
 
 ### awaitTouchSlopOrCancellation
 
-`awaitTouchSlopOrCancellation` 用于监测当前拖动手势是否是一次有效的拖动。有效指的是当前手势滑动的欧式距离(位移)是否超过设定的阈值。若拖动手势还没有达到阈值便抬起或拖动手势事件已经被消费时将返回null，翻阅源码我们也可以发现最终仍然使用 `awaitPointerEvent` 来完成手势监听的。
+`awaitTouchSlopOrCancellation` 用于定制监听一次有效的拖动行为，这里的有效是开发者自己来定制的。在使用时，我们需要设置一个 `pointId` ，表示我们希望追踪手势事件的手指标识符。当该手指抬起时，如果有其他手指还在屏幕上，则会选择其中一根手指来继续追踪手势，而如果已经没有手指在屏幕上了则返回 `null`。如果在调用 `awaitTouchSlopOrCancellation` 前，`pointId` 对应手指没有产生 `ACTION_DOWN` 事件则也会返回 `null`。
+
+`onTouchSlopReached` 会在超过 `ViewConfiguration` 中所设定的阈值 `touchSlop` 时回调。如果根据事件信息我们希望接收这次手势事件，则应该通过 ` change` 调用 `consumePositionChange` 进行消费，此时 `awaitTouchSlopOrCancellation` 会恢复执行，并返回当前 `PointerInputChange`。如果不消费，则会继续挂起检测滑动位移。我们将会在下一小节中演示该如何使用 `awaitTouchSlopOrCancellation`。
 
 ```kotlin
 suspend fun AwaitPointerEventScope.awaitTouchSlopOrCancellation(
-    pointerId: PointerId,
-    onTouchSlopReached: (change: PointerInputChange, overSlop: Offset) -> Unit
-): PointerInputChange? {
-   	...
-    val touchSlop = viewConfiguration.touchSlop
-    var pointer = pointerId
-    while (true) {
-        val event = awaitPointerEvent()
-        ...
-        if (dragEvent.positionChangeConsumed()) {
-            ...
-        } else if (dragEvent.changedToUpIgnoreConsumed()) {
-            ...
-        } else {
-            ...
-          	if (distance >= touchSlop) {
-                ...
-            }
-            ...
-        }
-    }
-}
-```
-
-我们前面所提到的 `detectDragGestures` 其内部不仅使用了 `drag` 还使用了 `awaitTouchSlopOrCancellation` 来判断手势拖动操作。仅当监测为一次有效的拖动时，才会执行` onDragStart` 回调。接下来就是使用 `drag` 来监听拖动手势，仅当 `drag` 返回 false (即在拖动过程中事件分发流程前面的组件达成定制条件消费了这次的拖动手势事件) 会执行 onDragCancel 回调，否则如果所有手指抬起正常结束则会执行 `onDragEnd` 回调。
-
-```kotlin
-suspend fun PointerInputScope.detectDragGestures(
-    onDragStart: (Offset) -> Unit = { },
-    onDragEnd: () -> Unit = { },
-    onDragCancel: () -> Unit = { },
-    onDrag: (change: PointerInputChange, dragAmount: Offset) -> Unit
-) {
-    forEachGesture {
-        awaitPointerEventScope {
-            ....
-            do {
-                drag = awaitTouchSlopOrCancellation(down.id) { change, over ->
-                    change.consumePositionChange()
-                    overSlop = over
-                }
-            } while (drag != null && !drag.positionChangeConsumed())
-            if (drag != null) {
-                onDragStart.invoke(drag.position) // 拖动开始
-                onDrag(drag, overSlop)
-                if (
-                    !drag(drag.id) {
-                        onDrag(it, it.positionChange())
-                        it.consumePositionChange()
-                    }
-                ) {
-                    onDragCancel() // 拖动取消
-                } else {
-                    onDragEnd()
-                }
-            }
-        }
-    }
-}
+  pointerId: PointerId,
+  onTouchSlopReached: (change: PointerInputChange, overSlop: Offset) -> Unit
+)
 ```
 
