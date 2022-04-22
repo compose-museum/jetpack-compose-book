@@ -23,8 +23,9 @@ fun Image(
 )
 ```
 
-!!! 注意
-    目前在 `Compose` 中 `Image` 有三种，详情可先在[官网](https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary#image)中找到
+:::info
+目前在 `Compose` 中 `Image` 有三种，详情可先在[官网](https://developer.android.com/reference/kotlin/androidx/compose/foundation/package-summary#image)中找到
+:::
 
 `Image` 可以帮我们加载一张图片。
 
@@ -63,7 +64,7 @@ fun ImageDemo() {
 
 ## 2. 图片形状
 
-我们可以使用 `Surface` 来帮助我们设置形状。
+我们可以使用 `Surface` 来帮助我们设置形状，或者在 Image 组件中使用 modifier.clip() 来裁剪形状。
 
 ``` kotlin
 @Composable

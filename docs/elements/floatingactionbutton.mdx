@@ -3,6 +3,7 @@ title: FloatingActionButton
 ---
 
 import demo from '@site/static/img/elements/floatingactionbutton/demo.png'
+import demo2 from '@site/static/img/elements/floatingactionbutton/demo2.png'
 
 ``` kotlin
 @OptIn(markerClass = [ExperimentalMaterialApi])
@@ -38,4 +39,14 @@ FloatingActionButton(onClick = { /*do something*/ }) {
 }
 ```
 
-可以查阅 [ExtendedFloatingActionButton](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#ExtendedFloatingActionButton(kotlin.Function0,kotlin.Function0,androidx.compose.ui.Modifier,kotlin.Function0,androidx.compose.foundation.interaction.MutableInteractionSource,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.material.FloatingActionButtonElevation))，它是一个包含文本和可选图标的扩展 `FAB`。
+除了普通的 FAB 之外，Compose 也提供了带有文字扩展的 FAB， `ExtendedFloatingActionButton`
+
+```kotlin
+ExtendedFloatingActionButton(
+  icon = { Icon(Icons.Filled.Favorite, contentDescription = null) },
+  text = { Text("添加到我喜欢的") },
+  onClick = { /*do something*/ }
+)
+```
+
+<img src={demo2} />
