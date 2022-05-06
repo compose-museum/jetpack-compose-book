@@ -12,7 +12,7 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
-  organizationName: 'milklabdev', // Usually your GitHub org/user name.
+  organizationName: 'compose-museum', // Usually your GitHub org/user name.
   projectName: 'jetpack-compose-book', // Usually your repo name.
 
   presets: [
@@ -22,7 +22,7 @@ const config = {
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          editUrl: 'https://github.com/milklabdev/jetpack-compose-book/tree/master/',
+          editUrl: 'https://github.com/compose-museum/jetpack-compose-book/tree/master/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -68,7 +68,7 @@ const config = {
             label: '开源项目',
           },
           {
-            href: 'https://github.com/milklabdev/jetpack-compose-book',
+            href: 'https://github.com/compose-museum/jetpack-compose-book',
             label: 'GitHub',
             position: 'right',
           },
@@ -82,12 +82,12 @@ const config = {
             items: [
               {
                 label: 'Github',
-                href: 'https://github.com/milklabdev',
+                href: 'https://github.com/compose-museum',
               },
             ],
           }
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} Milk Lab, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Jetpack Compose 博物馆, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
