@@ -7,7 +7,7 @@ jobs:
   deploy:
     name: Deploy to GitHub Pages
     runs-on: ubuntu-latest
-    if: github.repository == 'milklabdev/jetpack-compose-book'
+    if: github.repository == 'compose-museum/jetpack-compose-book'
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
