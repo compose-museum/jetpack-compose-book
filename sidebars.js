@@ -43,6 +43,7 @@ const sidebars = {
         'layout/custom_layout',
         'layout/intrinsic',
         'layout/subcomposelayout',
+        'layout/parent_data'
       ]
     },
     {
