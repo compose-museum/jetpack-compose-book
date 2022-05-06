@@ -20,7 +20,7 @@ Box(modifier = Modifier
 
 也就是说，子微件的居中是它自己的`wrapContentSize(align = Alignment.Center)`调整的结果。那么，如果我们现在知道了子微件（小的蓝色方块）被包裹在另一个方块（Box）里，我们能不能让父布局帮忙确定居中位置呢？
 
-答案是可以的！`Box` 在其`content`作用域中提供了`align` 方法，这可以让**子微件自行告知父布局：我需要居中**
+答案是可以的！`Box` 在其 `content` 作用域中提供了 `align` 方法，这可以让**子微件自行告知父布局：我需要居中**
 
 ```kotlin
 @Composable
@@ -51,7 +51,7 @@ interface BoxScope {
 }
 ```
 
-作为接口，在此作用域中，子微件就可以调用`align`告诉父微件自己的align方式了
+作为接口，在此作用域中，子微件就可以调用 `align` 告诉父微件自己的align方式了
 
 所以上面的效果这可以这样实现：
 
@@ -74,7 +74,7 @@ fun ModifierSample2() {
 
 效果是一样的
 
-不像我们之前看到的`布局修饰符`，align是`父级数据修饰符`。本质上，这类由子微件向父布局通信就是由`parentData`实现的。如上面的`align`最终会涉及到如下代码：
+不像我们之前看到的`布局修饰符`，align是`父级数据修饰符`。本质上，这类由子微件向父布局通信就是由 `parentData` 实现的。如上面的 `align` 最终会涉及到如下代码：
 
 ```kotlin
 override val parentData: Any?
@@ -113,12 +113,12 @@ interface ParentDataModifier : Modifier.Element {
 
 - “地摊”里面有一些微件，它们一个一个纵向排列
 
-- 每个子微件都是“付费”的，比如某一个`Box`“售价”100，另一个`Box`“售价”200……以此类推
+- 每个子微件都是“付费”的，比如某一个 `Box` “售价”100，另一个 `Box` “售价”200……以此类推
 - 每个子微件会显示自己的价格，而“地摊”会显示总价钱
 
-上述描述换成代码的话就是：每一个子微件通过自定义的`Modifier`定义自身的价格，并把它传递给父布局，父布局计算所有的价格累积在一起，并显示出来。
+上述描述换成代码的话就是：每一个子微件通过自定义的 `Modifier` 定义自身的价格，并把它传递给父布局，父布局计算所有的价格累积在一起，并显示出来。
 
-开始写代码吧。我们先定义一个类，继承自`ParentDataModifier`
+开始写代码吧。我们先定义一个类，继承自 `ParentDataModifier`
 
 ```kotlin
 // 作者 FunnySaltyFish (http://funnysaltyfish.fun)
@@ -127,7 +127,7 @@ class CountNumParentData(var countNum: Int) : ParentDataModifier {
 }
 ```
 
-（为了简单起见，我们将`modifyParentData`这个方法直接返回自身了。在原版`Column`的实现中，这个方法实际类似这样：
+（为了简单起见，我们将 `modifyParentData` 这个方法直接返回自身了。在原版 `Column` 的实现中，这个方法实际类似这样：
 
 ```kotlin
 override fun Density.modifyParentData(parentData: Any?) =
@@ -139,7 +139,7 @@ override fun Density.modifyParentData(parentData: Any?) =
 
 ）
 
-然后我们编写一个简单的`Modifier`，返回一个实例
+然后我们编写一个简单的 `Modifier`，返回一个实例
 
 ```kotlin
 fun Modifier.count(num: Int) = this.then(
@@ -148,7 +148,7 @@ fun Modifier.count(num: Int) = this.then(
     )
 ```
 
-接下来我们复用一下之前的`VerticalLayout`，只不过在里面读取一下`ParentData`而已，部分代码如下
+接下来我们复用一下之前的 `VerticalLayout`，只不过在里面读取一下 `ParentData` 而已，部分代码如下
 
 ```kotlin
 var num = 0
