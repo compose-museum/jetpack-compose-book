@@ -1,0 +1,64 @@
+---
+title: Surface
+---
+
+import demo from '@site/static/img/layout/surface/demo.png'
+
+``` kotlin
+@Composable
+fun Surface(
+    modifier: Modifier = Modifier,
+    shape: Shape = RectangleShape,
+    color: Color = MaterialTheme.colors.surface,
+    contentColor: Color = contentColorFor(color),
+    border: BorderStroke? = null,
+    elevation: Dp = 0.dp,
+    content: () -> Unit
+): @Composable Unit
+```
+
+Surface 从字面上来理解，是一个平面，在 `Material Design` 设计准则中也同样如此，我们可以将很多的组件摆放在这个平面之上，我们可以设置这个平面的边框，圆角，颜色等等。接下来，我们来用 Surface 组件做出一些不同的效果。
+
+``` kotlin
+Surface(
+  shape = RoundedCornerShape(8.dp),
+  elevation = 10.dp,
+  modifier = Modifier
+    .width(300.dp)
+    .height(100.dp)
+) {
+  Row(
+    modifier = Modifier
+      .clickable {}
+  ) {
+    Image(
+      painter = painterResource(id = R.drawable.pic),
+      contentDescription = stringResource(R.string.description),
+      modifier = Modifier.size(100.dp),
+      contentScale = ContentScale.Crop
+    )
+    Spacer(Modifier.padding(horizontal = 12.dp))
+    Column(
+      modifier = Modifier.fillMaxHeight(),
+      verticalArrangement = Arrangement.Center
+    ) {
+      Text(
+        text = "Liratie",
+        style = MaterialTheme.typography.h6
+      )
+      Spacer(Modifier.padding(vertical = 8.dp))
+      Text(
+        text = "礼谙"
+      )
+    }
+  }
+}
+```
+
+<img src={demo} />
+
+可以看到，我们在 Surface 组件里面编写了主要的 UI 代码，而 Surface 主要负责整个组件的形状，阴影，背景等等，Surface 可以帮助我们更好的解耦一些代码，而不必在单个组件上添加很多的 Modifier 修饰符方法。
+
+## 2. 更多
+
+[Surface 参数详情](https://developer.android.com/reference/kotlin/androidx/compose/material/package-summary#Surface(androidx.compose.ui.Modifier,androidx.compose.ui.graphics.Shape,androidx.compose.ui.graphics.Color,androidx.compose.ui.graphics.Color,androidx.compose.foundation.BorderStroke,androidx.compose.ui.unit.Dp,kotlin.Function0))
