@@ -38,6 +38,7 @@ const sidebars = {
         'layout/modalbottomsheetlayout',
         'layout/row',
         'layout/scaffold',
+        'layout/surface',
         'layout/spacer',
         'layout/topappbar',
         'layout/custom_layout',
