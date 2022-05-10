@@ -14,6 +14,7 @@ import demo7Gif from '@site/static/img/design/animation/overview/demo7.gif'
 import demo8Gif from '@site/static/img/design/animation/overview/demo8.gif'
 import demo9Gif from '@site/static/img/design/animation/overview/demo9.gif'
 import demo10Gif from '@site/static/img/design/animation/overview/demo10.gif'
+import demo11Gif from '@site/static/img/design/animation/overview/demo11.gif'
 import animationLowLevel from '@site/static/img/design/animation/overview/animation-low-level.svg'
 import animationSpring from '@site/static/img/design/animation/overview/animation-spring.gif'
 
@@ -102,13 +103,13 @@ Column(
 
 ```
 
+<img src={demo11Gif} />
+
 默认情况下
 
 内容通过 `fadeIn()` 和 `expandVertically()` 出现
 
 通过 `fadeOut()` 和 `shrinkVertically()` 消失。你可以通过指定 `EnterTransition` 和 `ExitTransition` 来自定义过渡效果。
-
-<img src = {demoGif} />
 
 ``` kotlin
 var state by remember{ mutableStateOf(true) }
