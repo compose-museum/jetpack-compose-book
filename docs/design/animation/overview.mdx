@@ -29,21 +29,21 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 
 * 如果您要为布局中的内容变化添加动画效果：
 
-    * 如果您要为进入/退出过渡添加动画效果：
+    * 如果您要为出现和消失添加动画效果：
         * 使用 `AnimationVisibility`。
 
-    * 如果您要为内容大小变化添加动画效果：
-        * 使用 `Modifier.animateContentSize`。
-
-    * 否则使用 `Crossfade`。
+    * 根据状态交换内容：
+        * 如果您要为内容添加淡入淡出效果：
+            * 使用 `Crossfade`。
+        * 否则使用 `AnimatedContent`。
 
 * 如果动画效果基于状态：
     * 如果在组合期间呈现动画效果：
         * 如果动画效果无限循环：
             * 使用 `rememberInfiniteTransition`。
 
-* 如果您要同时为多个值添加动画效果：
-    * 使用 `updateTransition`。
+    * 如果您要同时为多个值添加动画效果：
+        * 使用 `updateTransition`。
     * 否则使用 `animate*AsState`。
 
 * 如果您要对动画播放时间进行精细控制：
@@ -58,8 +58,7 @@ Jetpack Compose 提供了强大的、可扩展的 API，使得在你的应用程
 | ----| ----|
 | **[AnimationVisibility](./animationvisibility)** | **显示/隐藏的过渡动画** |
 | **Modifier.contentSize** | **内容大小的变化过渡动画** |
-| **Crossfade** |  |
-| **rememberInfiniteTransition** |  |
+| **Crossfade** | **在两个布局之间的过渡动画** |
 | **[updateTransition](./updateTransition)** | **实现过渡动画的关键 API** |
 | **[animate*AsState](./animateAsState)** | **指定类型的数据变化动画** |
 
