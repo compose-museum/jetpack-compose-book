@@ -1,5 +1,4 @@
 asdasdausndoaisndoaisndoasinda
-sfasfasfasfasf
 
 ![](https://cdn.jsdelivr.net/gh/compose-museum/hello-compose/docs/assets/tutorial-banner.png)
 
