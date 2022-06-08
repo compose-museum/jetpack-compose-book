@@ -14,9 +14,7 @@ jobs:
         with:
           node-version: 16.x
           cache: yarn
-      - name: clean node_modules
-        run: rm -rf node_modules
       - name: Install dependencies
-        run: yarn install
+        run: yarn install --frozen-lockfile
       - name: Test build website
         run: yarn build
