@@ -55,7 +55,7 @@ npm install
 
 #### 3. 测试
 
-运行 `npm run-script build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
+运行 `npm run build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
 
 
 #### 4. 最后
