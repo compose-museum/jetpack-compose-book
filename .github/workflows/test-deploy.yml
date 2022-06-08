@@ -13,10 +13,10 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16.x
-          cache: npm
+          cache: yarn
       - name: clean node_modules
         run: rm -rf node_modules
       - name: Install dependencies
-        run: npm install
+        run: yarn install
       - name: Test build website
-        run: npm run-script build
+        run: yarn build
