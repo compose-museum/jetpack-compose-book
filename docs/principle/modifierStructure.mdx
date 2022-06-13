@@ -324,7 +324,7 @@ class CombinedModifier(
   <img src = {demo11} width = "50%" height = "50%" />
 </div>
 
-整个流程就非常清晰了，直到最后一个 inner Modifier 被遍历后便会将 lambda 结果返回给开发者。通过流程的解读，我们可知之所以我们的便利过程没有 CombindedModifier，是因为 CombinedModifier 虽重写了 **foldIn()方法**，但并没有调用我们传入的lambda。而只有所有 Modifier.Element 才会调用我们传入的 lambda。
+整个流程就非常清晰了，直到最后一个 inner Modifier 被遍历后便会将 lambda 结果返回给开发者。通过流程的解读，我们可知之所以我们的遍历过程没有 CombindedModifier，是因为 CombinedModifier 虽重写了 **foldIn()方法**，但并没有调用我们传入的lambda。而只有所有 Modifier.Element 才会调用我们传入的 lambda。
 
 理解了 **foldIn() 方法** 的实现原理，**foldOut() 方法** 的实现原理是完全相同的，只是遍历顺序是完全相反的，这里就不多加赘述了。
 
@@ -352,9 +352,9 @@ class CombinedModifier(
 }
 ```
 
-继续跟进，我们会走进 Composer.materialize()。可以发现源码中使用了 **fouldIn() 方法**。 在其中我们看到了对于 ComposedModifier 的特殊判断。还记得 `composed()` 返回的 ComposedModifier 嘛。根据前文我们可知，我们正常得到的 Modifier 链其中是可能包含 ComposedModifier的，而这里想做的是将 Modifier 链中的所有 ComposedModifier 摊平，让其 factory 内部产生的 Modifier 也能加入到 Modifier 链中。
+继续跟进，我们会走进 Composer.materialize()。可以发现源码中使用了 **foldIn() 方法**。 在其中我们看到了对于 ComposedModifier 的特殊判断。还记得 `composed()` 返回的 ComposedModifier 嘛。根据前文我们可知，我们正常得到的 Modifier 链其中是可能包含 ComposedModifier的，而这里想做的是将 Modifier 链中的所有 ComposedModifier 摊平，让其 factory 内部产生的 Modifier 也能加入到 Modifier 链中。
 
-这里使用了 **fouldIn() 方法** 进行了正向遍历，传入的初始值为 Modifier。当遍历到 ComposedModifier 时，则使用其内部的 factory 来生产 Modifier，值得注意的是此时生成的 Modifier 可能也是 Modifier 链或单个 Modifier。生成的 Modifier 其中也可能会包含 ComposedModifier，所以这里就进行了递归处理。最终目标就是所得到的 Modifier 链中是不包含 ComposedModifier 结点的，即完全摊开的 Modifier 链。
+这里使用了 **foldIn() 方法** 进行了正向遍历，传入的初始值为 Modifier。当遍历到 ComposedModifier 时，则使用其内部的 factory 来生产 Modifier，值得注意的是此时生成的 Modifier 可能也是 Modifier 链或单个 Modifier。生成的 Modifier 其中也可能会包含 ComposedModifier，所以这里就进行了递归处理。最终目标就是所得到的 Modifier 链中是不包含 ComposedModifier 结点的，即完全摊开的 Modifier 链。
 
 ```kotlin
 fun Composer.materialize(modifier: Modifier): Modifier {
