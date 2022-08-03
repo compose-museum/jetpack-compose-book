@@ -4,29 +4,24 @@
 
 ## 介绍 💨
 
-### [Jetpack Compose 基础教程](https://jetpackcompose.cn/) （开发中 ing... 咕咕咕） 
+### [Jetpack Compose Book](https://jetpackcompose.cn/)
 
-此项目致力于帮助大家更好的理解和快速上手 Jetpack Compose 框架, 更多的部分是为了补充官网可能没有介绍的东西
+此项目致力于帮助大家更好的认识 Jetpack Compose 框架, 更多的部分是为了补充官网可能没有介绍的东西。
 
-有问题欢迎提交 [issue](https://github.com/compose-museum/jetpack-compose-tutorial/issues/new) 来提问
+有问题欢迎提交 [issue](https://github.com/compose-museum/jetpack-compose-tutorial/issues/new)。
 
-欢迎来学习！ 
-
-![](static/img/screenshot.png)
-
+一起进步！
 
 ## 关于贡献
 
 ### Jetpack Compose
 如果你想为 Jetpack Compose 做贡献的话，你可以加入 [Kotlin](https://surveys.jetbrains.com/s3/kotlin-slack-sign-up) 的 Slack 频道 **#Compose**, 或者在 [https://issuetracker.google.com/issues?q=componentid:612128](https://issuetracker.google.com/issues?q=componentid:612128) 中提交 Compose 的 Bug 或者错误
 
-### [关于 Codelabs](https://docs.compose.net.cn/codelabs/)
-
 ### 本项目
 
-我们非常欢迎各种的 PR 请求（~~包括但不局限于添加一个换行增加阅读体验~~），_(:з)∠)_本项目还处于初期阶段，非常需要各位大佬的完善和纠错
+我们非常欢迎各种的 PR 请求（~~包括但不局限于添加一个换行增加阅读体验~~），_(:з)∠)_本项目还处于初期阶段，非常需要各位大佬的完善和纠错。
 
-如果你有已经写好的文章想要添加到这里，欢迎发送 Markdown 格式的文件给我们！
+如果你有已经写好的文章想要添加到这里，欢迎提交 PR。
 
 文档采用 [docusaurus](https://docusaurus.io/) 来编辑及部署
 
@@ -36,6 +31,7 @@
 前置条件：
 1. [Node.js](https://nodejs.org/en/download/) >= 16.14
 2. npm 推荐 8.12 左右
+
 
 #### 1. fork 仓库
 
@@ -49,18 +45,13 @@ npm install
     
 文档都是由 **Markdown** 语法来编写的，所有文档位于 [/docs](https://github.com/compose-museum/compose-tutorial/tree/master/docs) 中, 如果需要扩展左边的侧边栏，请在 [**sidebars.js**](sidebars.js) 更新。
 
-图片添加需要在 **static/img/** 下，和文档同等路径名字添加。例如如果我修改了 **Text** 的文档，并且添加了一张例图，那么就是放在 **/static/img/elements/text/xxx.png**。
+图片添加需要在 **static/img/** 下，和文档同等路径名字添加。例如我修改了 **Text** 的文档，并且添加了一张例图，那么就是放在 **/static/img/elements/text/xxx.png**。
 
 [调用图片方法](https://docusaurus.io/zh-CN/docs/static-assets)
 
 #### 3. 测试
 
 运行 `npm run build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
-
-
-#### 4. 最后
-
-恭喜你，当你同步了本项目的最新进度并且添加了你所想的东西，你只需要提交 PR 即可，我们在审核通过会自动同步到网站上
 
 
 #### 如果你觉得此项目对你有帮助的话，不妨点个 Star 支持下作者吧~！
