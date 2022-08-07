@@ -188,16 +188,16 @@ fun ListWithHeader() {
 ## 7. Grids
 
 :::info API转正
-在Compose 1.2版本中，惰性网格布局相关的API去除了实验性的标记，升级为稳定版。
+在 Compose 1.2 版本中，惰性网格布局相关的API去除了实验性的标记，升级为稳定版。
 :::
 
-如果你需要惰性（Lazy）的网格布局，除了考虑使用`LazyLayout`实现一个之外，还可以试试开箱即用的`LazyVerticalGrid`和`LazyHorizontalGrid`。顾名思义，`LazyVerticalGrid`允许纵向滚动，依次横向地布局子项；`LazyHorizontalGrid`允许横向滚动，依次纵向地布局子项。它们的实际布局效果类似于下图：
+如果你需要惰性（Lazy）的网格布局，除了考虑使用 `LazyLayout` 实现一个之外，还可以试试开箱即用的 `LazyVerticalGrid` 和 `LazyHorizontalGrid`。顾名思义，`LazyVerticalGrid` 允许纵向滚动，依次横向地布局子项；`LazyHorizontalGrid` 允许横向滚动，依次纵向地布局子项。它们的实际布局效果类似于下图：
 
 <img src = {demo3} />
 
-下面以`LazyVerticalGrid`为例，介绍如何使用相关的API。
+下面以 `LazyVerticalGrid` 为例，介绍如何使用相关的 API。
 
-如果你希望简单得到一个列数固定为两列的网格布局，可以在`columns`（注意，这个参数在低于1.2版本的时候称作`cells`）参数中传入`GridCells.Fixed(2)`：
+如果你希望简单得到一个列数固定为两列的网格布局，可以在 `columns`（注意，这个参数在低于1.2版本的时候称作`cells`）参数中传入 `GridCells.Fixed(2)`：
 
 ```kotlin
 @Composable
@@ -212,7 +212,7 @@ fun LazyVerticalGridSample(data: List<Int>) {
 }
 ```
 
-如果希望控制每个子项的间隔，我们还可以添加参数`horizontalArrangement`和`verticalArrangement`，下述代码为每个子项之间增加了10dp的纵向间隔和横向间隔：
+如果希望控制每个子项的间隔，我们还可以添加参数 `horizontalArrangement` 和 `verticalArrangement`，下述代码为每个子项之间增加了 10dp 的纵向间隔和横向间隔：
 
 ```kotlin
 @Composable
@@ -229,11 +229,11 @@ fun LazyVerticalGridSample(data: List<Int>) {
 }
 ```
 
-固定列数的垂直Grid实现思路并不复杂：首先，如果有设置`horizontalArrangement`，则先从Grid的可用宽度中减去子项的间隔总共需要占用的宽度。以上面的代码为例，固定两列、子项间距为10dp的Grid，可用宽度为`width - 10`。然后，两列的子项平分剩余的所有宽度，每个子项的可用宽度为`(width - 10) / 2`。
+固定列数的垂直 Grid 实现思路并不复杂：首先，如果有设置 `horizontalArrangement`，则先从 Grid 的可用宽度中减去子项的间隔总共需要占用的宽度。以上面的代码为例，固定两列、子项间距为 10dp 的 Grid，可用宽度为 `width - 10`。然后，两列的子项平分剩余的所有宽度，每个子项的可用宽度为 `(width - 10) / 2`。
 
-有没有察觉到这种布局方式可能在哪些场景中出问题？在`Fixed`模式中，子项的具体宽度是不确定的，依赖于Grid的具体宽度，而若是Grid被设置为占满整个屏幕的宽度的话，就有可能出现子项的宽度过度拉伸的问题，比如在旋转屏幕或者在平板等屏幕宽度更大的设备运行App时。
+有没有察觉到这种布局方式可能在哪些场景中出问题？在 `Fixed` 模式中，子项的具体宽度是不确定的，依赖于 Grid 的具体宽度，而若是 Grid 被设置为占满整个屏幕的宽度的话，就有可能出现子项的宽度过度拉伸的问题，比如在旋转屏幕或者在平板等屏幕宽度更大的设备运行 App 时。
 
-如果想避免这个问题，可以考虑使用另一种布局模式`GridCells.Adaptive`：
+如果想避免这个问题，可以考虑使用另一种布局模式 `GridCells.Adaptive`：
 
 ```kotlin
 @Composable
@@ -250,11 +250,11 @@ fun LazyVerticalGridSample(data: List<Int>) {
 }
 ```
 
-`GridCells.Adaptive`是一种自适应的策略，它会在尽量生成较多的列，**每一列的最小宽度为`minSize`**。上述例子中，传入的`minSize`为20dp，假设Grid的可用宽度为88dp，那么`GridCells.Adaptive(minSize = 20.dp)`意味着`LazyVerticalGrid`最多能够放下4列，占用80dp。剩下的88-80=8dp怎么办？它们会平均分配到每一列中，换句话说，现在每一列的宽度其实是22dp。
+`GridCells.Adaptive` 是一种自适应的策略，它会在尽量生成较多的列，**每一列的最小宽度为 `minSize`**。上述例子中，传入的 `minSize` 为 20dp，假设 Grid 的可用宽度为 88dp，那么`GridCells.Adaptive(minSize = 20.dp)` 意味着 `LazyVerticalGrid` 最多能够放下 4 列，占用 80dp。剩下的 88-80=8dp 怎么办？它们会平均分配到每一列中，换句话说，现在每一列的宽度其实是 22dp。
 
-### 自定义布局方式（Compose 1.2以上）
+### 自定义布局方式（Compose 1.2 以上）
 
-如果固定列数或者自适应都不能满足你的需求，例如虽然Grid固定为两列，但希望第二列获得的宽度是第一列的一半，那么可以试试自定义新的`GridCells`实现。`GridCells`实际上是一个接口，前面提到的`Fixed`和`Adaptive`是其实现类。
+如果固定列数或者自适应都不能满足你的需求，例如虽然 Grid 固定为两列，但希望第二列获得的宽度是第一列的一半，那么可以试试自定义新的 `GridCells` 实现。`GridCells` 实际上是一个接口，前面提到的 `Fixed` 和 `Adaptive` 是其实现类。
 
 ```kotlin
 @Stable
@@ -263,13 +263,13 @@ interface GridCells {
 }
 ```
 
-`calculateCrossAxisCellSizes`传入Grid需要布局的轴上可用的宽度以及由`verticalArrangement`或`horizontalArrangement`传入的分隔的大小，要求返回指定每一列的宽度的列表。传入的参数和要求返回的列表都以px为单位。
+`calculateCrossAxisCellSizes` 传入 Grid 需要布局的轴上可用的宽度以及由 `verticalArrangement` 或 `horizontalArrangement` 传入的分隔的大小，要求返回指定每一列的宽度的列表。传入的参数和要求返回的列表都以 px 为单位。
 
-如果你在用Compose 1.2以下的版本，那么很遗憾，`GridCells`是一个`sealed class`，无法自定义。
+如果你在用 Compose 1.2 以下的版本，那么很遗憾，`GridCells` 是一个 `sealed class`，无法自定义。
 
 ### 为子项自定义列跨度
 
-在上述讨论中，我们都默认单个子项的列跨度（即占用多少列）为1，但是有很多的场景希望能够自定义列跨度。比如我们希望在子项前添加一个类别的卡片Title：
+在上述讨论中，我们都默认单个子项的列跨度（即占用多少列）为1，但是有很多的场景希望能够自定义列跨度。比如我们希望在子项前添加一个类别的卡片 Title：
 
 <img src = {demo4} />
 
@@ -290,7 +290,7 @@ LazyVerticalGrid(
     }
 ```
 
-放置子项的`item`、`items`等函数可以传入一个创建`GridItemSpan`的lambda，描述子项会跨越多少列。
+放置子项的 `item`、`items` 等函数可以传入一个创建 `GridItemSpan` 的 lambda，描述子项会跨越多少列。
 
 ## 8. 对滚动位置做出反应
 
