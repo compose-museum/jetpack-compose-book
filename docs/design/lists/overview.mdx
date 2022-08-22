@@ -39,7 +39,7 @@ fun MessageList(messages: List<Message>) {
 
 顾名思义，`LazyColumn` 和 `LazyRow` 的区别在于它们的项目布局和滚动方向。`LazyColumn` 产生一个垂直滚动的列表，而 `LazyRow` 产生一个水平滚动的列表。
 
-`Lazy` 组件与 `Compose` 中的大多数布局不同。`Lazy` 组件不接受 **@Composable** 内容块参数，允许应用程序直接撰写 `Composable`，而是提供一个 `LazyListScope.()` 块。这个 `LazyListScope` 块提供了一个 `DS`L，允许应用程序描述项目内容。然后，`Lazy` 组件负责根据布局和滚动位置的要求，添加每个项目的内容。
+`Lazy` 组件与 `Compose` 中的大多数布局不同。`Lazy` 组件不接受 **@Composable** 内容块参数，允许应用程序直接撰写 `Composable`，而是提供一个 `LazyListScope.()` 块。这个 `LazyListScope` 块提供了一个 `DSL`，允许应用程序描述项目内容。然后，`Lazy` 组件负责根据布局和滚动位置的要求，添加每个项目的内容。
 
 :::info 关键术语
 ***DSL*** 是指特定领域的语言。有关 `Compose` 如何为某些 `API` 定义 `DSL` 的更多信息，请参阅 [Kotlin for Compose](https://developer.android.com/jetpack/compose/kotlin#dsl) 文档。
