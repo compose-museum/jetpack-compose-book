@@ -1,0 +1,859 @@
+---
+id: slotTable
+title: 探索 SlotTable 系统及原理
+---
+
+# 引言
+Compose 的绘制有三个阶段，组合 > 布局  > 绘制。后两个过程与传统视图的渲染过程相近，唯独组合是 Compose 所特有的。Compose 通过组合生成渲染树，这是 Compose 框架的核心能力，而这个过程主要是依赖 SlotTable 实现的，本文就来介绍一下 SlotTable 系统。
+
+# 1. 从 Compose 渲染过程说起
+基于 Android 原生视图的开发过程，其本质就是构建一棵基于 View 的渲染树，当帧信号到达时从根节点开始深度遍历，依次调用 measure/layout/draw，直至完成整棵树的渲染。对于 Compose 来说也存在这样一棵渲染树，我们将其称为 **Compositiion**，树上的节点是 **LayoutNode**，Composition 通过 LayoutNode 完成 measure/layout/draw 的过程最终将 UI 显示到屏幕上。Composition 依靠 Composable 函数的执行来创建以及更新，即所谓的组合和重组。
+
+![](https://img-blog.csdnimg.cn/img_convert/ad8b5c6a57b9982f9bbb072465713a6b.png)
+
+例如上面的 Composable 代码，经过执行后会生成右侧的 Composition。
+
+一个函数经过执行是如何转换成 LayoutNode 的呢？深入 Text 的源码后发现其内部调用了 Layout， Layout 是一个可以自定义布局的 Composable，我们直接使用的各类 Composable 最终都是通过调用 Layout 来实现不同的布局和显示效果。
+
+```kotlin
+//Layout.kt
+@Composable inline fun Layout(
+    content: @Composable () -> Unit,
+    modifier: Modifier = Modifier,
+    measurePolicy: MeasurePolicy
+) {
+    val density = LocalDensity.current
+    val layoutDirection = LocalLayoutDirection.current
+    val viewConfiguration = LocalViewConfiguration.current
+    ReusableComposeNode<ComposeUiNode, Applier<Any>>(
+        factory = ComposeUiNode.Constructor, 
+        update = {
+            set(measurePolicy, ComposeUiNode.SetMeasurePolicy)
+            set(density, ComposeUiNode.SetDensity)
+            set(layoutDirection, ComposeUiNode.SetLayoutDirection)
+            set(viewConfiguration, ComposeUiNode.SetViewConfiguration)
+        },
+        skippableUpdate = materializerOf(modifier),
+        content = content
+    )
+}
+```
+
+Layout 内部通过 ReusableComposeNode 创建 LayoutNode。
+- `factory` 就是创建 LayoutNode 的工厂
+- `update` 用来记录会更新 Node 的状态用于后续渲染
+
+继续进入 ReusableComposeNode ：
+
+```kotlin
+//Composables.kt
+inline fun <T, reified E : Applier<*>> ReusableComposeNode(
+    noinline factory: () -> T,
+    update: @DisallowComposableCalls Updater<T>.() -> Unit,
+    noinline skippableUpdate: @Composable SkippableUpdater<T>.() -> Unit,
+    content: @Composable () -> Unit
+) {
+    //... 
+    $composer.startReusableNode()
+    //...
+    $composer.createNode(factory)
+    //...
+    Updater<T>(currentComposer).update()
+    //...
+    $composer.startReplaceableGroup(0x7ab4aae9)
+    content()
+    $composer.endReplaceableGroup()
+    $composer.endNode()
+}
+```
+我们知道 Composable 函数经过编译后会传入 Composer， 代码中基于传入的 Composer 完成了一系列操作，主逻辑很清晰：
+
+- `Composer#createNode` 创建节点
+- `Updater#update` 更新 Node 状态
+- `content()` 继续执行内部 Composable，创建子节点。
+
+此外，代码中还穿插着了一些 startXXX/endXXX ，这样的成对调用就好似对一棵树进行深度遍历时的压栈/出栈
+
+```java
+startReusableNode
+    NodeData // Node数据
+    startReplaceableGroup
+        GroupData //Group数据
+        ... // 子Group
+    endGroup
+endNode
+```
+不只是 ReusableComposeNode 这样的内置 Composable，我们自己写的 Composable 函数体经过编译后的代码也会插入大量的 startXXX/endXXX，这些其实都是 Composer 对 SlotTable 访问的过程，Composer 的职能就是通过对 SlotTable 的读写来创建和更新 Composition。
+
+下图是 Composition，Composer 与 SlotTable 的关系类图
+
+![](https://img-blog.csdnimg.cn/img_convert/db88b7dd3b13ecc04afe31007c78db97.png)
+
+# 2. 初识 SlotTable
+
+前文我们将 Composable 执行后生成的渲染树称为 Compositioin。其实更准确来说，Composition 中存在两棵树，一棵是 LayoutNode 树，这是真正执行渲染的树，LayoutNode 可以像 View 一样完成 measure/layout/draw 等具体渲染过程；而另一棵树是 SlotTable，它记录了 Composition 中的各种数据状态。 传统视图的状态记录在 View 对象中，在 Compose 面向函数编程而不面向对象，所以这些状态需要依靠 SlotTable 进行管理和维护。
+
+Composable 函数执行过程中产生的所有数据都会存入 SlotTable， 包括 State、CompositionLocal，remember 的 key 与 value 等等 ，这些数据不随函数的出栈而消失，可以跨越重组存在。Composable 函数在重组中如果产生了新数据则会更新 SlotTable。
+
+SlotTable 的数据存储在 Slot 中，一个或多个 Slot 又归属于一个 Group。可以将 Group 理解为树上的一个个节点。说 SlotTable 是一棵树，其实它并非真正的树形数据结构，它用线性数组来表达一棵树的语义，从 SlotT
+able 的定义中可以看到这一点：
+
+```kotlin
+//SlotTable.kt
+internal class SlotTable : CompositionData, Iterable<CompositionGroup> {
+
+    /**
+     * An array to store group information that is stored as groups of [Group_Fields_Size]
+     * elements of the array. The [groups] array can be thought of as an array of an inline
+     * struct.
+     */
+    var groups = IntArray(0)
+        private set
+ 
+    /**
+     * An array that stores the slots for a group. The slot elements for a group start at the
+     * offset returned by [dataAnchor] of [groups] and continue to the next group's slots or to
+     * [slotsSize] for the last group. When in a writer the [dataAnchor] is an anchor instead of
+     * an index as [slots] might contain a gap.
+     */
+    var slots = Array<Any?>(0) { null }
+        private set
+```
+
+SlotTable 有两个数组成员，`groups` 数组存储 Group 信息，`slots` 存储 Group 所辖的数据。用数组替代结构化存储的好处是可以提升对“树”的访问速度。 Compose 中重组的频率很高，重组过程中会不断的对 SlotTable 进行读写，而访问数组的时间复杂度只有 O(1)，所以使用线性数组结构有助于提升重组的性能。
+
+![](https://img-blog.csdnimg.cn/img_convert/36d64222c23b90838d937a9898f22227.png)
+
+groups 是一个 IntArray，每 5 个 Int 为一组构成一个 Group 的信息
+
+- `key` :  Group 在 SlotTable 中的标识，在 Parent Group 范围内唯一
+- `Group info`: Int 的 Bit 位中存储着一些 Group 信息，例如是否是一个 Node，是否包含 Data 等，这些信息可以通过位掩码来获取。 
+- `Parent anchor`: Parent 在 groups 中的位置，即相对于数组指针的偏移
+- `Size: Group`: 包含的 Slot 的数量
+- `Data anchor`：关联 Slot 在 slots 数组中的起始位置
+
+slots 是真正存储数据的地方，Composable 执行过程中可以产生任意类型的数据，所以数组类型是 `Any?`。每个 Gorup 关联的 Slot 数量不定，Slot 在 slots 中按照所属 Group 的顺序依次存放。
+
+groups 和 slots 不是链表，所以当容量不足时，它们会进行扩容。
+
+# 3. 深入理解 Group
+
+## Group 的作用
+SlotTable 的数据存储在 Slot 中，为什么充当树上节点的单位不是 Slot 而是 Group 呢？因为 Group 提供了以下几个作用：
+
+- **构建树形结构**: Composable 首次执行过程中，在 startXXXGroup 中会创建 Group 节点存入 SlotTable，同时通过设置 Parent anchor 构建 Group 的父子关系，Group 的父子关系是构建渲染树的基础。
+
+- **识别结构变化**: 编译期插入 startXXXGroup 代码时会基于代码位置生成可识别的 `$key`（parent 范围内唯一）。在首次组合时 `$key` 会随着 Group 存入 SlotTable，在重组中，Composer 基于 `$key` 的比较可以识别出 Group 的增、删或者位置移动。换言之，SlotTable 中记录的 Group 携带了位置信息，故这种机制也被称为  **Positional Memoization**。Positional Memoization 可以发现 SlotTable 结构上的变化，最终转化为 LayoutNode 树的更新。
+
+- **重组的最小单位**: Compose 的重组是“智能”的，Composable 函数或者 Lambda 在重组中可以跳过不必要的执行。在 SlotTtable 上，这些函数或 lambda 会被包装为一个个 RestartGroup ，因此 Group 是参与重组的最小单位。
+
+## Group 的类型
+Composable 在编译期会生成多种不同类型的 startXXXGroup，它们在 SlotTable 中插入 Group 的同时，会存入辅助信息以实现不同的功能：
+|startXXXGroup| 说明|
+|:--|:--|
+|startNode/startReusableNode|插入一个包含 Node 的 Group。例如文章开头 ReusableComposeNode 的例子中，显示调用了 startReusableNode ，而后调用 createNode 在 Slot 中插入 LayoutNode。 |
+|startRestartGroup|插入一个可重复执行的 Group，它可能会随着重组被再次执行，因此 RestartGroup 是重组的最小单元。|
+|startReplaceableGroup|插入一个可以被替换的 Group，例如一个 if/else 代码块就是一个  ReplaceableGroup，它可以在重组中被插入后者从 SlotTable 中移除。|
+|startMovableGroup|插入一个可以移动的 Group，在重组中可能在兄弟 Group 之间发生位置移动。 |
+|startReusableGroup|插入一个可复用的 Group，其内部数据可在 LayoutNode 之间复用，例如 LazyList 中同类型的 Item。|
+
+
+当然 startXXXGroup 不止用于插入新 Group，在重组中也会用来追踪 SlotTable 的已有 Group，与当前执行
+中的代码情况进行比较。接下来我们看下几种不同类型的 startXXXGroup 出现在什么样的代码中。
+
+# 4. 编译期生成的 startXXXGroup
+前面介绍了 startXXXGroup 的几种类型，我们平日在写 Compose 代码时，对他们毫无感知，那么他们分别是在何种情况下生成的呢？下面看几种常见的 startXXXGroup 的生成时机：
+
+## startReplaceableGroup
+前面提到过 Positional Memoization 的概念，即 Group 存入 SlotTable 时，会携带基于位置生成的 `$key`，这有助于识别 SlotTable 的结构变化。下面的代码能更清楚地解释这个特性
+
+```kotlin
+@Composable
+fun ReplaceableGroupTest(condition: Boolean) {
+    if (condition) {
+        Text("Hello") //Text Node 1
+    } else {
+        Text("World") //Text Node 2
+    }
+}
+```
+
+这段代码，当 condition 从 true 变为 false，意味着渲染树应该移除旧的 Text Node 1 ，并添加新的 Text Node 2。源码中我们没有为 Text 添加可辨识的 key，如果仅按照源码执行，程序无法识别出 counditioin 变化前后 Node 的不同，这可能导致旧的节点状态依然残留，UI 不符预期。
+
+Compose 如何解决这个问题呢，看一下上述代码编译后的样子（伪代码）：
+
+```kotlin
+@Composable
+fun ReplaceableGroupTest(condition: Boolean, $composer: Composer?, $changed: Int) {
+    if (condition) {
+        $composer.startReplaceableGroup(1715939608)
+        Text("Hello")
+        $composer.endReplaceableGroup()
+    } else {
+        $composer.startReplaceableGroup(1715939657)
+        Text("World")
+        $composer.endReplaceableGroup()
+    }
+}
+```
+
+可以看到，编译器为 if/else 每个条件分支都插入了 RestaceableGroup ，并添加了不同的 `$key`。这样当 `condition` 发生变化时，我们可以识别 Group 发生了变化，从而从结构上变更 SlotTable，而不只是更新原有 Node。
+
+if/else 内部即使调用了多个 Composable（比如可能出现多个 Text) ，它们也只会包装在一个 RestartGroup ，因为它们总是被一起插入/删除，无需单独生成 Group 。
+
+## startMovableGroup
+
+```kotlin
+@Composable
+fun MoveableGroupTest(list: List<Item>) {
+    Column {
+        list.forEach { 
+            Text("Item:$it")
+        }
+    }
+}
+```
+
+上面代码是一个显示列表的例子。由于列表的每一行在 for 循环中生成，无法基于代码位置实现 **Positional Memoization**，如果参数 list 发生了变化，比如插入了一个新的 Item，此时 Composer 无法识别出 Group 的位移，会对其进行删除和重建，影响重组性能。
+
+针对这类无法依靠编译器生成 `$key` 的问题，Compose 给了解决方案，可以通过 `key {...}` 手动添加唯一索引 key，便于识别 Item 的新增，提升重组性能。经优化后的代码如下：
+
+```kotlin
+//Before Compiler
+@Composable
+fun MoveableGroupTest(list: List<Item>) {
+    Column {
+        list.forEach { 
+            key(izt.id) { //Unique key
+                Text("Item:$it")
+            }
+            
+        }
+    }
+}
+```
+上面代码经过编译后会插入 startMoveableGroup：
+
+```kotlin
+@Composable
+fun MoveableGroupTest(list: List<Item>, $composer: Composer?, $changed: Int) {
+    Column {
+        list.forEach { 
+            key(it.id) {
+                $composer.startMovableGroup(-846332013, Integer.valueOf(it));
+                Text("Item:$it")
+                $composer.endMovableGroup();
+            }
+        }
+    }
+}
+```
+startMoveableGroup 的参数中除了 GroupKey 还传入了一个辅助的 DataKey。当输入的 list 数据中出现了增/删或者位移时，MoveableGroup 可以基于 DataKey 识别出是否是位移而非销毁重建，提升重组的性能。
+
+## startRestartGroup
+
+RestartGroup 是一个可重组单元，我们在日常代码中定义的每个 Composable 函数都可以单独参与重组，因此它们的函数体中都会插入 startRestartGroup/endRestartGroup，编译前后的代码如下：
+
+```kotlin
+// Before compiler (sources)
+@Composable
+fun RestartGroupTest(str: String) {
+    Text(str)
+}
+
+// After compiler
+@Composable
+fun RestartGroupTest(str: String, $composer: Composer<*>, $changed: Int) {
+    $composer.startRestartGroup(-846332013)
+    // ...
+    Text(str)
+    $composer.endRestartGroup()?.updateScope { next ->
+        RestartGroupTest(str, next, $changed or 0b1)
+    }
+}
+```
+
+看一下 startRestartGroup 做了些什么
+
+```kotlin
+//Composer.kt
+fun startRestartGroup(key: Int): Composer {
+    start(key, null, false, null)
+    addRecomposeScope() 
+    return this
+}
+
+private fun addRecomposeScope() {
+    //...
+    val scope = RecomposeScopeImpl(composition as CompositionImpl)
+    invalidateStack.push(scope) 
+    updateValue(scope)
+    //...
+}
+```
+这里主要是创建 `RecomposeScopeImpl` 并存入 SlotTable 。
+
+- RecomposeScopeImpl 中包裹了一个 Composable 函数，当它需要参与重组时，Compose 会从 SlotTable 中找到它并调用 `RecomposeScopeImpl#invalide()` 标记失效，当重组来临时 Composable 函数被重新执行。
+- RecomposeScopeImpl 被缓存到 `invalidateStack`，并在 `Composer#endRestartGroup()` 中返回。
+- `updateScope` 为其设置需要参与重组的 Composable 函数，其实就是对当前函数的递归调用。注意 endRestartGroup 的返回值是可空的，如果 RestartGroupTest 中不依赖任何状态则无需参与重组，此时将返回 null。
+
+可见，无论 Composable 是否有必要参与重组，生成代码都一样。这降低了代码生成逻辑的复杂度，将判断留到运行时处理。
+
+# 5. SlotTable 的 Diff 与遍历
+
+## SlotTable 的 Diff
+声明式框架中，渲染树的更新都是通过 Diff 实现的，比如 React 通过 VirtualDom 的 Diff 实现 Dom 树的局部更新，提升 UI 刷新的性能。
+
+
+![](https://img-blog.csdnimg.cn/img_convert/03a6aefc6645e5963fd9c8d936c5690c.png)
+
+SlotTable 就是 Compose 的 “Virtual Dom”，Composable 初次执行时在 SlotTable 中插入 Group 和对应的 Slot 数据。 当 Composable 参与重组时，基于代码现状与 SlotTable 中的状态进行 Diff，发现 Composition 中需要更新的状态，并最终应用到 LayoutNode 树。
+
+这个 Diff 的过程也是在 startXXXGroup 过程中完成的，具体实现都集中在 `Composer#start()` ： 
+
+```kotlin
+//Composer.kt
+private fun start(key: Int, objectKey: Any?, isNode: Boolean, data: Any?) {
+    //...
+    
+    if (pending == null) {
+        val slotKey = reader.groupKey
+        if (slotKey == key && objectKey == reader.groupObjectKey) {
+            // 通过 key 的比较，确定 group 节点没有变化，进行数据比较
+            startReaderGroup(isNode, data)
+        } else {
+            // group 节点发生了变化，创建 pending 进行后续处理
+            pending = Pending(
+                reader.extractKeys(),
+                nodeIndex
+            )
+        }
+    }
+    //...
+    if (pending != null) {
+        // 寻找 gorup 是否在 Compositon 中存在
+        val keyInfo = pending.getNext(key, objectKey)
+        if (keyInfo != null) {
+            // group 存在，但是位置发生了变化，需要借助 GapBuffer 进行节点位移
+            val location = keyInfo.location
+            reader.reposition(location)
+            if (currentRelativePosition > 0) {
+                // 对 Group 进行位移
+                recordSlotEditingOperation { _, slots, _ ->
+                    slots.moveGroup(currentRelativePosition)
+                }
+            }
+            startReaderGroup(isNode, data)
+        } else {
+            //...
+            val startIndex = writer.currentGroup
+            when {
+                isNode -> writer.startNode(Composer.Empty)
+                data != null -> writer.startData(key, objectKey ?: Composer.Empty, data)
+                else -> writer.startGroup(key, objectKey ?: Composer.Empty)
+            }
+        }
+    }
+    
+    //...
+}
+```
+
+start 方法有四个参数：
+
+- `key`: 编译期基于代码位置生成的  `$key`
+- `objectKey`: 使用 key{} 添加的辅助 key
+- `isNode`：当前 Group 是否是一个 Node，在 startXXXNode 中，此处会传入 true
+- `data`：当前 Group 是否有一个数据，在 startProviders 中会传入 providers
+
+start 方法中有很多对 reader 和 writer 的调用，稍后会对他们作介绍，这里只需要知道他们可以追踪 SlotTable 中当前应该访问的位置，并完成读/写操作。上面的代码已经经过提炼，逻辑比较清晰：
+
+- 基于 key 比较 Group 是否相同（SlotTable 中的记录与代码现状），如果 Group 没有变化，则调用 startReaderGroup 进一步判断 Group 内的数据是否发生变化
+- 如果 Group 发生了变化，则意味着 start 中 Group 需要新增或者位移，通过 pending.getNext 查找 key 是否在 Composition 中存在，若存在则表示需要 Group 需要位移，通过 slot.moveGroup 进行位移
+- 如果 Group 需要新增，则根据 Group 类型，分别调用不同的 writer#startXXX 将 Group 插入 SlotTable
+
+Group 内的数据比较是在 startReaderGroup 中进行的，实现比较简单
+
+```kotlin
+private fun startReaderGroup(isNode: Boolean, data: Any?) {
+    //...
+    if (data != null && reader.groupAux !== data) {
+        recordSlotTableOperation { _, slots, _ ->
+            slots.updateAux(data)
+        }
+    }
+    //...    
+}
+```
+
+- `reader.groupAux` 获取当前 Slot 中的数据与 data 做比较
+- 如果不同，则调用 `recordSlotTableOperation` 对数据进行更新。
+
+注意对 SlotTble 的更新并非立即生效，这在后文会作介绍。
+
+## SlotReader & SlotWriter
+上面看到，start 过程中对 SlotTable 的读写都需要依靠 Composition 的 reader 和 writer 来完成。
+
+
+![](https://img-blog.csdnimg.cn/img_convert/e222476a7ad6c5e3606a2c2027d8eff1.png)
+
+writer 和 reader 都有对应的 startGroup/endGroup 方法。对于 writer 来说 startGroup 代表对 SlotTable 的数据变更，例如插入或删除一个 Group ；对于 reader 来说 startGroup 代表着移动 currentGroup 指针到最新位置。`currentGroup` 和 `currentSlot` 指向 SlotTable 当前访问中的 Group 和 Slot 的位置。
+
+看一下 `SlotWriter#startGroup` 中插入一个 Group 的实现：
+
+```kotlin
+private fun startGroup(key: Int, objectKey: Any?, isNode: Boolean, aux: Any?) {
+
+    //...
+    insertGroups(1) // groups 中分配新的位置
+    val current = currentGroup 
+    val currentAddress = groupIndexToAddress(current)
+    val hasObjectKey = objectKey !== Composer.Empty
+    val hasAux = !isNode && aux !== Composer.Empty
+    groups.initGroup( //填充 Group 信息
+        address = currentAddress, //Group 的插入位置
+        key = key, //Group 的 key
+        isNode = isNode, //是否是一个 Node 
+        hasDataKey = hasObjectKey, //是否有 DataKey
+        hasData = hasAux, //是否包含数据
+        parentAnchor = parent, //关联Parent
+        dataAnchor = currentSlot //关联Slot地址
+    )
+    //...
+    val newCurrent = current + 1
+    this.parent = current //更新parent
+    this.currentGroup = newCurrent 
+    //...
+}
+```
+- `insertGroups` 用来在 groups 中分配插入 Group 用的空间，这里会涉及到 Gap Buffer 概念，我们在后文会详细介绍。 
+- `initGroup`：基于 startGroup 传入的参数初始化 Group 信息。这些参数都是在编译期随着不同类型的 startXXXGroup 生成的，在此处真正写入到 SlotTable 中
+- 最后更新 currentGroup 的最新位置。
+
+再看一下 `SlotReader#startGroup` 的实现：
+
+```kotlin
+fun startGroup() {
+    //...
+    parent = currentGroup
+    currentEnd = currentGroup + groups.groupSize(currentGroup)
+    val current = currentGroup++
+    currentSlot = groups.slotAnchor(current)
+    //...
+}
+```
+代码非常简单，主要就是更新 currentGroup，currentSlot 等的位置。
+
+SlotTable 通过 openWriter/openReader 创建 writer/reader，使用结束需要调用各自的 close 关闭。reader 可以 open 多个同时使用，而 writer 同一时间只能 open 一个。为了避免发生并发问题， writer 与 reader 不能同时执行，所以对 SlotTable 的 write 操作需要延迟到重组后进行。因此我们在源码中看到很多 recordXXX 方法，他们将写操作提为一个 Change 记录到 ChangeList，等待组合结束后再一并应用。
+
+# 6. SlotTable 变更延迟生效
+Composer 中使用 changes 记录变动列表
+```kotlin
+//Composer.kt
+internal class ComposerImpl {
+    //...
+    private val changes: MutableList<Change>,
+    //...
+    
+    private fun record(change: Change) {
+        changes.add(change)
+    }
+}
+````
+`Change` 是一个函数，执行具体的变动逻辑，函数签名即参数如下：
+```kotlin
+//Composer.kt
+internal typealias Change = (
+    applier: Applier<*>,
+    slots: SlotWriter,
+    rememberManager: RememberManager
+) -> Unit
+```
+
+- `applier`： 传入 Applier 用于将变化应用到 LayoutNode 树，在后文详细介绍 Applier
+- `slots`：传入 SlotWriter 用于更新 SlotTable 
+- `rememberManger`：传入 RememberManager 用来注册 Composition 生命周期回调，可以在特定时间点完成特定业务，比如 LaunchedEffect 在首次进入 Composition 时创建 CoroutineScope， DisposableEffect 在从 Composition 中离开时调用 onDispose ，这些都是通过在这里注册回调实现的。
+
+## 记录 Change
+
+我们以 `remember{}` 为例看一下 Change 如何被记录。
+remember{} 的 key 和 value 都会作为 Composition 中的状态记录到 SlotTable 中。重组中，当 remember 的 key 发生变化时，value 会重新计算 value 并更新 SlotTable。
+
+```kotlin
+//Composables.kt
+@Composable
+inline fun <T> remember(
+    key1: Any?,
+    calculation: @DisallowComposableCalls () -> T
+): T {
+    return currentComposer.cache(currentComposer.changed(key1), calculation)
+}
+
+//Composer.kt
+@ComposeCompilerApi
+inline fun <T> Composer.cache(invalid: Boolean, block: () -> T): T {
+    @Suppress("UNCHECKED_CAST")
+    return rememberedValue().let {
+        if (invalid || it === Composer.Empty) {
+            val value = block()
+            updateRememberedValue(value)
+            value
+        } else it
+    } as T
+}
+
+```
+如上是 remember 的源码
+
+- `Composer#changed` 方法中会读取 SlotTable 中存储的 key 与 key1 进行比较
+- `Composer#cache` 中，rememberedValue 会读取 SlotTable 中缓存的当前 value。
+- 如果此时 key 的比较中发现了不同，则调用 block 计算并返回新的 value，同时调用 updateRememberedValue 将 value 更新到 SlotTable。
+
+updateRememberedValue 最终会调用 `Composer#updateValue`，看一下具体实现：
+
+```kotlin
+//Composer.kt
+internal fun updateValue(value: Any?) {
+    //...
+    val groupSlotIndex = reader.groupSlotIndex - 1 //更新位置Index
+    
+    recordSlotTableOperation(forParent = true) { _, slots, rememberManager ->
+        if (value is RememberObserver) {
+            rememberManager.remembering(value) 
+        }
+        when (val previous = slots.set(groupSlotIndex, value)) {//更新
+            is RememberObserver ->
+                rememberManager.forgetting(previous)
+            is RecomposeScopeImpl -> {
+                val composition = previous.composition
+                if (composition != null) {
+                    previous.composition = null
+                    composition.pendingInvalidScopes = true
+                }
+            }
+        }
+    }
+    //...
+}
+
+//记录更新 SlotTable 的 Change
+
+private fun recordSlotTableOperation(forParent: Boolean = false, change: Change) {
+    realizeOperationLocation(forParent)
+    record(change) //记录 Change
+}
+```
+
+这里关键代码是对 `recordSlotTableOperation` 的调用：
+
+- 将 Change 加入到 changes 列表，这里 Change 的内容是通过 SlotWriter#set 将 value 更新到 SlotTable 的指定位置，`groupSlotIndex` 是计算出的 value 在 slots 中的偏移量。
+- `previous` 返回 remember 的旧 value ，可用来做一些后处理。从这里也可以看出， RememberObserver 与 RecomposeScopeImpl 等也都是 Composition 中的状态。
+  - RememberObserver 是一个生命周期回调，RememberManager#forgetting 对其进行注册，当 previous 从 Composition 移除时，RememberObserver 会收到通知
+  -  RecomposeScopeImpl 是可重组的单元，`pendingInvalidScopes = true` 意味着此重组单元从 Composition 中离开。
+  
+除了 remember，其他涉及到 SlotTable 结构的变化，例如删除、移动节点等也会借助 changes 延迟生效（插入操作对 reader 没有影响不大故会立即应用）。例子中 remember 场景的 Change 不涉及 LayoutNode 的更新，所以 recordSlotTableOperation 中没有使用到 `Applier` 参数。但是当种族造成 SlotTable 结构发生变化时，需要将变化应用到 LayoutNoel 树，这时就要使用到 Applier 了。
+
+## 应用 Change
+
+前面提到，被记录的 changes 等待组合完成后再执行。
+
+当 Composable 首次执行时，在 `Recomposer#composeIntial` 中完成 Composable 的组合
+
+```kotlin
+//Composition.kt
+override fun setContent(content: @Composable () -> Unit) {
+    //...
+    this.composable = content
+    parent.composeInitial(this, composable)
+}
+
+//Recomposer.kt
+internal override fun composeInitial(
+    composition: ControlledComposition,
+    content: @Composable () -> Unit
+) {
+    //...
+    composing(composition, null) {
+        composition.composeContent(content) //执行组合
+    }
+    //...
+
+    composition.applyChanges() //应用 Changes
+    //...
+}
+```
+
+可以看到，紧跟在组合之后，调用 `Composition#applyChanges()` 应用 `changes`。同样，在每次重组发生后也会调用 applyChanges。
+
+```kotlin
+override fun applyChanges() {
+      
+      val manager = ...
+      //...
+      applier.onBeginChanges()
+      // Apply all changes
+      slotTable.write { slots ->
+          val applier = applier
+          changes.fastForEach { change ->
+              change(applier, slots, manager)
+          }
+          hanges.clear()
+       }
+       applier.onEndChanges()
+       //...
+}
+```
+在 applyChanges 内部看到对 changes 的遍历和执行。 此外还会通过 Applier 回调 applyChanges 的开始和结束。
+
+# 7. UiApplier & LayoutNode
+
+SlotTable 结构的变化是如何反映到 LayoutNode 树上的呢？
+
+前面我们将 Composable 执行后生成的渲染树称为 Composition。其实 Composition 是对这一棵渲染树的宏观认知，准确来说 Composition 内部通过 Applier 维护着 LayoutNode 树并执行具体渲染。SlotTable 结构的变化会随着 Change 列表的应用反映到 LayoutNode 树上。
+
+
+![](https://img-blog.csdnimg.cn/img_convert/e2ddca136e23529a9e038db72dfe21ea.png)
+
+像 View 一样，LayoutNode 通过 `measure/layout/draw` 等一系列方法完成具体渲染。此外它还提供了 insertAt/removeAt 等方法实现子树结构的变化。这些方法会在 UiApplier 中调用：
+
+```kotlin
+//UiApplier.kt
+internal class UiApplier(
+    root: LayoutNode
+) : AbstractApplier<LayoutNode>(root) {
+
+    override fun insertTopDown(index: Int, instance: LayoutNode) {
+        // Ignored
+    }
+
+    override fun insertBottomUp(index: Int, instance: LayoutNode) {
+        current.insertAt(index, instance)
+    }
+
+    override fun remove(index: Int, count: Int) {
+        current.removeAt(index, count)
+    }
+
+    override fun move(from: Int, to: Int, count: Int) {
+        current.move(from, to, count)
+    }
+
+    override fun onClear() {
+        root.removeAll()
+    }
+
+}
+```
+UiApplier 用来更新和修改 LayoutNode 树：
+
+- `down()/up()` 用来移动 current 的位置，完成树上的导航。
+- `insertXXX/remove/move` 用来修改树的结构。其中 `insertTopDown` 和 `insertBottomUp` 都用来插入新节点，只是插入的方式有所不同，一个是自下而上一个是自顶而下，针对不同的树形结构选择不同的插入顺序有助于提高性能。例如 Android 端的 UiApplier 主要依靠 insertBottomUp 插入新节点，因为 Android 的渲染逻辑下，子节点的变动会影响父节点的重新 measure，自此向下的插入可以避免影响太多的父节点，提高性能，因为 attach 是最后才进行。
+
+Composable 的执行过程只依赖 Applier 抽象接口，UiApplier 与 LayoutNode 只是 Android 平台的对应实现，理论上我们通过自定义 Applier 与 Node 可以打造自己的渲染引擎。例如 Jake Wharton 有一个名为 Mosaic 的项目，就是通过自定义 Applier 和 Node 实现了自定义的渲染逻辑。
+
+## Root Node的创建 
+
+Android 平台下，我们在 `Activity#setContent` 中调用 Composable：
+
+```kotlin
+//Wrapper.android.kt
+internal fun AbstractComposeView.setContent(
+    parent: CompositionContext,
+    content: @Composable () -> Unit
+): Composition {
+    //...
+    val composeView = ...
+    return doSetContent(composeView, parent, content)
+}
+
+private fun doSetContent(
+    owner: AndroidComposeView,
+    parent: CompositionContext,
+    content: @Composable () -> Unit
+): Composition {
+    //...
+    val original = Composition(UiApplier(owner.root), parent)
+    val wrapped = owner.view.getTag(R.id.wrapped_composition_tag)
+        as? WrappedComposition
+        ?: WrappedComposition(owner, original).also {
+            owner.view.setTag(R.id.wrapped_composition_tag, it)
+        }
+    wrapped.setContent(content)
+    return wrapped
+}
+```
+- `doSetContent` 中创建 Composition 实例，同时传入了绑定 Root Node 的 Applier。Root Node 被 `AndroidComposeView` 持有，来自 View 世界的 dispatchDraw 以及 `KeyEvent`，`touchEvent` 等就是从这里通过 Root Node 传递到了 Compose 世界。
+- `WrappedComposition` 是一个装饰器，也是用来为 Composition 与 AndroidComposeView 建立连接，我们常用的很多来自 Android 的 CompositionLocal 就是这里构建的，比如 `LocalContext`，`LocalConfiguration` 等等。
+
+# 8. SlotTable 与 Composable 生命周期
+Composable 的生命周期可以概括为以下三阶段，现在认识了 SlotTable 之后，我们也可以从 SlotTable 的角度对其进行解释：
+
+
+![](https://img-blog.csdnimg.cn/img_convert/8d7dbd29a2acbb42bff661cc896fb875.png)
+
+- `Enter`：startRestartGroup 中将 Composable 对应的 Group 存入 SlotTable
+- `Recompose`：SlotTable 中查找 Composable （by RecomposeScopeImpl） 重新执行，并更新 SlotTable
+- `Leave`：Composable 对应的 Group 从 SlotTable 中移除。
+
+在 Composable 中使用副作用 API 可以充当 Composable 生命周期回调来使用
+
+```kotlin
+DisposableEffect(Unit) {
+    //callback when entered the Composition & recomposed
+    onDispose { 
+        //callback for leaved the Composition
+    }
+}
+```
+我们以 DisposableEffect 为例，看一下生命周期回调是如何基于 SlotTable 系统完成的。 看一下 DisposableEffect 的实现，代码如下：
+
+```kotlin
+@Composable
+@NonRestartableComposable
+fun DisposableEffect(
+    key1: Any?,
+    effect: DisposableEffectScope.() -> DisposableEffectResult
+) {
+    remember(key1) { DisposableEffectImpl(effect) }
+}
+
+
+private class DisposableEffectImpl(
+    private val effect: DisposableEffectScope.() -> DisposableEffectResult
+) : RememberObserver {
+    private var onDispose: DisposableEffectResult? = null
+
+    override fun onRemembered() {
+        onDispose = InternalDisposableEffectScope.effect()
+    }
+
+    override fun onForgotten() {
+        onDispose?.dispose()
+        onDispose = null
+    }
+
+    override fun onAbandoned() {
+        // Nothing to do as [onRemembered] was not called.
+    }
+}
+```
+可以看到，DisposableEffect 的本质就是使用 remember 向 SlotTable 存入一个 DisposableEffectImpl，这是一个 RememberObserver 的实现。 DisposableEffectImpl 随着父 Group 进入和离开 SlotTable ，将接收到 `onRemembered` 和 `onForgotten` 的回调。
+
+还记得前面讲过的 applyChanges 吗，它发生在重组完成之后
+
+```kotlin
+override fun applyChanges() {
+      
+  val manager = ... // 创建 RememberManager
+  //...
+  // Apply all changes
+  slotTable.write { slots ->
+      //...
+      changes.fastForEach { change ->
+          //应用 changes, 将 ManagerObserver 注册进 RememberMananger
+          change(applier, slots, manager)
+      }
+      //...
+  }
+  //...
+  manager.dispatchRememberObservers() //分发回调
+}
+```
+
+前面也提到，SlotTable 写操作中发生的 changes 将在这里统一应用，当然也包括了 DisposableEffectImpl 插入/删除时 record 的 changes，具体来说就是对 ManagerObserver 的注册，会在后面的 `dispatchRememberObservers` 中进行回调。
+
+## 重组是乐观的
+官网文档中在介绍重组有这样一段话：重组是“乐观”的
+
+> When recomposition is canceled, Compose discards the UI tree from the recomposition. If you have any side-effects that depend on the UI being displayed, the side-effect will be applied even if composition is canceled. This can lead to inconsistent app state. Ensure that all composable functions and lambdas are idempotent and side-effect free to handle optimistic recomposition.<br/>
+https://developer.android.com/jetpack/compose/mental-model#optimistic
+
+很多人初看这段话会不明所以，但是在解读了源码之后相信能够理解它的含义了。这里所谓 “乐观” 是指 Compose 的重组总是假定不会被中断，一旦发生了中断，Composable 中执行的操作并不会真正反映到 SlotTable，因为通过源码我们知道了 applyChanges 发生在 composiiton 成功结束之后。
+
+如果组合被中断，你在 Composable 函数中读取的状态很可能和最终 SlotTable 中的不一致。因此如果我们需要基于 Composition 的状态进行一些副作用处理，必须要使用 DisposableEffect 这样的副作用 API 包裹，因为通过源码我们也知道了 DisposableEffect 的回调是 applyChanges 执行的，此时可以确保重组已经完成，获取的状态与 SlotTable 相一致。
+
+# 9. SlotTable 与 GapBuffer
+
+前面介绍过，startXXXGroup 中会与 SlotTable 中的 Group 进行 Diff，如果比较不相等，则意味着 SlotTable 的结构发生了变化，需要对 Group 进行插入/删除/移动，这个过程是基于 Gap Buffer 实现的。
+
+Gap Buffer 概念来自文本编辑器中的数据结构，可以将它理解为线性数组中可滑动、可伸缩的缓存区域，具体到 SlotTable 中，就是 groups 中的未使用的区域，这段区域可以在 groups 移动，提升 SlotTble 结构变化时的更新效率，以下举例说明：
+
+```kotlin
+@Composable
+fun Test(condition: Boolean) { 
+    if (condition) {
+        Node1()
+        Node2()
+    }
+    Node3()
+    Node4()
+}
+```
+
+SlotTable 初始只有 Node3，Node4，而后根据状态变化，需要插入 Node1，Node2，这个过程中如果没有 Gap Buffer，SlotTable 的变化如下图所示：
+
+
+![](https://img-blog.csdnimg.cn/img_convert/5dbd132d7d7817fae27ecefc7532f409.png)
+
+每次插入新 Node 都会导致 SlotTable 中已有 Node 的移动，效率低下。再看一下引入 Gap Buffer 之后的行为：
+
+
+![](https://img-blog.csdnimg.cn/img_convert/4fb7c56e1dc7637e87e276210a1bb476.png)
+
+当插入新 Node 时，会将数组中的 Gap 移动到待插入位置，然后再开始插入新 Node。再插入 Node1，Node2 甚至它们的子 Node，都是在填充 Gap 的空闲区域，不会影响造成 Node 的移动。
+看一下移动 Gap 的具体实现，相关代码如下：
+
+```kotlin
+//SlotTable.kt
+private fun moveGroupGapTo(index: Int) {
+
+    //...
+            val groupPhysicalAddress = index * Group_Fields_Size
+            val groupPhysicalGapLen = gapLen * Group_Fields_Size
+            val groupPhysicalGapStart = gapStart * Group_Fields_Size
+            if (index < gapStart) {
+                groups.copyInto(
+                    destination = groups,
+                    destinationOffset = groupPhysicalAddress + groupPhysicalGapLen,
+                    startIndex = groupPhysicalAddress,
+                    endIndex = groupPhysicalGapStart
+                )
+            } 
+      //...     
+}
+```
+
+- `Index` 是要插入 Group 的位置，即需要将 Gap 移动到此处
+- `Group_Fields_Size` 是 groups 中单位 Group 的长度，目前是常量 5。
+
+几个临时变量的含义也非常清晰：
+
+- `groupPhysicalAddress`: 当前需要插入 group 的地址
+- `groupPhysicalGapLen`: 当前Gap 的长度
+- `groupPhysicalGapStart`：当前Gap 的起始地址
+
+当 `index < gapState` 时，需要将 Gap 前移到 index 位置为新插入做准备。从后面紧跟的 copyInto 的参数可知，Gap 的前移实际是通过 group 后移实现的，即将 startIndex 处的 Node 复制到 Gap 的新位置之后 ，如下图：
+
+
+![](https://img-blog.csdnimg.cn/img_convert/ff5d6d665884bdd1dded38e76d6aee6a.png)
+
+
+这样我们不需要真的移动 Gap，只要将 Gap 的 start 的指针移动到 `groupPyhsicalAddress` 即可，新的 Node1 将在此处插入。当然，groups 移动之后，anchor 等关联信息也要进行相应的更新。
+
+最后再看一下删除 Node 时的 Gap 移动情况，原理也是类似的：
+
+
+![](https://img-blog.csdnimg.cn/img_convert/30af15dab755351e261a0800c04e7a0f.png)
+
+将 Gap 移动到待删除 Group 之前，然后开始删除 Node，这样，删除过程其实就是移动 Gap 的 end 位置而已，效率很高而且保证了 Gap 的连续。
+
+# 10.  总结
+SlotTable 系统是 Compose 从组合到渲染到屏幕，整个过程中的最重要环节，结合下面的图我们回顾一下整个流程：
+
+
+![](https://img-blog.csdnimg.cn/img_convert/34dd8e2b6633bfe2b2c2f9d51e2fcbe8.png)
+
+1. Composable 源码在编译期会被插入 startXXXGroup/endXXXGroup 模板代码，用于对 SlotTable 的树形遍历。
+2. Composable 首次组合中，startXXXGroup 在 SlotTable 中插入 Group 并通过 $key 识别 Group 在代码中的位置
+3. 重组中，startXXXGroup 会对 SlotTable 进行遍历和 Diff，并通过 changes 延迟更新 SlotTable，同时应用到 LayoutNode 树
+4. 渲染帧到达时，LayoutNode 针对变更部分进行 measure > layout > draw，完成 UI 的局部刷新。

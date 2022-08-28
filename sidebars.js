@@ -140,6 +140,7 @@ const sidebars = {
         'principle/snapshot',
         'principle/recomposeWorkingPrinciple',
         'principle/gapBuffer',
+        'principle/slotTable',
         'principle/modifierStructure',
         'principle/composeAnnotation',
         'principle/composeRemoteImage'
