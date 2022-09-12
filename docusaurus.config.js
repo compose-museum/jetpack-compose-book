@@ -14,7 +14,10 @@ const config = {
   favicon: 'img/logo.svg',
   organizationName: 'compose-museum',
   projectName: 'jetpack-compose-book',
-
+  i18n: {
+    defaultLocale: 'zh-Hans',
+    locales: ['zh-Hans']
+  },
   presets: [
     [
       'classic',
