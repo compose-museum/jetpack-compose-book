@@ -12,13 +12,12 @@ const config = {
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/logo.svg',
-  organizationName: 'compose-museum', // Usually your GitHub org/user name.
-  projectName: 'jetpack-compose-book', // Usually your repo name.
+  organizationName: 'compose-museum',
+  projectName: 'jetpack-compose-book',
 
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
       ({
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
@@ -69,8 +68,9 @@ const config = {
           },
           {
             href: 'https://github.com/compose-museum/jetpack-compose-book',
-            label: 'GitHub',
             position: 'right',
+            className: 'header-github-link',
+            'aria-label': 'GitHub repository',
           },
         ],
       },

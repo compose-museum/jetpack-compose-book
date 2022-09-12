@@ -3,6 +3,9 @@ id: installation
 title: 安装或更新 Android Studio
 ---
 
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
 在开始用 Jetpack Compose 来编写软件之前，我们需要
 
 ### 1. 一台可以联网的电脑
@@ -21,7 +24,29 @@ title: 安装或更新 Android Studio
 distributionUrl=https\://services.gradle.org/distributions/gradle-7.2-bin.zip
 ```
 
-```kotlin title="build.gradle.kts (Project)"
+<Tabs groupId="gradle">
+<TabItem value="groovy" label="build.gradle">
+
+```groovy
+buildscript {
+    ext {
+        compose_version = '1.2.0'
+    }
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.1.3"'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
+    }
+}
+```
+
+</TabItem>
+<TabItem value="kts" label="build.gradle.kts">
+
+```kotlin
 buildscript {
 
     val compose_version by extra("1.2.0") // Compose 稳定版
@@ -38,25 +63,8 @@ buildscript {
 }
 ```
 
-```groovy title="build.gradle (Project)"
-buildscript {
-    ext {
-        compose_version = '1.2.0'
-    }
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.android.tools.build:gradle:7.1.3"'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.7.0"
-
-        // NOTE: Do not place your application dependencies here; they belong
-        // in the individual module build.gradle files
-    }
-}
-```
-
+</TabItem>
+</Tabs>
 
 ### 5. 配置 Gradle（可忽略）
 
