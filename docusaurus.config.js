@@ -41,7 +41,8 @@ const config = {
       algolia: {
         appId: 'K4O6BUBOZJ',
         apiKey: 'e84c43272842c279d23fe39c9d8464bb',
-        indexName: 'jetpackcompose'
+        indexName: 'jetpackcompose',
+        contextualSearch: true
       },
       navbar: {
         title: 'Jetpack Compose 博物馆',
