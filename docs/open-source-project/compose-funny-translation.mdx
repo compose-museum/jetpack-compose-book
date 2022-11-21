@@ -1,6 +1,6 @@
 ---
 id: compose-funny-translation
-title: Compose 搭建翻译APP
+title: Jetpack Compose 搭建翻译APP
 ---
 
 ## 前言
@@ -11,23 +11,28 @@ title: Compose 搭建翻译APP
 
 
 ## 运行截图
-
 | 图片                                                         | 图片                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="https://web.funnysaltyfish.fun/temp_img/202111102032441.jpg" alt="1" style={{"zoom":"33%"}} /> | <img src="https://web.funnysaltyfish.fun/temp_img/202111102032313.jpg" alt="2" style={{"zoom":"33%"}} /> |
-| <img src="https://web.funnysaltyfish.fun/temp_img/202111102033517.jpg" alt="3" style={{"zoom":"33%"}} /> | <img src="https://web.funnysaltyfish.fun/temp_img/202111102033976.jpg" alt="4" style={{"zoom":"33%"}} /> |
+| <img src="https://img.funnysaltyfish.fun/i/2022/11/21/637b2543d64d2.png" alt="1" style={{"zoom":"33%"}} /> | <img src="https://img.funnysaltyfish.fun/i/2022/11/21/637b254461253.png" alt="2" style={{"zoom":"33%"}} /> |
+| <img src="https://img.funnysaltyfish.fun/i/2022/11/21/637b2544bfba5.png" alt="3" style={{"zoom":"33%"}} /> | <img src="https://img.funnysaltyfish.fun/i/2022/11/21/637b2545579b1.png" alt="4" style={{"zoom":"33%"}} /> |
 
 
-上面截图显示的所有UI都是基于Jetpack Compose搭建的
+上面截图显示的所有UI都是基于Jetpack Compose搭建的，其他页面就不多截图了，防止占地方
 
 ## 软件介绍
-本软件是一款翻译软件，旧版基于Java语言，在传统View体系下开发；自2.0.0起逐步改用Kotlin开发，自2.1.0起软件架构重写，大部分代码均用Kotlin编写，页面完全改用Jetpack Compose。软件由2.1.0起决定开源。
-
 本应用有以下特点：
-- 基于Jetpack Compose编写页面
-- 多引擎同步翻译，提供横向对比选择
-- 支持插件体系，强可拓展性
-- MaterialYou Design ，适配Android 12
+- Jetpack Compose + MVVM + Kotlin Coroutine + Flow + Room 
+- 多 module 设计，公共模块与项目模块分离
+- 支持多引擎同步翻译，支持插件开发、下载、更新、导入、导出等，高拓展性
+- 充分利用 Kotlin 语言特性，如延迟懒加载、类代理、Coroutine、Flow、密闭类、拓展方法、拓展属性、反射等 
+- 基于 Rhino JS 设计并实现完整的 JavaScript 插件加载、运行、调试环境，提供插件开发一条龙支持 
+- 适配 Android11文件权限，适配双语、暗黑模式、横屏/平板页面，开发、使用并公开发布三个开源库
+
+应用逐步适配 Android13，具体包括：  
+- 支持单独设置应用语言
+
+您可以在以下途径获取最新版本：
+- [酷安](https://www.coolapk.com/apk/com.funny.translation)
 
 详细内容请查看 GitHub 仓库
 
@@ -127,33 +132,31 @@ navController.navigate(screen.route){
 
 ```kotlin
 BackHandler(enabled = true) {
-        if (navController.previousBackStackEntry == null){
-            val curTime = System.currentTimeMillis()
-            if(curTime - activityVM.lastBackTime > 2000){
-                scope.launch { scaffoldState.snackbarHostState.showSnackbar(FunnyApplication.resources.getString(R.string.snack_quit)) }
-                activityVM.lastBackTime = curTime
-            }else{
-                exitAppAction()
-            }
-        }else{
-            Log.d(TAG, "AppNavigation: back")
-            //currentScreen = TranslateScreen.MainScreen
-        }
-    }
+	if (navController.previousBackStackEntry == null){
+	    val curTime = System.currentTimeMillis()
+	    if(curTime - activityVM.lastBackTime > 2000){
+		scope.launch { scaffoldState.snackbarHostState.showSnackbar(FunnyApplication.resources.getString(R.string.snack_quit)) }
+		activityVM.lastBackTime = curTime
+	    }else{
+		exitAppAction()
+	    }
+	}else{
+	    Log.d(TAG, "AppNavigation: back")
+	    //currentScreen = TranslateScreen.MainScreen
+	}
+}
 ```
 
 这部分完整代码在这：[FunnyTranslation/TransActivity.kt](https://github.com/FunnySaltyFish/FunnyTranslation/blob/compose/translate/src/main/java/com/funny/translation/translate/TransActivity.kt)
 
-这样类似的地方在应用开发时还有很多，我相信这里的各位能有同感，就不在这搞吐槽大会了。不过既然尝试了一门新技术，就得做好万事碰壁自己探索的准备。这样也才有点Coder的精神嘛~
+这样类似的地方在应用开发时还有很多，我相信这里的各位能有同感，就不在这搞吐槽大会了。不过既然尝试了一门新技术，就得做好万事碰壁自己探索的准备。这样也才有点 Coder 的精神嘛~
 
-### 然后呢
+### 一些亮点
+- 持续更新：软件目前已持续维护两年多，各类库版本均在不断升级
+- Compose 与 View 的互操作：由于部分功能已有较好的 View 实现，故也有少量控件直接使用 View（例如软件的底部导航栏、插件代码编辑器），可供简略参考
+- Compose 实现的简易游戏：纯 Compose 实现了个简单的小游戏，内包括 **自定义布局、手动倒计时** 等操作，可以点击[这里](https://github.com/FunnySaltyFish/FunnyTranslation/blob/compose/login/src/main/java/com/funny/trans/login/ui/GameScreen.kt) 查看
+- “ViewPager + TabLayout”：应用内常见的效果，用在了登录注册页面，可以点击 [这里](https://github.com/FunnySaltyFish/FunnyTranslation/blob/942f6e2da4f7782beef9fd700beea475b695169a/login/src/main/java/com/funny/trans/login/ui/LoginScreen.kt#L98) 查看 
+- 自定义带圆形进度条的按钮：“开始翻译”的小按钮自带进度条，使用 `drawWithContent` 实现，可以点击 [这里](https://github.com/FunnySaltyFish/FunnyTranslation/blob/942f6e2da4f7782beef9fd700beea475b695169a/translate/src/main/java/com/funny/translation/translate/ui/main/MainScreen.kt#L658) 查看
 
-应用目前还在完善，但基本功能确实可以用了，希望各位不吝赐教。
 
-我在写的时候感觉很多小需求很少有中文资料做整理的，于是自己开了个[专栏](https://juejin.cn/column/7024350372680433672)，希望能把这些记录下来，供后来者参阅。
-
-代码现在有些地方写的不太合理，还需要进一步修改。欢迎参与贡献！
-
-最后再复读一遍地址：https://github.com/FunnySaltyFish/FunnyTranslation
-
-如果觉得项目有用的话，欢迎star~
+如果觉得项目有用的话，欢迎 star~

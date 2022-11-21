@@ -187,6 +187,7 @@ fun ListWithHeader() {
 
 ## 7. Grids
 
+### 标准网格布局
 :::info API转正
 在 Compose 1.2 版本中，惰性网格布局相关的API去除了实验性的标记，升级为稳定版。
 :::
@@ -252,7 +253,8 @@ fun LazyVerticalGridSample(data: List<Int>) {
 
 `GridCells.Adaptive` 是一种自适应的策略，它会在尽量生成较多的列，**每一列的最小宽度为 `minSize`**。上述例子中，传入的 `minSize` 为 20dp，假设 Grid 的可用宽度为 88dp，那么`GridCells.Adaptive(minSize = 20.dp)` 意味着 `LazyVerticalGrid` 最多能够放下 4 列，占用 80dp。剩下的 88-80=8dp 怎么办？它们会平均分配到每一列中，换句话说，现在每一列的宽度其实是 22dp。
 
-### 自定义布局方式（Compose 1.2 以上）
+
+#### 自定义布局方式（Compose 1.2 以上）
 
 如果固定列数或者自适应都不能满足你的需求，例如虽然 Grid 固定为两列，但希望第二列获得的宽度是第一列的一半，那么可以试试自定义新的 `GridCells` 实现。`GridCells` 实际上是一个接口，前面提到的 `Fixed` 和 `Adaptive` 是其实现类。
 
@@ -267,7 +269,7 @@ interface GridCells {
 
 如果你在用 Compose 1.2 以下的版本，那么很遗憾，`GridCells` 是一个 `sealed class`，无法自定义。
 
-### 为子项自定义列跨度
+#### 为子项自定义列跨度
 
 在上述讨论中，我们都默认单个子项的列跨度（即占用多少列）为1，但是有很多的场景希望能够自定义列跨度。比如我们希望在子项前添加一个类别的卡片 Title：
 
@@ -291,6 +293,33 @@ LazyVerticalGrid(
 ```
 
 放置子项的 `item`、`items` 等函数可以传入一个创建 `GridItemSpan` 的 lambda，描述子项会跨越多少列。
+
+### 交错网格布局（瀑布流）
+Jetpack Compose 1.3 新增了对瀑布流布局的支持，同样包括纵向的 `LazyVerticalStaggeredGrid` 和横向的 `LazyHorizontalStaggeredGrid`。二者的 API 设计与 `LazyXxxGrid` 保持了一致，基本使用例子如下：
+
+```kotlin
+// 纵向，横向的对应 Horizontal...
+LazyVerticalStaggeredGrid(
+    // columns 参数类似于 LazyVerticalGrid
+    columns = StaggeredGridCells.Fixed(2),
+    // 整体内边距
+    contentPadding = PaddingValues(8.dp, 8.dp),
+    // item 和 item 之间的纵向间距
+    verticalArrangement = Arrangement.spacedBy(4.dp),
+    // item 和 item 之间的横向间距
+    horizontalArrangement = Arrangement.spacedBy(8.dp)
+){
+    itemsIndexed(pages, key = { _, p -> p.first }){ i, pair ->
+        ...
+    }
+}
+```
+
+效果如下
+
+<img src="https://p9-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2daba67892844cb1ac369536e4ba942a~tplv-k3u1fbpfcp-watermark.image?" alt="image.png" width="50%" />
+
+其余功能均与上文类似，此处不再赘述
 
 ## 8. 对滚动位置做出反应
 
