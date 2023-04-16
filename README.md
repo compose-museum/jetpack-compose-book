@@ -10,8 +10,6 @@
 
 有问题欢迎提交 [issue](https://github.com/compose-museum/jetpack-compose-tutorial/issues/new)。
 
-一起进步！
-
 ## 关于贡献
 
 ### Jetpack Compose
@@ -23,17 +21,16 @@
 
 如果你有已经写好的文章想要添加到这里，欢迎提交 PR。
 
-文档采用 [docusaurus](https://docusaurus.io/) 来编辑及部署
+文档采用 [docusaurus](https://docusaurus.io/) 来部署
 
-
-### 在本地编辑&测试
+## 本地测试 & 开发
 
 前置条件：
 1. [Node.js](https://nodejs.org/en/download/) >= 16.14
 2. npm 推荐 8.12 左右
 
 
-#### 1. fork 仓库
+### 1. fork 仓库
 
 ```
 npm install
@@ -41,7 +38,7 @@ npm install
 
 在项目根目录终端执行 `npm run start`，将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
 
-#### 2. 如何添加/更改文档？
+### 2. 如何添加/更改文档？
     
 文档都是由 **Markdown** 语法来编写的，所有文档位于 [/docs](https://github.com/compose-museum/compose-tutorial/tree/master/docs) 中, 如果需要扩展左边的侧边栏，请在 [**sidebars.js**](sidebars.js) 更新。
 
@@ -49,7 +46,7 @@ npm install
 
 [调用图片方法](https://docusaurus.io/zh-CN/docs/static-assets)
 
-#### 3. 测试
+### 3. 测试
 
 运行 `npm run build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
 
