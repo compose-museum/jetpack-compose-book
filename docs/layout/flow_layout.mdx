@@ -1,0 +1,40 @@
+---
+title: Flow Layout
+---
+
+:::info 注意
+Flow Layout 在 Compose 1.4 中“转正”。在此之前，你需要使用 [Accompanist](https://github.com/google/accompanist/tree/main/flowlayout) 的实现
+:::
+
+Flow Layout 包括 `FlowRow` 和 `FlowColumn` ，当一行（或一列）放不下里面的内容时，会自动换行。这些流式布局还允许使用权重进行动态调整大小，以将项目分配到容器中。
+
+以下是一个实现房地产应用程序过滤器列表的示例：
+
+| ![image4.png](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/73da742c4b2e4a9d91763110bece44cd~tplv-k3u1fbpfcp-watermark.image?) |
+| ------------------------------------------------------------ |
+|                                                              |
+
+```kotlin
+ @Composable
+ fun Filters() {
+   val filters = listOf(
+     "Washer/Dryer", "Ramp access", "Garden", "Cats OK", "Dogs OK", "Smoke-free"
+   )
+   FlowRow(
+     horizontalArrangement = Arrangement.spacedBy(8.dp)
+   ) {
+     filters.forEach { title ->
+       var selected by remember { mutableStateOf(false) }
+       val leadingIcon: @Composable () -> Unit = { Icon(Icons.Default.Check, null) }
+       FilterChip(
+         selected,
+         onClick = { selected = !selected },
+         label = { Text(title) },
+         leadingIcon = if (selected) leadingIcon else null
+       )
+     }
+   }
+ }
+```
+
+`FlowRow` 的 `content` 有 `RowScope` 接收器，这意味着 `RowScope` 的一些特有 Modifier 也可以在这里使用，比如 `weight`
