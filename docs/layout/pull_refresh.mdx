@@ -1,0 +1,132 @@
+---
+title: 下拉刷新
+---
+
+:::info 注意
+此功能为 Jetpack Compose 1.3 新增功能，使用时请注意版本
+:::
+
+`Modifier.pullRefresh` 可以用于下拉刷新的实现。它的签名如下：
+```kotlin
+fun Modifier.pullRefresh(
+    state: PullRefreshState,
+    enabled: Boolean = true
+) 
+```
+第一个参数用于存储下拉的进度，第二个代表是否启用。相关联的这个 `State` 自然也有对应的 `remember` 方法用于创建
+```kotlin
+/**
+ * 创建一个被 remember 的[PullRefreshState]
+ *
+ * 对 [refreshing] 的更改会更新 [PullRefreshState].
+ *
+ * @sample androidx.compose.material.samples.PullRefreshSample
+ *
+ * @param refreshing 布尔值，代表当前是否正在刷新
+ * @param onRefresh 刷新时的回调
+ * @param refreshThreshold 若超过此阈值，则放手后会触发 [onRefresh]
+ * @param refreshingOffset 刷新时指示器的底部位置
+ */
+@Composable
+@ExperimentalMaterialApi
+fun rememberPullRefreshState(
+    refreshing: Boolean,
+    onRefresh: () -> Unit,
+    refreshThreshold: Dp = PullRefreshDefaults.RefreshThreshold, // 80.dp
+    refreshingOffset: Dp = PullRefreshDefaults.RefreshingOffset, // 56.dp
+): PullRefreshState
+```
+
+综合使用，示例代码如下
+```kotlin
+@OptIn(ExperimentalMaterialApi::class)
+@Composable
+fun SwipeToRefreshTest(
+    modifier: Modifier = Modifier
+) {
+    val list = remember {
+        List(4){ "Item $it" }.toMutableStateList()
+    }
+    var refreshing by remember {
+        mutableStateOf(false)
+    }
+    // 用协程模拟一个耗时加载
+    val scope = rememberCoroutineScope()
+    val state = rememberPullRefreshState(refreshing = refreshing, onRefresh = {     
+        scope.launch {
+            refreshing = true
+            delay(1000) // 模拟数据加载
+            list+="Item ${list.size+1}"
+            refreshing = false
+        }
+    })
+    Box(modifier = modifier
+        .fillMaxSize()
+        .pullRefresh(state)
+    ){
+        LazyColumn(Modifier.fillMaxWidth()){
+            // ...
+        }
+        PullRefreshIndicator(refreshing, state, Modifier.align(Alignment.TopCenter))
+    }
+}
+```
+
+![示例](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7deee01eacec48839e6ac5ef35b0ba9d~tplv-k3u1fbpfcp-watermark.image?)
+
+上面的代码并不难理解，用 `modifier.pullRefresh` 将下拉的相关数值存在 `state` 中，之后 `PullRefreshIndicator` 再使用就行了。二者用 `Box` 堆叠。
+
+
+### 实现原理
+这个控件的源代码也异常简单，最终是基于 `nestedScrollConnection`（嵌套滑动）实现的
+```
+@ExperimentalMaterialApi
+fun Modifier.pullRefresh(
+    onPull: (pullDelta: Float) -> Float,
+    onRelease: suspend (flingVelocity: Float) -> Unit,
+    enabled: Boolean = true
+) = Modifier.nestedScroll(PullRefreshNestedScrollConnection(onPull, onRelease, enabled))
+
+```
+如果想了解更多关于嵌套滑动的知识，可以前往 [嵌套滑动（NestedScroll）](/docs/design/gesture/nestedScroll) 阅读。这篇文章里也实现了下拉刷新，并给出了伸缩 `ToolBar` 的实现。  
+如果你懒得跳过去，简而言之，通过 `NestedScrollConnection` ，我们可以在滑动开始前/后拿到当前的偏移量、速度等信息，按情况提前消费或放着不管他。针对下拉刷新的情况，我们主要干这两件事：
+>1.  当我们手指向下滑时，我们希望滑动手势首先交给子布局中的列表进行处理，如果列表已经滑到顶部说明此时滑动手势事件没有被消费，此时再交由父布局进行消费。父布局可以消费列表消费剩下的滑动手势事件（为加载动画增加偏移）。
+>2.  当我们手指向上滑时，我们希望滑动手势首先被父布局消费（为加载动画减小偏移），如果加载动画本身仍未出现时，则不进行消费。然后将剩下的滑动手势交给子布局列表进行消费。
+
+实现起来并不难
+```kotlin
+private class PullRefreshNestedScrollConnection(
+    private val onPull: (pullDelta: Float) -> Float,
+    private val onRelease: suspend (flingVelocity: Float) -> Unit,
+    private val enabled: Boolean
+) : NestedScrollConnection {
+
+    override fun onPreScroll(
+        available: Offset,
+        source: NestedScrollSource
+    ): Offset = when {
+        !enabled -> Offset.Zero
+        // 向上滑动，父布局先处理（收回偏移），走 onPull 回调，并根据处理结果返回被消费掉的 Offset
+        source == Drag && available.y < 0 -> Offset(0f, onPull(available.y)) // Swiping up
+        else -> Offset.Zero
+    }
+
+    override fun onPostScroll(
+        consumed: Offset,
+        available: Offset,
+        source: NestedScrollSource
+    ): Offset = when {
+        !enabled -> Offset.Zero
+        // 向下滑动，如果子布局处理完了还有剩余（拉到顶了还往下拉），就展示偏移
+        source == Drag && available.y > 0 -> Offset(0f, onPull(available.y)) // Pulling down
+        else -> Offset.Zero
+    }
+
+    override suspend fun onPreFling(available: Velocity): Velocity {
+        onRelease(available.y)
+        return Velocity.Zero
+    }
+}
+```
+
+上面的实现只是个简单版本，实际的实现可能还需要考虑惯性滑动相关的问题，具体可查看对应源码

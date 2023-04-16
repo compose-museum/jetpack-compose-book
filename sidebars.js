@@ -43,6 +43,7 @@ const sidebars = {
         'layout/bottomnavigation',
         'layout/modalbottomsheetlayout',
         'layout/pager',
+        'layout/pull_refresh',
         'layout/custom_layout',
         'layout/intrinsic',
         'layout/subcomposelayout',

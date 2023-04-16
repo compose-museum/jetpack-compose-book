@@ -62,8 +62,8 @@ services:
   ├── README.md
   ...
 ```
-5. 在此目录下打开终端，执行 `docker-compose up -d`（部分 linux 平台命令为 docker compose up -d，下面类似）（-d 意为后台运行，如果首次运行希望看到输出，可以不加 -d），稍等几分钟后将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
-6. 如果想要停止运行并删除容器，执行 `docker-compose down`；如果更新了文件，可以使用 `docker-compose restart` 重启容器；如果想发布生产版本，请将 `docker-compose.yml` 中的 `RUN_MODE` 改为 `production`，并执行 `docker-compose stop && docker-compose up -d` 重启容器，执行完成后可在 `./jetpack-compose-book-master/build` 下看到生成的静态文件
+5. 在此目录下打开终端，执行 `docker-compose up -d`（部分 linux 平台命令为 docker compose up -d，下面类似）（-d 意为后台运行，如果首次运行希望看到输出，可以不加 -d），**稍等几分钟**后将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
+6. 如果想要停止运行并删除容器，执行 `docker-compose down`；如果更新了文件，可以使用 `docker-compose restart` 重启容器；如果想发布生产版本，请将 `docker-compose.yml` 中的 `RUN_MODE` 改为 `production`，并执行 `docker-compose up -d` 重启容器，执行完成后可在 `./jetpack-compose-book-master/build` 下看到生成的静态文件
 
 
 #### 基于本地环境部署
