@@ -29,10 +29,10 @@
 
 ## 本地部署文档 & 编辑文档
 
-'''
+```
 git clone https://github.com/compose-museum/jetpack-compose-book.git
 npm install
-'''
+```
 
 在项目根目录终端执行 `npm run start`，将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
 
@@ -44,7 +44,7 @@ npm install
 
 [调用图片方法](https://docusaurus.io/zh-CN/docs/static-assets)
 
-#### 如何测试
+### 如何测试
 
 运行 `npm run build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
 
@@ -94,7 +94,7 @@ services:
   <img src="https://contrib.rocks/image?repo=compose-museum/hello-compose" />
 </a>
 
-### 版权声明
+## 版权声明
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/2.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/">知识共享署名-非商业性使用 2.0 通用许可协议</a>进行许可。
 
