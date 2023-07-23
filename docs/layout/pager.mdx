@@ -25,43 +25,55 @@ Pager 在 Compose 1.4 中“转正”。在此之前，你需要使用 [Accompan
 
 ```kotlin
  @Composable
- fun HorizontalPagerWithIndicator() {
-     val pagerState = rememberPagerState()
- ​
-     TabRow(
-         // Our selected tab is our current page
-         selectedTabIndex = pagerState.currentPage,
-         // Override the indicator, using the provided pagerTabIndicatorOffset modifier
-         indicator = { tabPositions ->
-             TabRowDefaults.Indicator(
-                 Modifier.pagerTabIndicatorOffset(pagerState, tabPositions)
-             )
-         }
-     ) {
-         // Add tabs for all of our pages
-         pages.forEachIndexed { index, title ->
-             Tab(
-                 text = { Text(title) },
-                 selected = pagerState.currentPage == index,
-                 onClick = { /* TODO */ },
-             )
-         }
-     }
- ​
-     HorizontalPager(
-         pageCount = pages.size,
-         state = pagerState,
-     ) { page ->
-         Text(
-             text = "Page $page",
-             style = MaterialTheme.typography.h5,
-             modifier = Modifier
-                 .fillMaxSize()
-                 .wrapContentSize(Alignment.Center),
-             textAlign = TextAlign.Center,
-         )
-     }
- }
+fun HorizontalPagerWithIndicator() {
+    val pagerState = rememberPagerState()
+    val scope = rememberCoroutineScope()
+
+    Column {
+        TabRow(
+            modifier = Modifier.fillMaxWidth(),
+            // Our selected tab is our current page
+            selectedTabIndex = pagerState.currentPage,
+            // Override the indicator, using the provided pagerTabIndicatorOffset modifier
+            indicator = { tabPositions ->
+                TabRowDefaults.Indicator(
+                    Modifier.pagerTabIndicatorOffset(
+                        pagerState = pagerState,
+                        tabPositions = tabPositions
+                    )
+                )
+            }
+        ) {
+            // Add tabs for all of our pages
+            pages.forEachIndexed { index, title ->
+                Tab(
+                    text = { Text(title) },
+                    selected = pagerState.currentPage == index,
+                    onClick = {
+                        scope.launch {
+                            pagerState.animateScrollToPage(index)
+                        }
+                    },
+                )
+            }
+        }
+
+        HorizontalPager(
+            pageCount = pages.size,
+            state = pagerState,
+            modifier = Modifier.fillMaxSize().background(MaterialTheme.colors.surface)
+        ) { page ->
+            Text(
+                text = "Page $page",
+                style = MaterialTheme.typography.h5,
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentSize(Alignment.Center),
+                textAlign = TextAlign.Center,
+            )
+        }
+    }
+}
 ```
 效果如下：
 
