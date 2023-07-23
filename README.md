@@ -27,9 +27,30 @@
 文档采用 [docusaurus](https://docusaurus.io/) 来编辑及部署
 
 
-### 在本地编辑&测试
+## 本地部署文档 & 编辑文档
 
-#### 基于 Docker 部署
+```
+git clone https://github.com/compose-museum/jetpack-compose-book.git
+npm install
+```
+
+在项目根目录终端执行 `npm run start`，将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
+
+### 如何添加/更改文档？
+    
+文档都是由 **Markdown** 语法来编写的，所有文档位于 [/docs](https://github.com/compose-museum/compose-tutorial/tree/master/docs) 中, 如果需要扩展左边的侧边栏，请在 [**sidebars.js**](sidebars.js) 更新。
+
+图片添加需要在 **static/img/** 下，和文档同等路径名字添加。例如我修改了 **Text** 的文档，并且添加了一张例图，那么就是放在 **/static/img/elements/text/xxx.png**。
+
+[调用图片方法](https://docusaurus.io/zh-CN/docs/static-assets)
+
+### 如何测试
+
+运行 `npm run build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
+
+
+## 基于 Docker 部署
+
 > Docker 是一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何环境中
 
 1. 安装 [Docker](https://docs.docker.com/get-docker/) 和 [Docker Compose](https://docs.docker.com/compose/install/)
@@ -65,30 +86,6 @@ services:
 5. 在此目录下打开终端，执行 `docker-compose up -d`（部分 linux 平台命令为 docker compose up -d，下面类似）（-d 意为后台运行，如果首次运行希望看到输出，可以不加 -d），**稍等几分钟**后将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
 6. 如果想要停止运行并删除容器，执行 `docker-compose down`；如果更新了文件，可以使用 `docker-compose restart` 重启容器；如果想发布生产版本，请将 `docker-compose.yml` 中的 `RUN_MODE` 改为 `production`，并执行 `docker-compose up -d` 重启容器，执行完成后可在 `./jetpack-compose-book-master/build` 下看到生成的静态文件
 
-
-#### 基于本地环境部署
-当然，你也可以在本地环境部署，此方式对 Node.js 和 npm 的版本有较严格要求，如下：
-1. [Node.js](https://nodejs.org/en/download/) >= 16.14
-2. npm 推荐 8.12 左右
-
-
-环境安装完后，fork 仓库并在项目目录执行 `npm install` 以安装依赖。
-
-在项目根目录终端执行 `npm run start`，将会在 [`http://localhost:3000/`](http://localhost:3000/) 看到文档
-
-#### 如何添加/更改文档？
-    
-文档都是由 **Markdown** 语法来编写的，所有文档位于 [/docs](https://github.com/compose-museum/compose-tutorial/tree/master/docs) 中, 如果需要扩展左边的侧边栏，请在 [**sidebars.js**](sidebars.js) 更新。
-
-图片添加需要在 **static/img/** 下，和文档同等路径名字添加。例如我修改了 **Text** 的文档，并且添加了一张例图，那么就是放在 **/static/img/elements/text/xxx.png**。
-
-[调用图片方法](https://docusaurus.io/zh-CN/docs/static-assets)
-
-#### 如何测试
-
-运行 `npm run build` 会生成 `build` 文件夹，期间 `docusaurus` 会打印日志告诉你是否有 WARNING 或者 ERROR（一般可能是路径错误等）
-
-
 #### 如果你觉得此项目对你有帮助的话，不妨点个 Star 支持下作者吧~！
 
 ## 贡献者 ❤
@@ -97,7 +94,7 @@ services:
   <img src="https://contrib.rocks/image?repo=compose-museum/hello-compose" />
 </a>
 
-### 版权声明
+## 版权声明
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/2.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/2.0/">知识共享署名-非商业性使用 2.0 通用许可协议</a>进行许可。
 
