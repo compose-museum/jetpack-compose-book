@@ -2,6 +2,15 @@
 id: compose-wan-android
 title: wanAndroid 客户端
 ---
+import image1 from '@site/static/img/open-source-project/compose-wan-android/image_1.webp';
+import image2 from '@site/static/img/open-source-project/compose-wan-android/image_2.webp';
+import image3 from '@site/static/img/open-source-project/compose-wan-android/image_3.webp';
+import image4 from '@site/static/img/open-source-project/compose-wan-android/image_4.webp';
+import image5 from '@site/static/img/open-source-project/compose-wan-android/image_5.webp';
+import image6 from '@site/static/img/open-source-project/compose-wan-android/image_6.webp';
+import image7 from '@site/static/img/open-source-project/compose-wan-android/image_7.webp';
+import image8 from '@site/static/img/open-source-project/compose-wan-android/image_8.webp';
+import image9 from '@site/static/img/open-source-project/compose-wan-android/image_9.webp';
 
 ## 前言
 今年七月底，`Google` 正式发布了 `Jetpack Compose` 的 `1.0` 稳定版本，这说明`Google`认为`Compose`已经可以用于生产环境了。相信`Compose`的广泛应用就在不远的将来，现在应该是学习`Compose`的一个比较好的时机    
@@ -10,18 +19,18 @@ title: wanAndroid 客户端
 ## 效果图
 首先看下效果图   
 
-| ![请添加图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/96de754d85fc411891183bcc62e19e1d~tplv-k3u1fbpfcp-zoom-1.image) | ![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/651d400f7a4a4c0c8779fe9626a06b9b~tplv-k3u1fbpfcp-zoom-1.image) |
+| <img src={image1} width="80%" align="center" alt="请添加图片描述"/> | <img src={image2} width="80%" align="center" alt="在这里插入图片描述"/> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![请添加图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/15a72ae384124b9e9aafddd7edc4ce4b~tplv-k3u1fbpfcp-zoom-1.image) | ![在这里插入图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f55c5f1e366742ccb417450bfbe8a73e~tplv-k3u1fbpfcp-zoom-1.image) |
+| <img src={image3} width="80%" align="center" alt="请添加图片描述"/> | <img src={image4} width="80%" align="center" alt="在这里插入图片描述"/> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| ![请添加图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7c25535ca6254623b638e29c72ac1251~tplv-k3u1fbpfcp-zoom-1.image) | ![请添加图片描述](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/541c8d1f70dd4b0daf3706d3bc953684~tplv-k3u1fbpfcp-zoom-1.image) |
+| <img src={image5} width="80%" align="center" alt="请添加图片描述"/> | <img src={image6} width="80%" align="center" alt="请添加图片描述"/> |
 
 ## 主要实现介绍
 各个页面的具体实现可以查看源码，这里主要介绍一些主要的实现与原理    
 
 ### 使用`MVI`架构
 `MVI` 与 `MVVM` 很相似，其借鉴了前端框架的思想，更加强调数据的单向流动和唯一数据源,架构图如下所示     
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/bb3fe9361e244430bd2f69b70c7b0e75~tplv-k3u1fbpfcp-watermark.awebp)      
+<img src={image7} width="80%" align="center" alt=""/>      
 其主要分为以下几部分    
 1. `Model`: 与`MVVM`中的`Model`不同的是，`MVI`的`Model`主要指`UI`状态（`State`）。例如页面加载状态、控件位置等都是一种`UI`状态       
 2. `View`: 与其他`MVX`中的`View`一致，可能是一个`Activity`或者任意`UI`承载单元。`MVI`中的`View`通过订阅`Model`的变化实现界面刷新     
@@ -116,7 +125,7 @@ fun LoginPage(
 2. `onCommit（or onUpdate）`：`UI`随着`recomposition`发生更新时        
 3. `onDispose（or onLeave）`：当`Composable`从组件树移除时          
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/07432c8e4f5c4492baff11f3f1fb4802~tplv-k3u1fbpfcp-watermark.awebp)      
+<img src={image8} width="80%" align="center" alt=""/>      
 
 了解了`Compose`的生命周期后，我们可以发现，如果我们在`onActive`时监听`Activity`的生命周期，在`onDispose`时取消监听，不就可以实现在`Compose`中获取生命周期了吗?     
 `DisposableEffect`可以帮助我们实现这个需求，`DisposableEffect`在其监听的`Key`发生变化，或`onDispose`时会执行    
@@ -175,7 +184,7 @@ fun ProfilePage(
 > 使用`Paging3`加载分页数据，并显示到页面`A`的`LazyColumn`上，向下滑动`LazyColumn`，然后`navigation.navigate`跳转到页面`B`，接着再`navigatUp`回到页面`A`，页面`A`的`LazyColumn`又回到了列表顶部    
 
 但是我们可以看到，`LazyListState`其实是通过`rememberLazyListState`做了持久化保存的，如下图所示      
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/291ab6de0d274da2bb1d875faa3c7d7e~tplv-k3u1fbpfcp-watermark.awebp?)      
+<img src={image9} width="80%" align="center" alt=""/>      
 
 既然做了持久化保存，那为什么返回时的位置还有问题呢？其实纯粹使用 `Paging` + `LazyColumn`，当页面切换时，会记录当前页面位置，但如果通过`item`加上`Header`或`Footer`就不行了        
 这是因为`rememberLazyListState`会在列表中至少有一项时`restore`滚动位置，同时`Paging`是通过`Flow`获取数据的，当返回到页面重组时并不能马上获取到`Paging`数据，第一帧时`Paging`的`itemCount`为0      
