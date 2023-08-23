@@ -2,6 +2,9 @@
 id: compose-spring-handwriting
 title: Compose 实现手写春联效果
 ---
+import image1 from '@site/static/img/open-source-project/compose-spring-handwriting/image_1.webp';
+import image2 from '@site/static/img/open-source-project/compose-spring-handwriting/image_2.webp';
+import image3 from '@site/static/img/open-source-project/compose-spring-handwriting/image_3.webp';
 
 ## 前言
 又是一年新春，在这里先给大家拜个早年了。每逢春节，写春联贴春联都是一项必不可少的活动。本次主要使用 `Compose`，实现手写春联的效果。如果对你有所帮助，欢迎点个赞或者评论鼓励一下~
@@ -12,9 +15,9 @@ title: Compose 实现手写春联效果
 > 总把新桃换旧符
 
 ## 效果图
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8c729af9f61e4412b24f66631f223e64~tplv-k3u1fbpfcp-zoom-1.image)
+<img src={image1} width="80%" align="center" alt=""/>
 ### 生成的春联
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/4993eecce8df4d9bb463c6b3b96a153c~tplv-k3u1fbpfcp-zoom-1.image)
+<img src={image2} width="80%" align="center" alt=""/>
 
 ## 主要思路
 ### 事件监听
@@ -38,7 +41,7 @@ Column(modifier = Modifier.pointerInteropFilter {
 但是问题在于春联是毛笔效果，在写的过程中路径的粗细会发生变化，而 `drawPath` 只支持固定的宽度，因此不符合我们的要求。
 
 所以我们换个思路，`drawPath` 其实也是将各个点连接起来，如果我们将触摸过程中的点记录下来，然后在这一系列的点上画圆不就行了吗？每个圆的半径可以自定义，但这样会带来以下问题       
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/87b62d152d0b499a87968da533d7e310~tplv-k3u1fbpfcp-zoom-1.image)
+<img src={image3} width="80%" align="center" alt=""/>
 
 可以看出:`android` 触摸中的 `MOVE` 时间取点的频率不是非常高，会隔一定的像素取点。当轻触滑动时会出现不连续圆的情况，明显不符合笔锋效果
 

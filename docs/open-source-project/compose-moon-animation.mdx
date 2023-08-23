@@ -2,9 +2,12 @@
 id: compose-moon-animation
 title: Compose 实现月亮阴晴圆缺动画
 ---
+import image1 from '@site/static/img/open-source-project/compose-moon-animation/image_1.webp';
+import image2 from '@site/static/img/open-source-project/compose-moon-animation/image_2.webp';
+import image3 from '@site/static/img/open-source-project/compose-moon-animation/image_3.webp';
 
 ## 效果图
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/84bc25ceeeaf490091c12afe8169b41a~tplv-k3u1fbpfcp-watermark.awebp)       
+<img src={image1} width="80%" align="center" alt=""/>       
 
 > 人有悲欢离合，月有阴晴圆缺，此事古难全。              
 > 但愿人长久，千里共婵娟。             
@@ -72,7 +75,7 @@ fun Star(star: Star) {
 
 图像混合模式定义的是，当两个图像合成时，图像最终的展示方式。在 `Androd` 中，有相应的 `API` 接口来支持图像混合模式，即 `Xfermode`.          
 图像混合模式主要有以下16种,以下这张图片从一定程度上形象地说明了图像混合的作用，两个图形一圆一方通过一定的计算产生不同的组合效果，具体如下         
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2ccb418c0dc8431fb449cb5ddd117bd5~tplv-k3u1fbpfcp-watermark.awebp)      
+<img src={image2} width="80%" align="center" alt=""/>      
 
 我们为了实现月相动画，主要需要使用以下两种混合模式    
 - `DST_OUT`:只在源图像和目标图像不相交的地方绘制【目标图像】，在相交的地方根据源图像的 `alpha` 进行过滤，源图像完全不透明则完全过滤，完全透明则不过滤    
@@ -80,7 +83,7 @@ fun Star(star: Star) {
 
 我们已经了解了图形混合模式，那么需要在满月上画什么才能实现其它效果呢?      
 我们可以通过在满月上放一个半圆`+`一个椭圆来实现     
-![](https://p1-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f872b4e4c2e6417bbd46c8547deb007a~tplv-k3u1fbpfcp-watermark.awebp)      
+<img src={image3} width="80%" align="center" alt=""/>      
 1. 如上所示，椭圆上水平的线叫长轴，竖直的线叫短轴      
 2. 短轴不变，长轴半径从0到满月半径发生变化，再加上一个半圆，就可以实现不同的月相     
 3. 比如为了画上蛾眉月，可以通过左半边画半圆，再加上一个椭圆，两都都使用 `DST_OVER` 混合模式来实现，就实现了它们两的并集，然后覆盖在下层满月上，就实现了上蛾眉月               

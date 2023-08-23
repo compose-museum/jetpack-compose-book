@@ -1,6 +1,7 @@
 ---
 title: 下拉刷新
 ---
+import image1 from '@site/static/img/layout/pull_refresh/image_1.webp';
 
 :::info 注意
 此功能为 Jetpack Compose 1.3 新增功能，使用时请注意版本
@@ -72,7 +73,7 @@ fun SwipeToRefreshTest(
 }
 ```
 
-![示例](https://p6-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7deee01eacec48839e6ac5ef35b0ba9d~tplv-k3u1fbpfcp-watermark.image?)
+<img src={image1} width="80%" align="center" alt="示例"/>
 
 上面的代码并不难理解，用 `modifier.pullRefresh` 将下拉的相关数值存在 `state` 中，之后 `PullRefreshIndicator` 再使用就行了。二者用 `Box` 堆叠。
 

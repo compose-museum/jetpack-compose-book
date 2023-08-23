@@ -2,6 +2,9 @@
 id: composeAnnotation
 title: Composeble 注解到底做了什么？
 ---
+import image1 from '@site/static/img/principle/compose_annotation/image_1.webp';
+import image2 from '@site/static/img/principle/compose_annotation/image_2.webp';
+import image3 from '@site/static/img/principle/compose_annotation/image_3.webp';
 
 ## 前言
 了解过 `Compose` 的同学都知道，只需要添加一个 `@Composeble` 注解就可以将函数转化成 `Composeble` 函数，同时 `Composeble` 函数也只能在 `Composeble` 函数中运行。这看起来似乎跟协程比较像，`@Composeble`是不是也像协程一样，往函数中添加了一些参数呢？          
@@ -16,7 +19,7 @@ title: Composeble 注解到底做了什么？
 
 ### 什么是 `KCP`
 `Kotlin` 编译过程简单来说，就是将 `Kotlin` 源码编译成字节码的过程，具体步骤如下所示：    
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/8e9be2a6884341cabd04beb6f6fb5752~tplv-k3u1fbpfcp-zoom-1.image)
+<img src={image1} width="80%" align="center" alt=""/>
 
 而 `Kotlin` 编译期插件则在编译过程中提供 `Hook` 时机，让我们可以解析符号，修改字节码生成结果等。 
 `Kotlin` 库中的不少语法糖都用到了`KCP`，比如 `Kotlin-android-extension`，`@Parcelize` 等，`@Composeble` 注解同样也是通过 `KCP` 解析的    
@@ -30,7 +33,7 @@ title: Composeble 注解到底做了什么？
 
 ### `KCP` 的基本概念
 上面也说到了，`KCP`的开发成本较高，主要包括以下内容：   
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/cd6ebfb207e34e8cb4b7f8a71b6ab54b~tplv-k3u1fbpfcp-watermark.awebp)   
+<img src={image2} width="80%" align="center" alt=""/>   
 
 - `Plugin`：`Gradle` 插件用来读取 `Gradle` 配置传递给 `KCP`（`Kotlin Plugin`）
 - `Subplugin`：为 `KCP` 提供自定义 `KP` 的 `maven` 库地址等配置信息
@@ -120,7 +123,7 @@ class ComposeComponentRegistrar : ComponentRegistrar {
 ```
 如上所示，在所有 `Composeble` 函数中插入了一个 `$composer`，这有效地使 `composer` 可用于任何子树，提供实现 `Composable` 树并保持更新所需的所有信息。     
 
-![](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/fdb3d8fa5fdd4d54a34618f47fd1869c~tplv-k3u1fbpfcp-zoom-1.image)
+<img src={image3} width="80%" align="center" alt=""/>
 
 ### 添加 `$changed`
 我们知道 `Compose` 存在智能重组机制，当输入完全相同时允许跳过重组，而编译器除了 `$composer`，还会注入 `$changed` 参数。 此参数用于提供有关当前 `Composable` 的输入参数与一次发生组件后是否相同，如果相同则允许跳过重组。
