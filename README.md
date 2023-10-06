@@ -2,6 +2,9 @@
 
 ![GitHub stars](https://img.shields.io/github/stars/compose-museum/jetpack-compose-tutorial.svg?style=social&label=Star)
 
+> [!IMPORTANT]  
+> 此仓库暂时归档，因为我近期已经没有时间继续去维护和更新这份文档了，一方面是自己的知识储备还不足以继续写内容上去，另一方面是谷歌官网的文档已经慢慢更新地很完善了，希望大家都去看官网的内容吧
+
 ## 介绍 💨
 
 ### [Jetpack Compose Book](https://jetpackcompose.cn/)
